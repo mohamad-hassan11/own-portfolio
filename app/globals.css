@@ -2,47 +2,63 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Semantic tokens. Dark is the default; `.light` overrides it. */
+/* Semantic tokens. Dark is the default; `.light` is the "paper" variant. */
 :root,
 .dark {
   color-scheme: dark;
-  --background: #0b0f19;
-  --foreground: #e8ecf4;
-  --muted: #9aa5b8;
-  --surface: #101626;
-  --surface-hover: #151c30;
-  --border: #1f2a40;
-  --accent: #2563eb;
-  --accent-hover: #3b74f0;
+  --background: #0b0b0e;
+  --foreground: #f4f4f5;
+  --muted: #a1a1ab;
+  --ghost: #2b2b35;
+  --surface: #111116;
+  --surface-hover: #18181f;
+  --border: #2a2a33;
+  --ink: #f4f4f5;
+  --shadow: rgb(255 255 255 / 0.28);
+  --grid: rgb(255 255 255 / 0.035);
+  --accent: #3d6bff;
+  --accent-hover: #5580ff;
   --accent-foreground: #ffffff;
-  --accent-text: #6aa2ff;
-  --accent-soft: rgb(37 99 235 / 0.14);
-  --ring: #6aa2ff;
+  --accent-text: #86a4ff;
+  --accent-soft: rgb(61 107 255 / 0.14);
+  --tone-blue: #3d6bff;
+  --tone-green: #22c55e;
+  --tone-amber: #f5b301;
+  --tone-red: #ff4d4d;
+  --tone-violet: #a78bfa;
+  --ring: #86a4ff;
 }
 
 .light {
   color-scheme: light;
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --muted: #4b5a70;
-  --surface: #ffffff;
-  --surface-hover: #f1f5f9;
-  --border: #dbe3ee;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
+  --background: #f1efe8;
+  --foreground: #0b0b0e;
+  --muted: #4d4d58;
+  --ghost: #d3cfc0;
+  --surface: #fbfaf6;
+  --surface-hover: #ebe8de;
+  --border: #d3cfc0;
+  --ink: #0b0b0e;
+  --shadow: #0b0b0e;
+  --grid: rgb(0 0 0 / 0.05);
+  --accent: #2350f0;
+  --accent-hover: #1a3fd0;
   --accent-foreground: #ffffff;
-  --accent-text: #1d4ed8;
-  --accent-soft: rgb(37 99 235 / 0.08);
-  --ring: #2563eb;
+  --accent-text: #1a3fd0;
+  --accent-soft: rgb(35 80 240 / 0.08);
+  --tone-blue: #2350f0;
+  --ring: #2350f0;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
+  --color-ghost: var(--ghost);
   --color-surface: var(--surface);
   --color-surface-hover: var(--surface-hover);
   --color-border: var(--border);
+  --color-ink: var(--ink);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-foreground: var(--accent-foreground);
@@ -50,7 +66,10 @@
   --color-accent-soft: var(--accent-soft);
   --color-ring: var(--ring);
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display:
+    var(--font-barlow), var(--font-geist-sans), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
 @layer base {
@@ -66,51 +85,77 @@
   }
 
   body {
-    background: var(--background);
+    background-color: var(--background);
+    background-image:
+      radial-gradient(
+        60rem 36rem at 75% -5%,
+        var(--accent-soft),
+        transparent 70%
+      ),
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:
+      100% 100%,
+      80px 80px,
+      80px 80px;
+    background-repeat: no-repeat, repeat, repeat;
     color: var(--foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     overflow-x: clip;
   }
 
+  h1,
+  h2,
+  h3 {
+    overflow-wrap: break-word;
+  }
+
   ::selection {
-    background: var(--accent-soft);
+    background: var(--accent);
+    color: var(--accent-foreground);
   }
 
   :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 3px;
-    border-radius: 4px;
   }
 }
 
-/* Typography scale */
+/* Typography: Barlow Condensed display, Geist body, JetBrains Mono labels */
 @utility text-display {
-  font-size: clamp(2.5rem, 7vw, 4.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.035em;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 13vw, 8rem);
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 @utility text-h1 {
-  font-size: clamp(2rem, 4.5vw, 3rem);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 7vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.005em;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 @utility text-h2 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.4vw, 2.25rem);
+  line-height: 1;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 @utility text-h3 {
-  font-size: 1.25rem;
-  line-height: 1.35;
-  letter-spacing: -0.01em;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  line-height: 1.05;
+  letter-spacing: 0.005em;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 @utility text-body {
@@ -127,7 +172,7 @@
   font-family: var(--font-mono);
   font-size: 0.75rem;
   line-height: 1.4;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -142,6 +187,46 @@
   }
 }
 
+/* Hard-edged boxes with an offset shadow. --shadow can be overridden per element. */
+@utility brutal {
+  --o: 5px;
+  border: 2px solid var(--ink);
+  box-shadow: var(--o) var(--o) 0 0 var(--shadow);
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+@utility brutal-sm {
+  --o: 3px;
+  border: 2px solid var(--ink);
+  box-shadow: var(--o) var(--o) 0 0 var(--shadow);
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+@utility brutal-lift {
+  &:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: calc(var(--o) + 2px) calc(var(--o) + 2px) 0 0 var(--shadow);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+/* Dotted placeholder for images that are not set yet */
+@utility pattern-dots {
+  background-image: radial-gradient(var(--border) 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
+}
+
 @keyframes menu-in {
   from {
     opacity: 0;
@@ -149,12 +234,23 @@
   }
 }
 
-.menu-in {
-  animation: menu-in 200ms ease-out;
+@utility animate-menu-in {
+  animation: menu-in 180ms ease-out;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@utility animate-blink {
+  animation: blink 1.6s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .menu-in {
+  .animate-menu-in,
+  .animate-blink {
     animation: none;
   }
 }

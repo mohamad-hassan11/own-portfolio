@@ -14,9 +14,8 @@ export function FeaturedProjects({
   return (
     <Section
       id="projects"
-      eyebrow="Selected work"
+      tag="PORTFOLIO"
       title="Featured projects"
-      description="Engineering case studies covering the problem, constraints, decisions and outcome."
       action={
         <ButtonLink href="/projects" variant="secondary" size="sm">
           All projects

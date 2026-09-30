@@ -21,20 +21,17 @@ export function ProjectImage({
   className,
 }: ProjectImageProps) {
   return (
-    <figure className="my-8">
+    <figure className="my-10">
       <Image
         src={src}
         alt={alt}
         width={width}
         height={height}
         sizes="(min-width: 1024px) 768px, 100vw"
-        className={cn(
-          'border-border h-auto w-full rounded-xl border',
-          className,
-        )}
+        className={cn('brutal h-auto w-full', className)}
       />
       {caption && (
-        <figcaption className="text-small text-muted mt-2">
+        <figcaption className="text-metadata text-muted mt-3">
           {caption}
         </figcaption>
       )}

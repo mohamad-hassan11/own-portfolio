@@ -6,7 +6,10 @@ export const siteConfig: SiteConfig = {
   heroHeadline: 'Building secure software across web, AI and data.',
   heroDescription:
     'Software engineer with experience in full-stack web development, enterprise software, AI and RAG, data engineering and Android.',
-  heroTags: ['Full-stack', 'AI / RAG', 'Data engineering', 'Android'],
+  highlights: [
+    { label: 'Full-stack, enterprise software, AI / RAG', href: '/projects' },
+    { label: 'Data engineering, Android, CI/CD', href: '/#skills' },
+  ],
   aboutSummary:
     'I build software across web, mobile, data and AI, from early full-stack projects to a secure retrieval-augmented generation system for an enterprise application.',
   contactHeadline: 'Get in touch',
@@ -17,6 +20,7 @@ export const siteConfig: SiteConfig = {
   navigation: [
     { label: 'Projects', href: '/projects' },
     { label: 'Experience', href: '/#experience' },
+    { label: 'Skills', href: '/#skills' },
     { label: 'About', href: '/about' },
     { label: 'Contact', href: '/#contact' },
   ],

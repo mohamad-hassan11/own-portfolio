@@ -12,22 +12,23 @@ export function CaseStudy({ project }: { project: Project }) {
     .join(' · ')
 
   return (
-    <article>
-      <header className="container-page pt-12 pb-10 sm:pt-16">
+    <article className="pb-6">
+      <header className="py-10 sm:py-16">
         <Link
           href="/projects"
-          className="text-small text-muted hover:text-foreground inline-flex items-center gap-1.5 transition-colors duration-200"
+          className="text-metadata text-muted hover:text-foreground inline-flex items-center gap-2 font-semibold transition-colors duration-200"
         >
           <ArrowLeft aria-hidden className="size-4" />
           All projects
         </Link>
 
-        <div className="mt-8 max-w-3xl">
-          {meta && (
-            <p className="text-metadata text-accent-text mb-4">{meta}</p>
-          )}
+        <div className="mt-10 max-w-4xl">
+          <p className="text-metadata text-accent-text mb-4">
+            {`// CASE_STUDY${meta ? ` · ${meta}` : ''}`}
+          </p>
           <h1 className="text-display">{metadata.title}</h1>
-          <p className="text-h3 text-muted mt-5 font-normal">
+          <span aria-hidden className="bg-accent mt-5 block h-1 w-16" />
+          <p className="text-body text-muted mt-6 max-w-2xl">
             {metadata.summary}
           </p>
           <ProjectLinks project={metadata} />
@@ -35,38 +36,34 @@ export function CaseStudy({ project }: { project: Project }) {
       </header>
 
       {metadata.coverImage && (
-        <div className="container-page">
-          <div className="border-border bg-surface relative aspect-[16/9] overflow-hidden rounded-2xl border">
-            <Image
-              src={metadata.coverImage}
-              alt={`${metadata.title} cover`}
-              fill
-              priority
-              sizes="(min-width: 1152px) 1152px, 100vw"
-              className="object-cover"
-            />
-          </div>
+        <div className="brutal bg-surface relative mb-14 aspect-[16/9] overflow-hidden">
+          <Image
+            src={metadata.coverImage}
+            alt={`${metadata.title} cover`}
+            fill
+            priority
+            sizes="(min-width: 1152px) 1152px, 100vw"
+            className="object-cover"
+          />
         </div>
       )}
 
-      <div className="container-page mt-12 pb-16 sm:pb-24">
-        <div className="max-w-3xl">
-          <Content />
+      <div className="max-w-3xl">
+        <Content />
 
-          <section
-            aria-labelledby="technology-heading"
-            className="border-border mt-14 border-t pt-8"
+        <section aria-labelledby="technology-heading" className="mt-16">
+          <h2
+            id="technology-heading"
+            className="text-h2 border-accent border-l-4 pl-4"
           >
-            <h2 id="technology-heading" className="text-h2">
-              Technology
-            </h2>
-            <TagList
-              items={metadata.technologies}
-              label="Technologies used"
-              className="mt-4 gap-2"
-            />
-          </section>
-        </div>
+            Technology
+          </h2>
+          <TagList
+            items={metadata.technologies}
+            label="Technologies used"
+            className="mt-5 gap-2"
+          />
+        </section>
       </div>
     </article>
   )

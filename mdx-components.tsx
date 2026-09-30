@@ -51,34 +51,34 @@ function MdxImg({ src, alt = '' }: ComponentPropsWithoutRef<'img'>) {
       width={1600}
       height={900}
       sizes="(min-width: 1024px) 768px, 100vw"
-      className="border-border my-8 h-auto w-full rounded-xl border"
+      className="brutal my-10 h-auto w-full"
     />
   )
 }
 
 const components: MDXComponents = {
   h1: ({ className, ...props }) => (
-    <h1 className={cn('text-h1 mt-10 mb-4', className)} {...props} />
+    <h1 className={cn('text-h1 mt-12 mb-4', className)} {...props} />
   ),
   h2: ({ className, ...props }) => (
     <h2
       className={cn(
-        'text-h2 border-border mt-14 border-t pt-8 first:mt-0 first:border-t-0 first:pt-0',
+        'text-h2 border-accent mt-16 border-l-4 pl-4 first:mt-0',
         className,
       )}
       {...props}
     />
   ),
   h3: ({ className, ...props }) => (
-    <h3 className={cn('text-h3 mt-8', className)} {...props} />
+    <h3 className={cn('text-h3 mt-10', className)} {...props} />
   ),
   p: ({ className, ...props }) => (
-    <p className={cn('text-body mt-4', className)} {...props} />
+    <p className={cn('text-body mt-5', className)} {...props} />
   ),
   ul: ({ className, ...props }) => (
     <ul
       className={cn(
-        'text-body marker:text-muted mt-4 list-disc space-y-2 pl-6',
+        'text-body marker:text-accent-text mt-5 list-[square] space-y-2 pl-6',
         className,
       )}
       {...props}
@@ -87,7 +87,7 @@ const components: MDXComponents = {
   ol: ({ className, ...props }) => (
     <ol
       className={cn(
-        'text-body marker:text-muted mt-4 list-decimal space-y-2 pl-6',
+        'text-body marker:text-accent-text mt-5 list-decimal space-y-2 pl-6',
         className,
       )}
       {...props}
@@ -96,7 +96,7 @@ const components: MDXComponents = {
   blockquote: ({ className, ...props }) => (
     <blockquote
       className={cn(
-        'border-accent text-muted mt-6 border-l-2 pl-5 italic [&>p]:mt-0',
+        'border-ink text-muted mt-8 border-l-4 pl-5 font-mono text-[0.95rem] [&>p]:mt-0',
         className,
       )}
       {...props}
@@ -105,7 +105,7 @@ const components: MDXComponents = {
   code: ({ className, ...props }) => (
     <code
       className={cn(
-        'bg-surface-hover rounded px-1.5 py-0.5 font-mono text-[0.9em]',
+        'bg-surface-hover border-border border px-1.5 py-0.5 font-mono text-[0.88em]',
         className,
       )}
       {...props}
@@ -114,13 +114,13 @@ const components: MDXComponents = {
   pre: ({ className, ...props }) => (
     <pre
       className={cn(
-        'border-border bg-surface mt-6 overflow-x-auto rounded-xl border p-4 font-mono text-sm leading-relaxed [&_code]:bg-transparent [&_code]:p-0',
+        'brutal-sm bg-surface mt-8 overflow-x-auto p-4 font-mono text-sm leading-relaxed [&_code]:border-0 [&_code]:bg-transparent [&_code]:p-0',
         className,
       )}
       {...props}
     />
   ),
-  hr: () => <hr className="border-border my-10" />,
+  hr: () => <hr className="border-border my-12 border-t-2" />,
   a: MdxLink,
   img: MdxImg,
   ProjectImage,

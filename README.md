@@ -5,7 +5,7 @@ Personal software engineering portfolio. **The Git repository is the content-man
 ## Stack
 
 - Next.js 16 (App Router, Server Components by default), React 19, TypeScript (strict)
-- Tailwind CSS 4 with semantic design tokens (dark default, light supported)
+- Tailwind CSS 4 with semantic design tokens: a dark "terminal" theme by default and a light "paper" theme. Change the accent colour via `--accent` in `app/globals.css`.
 - MDX via the standard `@next/mdx` integration for project case studies
 - Motion (subtle animation), Lucide icons, `next-themes`
 - GitHub + Vercel Hobby (free tier only)
@@ -130,7 +130,7 @@ Edit the typed arrays in `content/experience.ts`, `content/education.ts` and `co
 
 ### Hero, contact details, navigation, SEO
 
-Edit `content/site.ts`. Optional fields (`email`, `github`, `linkedin`, `profileImage`, `seo.ogImage`) are simply omitted from the UI when not set. The About page text is in `content/about.mdx`.
+Edit `content/site.ts`. `highlights` are the focus links shown in the hero panel, `navigation` feeds the top bar and footer, and `status` (for example "Open to opportunities") adds a status badge to the hero when set. Hero stats are computed from the content files. Optional fields (`email`, `location`, `github`, `linkedin`, `profileImage`, `seo.ogImage`) are simply omitted from the UI when not set. The About page text is in `content/about.mdx`.
 
 ### CV
 

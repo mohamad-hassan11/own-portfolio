@@ -1,57 +1,88 @@
 import { ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import type { CSSProperties } from 'react'
 import { TagList } from '@/components/ui/tag-list'
 import type { ProjectMetadata } from '@/content/types'
 import { cn } from '@/lib/utils'
 
+const tones = [
+  'var(--tone-blue)',
+  'var(--tone-green)',
+  'var(--tone-amber)',
+  'var(--tone-red)',
+  'var(--tone-violet)',
+]
+
 interface ProjectCardProps {
   project: ProjectMetadata
+  /** Zero-based position in the list. */
+  index: number
   flagship?: boolean
   priority?: boolean
 }
 
-export function ProjectCard({ project, flagship, priority }: ProjectCardProps) {
+export function ProjectCard({
+  project,
+  index,
+  flagship,
+  priority,
+}: ProjectCardProps) {
   const meta = [project.projectType, project.organisation, project.year]
     .filter(Boolean)
     .join(' · ')
+  const showRepo = !project.confidential && project.githubUrl
+
+  const linkClass =
+    'text-metadata text-muted hover:text-foreground relative z-10 font-semibold underline underline-offset-4'
 
   return (
     <article
+      style={{ '--shadow': tones[index % tones.length] } as CSSProperties}
       className={cn(
-        'group border-border bg-surface hover:border-accent/60 relative flex flex-col overflow-hidden rounded-2xl border transition duration-200 hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0',
-        flagship && 'border-accent/40 bg-accent-soft',
-        flagship && project.coverImage && 'md:grid md:grid-cols-2',
+        'brutal brutal-lift bg-surface group relative flex h-full flex-col gap-5 p-5 sm:p-6',
+        flagship && 'md:grid md:grid-cols-[1fr_1.1fr] md:gap-8',
       )}
     >
-      {project.coverImage && (
-        <div
-          className={cn(
-            'bg-surface-hover relative aspect-[16/9] w-full',
-            flagship && 'md:aspect-auto md:min-h-80',
-          )}
-        >
+      <div
+        className={cn(
+          'border-ink pattern-dots relative aspect-[16/10] w-full overflow-hidden border-2',
+          flagship && 'md:order-2 md:aspect-auto md:min-h-72',
+        )}
+      >
+        {project.coverImage ? (
           <Image
             src={project.coverImage}
             alt=""
             fill
             priority={priority}
-            sizes="(min-width: 768px) 560px, 100vw"
+            sizes={
+              flagship
+                ? '(min-width: 768px) 520px, 100vw'
+                : '(min-width: 768px) 480px, 100vw'
+            }
             className="object-cover"
           />
-        </div>
-      )}
+        ) : (
+          <span
+            aria-hidden
+            className="text-ghost font-display absolute inset-0 flex items-center justify-center text-8xl font-extrabold"
+          >
+            {String(index + 1).padStart(2, '0')}
+          </span>
+        )}
+      </div>
 
-      <div
-        className={cn(
-          'flex flex-1 flex-col gap-4 p-6',
-          flagship && 'sm:p-8 md:justify-center',
-        )}
-      >
-        {flagship && (
-          <p className="text-metadata text-accent-text">Flagship project</p>
-        )}
-        {meta && <p className="text-metadata text-muted">{meta}</p>}
+      <div className="flex min-w-0 flex-1 flex-col gap-4">
+        <div className="flex items-start justify-between gap-4">
+          <p className="text-metadata text-accent-text">
+            [{String(index + 1).padStart(2, '0')}]{flagship && ' · Flagship'}
+          </p>
+          <ArrowUpRight
+            aria-hidden
+            className="size-5 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
+          />
+        </div>
 
         <h3 className={flagship ? 'text-h1' : 'text-h3'}>
           <Link
@@ -62,22 +93,40 @@ export function ProjectCard({ project, flagship, priority }: ProjectCardProps) {
           </Link>
         </h3>
 
+        {meta && <p className="text-metadata text-muted">{meta}</p>}
         <p className="text-body text-muted">{project.summary}</p>
 
         <TagList
           items={project.technologies}
           max={flagship ? 8 : 5}
           label={`${project.title} technologies`}
-          className="mt-auto pt-2"
+          className="mt-auto"
         />
 
-        <span className="text-accent-text inline-flex items-center gap-1 text-sm font-medium">
-          View case study
-          <ArrowUpRight
-            aria-hidden
-            className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
-          />
-        </span>
+        {(project.liveUrl || showRepo) && (
+          <div className="flex gap-5">
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={linkClass}
+              >
+                Live demo
+              </a>
+            )}
+            {showRepo && project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={linkClass}
+              >
+                Source
+              </a>
+            )}
+          </div>
+        )}
       </div>
     </article>
   )

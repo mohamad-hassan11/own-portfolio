@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import { Footer } from '@/components/layout/footer'
-import { Navbar } from '@/components/layout/navbar'
 import { ThemeProvider } from '@/components/layout/theme-provider'
+import { TopBar } from '@/components/layout/top-bar'
 import { siteConfig } from '@/content/site'
 import { getCvHref, getSiteUrl } from '@/lib/site'
 
@@ -20,16 +20,21 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
     <ThemeProvider>
       <a
         href="#main"
-        className="bg-accent text-accent-foreground sr-only z-50 rounded-lg px-4 py-2 focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+        className="bg-accent text-accent-foreground sr-only z-[60] px-4 py-2 focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
       >
         Skip to content
       </a>
-      <Navbar
+      <TopBar
         name={siteConfig.name}
+        title={siteConfig.title}
         links={siteConfig.navigation}
         cvHref={getCvHref()}
       />
-      <main id="main" tabIndex={-1} className="outline-none">
+      <main
+        id="main"
+        tabIndex={-1}
+        className="container-page pt-16 outline-none"
+      >
         {children}
       </main>
       <Footer config={siteConfig} />

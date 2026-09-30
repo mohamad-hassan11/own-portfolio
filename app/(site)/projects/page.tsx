@@ -18,10 +18,10 @@ export default function ProjectsPage() {
   return (
     <Section
       headingLevel={1}
-      eyebrow="Work"
+      tag="PORTFOLIO"
       title="Projects"
       description="Engineering case studies covering the problem, constraints, decisions and outcome."
-      className="pt-12 sm:pt-20"
+      className="pt-10 sm:pt-16"
     >
       {projects.length > 0 ? (
         <ProjectList projects={projects} />

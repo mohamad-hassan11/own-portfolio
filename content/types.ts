@@ -3,12 +3,20 @@ export interface NavItem {
   href: string
 }
 
+export interface Highlight {
+  label: string
+  href: string
+}
+
 export interface SiteConfig {
   name: string
   title: string
   heroHeadline: string
   heroDescription: string
-  heroTags: string[]
+  /** Optional status line in the hero, e.g. "Open to opportunities". Hidden when unset. */
+  status?: string
+  /** Focus links listed in the hero panel. */
+  highlights: Highlight[]
   /** Path under /public, e.g. "/profile/portrait.webp". */
   profileImage?: string
   profileImageAlt?: string

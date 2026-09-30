@@ -5,14 +5,16 @@ import { Section } from '@/components/ui/section'
 
 export function AboutPreview({ summary }: { summary: string }) {
   return (
-    <Section id="about-preview" eyebrow="About" title="About me">
-      <Reveal className="max-w-3xl">
-        <p className="text-body text-muted whitespace-pre-line">{summary}</p>
+    <Section id="about-preview" tag="ABOUT" title="About me">
+      <Reveal className="max-w-2xl">
+        <p className="text-body border-accent border-l-4 pl-5 whitespace-pre-line">
+          {summary}
+        </p>
         <ButtonLink
           href="/about"
           variant="secondary"
           size="sm"
-          className="mt-6"
+          className="mt-8"
         >
           More about me
           <ArrowRight aria-hidden className="size-4" />

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Barlow_Condensed, Geist, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 
 const geistSans = Geist({
@@ -7,9 +7,15 @@ const geistSans = Geist({
   subsets: ['latin'],
 })
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const jetbrains = JetBrains_Mono({
+  variable: '--font-jetbrains',
   subsets: ['latin'],
+})
+
+const barlow = Barlow_Condensed({
+  variable: '--font-barlow',
+  subsets: ['latin'],
+  weight: ['600', '700', '800'],
 })
 
 export const metadata: Metadata = {
@@ -20,8 +26,9 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable}`}
+      className={`${geistSans.variable} ${jetbrains.variable} ${barlow.variable}`}
     >
       <body>{children}</body>
     </html>

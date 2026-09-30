@@ -20,37 +20,36 @@ export default function AboutPage() {
 
   return (
     <>
-      <Section headingLevel={1} title="About" className="pt-12 sm:pt-20">
+      <Section
+        headingLevel={1}
+        tag="ABOUT"
+        title="About me"
+        className="pt-10 sm:pt-16"
+      >
         <div className="max-w-3xl">
           <AboutContent />
         </div>
       </Section>
 
       {education.length > 0 && (
-        <Section
-          id="education"
-          eyebrow="Education"
-          title="Education"
-          className="pt-0"
-        >
-          <div className="max-w-3xl">
-            <Timeline>
-              {education.map((item) => (
-                <TimelineItem
-                  key={`${item.institution}-${item.title}`}
-                  period={formatDateRange(item.startDate, item.endDate)}
-                  title={item.title}
-                  subtitle={[item.institution, item.specialization]
-                    .filter(Boolean)
-                    .join(' · ')}
-                >
-                  {item.description && (
-                    <p className="text-small text-muted">{item.description}</p>
-                  )}
-                </TimelineItem>
-              ))}
-            </Timeline>
-          </div>
+        <Section id="education" tag="EDUCATION" title="Education">
+          <Timeline>
+            {education.map((item, index) => (
+              <TimelineItem
+                key={`${item.institution}-${item.title}`}
+                index={index}
+                period={formatDateRange(item.startDate, item.endDate)}
+                title={item.title}
+                subtitle={[item.institution, item.specialization]
+                  .filter(Boolean)
+                  .join(' · ')}
+              >
+                {item.description && (
+                  <p className="text-body text-muted">{item.description}</p>
+                )}
+              </TimelineItem>
+            ))}
+          </Timeline>
         </Section>
       )}
 

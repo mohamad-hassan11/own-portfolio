@@ -3,16 +3,14 @@ import type { ReactNode } from 'react'
 import { cn, isExternalUrl } from '@/lib/utils'
 
 const variants = {
-  primary:
-    'bg-accent text-accent-foreground hover:bg-accent-hover border-transparent',
-  secondary: 'bg-surface text-foreground border-border hover:bg-surface-hover',
-  ghost:
-    'bg-transparent text-foreground border-transparent hover:bg-surface-hover',
+  primary: 'bg-accent text-accent-foreground',
+  secondary: 'bg-surface text-foreground',
+  ghost: 'bg-transparent text-foreground',
 } as const
 
 const sizes = {
-  md: 'h-11 px-5 text-sm',
-  sm: 'h-9 px-3.5 text-sm',
+  md: 'h-11 px-5',
+  sm: 'h-9 px-3.5',
 } as const
 
 interface ButtonLinkProps {
@@ -36,7 +34,7 @@ export function ButtonLink({
   ...rest
 }: ButtonLinkProps) {
   const classes = cn(
-    'inline-flex items-center justify-center gap-2 rounded-lg border font-medium whitespace-nowrap transition-colors duration-200',
+    'brutal-sm brutal-lift text-metadata inline-flex items-center justify-center gap-2 font-bold whitespace-nowrap',
     variants[variant],
     sizes[size],
     className,

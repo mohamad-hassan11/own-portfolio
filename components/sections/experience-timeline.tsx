@@ -9,10 +9,10 @@ export function ExperienceTimeline({ items }: { items: Experience[] }) {
   if (!items.length) return null
 
   return (
-    <Section id="experience" eyebrow="Experience" title="Where I have worked">
-      <Reveal className="max-w-3xl">
+    <Section id="experience" tag="EXPERIENCE" title="My journey">
+      <Reveal>
         <Timeline>
-          {items.map((item) => {
+          {items.map((item, index) => {
             const subtitle = [
               item.organisation,
               item.employmentType,
@@ -24,6 +24,7 @@ export function ExperienceTimeline({ items }: { items: Experience[] }) {
             return (
               <TimelineItem
                 key={`${item.organisation}-${item.role}-${item.startDate}`}
+                index={index}
                 period={formatDateRange(
                   item.startDate,
                   item.endDate,

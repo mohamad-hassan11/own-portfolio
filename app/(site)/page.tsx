@@ -7,7 +7,7 @@ import { Hero } from '@/components/sections/hero'
 import { Skills } from '@/components/sections/skills'
 import { getFeaturedProjects } from '@/content/projects'
 import { siteConfig } from '@/content/site'
-import { getExperience, getSkills } from '@/lib/content'
+import { getExperience, getSkills, getStats } from '@/lib/content'
 import { buildMetadata } from '@/lib/seo'
 import { getCvHref } from '@/lib/site'
 
@@ -18,13 +18,13 @@ export default function HomePage() {
 
   return (
     <>
-      <Hero config={siteConfig} cvHref={cvHref} />
+      <Hero config={siteConfig} stats={getStats()} cvHref={cvHref} />
       <FeaturedProjects
         projects={getFeaturedProjects().map((project) => project.metadata)}
       />
-      <AboutPreview summary={siteConfig.aboutSummary} />
-      <ExperienceTimeline items={getExperience()} />
       <Skills categories={getSkills()} />
+      <ExperienceTimeline items={getExperience()} />
+      <AboutPreview summary={siteConfig.aboutSummary} />
       <ContactCta config={siteConfig} cvHref={cvHref} />
     </>
   )

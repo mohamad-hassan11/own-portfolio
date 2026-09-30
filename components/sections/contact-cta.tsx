@@ -1,5 +1,5 @@
-import { Mail } from 'lucide-react'
-import { ButtonLink } from '@/components/ui/button'
+import { Download, Mail } from 'lucide-react'
+import type { ReactNode } from 'react'
 import { Reveal } from '@/components/ui/reveal'
 import { Section } from '@/components/ui/section'
 import type { SiteConfig } from '@/content/types'
@@ -9,41 +9,93 @@ interface ContactCtaProps {
   cvHref?: string
 }
 
+const display = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '')
+
+function ContactLink({
+  label,
+  value,
+  href,
+  icon,
+  download,
+}: {
+  label: string
+  value: string
+  href: string
+  icon?: ReactNode
+  download?: boolean
+}) {
+  const external = href.startsWith('http')
+
+  return (
+    <a
+      href={href}
+      download={download ? true : undefined}
+      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      className="brutal brutal-lift bg-surface block p-5"
+    >
+      <span className="text-metadata text-muted flex items-center gap-2">
+        {icon}
+        {label}
+      </span>
+      <span className="text-h3 mt-2 block text-2xl break-all normal-case">
+        {value}
+      </span>
+    </a>
+  )
+}
+
 export function ContactCta({ config, cvHref }: ContactCtaProps) {
   if (!config.email && !config.linkedin && !config.github && !cvHref) {
     return null
   }
 
   return (
-    <Section id="contact">
-      <Reveal className="border-border bg-surface rounded-2xl border p-8 sm:p-12">
-        <h2 className="text-h1 max-w-2xl">{config.contactHeadline}</h2>
-        <p className="text-body text-muted mt-4 max-w-2xl">
+    <Section id="contact" tag="GET IN TOUCH" title={config.contactHeadline}>
+      <Reveal>
+        <p className="text-body text-muted max-w-xl">
           {config.contactDescription}
         </p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <ul className="mt-10 grid gap-6 sm:grid-cols-2">
           {config.email && (
-            <ButtonLink href={`mailto:${config.email}`}>
-              <Mail aria-hidden className="size-4" />
-              {config.email}
-            </ButtonLink>
+            <li>
+              <ContactLink
+                label="Email"
+                value={config.email}
+                href={`mailto:${config.email}`}
+                icon={<Mail aria-hidden className="size-4" />}
+              />
+            </li>
           )}
           {config.linkedin && (
-            <ButtonLink href={config.linkedin} variant="secondary">
-              LinkedIn
-            </ButtonLink>
+            <li>
+              <ContactLink
+                label="LinkedIn"
+                value={display(config.linkedin)}
+                href={config.linkedin}
+              />
+            </li>
           )}
           {config.github && (
-            <ButtonLink href={config.github} variant="secondary">
-              GitHub
-            </ButtonLink>
+            <li>
+              <ContactLink
+                label="GitHub"
+                value={display(config.github)}
+                href={config.github}
+              />
+            </li>
           )}
           {cvHref && (
-            <ButtonLink href={cvHref} download variant="ghost">
-              Download CV
-            </ButtonLink>
+            <li>
+              <ContactLink
+                label="Resume"
+                value="Download CV"
+                href={cvHref}
+                download
+                icon={<Download aria-hidden className="size-4" />}
+              />
+            </li>
           )}
-        </div>
+        </ul>
       </Reveal>
     </Section>
   )
