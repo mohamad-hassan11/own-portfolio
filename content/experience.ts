@@ -1,3 +1,5 @@
+// Work experience timeline. Edit the array below, most recent role first;
+// `order` controls display position (lower = earlier in the list).
 import type { Experience } from './types'
 
 export const experience: Experience[] = [

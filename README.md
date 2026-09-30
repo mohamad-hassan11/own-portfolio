@@ -47,6 +47,18 @@ mdx-components.tsx                maps Markdown elements to styled components
 
 The homepage, `/projects` and `/projects/[slug]` all read the same registry in `content/projects/index.ts`, so project data exists in exactly one place.
 
+### Content model: MDX vs TypeScript
+
+Two formats are used, on purpose, not by accident:
+
+| Content                                                                   | Format     | Why                                                                                                              |
+| ------------------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------- |
+| Project case studies (`content/projects/*.mdx`)                           | MDX        | Needs headings, images and custom components (`ProjectImage`, `ArchitectureDiagram`, `Callout`) to tell a story. |
+| About page (`content/about.mdx`)                                          | MDX        | Same reason: long-form prose with headings.                                                                      |
+| Everything else (`site.ts`, `experience.ts`, `education.ts`, `skills.ts`) | TypeScript | Structured lists/config that get sorted and rendered generically \u2014 no prose, just typed arrays or objects.  |
+
+Rule of thumb: if it needs headings, images or rich formatting, it's MDX. If it's a short, sortable list entry or a config value, it's TypeScript. `content/types.ts` documents the shape of every file using this same split, grouped by which file each type belongs to.
+
 The shared layout uses a diagonal blueprint mesh, subtle scan lines, a dot field revealed around the pointer, and an asymmetric blue/cyan glow. Fine-pointer devices get a rectangular crosshair cursor that expands into compact `OPEN`/`WORK` captions on labeled actions. Touch devices keep their native interaction, and `prefers-reduced-motion` disables pointer-following effects.
 
 ## Getting started

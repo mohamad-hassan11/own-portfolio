@@ -1,3 +1,20 @@
+/**
+ * Shapes for every content file in `content/`. Two formats are used, by design:
+ *
+ * - Structured lists/config — `site.ts`, `experience.ts`, `education.ts`,
+ *   `skills.ts` — are plain typed arrays or objects, sorted by `order` and
+ *   rendered generically. No Markdown, no prose, just data.
+ * - Narrative content — project case studies and the About page — needs
+ *   headings, images and custom components, so it lives in `.mdx` files
+ *   instead. `ProjectMetadata` below is only the structured header of a
+ *   project; the story is the MDX body underneath that export.
+ *
+ * Keep it this way: don't move prose into a `.ts` string, and don't split a
+ * short list entry (experience/education/skills) into its own `.mdx` file.
+ */
+
+// --- content/site.ts ---
+
 export interface NavItem {
   label: string
   href: string
@@ -20,6 +37,7 @@ export interface SiteConfig {
   /** Path under /public, e.g. "/profile/portrait.webp". */
   profileImage?: string
   profileImageAlt?: string
+  /** Short homepage teaser. The full narrative lives in content/about.mdx. */
   aboutSummary: string
   contactHeadline: string
   contactDescription: string
@@ -39,6 +57,8 @@ export interface SiteConfig {
   }
 }
 
+// --- content/projects/*.mdx (the `metadata` export of each file) ---
+
 export interface ProjectMetadata {
   title: string
   slug: string
@@ -57,6 +77,8 @@ export interface ProjectMetadata {
   confidential?: boolean
 }
 
+// --- content/experience.ts ---
+
 export interface Experience {
   role: string
   organisation: string
@@ -72,6 +94,8 @@ export interface Experience {
   order: number
 }
 
+// --- content/education.ts ---
+
 export interface Education {
   title: string
   institution: string
@@ -81,6 +105,8 @@ export interface Education {
   description?: string
   order: number
 }
+
+// --- content/skills.ts ---
 
 export interface SkillCategory {
   name: string

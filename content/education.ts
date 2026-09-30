@@ -1,3 +1,4 @@
+// Education timeline. Edit the array below; `order` controls display position.
 import type { Education } from './types'
 
 export const education: Education[] = [

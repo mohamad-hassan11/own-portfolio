@@ -1,3 +1,6 @@
+// Site-wide config: hero, contact details, navigation and SEO defaults.
+// Structured data only — edit the object below, no Markdown needed.
+// The full About page narrative lives in content/about.mdx, not here.
 import type { SiteConfig } from './types'
 
 export const siteConfig: SiteConfig = {

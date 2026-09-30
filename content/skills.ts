@@ -1,3 +1,5 @@
+// Skill categories shown in the Skills section. Edit the array below;
+// `order` controls display position. No percentages or proficiency bars.
 import type { SkillCategory } from './types'
 
 export const skills: SkillCategory[] = [
