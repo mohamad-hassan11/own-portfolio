@@ -5,14 +5,17 @@ export const metadata = {
     'Natural-language search for an enterprise application, combining dense-vector and BM25 retrieval with role-based access control.',
   projectType: 'Graduation project',
   organisation: 'DEVENTit',
+  year: 2026,
   featured: true,
   order: 1,
   technologies: [
     'Python',
     'FastAPI',
     'RAG',
-    'LLM APIs',
-    'Vector databases',
+    'LangChain',
+    'Qdrant',
+    'OpenAI API',
+    'Anthropic API',
     'Hybrid retrieval',
     'Dense embeddings',
     'BM25',
@@ -25,15 +28,30 @@ export const metadata = {
 
 ## Overview
 
-Graduation project at DEVENTit: natural-language search for an enterprise application, built on retrieval-augmented generation (RAG).
+Graduation project at DEVENTit: investigating how to securely integrate a large language model into Atlantis, a multi-tenant collection management platform, to add natural-language search without bypassing its strict role-based access control, segment restrictions and multi-level security.
 
-Retrieval combines dense vector embeddings for semantic matching with BM25 for keyword matching, and security and role-based access control are treated as core requirements rather than an afterthought.
+## Context
 
-## Focus areas
+Atlantis is DEVENTit's multi-tenant platform, built around a strict authorization model. The core challenge was adding LLM-powered natural-language search on top of that model without ever letting the model become a path around existing access rights.
 
-- Natural-language search over enterprise data
-- Hybrid retrieval: dense vectors plus BM25
-- Security and role-based access control
-- Python and FastAPI service backed by a vector database and LLM APIs
+## Approach
 
-{/* Add more sections below (Context, Problem, Architecture, Implementation, Results, What I learned). Only publish details approved for public presentation. */}
+Analysed the Atlantis authorization model in depth and researched LLM ecosystems (managed APIs versus open-weight models), retrieval-augmented generation architectures and vector databases. Designed and built an indexing pipeline that processes, transforms and stores documents in batches, plus a hybrid retrieval pipeline combining dense vector embeddings (semantic search) with sparse BM25 keyword matching (lexical search).
+
+## Architecture
+
+A dedicated RAG service acts as a natural-language assistant: the LLM interprets a prompt, extracts structured search terms and filters, and returns candidate document identifiers. The Atlantis backend then enforces the existing access rights before any result reaches the user — the RAG service never becomes an authority on access control, Atlantis always is.
+
+<Callout>
+  Confidential project: implementation details, source code and architecture
+  diagrams for Atlantis are not published here. This case study describes the
+  approach and outcome only.
+</Callout>
+
+## Results
+
+Delivered a working proof of concept: the RAG service handles LLM reasoning, hybrid dense + BM25 retrieval returns candidate documents, and Atlantis enforces access control before any result is shown — with zero data leakage across tenants or segments.
+
+## What I learned
+
+I started this project with no prior experience using LLMs or AI tooling. The learning curve was steep: vector databases, text embeddings, hybrid search mechanics and LLM agent orchestration were all new to me. Through active research, continuous self-study and hands-on prototyping, I bridged that gap while working inside a strict enterprise security model — proof that I can quickly learn and apply new technology under real constraints.

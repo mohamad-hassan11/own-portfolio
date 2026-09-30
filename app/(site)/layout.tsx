@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
-import { BackgroundMotion } from '@/components/layout/background-motion'
 import { CustomCursor } from '@/components/layout/custom-cursor'
 import { Footer } from '@/components/layout/footer'
+import { ParticleField } from '@/components/layout/particle-field'
 import { ThemeProvider } from '@/components/layout/theme-provider'
 import { TopBar } from '@/components/layout/top-bar'
 import { siteConfig } from '@/content/site'
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider>
-      <BackgroundMotion />
+      <ParticleField />
       <CustomCursor />
       <a
         href="#main"

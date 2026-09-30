@@ -67,6 +67,7 @@ export interface Experience {
   endDate?: string
   current?: boolean
   summary: string
+  responsibilities?: string[]
   technologies?: string[]
   order: number
 }

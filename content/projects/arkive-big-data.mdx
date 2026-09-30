@@ -3,6 +3,9 @@ export const metadata = {
   slug: 'arkive-big-data',
   summary:
     'API data ingestion, transformation and KPI dashboards, delivered with automated tests and a containerised CI/CD pipeline.',
+  projectType: 'Big Data minor project',
+  organisation: 'Arkive',
+  year: 2025,
   featured: true,
   order: 2,
   technologies: [
@@ -24,8 +27,22 @@ export const metadata = {
 
 ## Overview
 
-A big data project that ingests data from APIs, transforms it and presents it as KPI dashboards.
+A production-oriented analytics platform built for Arkive during the Big Data minor at the Hogeschool van Amsterdam: ingesting data from external APIs, transforming it, and presenting it as KPI dashboards.
 
-The application is built with Python, Flask and Dash / Plotly on top of SQLAlchemy and MySQL. It is tested with Pytest and delivered with Docker, Terraform and a CI/CD pipeline.
+## Context
+
+The Big Data minor combined a solo onboarding assignment with this company-based team project at Arkive, supported by workshops on data engineering, cloud deployment and collaborative development practices.
+
+## Approach
+
+Built API-based data ingestion and transformation pipelines feeding a MySQL database through SQLAlchemy, then exposed the results through Flask with Dash / Plotly dashboards for KPI visualisation.
+
+## Implementation
+
+Automated the pipeline and dashboard behaviour with Pytest, and packaged deployment with Docker, Terraform and shell scripts inside a CI/CD workflow.
+
+## What I learned
+
+Moved from building standalone analyses to delivering a maintainable, team-based data application under real-world constraints: data quality, database design, dashboard UX, version-control workflow, testing and cloud-ready deployment.
 
 {/* Add more sections below (Context, Problem, Architecture, Implementation, Results, What I learned). */}
