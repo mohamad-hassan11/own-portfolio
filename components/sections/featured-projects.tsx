@@ -1,0 +1,26 @@
+import { ArrowRight } from 'lucide-react'
+import { ProjectList } from '@/components/projects/project-list'
+import { ButtonLink } from '@/components/ui/button'
+import { Section } from '@/components/ui/section'
+import type { ProjectSummary } from '@/types/cms'
+
+export function FeaturedProjects({ projects }: { projects: ProjectSummary[] }) {
+  if (!projects.length) return null
+
+  return (
+    <Section
+      id="projects"
+      eyebrow="Selected work"
+      title="Featured projects"
+      description="Engineering case studies covering the problem, constraints, decisions and outcome."
+      action={
+        <ButtonLink href="/projects" variant="secondary" size="sm">
+          All projects
+          <ArrowRight aria-hidden className="size-4" />
+        </ButtonLink>
+      }
+    >
+      <ProjectList projects={projects} />
+    </Section>
+  )
+}
