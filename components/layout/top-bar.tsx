@@ -4,6 +4,7 @@ import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
+import { SkinSwitcher } from '@/components/layout/skin-switcher'
 import { ThemeToggle } from '@/components/layout/theme-toggle'
 import type { NavItem } from '@/content/types'
 import { cn } from '@/lib/utils'
@@ -100,6 +101,7 @@ export function TopBar({ name, title, links, cvHref }: TopBarProps) {
             </a>
           )}
           <ThemeToggle />
+          <SkinSwitcher className="hidden sm:flex" />
           <button
             ref={buttonRef}
             type="button"
@@ -147,6 +149,12 @@ export function TopBar({ name, title, links, cvHref }: TopBarProps) {
                 </a>
               </li>
             )}
+            <li className="pt-3 pb-1 sm:hidden">
+              <p className="text-metadata text-muted mb-2 px-3">Site style</p>
+              <div className="px-3">
+                <SkinSwitcher />
+              </div>
+            </li>
           </ul>
         </nav>
       )}

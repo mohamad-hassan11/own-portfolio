@@ -340,3 +340,519 @@
     animation: none;
   }
 }
+
+/* ============================================================
+   Style skins: an experimental layer on top of the base
+   neo-brutalist design above. Toggle via the buttons next to the
+   theme switch (components/layout/skin-switcher.tsx). "neo" is
+   that base look, so it needs no rules here. Every other skin
+   defines its own `.dark`/`.light` token pair so the existing
+   theme toggle keeps working no matter which skin is active.
+   ============================================================ */
+
+/* --- Glassmorphism: frosted, translucent panels with a crisp edge sheen. --- */
+html.dark[data-skin='glass'] {
+  --background: #070a18;
+  --foreground: #f5f7ff;
+  --muted: #b7c3e6;
+  --ghost: #2a3363;
+  --surface: rgb(255 255 255 / 0.08);
+  --surface-hover: rgb(255 255 255 / 0.13);
+  --border: rgb(255 255 255 / 0.28);
+  --ink: rgb(255 255 255 / 0.5);
+  --shadow: rgb(0 0 0 / 0);
+  --accent: #8fb0ff;
+  --accent-hover: #a8c2ff;
+  --accent-foreground: #05070f;
+  --accent-text: #cfe0ff;
+  --accent-soft: rgb(143 176 255 / 0.2);
+  --cursor-accent: #cfe0ff;
+  --ring: #cfe0ff;
+}
+
+html.light[data-skin='glass'] {
+  --background: #eef2fb;
+  --foreground: #101425;
+  --muted: #4b5573;
+  --ghost: #c7d0ea;
+  --surface: rgb(255 255 255 / 0.55);
+  --surface-hover: rgb(255 255 255 / 0.72);
+  --border: rgb(16 20 37 / 0.16);
+  --ink: rgb(16 20 37 / 0.45);
+  --shadow: rgb(16 20 37 / 0);
+  --accent: #2350f0;
+  --accent-hover: #1a3fd0;
+  --accent-foreground: #ffffff;
+  --accent-text: #1a3fd0;
+  --accent-soft: rgb(35 80 240 / 0.1);
+  /* Same rule as base light mode: dark cursor/particles, not the accent hue. */
+  --cursor-accent: var(--foreground);
+  --ring: #2350f0;
+}
+
+html.dark[data-skin='glass'] body {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(
+      26rem 20rem at 4% -6%,
+      rgb(124 157 255 / 0.32),
+      transparent 60%
+    ),
+    radial-gradient(
+      22rem 18rem at 102% 8%,
+      rgb(255 110 210 / 0.2),
+      transparent 60%
+    ),
+    radial-gradient(
+      28rem 22rem at 50% 118%,
+      rgb(94 234 212 / 0.18),
+      transparent 60%
+    );
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-attachment: fixed;
+}
+
+html.light[data-skin='glass'] body {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(
+      26rem 20rem at 4% -6%,
+      rgb(124 157 255 / 0.26),
+      transparent 60%
+    ),
+    radial-gradient(
+      22rem 18rem at 100% 10%,
+      rgb(255 138 219 / 0.22),
+      transparent 60%
+    ),
+    radial-gradient(
+      28rem 22rem at 50% 118%,
+      rgb(94 222 200 / 0.2),
+      transparent 60%
+    );
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-attachment: fixed;
+}
+
+/* :not(.bg-accent) keeps solid accent-filled elements (CTAs, the logo
+   badge, the active skin-switcher button) as bold brutal blocks instead
+   of turning them translucent along with the rest of the glass panels. */
+html[data-skin='glass'] .brutal:not(.bg-accent),
+html[data-skin='glass'] .brutal-sm:not(.bg-accent) {
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--surface) 130%, transparent),
+    var(--surface)
+  );
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+}
+
+html.dark[data-skin='glass'] .brutal:not(.bg-accent),
+html.dark[data-skin='glass'] .brutal-sm:not(.bg-accent) {
+  border-top-color: rgb(255 255 255 / 0.5);
+  border-left-color: rgb(255 255 255 / 0.32);
+  box-shadow:
+    0 10px 34px rgb(0 0 0 / 0.55),
+    inset 0 1px 0 rgb(255 255 255 / 0.14);
+}
+
+html.light[data-skin='glass'] .brutal:not(.bg-accent),
+html.light[data-skin='glass'] .brutal-sm:not(.bg-accent) {
+  border-top-color: rgb(255 255 255 / 0.9);
+  box-shadow:
+    0 10px 28px rgb(16 20 37 / 0.12),
+    inset 0 1px 0 rgb(255 255 255 / 0.65);
+}
+
+html[data-skin='glass'] .brutal-lift:not(.bg-accent):hover {
+  transform: translateY(-3px);
+}
+
+html.dark[data-skin='glass'] .brutal-lift:not(.bg-accent):hover {
+  box-shadow:
+    0 16px 44px rgb(0 0 0 / 0.6),
+    inset 0 1px 0 rgb(255 255 255 / 0.16);
+}
+
+html.light[data-skin='glass'] .brutal-lift:not(.bg-accent):hover {
+  box-shadow:
+    0 16px 36px rgb(16 20 37 / 0.16),
+    inset 0 1px 0 rgb(255 255 255 / 0.75);
+}
+
+html[data-skin='glass'] .pattern-dots {
+  border-radius: 1rem;
+}
+
+html[data-skin='glass'] .custom-cursor {
+  border-radius: 50%;
+  border-color: transparent;
+  background: color-mix(in srgb, var(--cursor-accent) 55%, transparent);
+  box-shadow: 0 0 24px var(--cursor-accent);
+}
+
+html[data-skin='glass'] .custom-cursor[data-mode='interactive'] {
+  background: color-mix(in srgb, var(--cursor-accent) 22%, transparent);
+}
+
+html[data-skin='glass'] .custom-cursor[data-mode='label'] {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cursor-accent) 85%, transparent);
+  color: var(--background);
+}
+
+/* --- Vaporwave: retro sunset grid, neon magenta/cyan, glowing type. --- */
+html.dark[data-skin='vaporwave'] {
+  --background: #1a0b2e;
+  --foreground: #ffe3fb;
+  --muted: #c9a6e0;
+  --ghost: #4a2d6b;
+  --surface: #241040;
+  --surface-hover: #2e1450;
+  --border: #ff6ec7;
+  --ink: #ff2fb0;
+  --shadow: #00e5ff;
+  --accent: #ff2fb0;
+  --accent-hover: #ff57c2;
+  --accent-foreground: #1a0b2e;
+  --accent-text: #00e5ff;
+  --accent-soft: rgb(255 47 176 / 0.16);
+  --cursor-accent: #00e5ff;
+  --ring: #00e5ff;
+}
+
+html.light[data-skin='vaporwave'] {
+  --background: #fbe7f5;
+  --foreground: #2b0f45;
+  --muted: #7a4a8f;
+  --ghost: #f0c7e4;
+  --surface: #fff5fb;
+  --surface-hover: #ffeaf7;
+  --border: #ff6ec7;
+  --ink: #c2179e;
+  --shadow: #0891a8;
+  --accent: #d6178f;
+  --accent-hover: #c00f80;
+  --accent-foreground: #fff5fb;
+  --accent-text: #0891a8;
+  --accent-soft: rgb(214 23 143 / 0.12);
+  --cursor-accent: var(--foreground);
+  --ring: #d6178f;
+}
+
+html[data-skin='vaporwave'] body {
+  background-color: var(--background);
+  background-image: none;
+}
+
+html.dark[data-skin='vaporwave'] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -22;
+  pointer-events: none;
+  background: radial-gradient(
+    38rem 22rem at 50% 18%,
+    #ff9a56 0%,
+    #ff2fb0 42%,
+    transparent 68%
+  );
+  opacity: 0.5;
+}
+
+html.light[data-skin='vaporwave'] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -22;
+  pointer-events: none;
+  background: radial-gradient(
+    38rem 22rem at 50% 18%,
+    #ffd9a0 0%,
+    #ff8fd0 42%,
+    transparent 68%
+  );
+  opacity: 0.55;
+}
+
+html.dark[data-skin='vaporwave'] body::after {
+  content: '';
+  position: fixed;
+  inset: 55% 0 0 0;
+  z-index: -21;
+  pointer-events: none;
+  background-image:
+    linear-gradient(#00e5ff 1px, transparent 1px),
+    linear-gradient(90deg, #00e5ff 1px, transparent 1px);
+  background-size: 42px 42px;
+  opacity: 0.35;
+  transform: perspective(280px) rotateX(62deg) scale(2.2);
+  transform-origin: bottom;
+  mask-image: linear-gradient(to top, black, transparent 85%);
+  -webkit-mask-image: linear-gradient(to top, black, transparent 85%);
+}
+
+html.light[data-skin='vaporwave'] body::after {
+  content: '';
+  position: fixed;
+  inset: 55% 0 0 0;
+  z-index: -21;
+  pointer-events: none;
+  background-image:
+    linear-gradient(#0891a8 1px, transparent 1px),
+    linear-gradient(90deg, #0891a8 1px, transparent 1px);
+  background-size: 42px 42px;
+  opacity: 0.25;
+  transform: perspective(280px) rotateX(62deg) scale(2.2);
+  transform-origin: bottom;
+  mask-image: linear-gradient(to top, black, transparent 85%);
+  -webkit-mask-image: linear-gradient(to top, black, transparent 85%);
+}
+
+html.dark[data-skin='vaporwave'] .text-display,
+html.dark[data-skin='vaporwave'] .text-h1,
+html.dark[data-skin='vaporwave'] .text-h2,
+html.dark[data-skin='vaporwave'] .text-h3 {
+  text-shadow:
+    0 0 10px var(--accent-text),
+    0 0 22px var(--accent);
+}
+
+/* --- Pixel art: chunky retro fonts, hard corners, blocky shadows. --- */
+html.dark[data-skin='pixel'] {
+  --background: #0f1a12;
+  --foreground: #cdeecb;
+  --muted: #7fae7a;
+  --ghost: #24392a;
+  --surface: #16261a;
+  --surface-hover: #1d3122;
+  --border: #3f6b45;
+  --ink: #cdeecb;
+  --shadow: #0a120c;
+  --accent: #57d364;
+  --accent-hover: #74e07f;
+  --accent-foreground: #0a120c;
+  --accent-text: #86e88f;
+  --accent-soft: rgb(87 211 100 / 0.18);
+  --cursor-accent: #57d364;
+  --ring: #86e88f;
+}
+
+html.light[data-skin='pixel'] {
+  /* Unlit Game Boy DMG screen: pale olive-green LCD, dark ink. */
+  --background: #d7e894;
+  --foreground: #2b3a14;
+  --muted: #56622f;
+  --ghost: #b9c96a;
+  --surface: #e8f0b8;
+  --surface-hover: #dde89e;
+  --border: #4a5620;
+  --ink: #2b3a14;
+  --shadow: #2b3a14;
+  --accent: #3a5c1e;
+  --accent-hover: #2b4716;
+  --accent-foreground: #e8f0b8;
+  --accent-text: #2b3a14;
+  --accent-soft: rgb(58 92 30 / 0.16);
+  --cursor-accent: var(--foreground);
+  --ring: #2b3a14;
+}
+
+html[data-skin='pixel'] {
+  --font-display:
+    var(--font-press-start), var(--font-barlow), ui-sans-serif, sans-serif;
+  --font-sans:
+    var(--font-vt323), var(--font-geist-sans), ui-sans-serif, sans-serif;
+}
+
+html[data-skin='pixel'] * {
+  border-radius: 0 !important;
+}
+
+html[data-skin='pixel'] body {
+  background-color: var(--background);
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+html[data-skin='pixel'] img {
+  image-rendering: pixelated;
+}
+
+html[data-skin='pixel'] .brutal,
+html[data-skin='pixel'] .brutal-sm {
+  --o: 6px;
+  border-width: 3px;
+  box-shadow: var(--o) var(--o) 0 0 var(--ink);
+}
+
+html[data-skin='pixel'] .brutal-lift:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: calc(var(--o) + 3px) calc(var(--o) + 3px) 0 0 var(--ink);
+}
+
+/* --- Fusion: brutalist blocks + glass fill + neon glow + pixel display type. --- */
+html.dark[data-skin='fusion'] {
+  --background: #0a0118;
+  --foreground: #f3eaff;
+  --muted: #b9a8d9;
+  --ghost: #3a2158;
+  --surface: rgb(255 255 255 / 0.07);
+  --surface-hover: rgb(255 255 255 / 0.12);
+  --border: #00e5ff;
+  --ink: #ff2fb0;
+  --shadow: #ff2fb0;
+  --accent: #00e5ff;
+  --accent-hover: #4df1ff;
+  --accent-foreground: #0a0118;
+  --accent-text: #ff6ec7;
+  --accent-soft: rgb(0 229 255 / 0.18);
+  --cursor-accent: #00e5ff;
+  --ring: #00e5ff;
+}
+
+html.light[data-skin='fusion'] {
+  --background: #f5f3ff;
+  --foreground: #170a2e;
+  --muted: #5b4a78;
+  --ghost: #ded4f5;
+  --surface: rgb(255 255 255 / 0.62);
+  --surface-hover: rgb(255 255 255 / 0.8);
+  --border: #0091a8;
+  --ink: #c2179e;
+  --shadow: #c2179e;
+  --accent: #0091a8;
+  --accent-hover: #007992;
+  --accent-foreground: #ffffff;
+  --accent-text: #c2179e;
+  --accent-soft: rgb(0 145 168 / 0.12);
+  --cursor-accent: var(--foreground);
+  --ring: #0091a8;
+}
+
+html[data-skin='fusion'] {
+  --font-display:
+    var(--font-press-start), var(--font-barlow), ui-sans-serif, sans-serif;
+}
+
+/* Press Start 2P's glyphs are much wider per character than Barlow
+   Condensed, so the shared heading utilities need smaller clamps here
+   to avoid overflow-wrap hard-breaking words mid-letter. */
+html[data-skin='pixel'] .text-display,
+html[data-skin='fusion'] .text-display {
+  font-size: clamp(1.75rem, 6vw, 3.25rem);
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+html[data-skin='pixel'] .text-h1,
+html[data-skin='fusion'] .text-h1 {
+  font-size: clamp(1.5rem, 4.5vw, 2.25rem);
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+html[data-skin='pixel'] .text-h2,
+html[data-skin='fusion'] .text-h2 {
+  font-size: clamp(1.125rem, 3vw, 1.5rem);
+  line-height: 1.3;
+}
+
+html[data-skin='pixel'] .text-h3,
+html[data-skin='fusion'] .text-h3 {
+  font-size: clamp(1rem, 2.5vw, 1.1875rem);
+  line-height: 1.3;
+}
+
+html.dark[data-skin='fusion'] body {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(
+      28rem 22rem at 12% 0%,
+      rgb(0 229 255 / 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      28rem 22rem at 90% 100%,
+      rgb(255 47 176 / 0.16),
+      transparent 60%
+    ),
+    linear-gradient(var(--ghost) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ghost) 1px, transparent 1px);
+  background-size:
+    auto,
+    auto,
+    32px 32px,
+    32px 32px;
+}
+
+html.light[data-skin='fusion'] body {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(
+      28rem 22rem at 12% 0%,
+      rgb(0 145 168 / 0.12),
+      transparent 60%
+    ),
+    radial-gradient(
+      28rem 22rem at 90% 100%,
+      rgb(194 23 158 / 0.1),
+      transparent 60%
+    ),
+    linear-gradient(var(--ghost) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ghost) 1px, transparent 1px);
+  background-size:
+    auto,
+    auto,
+    32px 32px,
+    32px 32px;
+}
+
+/* :not(.bg-accent) keeps solid accent-filled elements (CTAs, the logo
+   badge, the active skin-switcher button) as bold brutal blocks instead
+   of turning them translucent along with the rest of the glass panels. */
+html[data-skin='fusion'] .brutal:not(.bg-accent),
+html[data-skin='fusion'] .brutal-sm:not(.bg-accent) {
+  --o: 5px;
+  border: 2px solid var(--border);
+  border-radius: 0;
+  background: var(--surface);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  box-shadow: var(--o) var(--o) 0 0 var(--shadow);
+}
+
+html[data-skin='fusion'] .brutal-lift:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: calc(var(--o) + 3px) calc(var(--o) + 3px) 0 0 var(--shadow);
+}
+
+html[data-skin='fusion'] .text-display,
+html[data-skin='fusion'] .text-h1 {
+  text-shadow:
+    0 0 2px var(--accent),
+    0 0 16px var(--accent-soft);
+}
+
+html[data-skin='fusion'] .pattern-dots {
+  background-image: radial-gradient(var(--accent) 1.5px, transparent 1.5px);
+}
+
+html[data-skin='fusion'] .custom-cursor {
+  border-radius: 0;
+  border-color: var(--border);
+  background: color-mix(in srgb, var(--cursor-accent) 25%, transparent);
+  box-shadow: 0 0 18px var(--cursor-accent);
+}
+
+html[data-skin='fusion'] .custom-cursor[data-mode='label'] {
+  background: color-mix(in srgb, var(--cursor-accent) 85%, transparent);
+  color: var(--background);
+}
