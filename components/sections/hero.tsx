@@ -12,6 +12,13 @@ interface HeroProps {
 }
 
 export function Hero({ config, stats, cvHref }: HeroProps) {
+  const monogram = config.name
+    .split(/\s+/)
+    .map((word) => word[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase()
+
   return (
     <section
       aria-labelledby="hero-heading"
@@ -19,7 +26,7 @@ export function Hero({ config, stats, cvHref }: HeroProps) {
     >
       <div>
         <p className="text-metadata text-accent-text mb-5 tracking-[0.3em]">
-          {'// SYSTEM.INIT'}
+          01 / INTRODUCTION
         </p>
         <h1 id="hero-heading" className="text-display">
           {config.name}
@@ -28,7 +35,7 @@ export function Hero({ config, stats, cvHref }: HeroProps) {
 
         <div className="border-accent mt-8 max-w-xl border-l-4 pl-5 font-mono text-[0.9rem] leading-7">
           <p className="text-muted">{config.heroDescription}</p>
-          <p className="mt-4 font-medium">{`/* ${config.heroHeadline} */`}</p>
+          <p className="mt-4 font-medium">{config.heroHeadline}</p>
         </div>
 
         {config.status && (
@@ -42,7 +49,7 @@ export function Hero({ config, stats, cvHref }: HeroProps) {
         )}
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <ButtonLink href="/projects">
+          <ButtonLink href="/projects" cursorLabel="WORK">
             Explore projects
             <ArrowRight aria-hidden className="size-4" />
           </ButtonLink>
@@ -68,13 +75,9 @@ export function Hero({ config, stats, cvHref }: HeroProps) {
         aria-label="At a glance"
         className="brutal bg-surface overflow-hidden"
       >
-        <div className="border-ink flex items-center gap-2 border-b-2 px-4 py-2.5">
-          <span aria-hidden className="flex gap-1.5">
-            <span className="size-2.5 bg-[var(--tone-red)]" />
-            <span className="size-2.5 bg-[var(--tone-amber)]" />
-            <span className="size-2.5 bg-[var(--tone-green)]" />
-          </span>
-          <p className="text-metadata text-muted ml-2">portfolio.sh</p>
+        <div className="border-ink flex items-center justify-between gap-4 border-b-2 px-4 py-3">
+          <p className="text-metadata text-muted">Engineering index</p>
+          <p className="text-metadata text-accent-text">{monogram} / 26</p>
         </div>
 
         {config.profileImage && (
@@ -87,6 +90,12 @@ export function Hero({ config, stats, cvHref }: HeroProps) {
               sizes="336px"
               className="object-cover"
             />
+          </div>
+        )}
+
+        {!config.profileImage && (
+          <div className="border-ink pattern-dots font-display text-ghost grid aspect-[2/1] place-items-center border-b-2 text-8xl font-extrabold">
+            {monogram}
           </div>
         )}
 
@@ -112,7 +121,7 @@ export function Hero({ config, stats, cvHref }: HeroProps) {
                   href={highlight.href}
                   className="text-accent-text hover:text-foreground transition-colors duration-200"
                 >
-                  &gt; {highlight.label}
+                  ↳ {highlight.label}
                 </Link>
               </li>
             ))}
@@ -121,7 +130,7 @@ export function Hero({ config, stats, cvHref }: HeroProps) {
 
         {config.location && (
           <p className="text-metadata text-muted border-border border-t px-5 py-3">
-            SYS.LOC: {config.location}
+            Location / {config.location}
           </p>
         )}
       </aside>

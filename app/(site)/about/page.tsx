@@ -22,7 +22,7 @@ export default function AboutPage() {
     <>
       <Section
         headingLevel={1}
-        tag="ABOUT"
+        tag="PROFILE"
         title="About me"
         className="pt-10 sm:pt-16"
       >
@@ -32,7 +32,7 @@ export default function AboutPage() {
       </Section>
 
       {education.length > 0 && (
-        <Section id="education" tag="EDUCATION" title="Education">
+        <Section id="education" tag="LEARNING TRACE" title="Education">
           <Timeline>
             {education.map((item, index) => (
               <TimelineItem

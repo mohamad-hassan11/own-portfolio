@@ -18,7 +18,7 @@ export default function ProjectsPage() {
   return (
     <Section
       headingLevel={1}
-      tag="PORTFOLIO"
+      tag="PROJECT INDEX"
       title="Projects"
       description="Engineering case studies covering the problem, constraints, decisions and outcome."
       className="pt-10 sm:pt-16"

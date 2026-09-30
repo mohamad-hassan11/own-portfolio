@@ -14,7 +14,7 @@ export function FeaturedProjects({
   return (
     <Section
       id="projects"
-      tag="PORTFOLIO"
+      tag="02 / SELECTED SYSTEMS"
       title="Featured projects"
       action={
         <ButtonLink href="/projects" variant="secondary" size="sm">

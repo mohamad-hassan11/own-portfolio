@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
+import { BackgroundMotion } from '@/components/layout/background-motion'
+import { CustomCursor } from '@/components/layout/custom-cursor'
 import { Footer } from '@/components/layout/footer'
 import { ThemeProvider } from '@/components/layout/theme-provider'
 import { TopBar } from '@/components/layout/top-bar'
@@ -18,6 +20,8 @@ export const metadata: Metadata = {
 export default function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider>
+      <BackgroundMotion />
+      <CustomCursor />
       <a
         href="#main"
         className="bg-accent text-accent-foreground sr-only z-[60] px-4 py-2 focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
@@ -33,11 +37,13 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
       <main
         id="main"
         tabIndex={-1}
-        className="container-page pt-16 outline-none"
+        className="container-page relative z-10 pt-16 outline-none"
       >
         {children}
       </main>
-      <Footer config={siteConfig} />
+      <div className="relative z-10">
+        <Footer config={siteConfig} />
+      </div>
     </ThemeProvider>
   )
 }

@@ -50,7 +50,11 @@ export function ContactCta({ config, cvHref }: ContactCtaProps) {
   }
 
   return (
-    <Section id="contact" tag="GET IN TOUCH" title={config.contactHeadline}>
+    <Section
+      id="contact"
+      tag="06 / START A CONVERSATION"
+      title={config.contactHeadline}
+    >
       <Reveal>
         <p className="text-body text-muted max-w-xl">
           {config.contactDescription}

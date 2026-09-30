@@ -3,7 +3,7 @@ import { ButtonLink } from '@/components/ui/button'
 export default function NotFound() {
   return (
     <section className="py-16 sm:py-24">
-      <p className="text-metadata text-accent-text mb-4">{'// ERROR 404'}</p>
+      <p className="text-metadata text-accent-text mb-4">[ERROR / 404]</p>
       <h1 className="text-display">Page not found</h1>
       <span aria-hidden className="bg-accent mt-4 block h-1 w-16" />
       <p className="text-body text-muted mt-6 max-w-md">

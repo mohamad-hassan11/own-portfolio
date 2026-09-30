@@ -9,7 +9,7 @@ export function ExperienceTimeline({ items }: { items: Experience[] }) {
   if (!items.length) return null
 
   return (
-    <Section id="experience" tag="EXPERIENCE" title="My journey">
+    <Section id="experience" tag="04 / CAREER TRACE" title="My journey">
       <Reveal>
         <Timeline>
           {items.map((item, index) => {

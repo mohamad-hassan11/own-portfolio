@@ -5,7 +5,7 @@ import { Section } from '@/components/ui/section'
 
 export function AboutPreview({ summary }: { summary: string }) {
   return (
-    <Section id="about-preview" tag="ABOUT" title="About me">
+    <Section id="about-preview" tag="05 / WORKING NOTES" title="About me">
       <Reveal className="max-w-2xl">
         <p className="text-body border-accent border-l-4 pl-5 whitespace-pre-line">
           {summary}

@@ -19,6 +19,7 @@ interface ButtonLinkProps {
   size?: keyof typeof sizes
   className?: string
   children: ReactNode
+  cursorLabel?: string
   /** Same-origin file download (e.g. the CV PDF). */
   download?: boolean
   'aria-label'?: string
@@ -30,6 +31,7 @@ export function ButtonLink({
   size = 'md',
   className,
   children,
+  cursorLabel,
   download,
   ...rest
 }: ButtonLinkProps) {
@@ -46,6 +48,7 @@ export function ButtonLink({
         href={href}
         target="_blank"
         rel="noopener noreferrer"
+        data-cursor-label={cursorLabel}
         className={classes}
         {...rest}
       >
@@ -59,6 +62,7 @@ export function ButtonLink({
       <a
         href={href}
         download={download ? true : undefined}
+        data-cursor-label={cursorLabel}
         className={classes}
         {...rest}
       >
@@ -68,7 +72,12 @@ export function ButtonLink({
   }
 
   return (
-    <Link href={href} className={classes} {...rest}>
+    <Link
+      href={href}
+      data-cursor-label={cursorLabel}
+      className={classes}
+      {...rest}
+    >
       {children}
     </Link>
   )

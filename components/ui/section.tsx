@@ -5,7 +5,7 @@ interface SectionProps {
   /** Use 1 for the page's main heading. */
   headingLevel?: 1 | 2
   id?: string
-  /** Small mono label above the heading, rendered as "// TAG". */
+  /** Small mono label above the heading. */
   tag?: string
   title?: string
   description?: string
@@ -37,7 +37,7 @@ export function Section({
         <header className="mb-10 flex flex-col gap-5 sm:mb-12 sm:flex-row sm:items-end sm:justify-between">
           <div>
             {tag && (
-              <p className="text-metadata text-accent-text mb-3">{`// ${tag}`}</p>
+              <p className="text-metadata text-accent-text mb-3">[{tag}]</p>
             )}
             <Heading id={headingId} className="text-h1">
               {title}

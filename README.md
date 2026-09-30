@@ -5,7 +5,7 @@ Personal software engineering portfolio. **The Git repository is the content-man
 ## Stack
 
 - Next.js 16 (App Router, Server Components by default), React 19, TypeScript (strict)
-- Tailwind CSS 4 with semantic design tokens: a dark "terminal" theme by default and a light "paper" theme. Change the accent colour via `--accent` in `app/globals.css`.
+- Tailwind CSS 4 with semantic design tokens: a dark "terminal" theme by default and a light "paper" theme. Change the accent colour via `--accent` and the pointer glow/cursor via `--cursor-accent` in `app/globals.css`.
 - MDX via the standard `@next/mdx` integration for project case studies
 - Motion (subtle animation), Lucide icons, `next-themes`
 - GitHub + Vercel Hobby (free tier only)
@@ -47,6 +47,8 @@ mdx-components.tsx                maps Markdown elements to styled components
 
 The homepage, `/projects` and `/projects/[slug]` all read the same registry in `content/projects/index.ts`, so project data exists in exactly one place.
 
+The shared layout uses a diagonal blueprint mesh, subtle scan lines, a dot field revealed around the pointer, and an asymmetric blue/cyan glow. Fine-pointer devices get a rectangular crosshair cursor that expands into compact `OPEN`/`WORK` captions on labeled actions. Touch devices keep their native interaction, and `prefers-reduced-motion` disables pointer-following effects.
+
 ## Getting started
 
 ```bash
@@ -55,13 +57,13 @@ cp .env.example .env.local    # optional: only NEXT_PUBLIC_SITE_URL
 npm run dev                   # http://localhost:3000
 ```
 
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Development server |
+| Command                       | Purpose                     |
+| ----------------------------- | --------------------------- |
+| `npm run dev`                 | Development server          |
 | `npm run build` / `npm start` | Production build / serve it |
-| `npm run typecheck` | TypeScript |
-| `npm run lint` | ESLint |
-| `npm run format` | Prettier |
+| `npm run typecheck`           | TypeScript                  |
+| `npm run lint`                | ESLint                      |
+| `npm run format`              | Prettier                    |
 
 `NEXT_PUBLIC_SITE_URL` is the canonical URL used by the sitemap, canonical links and OpenGraph. Set it to your production domain in Vercel.
 
@@ -116,7 +118,11 @@ Edit the `.mdx` file. To remove a project, delete its import and array entry in 
 Use predictable paths, for example `public/projects/my-project/cover.webp`, `architecture.webp`, `screenshot-1.webp`. Reference them from `coverImage` or inside MDX:
 
 ```mdx
-<ProjectImage src="/projects/my-project/screenshot-1.webp" alt="..." caption="..." />
+<ProjectImage
+  src="/projects/my-project/screenshot-1.webp"
+  alt="..."
+  caption="..."
+/>
 ![Alt text](/projects/my-project/screenshot-1.webp)
 ```
 
@@ -150,4 +156,3 @@ Everything is statically generated at build time, so there are no runtime server
 ```bash
 npm run typecheck && npm run lint && npm run build
 ```
-

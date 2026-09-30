@@ -38,16 +38,18 @@ export function ProjectCard({
 
   return (
     <article
-      style={{ '--shadow': tones[index % tones.length] } as CSSProperties}
+      style={{ '--card-tone': tones[index % tones.length] } as CSSProperties}
       className={cn(
-        'brutal brutal-lift bg-surface group relative flex h-full flex-col gap-5 p-5 sm:p-6',
-        flagship && 'md:grid md:grid-cols-[1fr_1.1fr] md:gap-8',
+        'border-border bg-surface group hover:bg-surface-hover relative flex h-full flex-col gap-5 overflow-hidden border p-5 transition-colors duration-200 sm:p-6',
+        'before:absolute before:inset-x-0 before:top-0 before:h-1 before:bg-[var(--card-tone)]',
+        flagship && 'md:grid md:grid-cols-[1.15fr_0.85fr] md:gap-10',
       )}
     >
       <div
         className={cn(
           'border-ink pattern-dots relative aspect-[16/10] w-full overflow-hidden border-2',
-          flagship && 'md:order-2 md:aspect-auto md:min-h-72',
+          flagship &&
+            'md:order-2 md:aspect-auto md:min-h-72 md:translate-x-6 md:translate-y-6',
         )}
       >
         {project.coverImage ? (
@@ -75,7 +77,7 @@ export function ProjectCard({
 
       <div className="flex min-w-0 flex-1 flex-col gap-4">
         <div className="flex items-start justify-between gap-4">
-          <p className="text-metadata text-accent-text">
+          <p className="text-metadata text-[var(--card-tone)]">
             [{String(index + 1).padStart(2, '0')}]{flagship && ' · Flagship'}
           </p>
           <ArrowUpRight
@@ -87,6 +89,7 @@ export function ProjectCard({
         <h3 className={flagship ? 'text-h1' : 'text-h3'}>
           <Link
             href={`/projects/${project.slug}`}
+            data-cursor-label="OPEN"
             className="after:absolute after:inset-0 after:content-['']"
           >
             {project.title}

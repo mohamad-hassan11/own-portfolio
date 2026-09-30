@@ -24,7 +24,7 @@ export function CaseStudy({ project }: { project: Project }) {
 
         <div className="mt-10 max-w-4xl">
           <p className="text-metadata text-accent-text mb-4">
-            {`// CASE_STUDY${meta ? ` · ${meta}` : ''}`}
+            {`PROJECT NOTE${meta ? ` · ${meta}` : ''}`}
           </p>
           <h1 className="text-display">{metadata.title}</h1>
           <span aria-hidden className="bg-accent mt-5 block h-1 w-16" />
