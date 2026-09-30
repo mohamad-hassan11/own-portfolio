@@ -2,6 +2,8 @@ import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 interface SectionProps {
+  /** Use 1 for the page's main heading. */
+  headingLevel?: 1 | 2
   id?: string
   eyebrow?: string
   title?: string
@@ -12,6 +14,7 @@ interface SectionProps {
 }
 
 export function Section({
+  headingLevel = 2,
   id,
   eyebrow,
   title,
@@ -21,6 +24,7 @@ export function Section({
   children,
 }: SectionProps) {
   const headingId = id ? `${id}-heading` : undefined
+  const Heading = headingLevel === 1 ? 'h1' : 'h2'
 
   return (
     <section
@@ -36,9 +40,9 @@ export function Section({
                 <p className="text-metadata text-accent-text mb-3">{eyebrow}</p>
               )}
               {title && (
-                <h2 id={headingId} className="text-h1">
+                <Heading id={headingId} className="text-h1">
                   {title}
-                </h2>
+                </Heading>
               )}
               {description && (
                 <p className="text-body text-muted mt-3">{description}</p>

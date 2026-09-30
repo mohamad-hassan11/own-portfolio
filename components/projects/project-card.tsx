@@ -1,12 +1,12 @@
 import { ArrowUpRight } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
-import { CmsImageFill } from '@/components/ui/cms-image'
 import { TagList } from '@/components/ui/tag-list'
+import type { ProjectMetadata } from '@/content/types'
 import { cn } from '@/lib/utils'
-import type { ProjectSummary } from '@/types/cms'
 
 interface ProjectCardProps {
-  project: ProjectSummary
+  project: ProjectMetadata
   flagship?: boolean
   priority?: boolean
 }
@@ -21,21 +21,23 @@ export function ProjectCard({ project, flagship, priority }: ProjectCardProps) {
       className={cn(
         'group border-border bg-surface hover:border-accent/60 relative flex flex-col overflow-hidden rounded-2xl border transition duration-200 hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0',
         flagship && 'border-accent/40 bg-accent-soft',
-        flagship && project.thumbnail && 'md:grid md:grid-cols-2',
+        flagship && project.coverImage && 'md:grid md:grid-cols-2',
       )}
     >
-      {project.thumbnail && (
+      {project.coverImage && (
         <div
           className={cn(
             'bg-surface-hover relative aspect-[16/9] w-full',
             flagship && 'md:aspect-auto md:min-h-80',
           )}
         >
-          <CmsImageFill
-            image={project.thumbnail}
-            fallbackAlt={`${project.title} preview`}
+          <Image
+            src={project.coverImage}
+            alt=""
+            fill
             priority={priority}
             sizes="(min-width: 768px) 560px, 100vw"
+            className="object-cover"
           />
         </div>
       )}
@@ -60,9 +62,7 @@ export function ProjectCard({ project, flagship, priority }: ProjectCardProps) {
           </Link>
         </h3>
 
-        {project.shortDescription && (
-          <p className="text-body text-muted">{project.shortDescription}</p>
-        )}
+        <p className="text-body text-muted">{project.summary}</p>
 
         <TagList
           items={project.technologies}

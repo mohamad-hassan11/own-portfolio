@@ -3,32 +3,19 @@ import type { ReactNode } from 'react'
 import { Footer } from '@/components/layout/footer'
 import { Navbar } from '@/components/layout/navbar'
 import { ThemeProvider } from '@/components/layout/theme-provider'
-import { getSiteSettings } from '@/lib/data'
-import { getSiteUrl, SITE_FALLBACK } from '@/lib/site'
+import { siteConfig } from '@/content/site'
+import { getCvHref, getSiteUrl } from '@/lib/site'
 
-export async function generateMetadata(): Promise<Metadata> {
-  const settings = await getSiteSettings()
-  const name = settings.fullName ?? SITE_FALLBACK.name
-
-  return {
-    metadataBase: new URL(getSiteUrl()),
-    title: {
-      default:
-        settings.siteTitle ??
-        `${name} | ${settings.professionalTitle ?? SITE_FALLBACK.title}`,
-      template: `%s | ${name}`,
-    },
-    description: settings.defaultMetaDescription ?? SITE_FALLBACK.description,
-  }
+export const metadata: Metadata = {
+  metadataBase: new URL(getSiteUrl()),
+  title: {
+    default: siteConfig.seo.title,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.seo.description,
 }
 
-export default async function SiteLayout({
-  children,
-}: {
-  children: ReactNode
-}) {
-  const settings = await getSiteSettings()
-
+export default function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider>
       <a
@@ -37,11 +24,15 @@ export default async function SiteLayout({
       >
         Skip to content
       </a>
-      <Navbar settings={settings} />
+      <Navbar
+        name={siteConfig.name}
+        links={siteConfig.navigation}
+        cvHref={getCvHref()}
+      />
       <main id="main" tabIndex={-1} className="outline-none">
         {children}
       </main>
-      <Footer settings={settings} />
+      <Footer config={siteConfig} />
     </ThemeProvider>
   )
 }

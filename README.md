@@ -1,106 +1,153 @@
 # Mohamad Hassan – Portfolio
 
-Professional software engineering portfolio. Content (projects, experience, education, skills, biography, contact details, CV, SEO) lives in Sanity CMS; the Next.js app only presents it.
+Personal software engineering portfolio. **The Git repository is the content-management system**: all content is stored in files in this repository and changed by editing, committing and pushing. There is no CMS, database, admin panel or content API.
 
 ## Stack
 
 - Next.js 16 (App Router, Server Components by default), React 19, TypeScript (strict)
 - Tailwind CSS 4 with semantic design tokens (dark default, light supported)
-- Sanity CMS + embedded Sanity Studio at `/studio` (`next-sanity`)
-- Motion for subtle transitions, Lucide icons, `next-themes`
-- Playwright for end-to-end tests
-- Node.js 22.12+ required
+- MDX via the standard `@next/mdx` integration for project case studies
+- Motion (subtle animation), Lucide icons, `next-themes`
+- GitHub + Vercel Hobby (free tier only)
+- Node.js 22.12+
 
-## Project structure
+## Architecture
 
 ```
-app/(site)/          public routes: /, /projects, /projects/[slug], /about
-app/studio/          embedded Sanity Studio (/studio)
-app/api/revalidate/  Sanity webhook endpoint for on-demand revalidation
-components/          ui/, layout/, sections/, projects/
-sanity/              env, client, schemaTypes/, structure
-lib/                 queries.ts (GROQ), data.ts (typed fetchers), seo.ts, utils
-types/               CMS TypeScript types
-scripts/seed.ts      starter content for the CMS
-tests/e2e/           Playwright specs
+GitHub repository
+├── Code     app/, components/, lib/        Next.js / React (presentation)
+└── Content  content/, public/              MDX + TypeScript files, images, CV
+                 │
+              Next.js build (everything is statically generated)
+                 │
+               Vercel  →  custom domain
 ```
 
-Schemas, GROQ queries, types and UI components are kept separate. Components receive data and only render it.
+```
+content/
+├── projects/
+│   ├── index.ts                  project registry (single source of truth)
+│   └── <slug>.mdx                one file per project
+├── about.mdx                     About page body
+├── site.ts                       name, hero, contact links, CV path, navigation, SEO
+├── experience.ts
+├── education.ts
+├── skills.ts
+├── types.ts                      TypeScript types for all content
+└── mdx.d.ts                      types the `metadata` export of .mdx files
 
-## Setup
+public/
+├── projects/<slug>/              project images
+├── profile/                      profile photo
+└── cv/                           CV PDF
+
+components/     ui/, layout/, sections/, projects/, mdx/ (MDX building blocks)
+mdx-components.tsx                maps Markdown elements to styled components
+```
+
+The homepage, `/projects` and `/projects/[slug]` all read the same registry in `content/projects/index.ts`, so project data exists in exactly one place.
+
+## Getting started
 
 ```bash
 npm install
-cp .env.example .env.local   # then fill in the values
+cp .env.example .env.local    # optional: only NEXT_PUBLIC_SITE_URL
+npm run dev                   # http://localhost:3000
 ```
 
-### Environment variables
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Development server |
+| `npm run build` / `npm start` | Production build / serve it |
+| `npm run typecheck` | TypeScript |
+| `npm run lint` | ESLint |
+| `npm run format` | Prettier |
 
-| Variable | Scope | Purpose |
-| --- | --- | --- |
-| `NEXT_PUBLIC_SANITY_PROJECT_ID` | public | Sanity project ID |
-| `NEXT_PUBLIC_SANITY_DATASET` | public | Dataset name (`production`) |
-| `NEXT_PUBLIC_SANITY_API_VERSION` | public | Pinned Sanity API date |
-| `NEXT_PUBLIC_SITE_URL` | public | Canonical URL (sitemap, OpenGraph, canonical links) |
-| `SANITY_REVALIDATE_SECRET` | server only | Verifies the revalidation webhook |
+`NEXT_PUBLIC_SITE_URL` is the canonical URL used by the sitemap, canonical links and OpenGraph. Set it to your production domain in Vercel.
 
-No write token is used by the app. Never commit `.env.local`.
+## Managing content
 
-### Sanity project
+### Add a project
 
-1. `npx sanity login`
-2. Create a project and a **public** dataset named `production` (`npx sanity datasets create production --visibility public`).
-3. In [sanity.io/manage](https://sanity.io/manage) → API → CORS origins, add `http://localhost:3000` and the production domain, with credentials allowed.
-4. Optional starter content: `npm run seed` (uses your Studio login, never overwrites existing documents).
+1. Create `content/projects/my-project.mdx`. Start with the metadata export, then write the case study:
 
-## Running
+   ```mdx
+   export const metadata = {
+     title: 'My Project',
+     slug: 'my-project',
+     summary: 'One or two sentences shown on cards and in search results.',
+     projectType: 'University project', // optional
+     organisation: 'Example Org', // optional
+     year: 2026, // optional
+     featured: true, // shown on the homepage
+     order: 7, // lower numbers first
+     coverImage: '/projects/my-project/cover.webp', // optional
+     technologies: ['TypeScript', 'Next.js'],
+     githubUrl: null,
+     liveUrl: null,
+     confidential: false, // true hides source links and shows a note
+   }
 
-```bash
-npm run dev      # http://localhost:3000, Studio at /studio
+   ## Overview
+
+   ...
+
+   ## Architecture
+
+   <ArchitectureDiagram
+     src="/projects/my-project/architecture.webp"
+     alt="Describe the diagram"
+     caption="Optional caption"
+   />
+   ```
+
+2. Add images under `public/projects/my-project/`.
+3. Register it in `content/projects/index.ts`: add one `import * as x from './my-project.mdx'` line and add `x` to the `modules` array.
+4. Commit and push.
+
+The body is free-form: use whichever headings suit the project (Context, Problem, Constraints, Architecture, Implementation, Challenges, Results, What I learned, …). Only publish details approved for public presentation.
+
+### Edit or remove a project
+
+Edit the `.mdx` file. To remove a project, delete its import and array entry in `content/projects/index.ts` and delete the file. Duplicate slugs fail the build.
+
+### Project images
+
+Use predictable paths, for example `public/projects/my-project/cover.webp`, `architecture.webp`, `screenshot-1.webp`. Reference them from `coverImage` or inside MDX:
+
+```mdx
+<ProjectImage src="/projects/my-project/screenshot-1.webp" alt="..." caption="..." />
+![Alt text](/projects/my-project/screenshot-1.webp)
 ```
 
-## Using the CMS
+`ProjectImage` accepts `width` / `height` to set the aspect ratio (default 16:9). Prefer web-sized `.webp` files.
 
-Open `/studio` and sign in. Everything shown on the site is editable:
+Available MDX components: `ProjectImage`, `ArchitectureDiagram`, `Callout`, plus standard Markdown (headings, lists, quotes, code blocks, links, images).
 
-- **Site settings** (single document): name, title, hero, about, contact links, CV (PDF), navigation, footer, SEO defaults and OpenGraph image.
-- **Projects**: case-study fields, images/gallery/architecture diagrams, `featured`, `displayOrder` (lower shows first). The first featured project is displayed as the flagship. Mark a project **confidential** to hide source-code links. Empty fields are omitted from the page.
-- **Experience / Education / Skill categories**: ordered by `displayOrder`. Skills have no percentages; reorder items by dragging.
-- Only **published** documents appear on the public site. Drafts stay private.
+### Experience, education, skills
 
-Replacing the CV in Site settings updates every "Download CV" button automatically.
+Edit the typed arrays in `content/experience.ts`, `content/education.ts` and `content/skills.ts`. `order` controls sorting. Dates are ISO strings (`'2025-09-01'`); set `current: true` for a running role. A section is hidden while its list is empty. Skills are plain categories: no percentages or bars.
 
-### Content refresh
+### Hero, contact details, navigation, SEO
 
-Pages are statically generated and revalidated:
+Edit `content/site.ts`. Optional fields (`email`, `github`, `linkedin`, `profileImage`, `seo.ogImage`) are simply omitted from the UI when not set. The About page text is in `content/about.mdx`.
 
-- On-demand: a Sanity webhook calls `POST /api/revalidate`, which invalidates the cache tag for the changed document type (`siteSettings`, `project`, `experience`, `education`, `skillCategory`).
-- Fallback: content is also revalidated hourly (`REVALIDATE_SECONDS` in `lib/cms.ts`).
+### CV
+
+Put the PDF at `public/cv/Mohamad-Hassan-CV.pdf` (or change `cv` in `content/site.ts`). The Download CV buttons appear automatically once the file exists; replacing the file updates every button.
+
+## Deployment (Vercel Hobby)
+
+1. Push the repository to GitHub and import it in Vercel (framework: Next.js, Node 22+).
+2. Add `NEXT_PUBLIC_SITE_URL` (your custom domain) as an environment variable.
+3. Add the custom domain under Settings → Domains and update DNS.
+4. Every push to `main` builds and deploys; content changes go live the same way. Other branches get preview deployments.
+
+Everything is statically generated at build time, so there are no runtime servers, API calls or cache settings to manage. The project uses only free-tier services (GitHub Free, Vercel Hobby) and open-source packages. Vercel Hobby is limited to non-commercial personal use, which covers a personal portfolio.
 
 ## Quality checks
 
 ```bash
-npm run typecheck
-npm run lint
-npm run build
-npm run test:e2e      # starts the dev server if none is running
-npm run format        # Prettier
+npm run typecheck && npm run lint && npm run build
 ```
 
-E2E tests cover the homepage, navigation, theme toggle, projects list, project detail, 404, mobile menu and horizontal overflow at 375/768/1440/1920px. Project tests skip when the CMS has no projects.
-
-## Deployment (Vercel + Sanity)
-
-1. Push the repository and import it in Vercel (framework: Next.js, Node 22+).
-2. Add the environment variables above in Vercel (Production and Preview). Set `NEXT_PUBLIC_SITE_URL` to the custom domain.
-3. Add the custom domain in Vercel → Settings → Domains and update DNS.
-4. In Sanity → API → CORS origins, add the production domain (credentials allowed) so `/studio` works there.
-5. In Sanity → API → Webhooks, create a webhook:
-   - URL: `https://<your-domain>/api/revalidate`
-   - Trigger on: create, update, delete
-   - Dataset: `production`, HTTP method: `POST`, secret: the value of `SANITY_REVALIDATE_SECRET`
-6. Verify `/sitemap.xml`, `/robots.txt` and editing content in `/studio`.
-
-## Confidentiality
-
-Do not enter confidential employer information in the CMS. Only publish details approved for public presentation, and use the project's **confidential** flag where appropriate.

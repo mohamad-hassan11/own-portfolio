@@ -1,21 +1,17 @@
-// Fallbacks used only when the CMS is empty or unreachable.
-export const SITE_FALLBACK = {
-  name: 'Mohamad Hassan',
-  title: 'Software Engineer',
-  description: 'Software engineering portfolio.',
-} as const
-
-// Navigation used when siteSettings.navigation is empty.
-export const DEFAULT_NAV = [
-  { label: 'Projects', href: '/projects' },
-  { label: 'Experience', href: '/#experience' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/#contact' },
-] as const
+import { existsSync } from 'node:fs'
+import path from 'node:path'
+import { siteConfig } from '@/content/site'
 
 export function getSiteUrl() {
   return (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000').replace(
     /\/$/,
     '',
   )
+}
+
+// The CV button only renders once the PDF exists in /public.
+export function getCvHref(): string | undefined {
+  const { cv } = siteConfig
+  if (!cv) return undefined
+  return existsSync(path.join(process.cwd(), 'public', cv)) ? cv : undefined
 }

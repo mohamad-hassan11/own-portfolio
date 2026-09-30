@@ -1,14 +1,13 @@
-import { SITE_FALLBACK } from '@/lib/site'
-import type { SiteSettings } from '@/types/cms'
+import type { SiteConfig } from '@/content/types'
 
-export function Footer({ settings }: { settings: SiteSettings }) {
-  const name = settings.fullName ?? SITE_FALLBACK.name
-  const text = settings.footerText ?? `© ${new Date().getFullYear()} ${name}`
+export function Footer({ config }: { config: SiteConfig }) {
+  const text =
+    config.footerText ?? `© ${new Date().getFullYear()} ${config.name}`
 
   const links = [
-    settings.githubUrl && { label: 'GitHub', href: settings.githubUrl },
-    settings.linkedinUrl && { label: 'LinkedIn', href: settings.linkedinUrl },
-    settings.email && { label: 'Email', href: `mailto:${settings.email}` },
+    config.github && { label: 'GitHub', href: config.github },
+    config.linkedin && { label: 'LinkedIn', href: config.linkedin },
+    config.email && { label: 'Email', href: `mailto:${config.email}` },
   ].filter((link): link is { label: string; href: string } => Boolean(link))
 
   return (

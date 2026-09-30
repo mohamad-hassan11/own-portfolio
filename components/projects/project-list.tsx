@@ -1,12 +1,12 @@
 import { ProjectCard } from '@/components/projects/project-card'
 import { Reveal } from '@/components/ui/reveal'
-import type { ProjectSummary } from '@/types/cms'
+import type { ProjectMetadata } from '@/content/types'
 
-// The first featured project (by CMS displayOrder) gets flagship emphasis.
-export function ProjectList({ projects }: { projects: ProjectSummary[] }) {
+// The first project (lowest `order`) gets flagship emphasis when it is featured.
+export function ProjectList({ projects }: { projects: ProjectMetadata[] }) {
   const [first, ...rest] = projects
   if (!first) return null
-  const hasFlagship = Boolean(first.featured)
+  const hasFlagship = first.featured
 
   return (
     <div className="grid gap-6 md:grid-cols-2">
@@ -14,7 +14,7 @@ export function ProjectList({ projects }: { projects: ProjectSummary[] }) {
         <ProjectCard project={first} flagship={hasFlagship} priority />
       </Reveal>
       {rest.map((project, index) => (
-        <Reveal key={project._id} delay={(index % 2) * 0.05}>
+        <Reveal key={project.slug} delay={(index % 2) * 0.05}>
           <ProjectCard project={project} />
         </Reveal>
       ))}

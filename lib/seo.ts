@@ -1,52 +1,41 @@
 import type { Metadata } from 'next'
-import { SITE_FALLBACK } from '@/lib/site'
-import type { CmsImage, SiteSettings } from '@/types/cms'
-
-function ogImageUrl(image?: CmsImage) {
-  return image ? `${image.url}?w=1200&h=630&fit=crop&auto=format` : undefined
-}
+import { siteConfig } from '@/content/site'
 
 interface PageMetadataInput {
-  settings: SiteSettings
   path: string
   title?: string
   description?: string
-  image?: CmsImage
+  /** Path under /public. Falls back to the site OpenGraph image. */
+  image?: string
 }
 
 // Child `openGraph`/`twitter` replace the parent's, so every page builds them in full.
 export function buildMetadata({
-  settings,
   path,
   title,
   description,
   image,
 }: PageMetadataInput): Metadata {
-  const name = settings.fullName ?? SITE_FALLBACK.name
-  const siteTitle =
-    settings.siteTitle ??
-    `${name} | ${settings.professionalTitle ?? SITE_FALLBACK.title}`
-  const fullTitle = title ? `${title} | ${name}` : siteTitle
-  const desc =
-    description ?? settings.defaultMetaDescription ?? SITE_FALLBACK.description
-  const ogImage = ogImageUrl(image ?? settings.ogImage)
+  const fullTitle = title
+    ? `${title} | ${siteConfig.name}`
+    : siteConfig.seo.title
+  const desc = description ?? siteConfig.seo.description
+  const ogImage = image ?? siteConfig.seo.ogImage
 
   return {
-    title: title ? title : { absolute: siteTitle },
+    title: title ?? { absolute: siteConfig.seo.title },
     description: desc,
     alternates: { canonical: path },
     openGraph: {
       type: 'website',
-      siteName: name,
+      siteName: siteConfig.name,
       title: fullTitle,
       description: desc,
       url: path,
-      images: ogImage
-        ? [{ url: ogImage, width: 1200, height: 630 }]
-        : undefined,
+      images: ogImage ? [{ url: ogImage }] : undefined,
     },
     twitter: {
-      card: 'summary_large_image',
+      card: ogImage ? 'summary_large_image' : 'summary',
       title: fullTitle,
       description: desc,
       images: ogImage ? [ogImage] : undefined,

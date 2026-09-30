@@ -4,14 +4,14 @@ import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
-import type { NavItem } from '@/types/cms'
+import type { NavItem } from '@/content/types'
 
 interface MobileNavProps {
   links: NavItem[]
-  cvUrl?: string
+  cvHref?: string
 }
 
-export function MobileNav({ links, cvUrl }: MobileNavProps) {
+export function MobileNav({ links, cvHref }: MobileNavProps) {
   // Open state is tied to the pathname, so navigating closes the menu.
   const pathname = usePathname()
   const [openPath, setOpenPath] = useState<string | null>(null)
@@ -67,10 +67,11 @@ export function MobileNav({ links, cvUrl }: MobileNavProps) {
                 </Link>
               </li>
             ))}
-            {cvUrl && (
+            {cvHref && (
               <li className="pt-2">
                 <a
-                  href={cvUrl}
+                  href={cvHref}
+                  download
                   className="bg-accent text-accent-foreground hover:bg-accent-hover block rounded-lg px-3 py-3 text-center text-base font-medium"
                 >
                   Download CV

@@ -5,35 +5,27 @@ import { ExperienceTimeline } from '@/components/sections/experience-timeline'
 import { FeaturedProjects } from '@/components/sections/featured-projects'
 import { Hero } from '@/components/sections/hero'
 import { Skills } from '@/components/sections/skills'
-import {
-  getExperience,
-  getFeaturedProjects,
-  getSiteSettings,
-  getSkillCategories,
-} from '@/lib/data'
+import { getFeaturedProjects } from '@/content/projects'
+import { siteConfig } from '@/content/site'
+import { getExperience, getSkills } from '@/lib/content'
 import { buildMetadata } from '@/lib/seo'
+import { getCvHref } from '@/lib/site'
 
-export async function generateMetadata(): Promise<Metadata> {
-  const settings = await getSiteSettings()
-  return buildMetadata({ settings, path: '/' })
-}
+export const metadata: Metadata = buildMetadata({ path: '/' })
 
-export default async function HomePage() {
-  const [settings, projects, experience, skills] = await Promise.all([
-    getSiteSettings(),
-    getFeaturedProjects(),
-    getExperience(),
-    getSkillCategories(),
-  ])
+export default function HomePage() {
+  const cvHref = getCvHref()
 
   return (
     <>
-      <Hero settings={settings} />
-      <FeaturedProjects projects={projects} />
-      <AboutPreview settings={settings} />
-      <ExperienceTimeline items={experience} />
-      <Skills categories={skills} />
-      <ContactCta settings={settings} />
+      <Hero config={siteConfig} cvHref={cvHref} />
+      <FeaturedProjects
+        projects={getFeaturedProjects().map((project) => project.metadata)}
+      />
+      <AboutPreview summary={siteConfig.aboutSummary} />
+      <ExperienceTimeline items={getExperience()} />
+      <Skills categories={getSkills()} />
+      <ContactCta config={siteConfig} cvHref={cvHref} />
     </>
   )
 }

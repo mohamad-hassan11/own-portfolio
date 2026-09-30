@@ -1,18 +1,16 @@
 import Link from 'next/link'
-import { ButtonLink } from '@/components/ui/button'
 import { MobileNav } from '@/components/layout/mobile-nav'
 import { ThemeToggle } from '@/components/layout/theme-toggle'
-import { DEFAULT_NAV, SITE_FALLBACK } from '@/lib/site'
-import { withDownload } from '@/lib/utils'
-import type { NavItem, SiteSettings } from '@/types/cms'
+import { ButtonLink } from '@/components/ui/button'
+import type { NavItem } from '@/content/types'
 
-export function Navbar({ settings }: { settings: SiteSettings }) {
-  const links: NavItem[] = settings.navigation?.length
-    ? settings.navigation
-    : [...DEFAULT_NAV]
-  const cvUrl = settings.cvUrl ? withDownload(settings.cvUrl) : undefined
-  const name = settings.fullName ?? SITE_FALLBACK.name
+interface NavbarProps {
+  name: string
+  links: NavItem[]
+  cvHref?: string
+}
 
+export function Navbar({ name, links, cvHref }: NavbarProps) {
   return (
     <header className="border-border/60 bg-background/80 sticky top-0 z-40 border-b backdrop-blur-md">
       <div className="container-page relative flex h-16 items-center justify-between gap-4">
@@ -38,9 +36,10 @@ export function Navbar({ settings }: { settings: SiteSettings }) {
               ))}
             </ul>
           </nav>
-          {cvUrl && (
+          {cvHref && (
             <ButtonLink
-              href={cvUrl}
+              href={cvHref}
+              download
               variant="secondary"
               size="sm"
               className="ml-2 hidden md:inline-flex"
@@ -49,7 +48,7 @@ export function Navbar({ settings }: { settings: SiteSettings }) {
             </ButtonLink>
           )}
           <ThemeToggle />
-          <MobileNav links={links} cvUrl={cvUrl} />
+          <MobileNav links={links} cvHref={cvHref} />
         </div>
       </div>
     </header>

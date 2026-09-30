@@ -21,6 +21,8 @@ interface ButtonLinkProps {
   size?: keyof typeof sizes
   className?: string
   children: ReactNode
+  /** Same-origin file download (e.g. the CV PDF). */
+  download?: boolean
   'aria-label'?: string
 }
 
@@ -30,6 +32,7 @@ export function ButtonLink({
   size = 'md',
   className,
   children,
+  download,
   ...rest
 }: ButtonLinkProps) {
   const classes = cn(
@@ -53,9 +56,14 @@ export function ButtonLink({
     )
   }
 
-  if (href.startsWith('mailto:') || href.startsWith('tel:')) {
+  if (href.startsWith('mailto:') || href.startsWith('tel:') || download) {
     return (
-      <a href={href} className={classes} {...rest}>
+      <a
+        href={href}
+        download={download ? true : undefined}
+        className={classes}
+        {...rest}
+      >
         {children}
       </a>
     )

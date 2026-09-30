@@ -31,8 +31,3 @@ export function formatDateRange(
 export function isExternalUrl(href: string) {
   return /^https?:\/\//.test(href)
 }
-
-// Sanity CDN serves the file as an attachment when `dl` is present.
-export function withDownload(url: string) {
-  return `${url}?dl=`
-}

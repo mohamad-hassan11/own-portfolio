@@ -2,8 +2,8 @@ import { Reveal } from '@/components/ui/reveal'
 import { Section } from '@/components/ui/section'
 import { TagList } from '@/components/ui/tag-list'
 import { Timeline, TimelineItem } from '@/components/ui/timeline'
+import type { Experience } from '@/content/types'
 import { formatDateRange } from '@/lib/utils'
-import type { Experience } from '@/types/cms'
 
 export function ExperienceTimeline({ items }: { items: Experience[] }) {
   if (!items.length) return null
@@ -23,28 +23,19 @@ export function ExperienceTimeline({ items }: { items: Experience[] }) {
 
             return (
               <TimelineItem
-                key={item._id}
+                key={`${item.organisation}-${item.role}-${item.startDate}`}
                 period={formatDateRange(
                   item.startDate,
                   item.endDate,
-                  item.currentRole,
+                  item.current,
                 )}
-                title={item.jobTitle}
+                title={item.role}
                 subtitle={subtitle}
               >
-                {item.summary && (
-                  <p className="text-body text-muted">{item.summary}</p>
-                )}
-                {item.responsibilities && item.responsibilities.length > 0 && (
-                  <ul className="text-small text-muted list-disc space-y-1 pl-5">
-                    {item.responsibilities.map((line) => (
-                      <li key={line}>{line}</li>
-                    ))}
-                  </ul>
-                )}
+                <p className="text-body text-muted">{item.summary}</p>
                 <TagList
                   items={item.technologies}
-                  label={`${item.jobTitle} technologies`}
+                  label={`${item.role} technologies`}
                 />
               </TimelineItem>
             )

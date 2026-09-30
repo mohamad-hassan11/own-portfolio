@@ -2,9 +2,13 @@ import { ArrowRight } from 'lucide-react'
 import { ProjectList } from '@/components/projects/project-list'
 import { ButtonLink } from '@/components/ui/button'
 import { Section } from '@/components/ui/section'
-import type { ProjectSummary } from '@/types/cms'
+import type { ProjectMetadata } from '@/content/types'
 
-export function FeaturedProjects({ projects }: { projects: ProjectSummary[] }) {
+export function FeaturedProjects({
+  projects,
+}: {
+  projects: ProjectMetadata[]
+}) {
   if (!projects.length) return null
 
   return (
