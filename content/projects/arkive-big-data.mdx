@@ -37,6 +37,84 @@ The Big Data minor combined a solo onboarding assignment with this company-based
 
 Built API-based data ingestion and transformation pipelines feeding a MySQL database through SQLAlchemy, then exposed the results through Flask with Dash / Plotly dashboards for KPI visualisation.
 
+## Design
+
+The interface was mocked up before it was built: a login screen and a dashboard of six KPI cards.
+
+<Showcase
+  mediaWidth={360}
+  tone="violet"
+  label="Fig. 01 · Mockups"
+  src="/projects/arkive-big-data/design-mockups.png"
+  alt="Design mockups of the Arkive Insights login screen and a dashboard with six KPI cards: return on inventory cost, conversion rate, sell-through rate, revenue per SKU, days of inventory on hand and return rate."
+  width={728}
+  height={647}
+  zoom
+  mat
+>
+
+The dashboard mockup defines six KPIs:
+
+- Return on inventory cost (gross)
+- Conversion rate
+- Sell-through rate
+- Revenue per SKU
+- Days of inventory on hand
+- Return rate
+
+</Showcase>
+
+## Dashboards
+
+The implemented application follows the mockups. Access starts at a login screen, and accounts are created by an admin.
+
+<ProjectImage
+  tone="green"
+  label="Fig. 02 · Login"
+  src="/projects/arkive-big-data/login.png"
+  alt="The Arkive Insights login screen with email and password fields, a log in button and a note to contact an admin for an account."
+  width={940}
+  height={517}
+  caption="The implemented login screen."
+/>
+
+The KPI dashboard is filtered by product and by a month range, and its data can be exported to Excel.
+
+<ProjectImage
+  tone="blue"
+  zoom
+  label="Fig. 03 · KPI dashboard"
+  src="/projects/arkive-big-data/kpi-dashboard.png"
+  alt="The Arkive KPI dashboard filtered to one product, showing gross ROI by month as a bar chart, conversion rate as a donut chart of visitors versus buyers, and a sell-through rate chart marked as having no data."
+  width={940}
+  height={508}
+  caption="KPI dashboard for a single product: gross ROI by month, conversion rate (visitors versus buyers) and sell-through rate, which is labelled as having no data for this selection."
+/>
+
+A separate statistics page gives vendor-level views of the catalogue and inventory.
+
+<ProjectImage
+  tone="amber"
+  zoom
+  label="Fig. 04 · Products per vendor"
+  src="/projects/arkive-big-data/vendor-products-bar.png"
+  alt="Bar chart of the number of unique products stocked by each vendor, with a few vendors standing out with much larger assortments."
+  width={940}
+  height={516}
+  caption="Unique products stocked per vendor, to show which vendors have the largest assortment."
+/>
+
+<ProjectImage
+  tone="red"
+  zoom
+  label="Fig. 05 · Inventory value"
+  src="/projects/arkive-big-data/inventory-value-pie.png"
+  alt="Pie chart of the share of total inventory value contributed by the top 10 vendors, dominated by one vendor."
+  width={940}
+  height={446}
+  caption="Share of total inventory value contributed by the top 10 vendors."
+/>
+
 ## Implementation
 
 Automated the pipeline and dashboard behaviour with Pytest, and packaged deployment with Docker, Terraform and shell scripts inside a CI/CD workflow.
@@ -44,5 +122,3 @@ Automated the pipeline and dashboard behaviour with Pytest, and packaged deploym
 ## What I learned
 
 Moved from building standalone analyses to delivering a maintainable, team-based data application under real-world constraints: data quality, database design, dashboard UX, version-control workflow, testing and cloud-ready deployment.
-
-{/* Add more sections below (Context, Problem, Architecture, Implementation, Results, What I learned). */}

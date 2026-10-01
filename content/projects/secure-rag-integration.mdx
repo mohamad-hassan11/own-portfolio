@@ -38,15 +38,91 @@ Atlantis is DEVENTit's multi-tenant platform, built around a strict authorizatio
 
 Analysed the Atlantis authorization model in depth and researched LLM ecosystems (managed APIs versus open-weight models), retrieval-augmented generation architectures and vector databases. Designed and built an indexing pipeline that processes, transforms and stores documents in batches, plus a hybrid retrieval pipeline combining dense vector embeddings (semantic search) with sparse BM25 keyword matching (lexical search).
 
+### Early prototype
+
+The first iteration was an n8n workflow. A chat trigger feeds an LLM step that extracts search data from the question; switch nodes route it to one of three search branches. Each branch calls the search API over HTTP, uses LLM steps to correct the document type and match entries, executes the search, normalises the results and presents them through a final LLM chain.
+
+<ProjectImage
+  wide
+  zoom
+  tone="amber"
+  label="Fig. 01 · Early prototype"
+  src="/projects/secure-rag-integration/n8n-prototype.png"
+  alt="n8n workflow canvas. A chat trigger connects to a search data extractor LLM node with a structured output parser, then to a search type switch and a search a record switch. These route to three branches that each call a search API over HTTP, run document type correction and result normalisation, and end in a basic LLM chain backed by a Groq chat model."
+  width={1892}
+  height={1054}
+  caption="The n8n workflow from the early tests: LLM-based extraction and routing in front of the search API."
+/>
+
 ## Architecture
 
 A dedicated RAG service acts as a natural-language assistant: the LLM interprets a prompt, extracts structured search terms and filters, and returns candidate document identifiers. The Atlantis backend then enforces the existing access rights before any result reaches the user — the RAG service never becomes an authority on access control, Atlantis always is.
 
-<Callout>
-  Confidential project: implementation details, source code and architecture
-  diagrams for Atlantis are not published here. This case study describes the
-  approach and outcome only.
+<Callout tone="red" title="Confidential">
+  Confidential project: source code and internal implementation details are
+  not published here. The figures in this case study are limited to the
+  high-level flow and the assistant's public-facing behaviour.
 </Callout>
+
+<ArchitectureDiagram
+  wide
+  tone="blue"
+  label="Fig. 02 · Sequence"
+  src="/projects/secure-rag-integration/sequence-rights-enforcement.png"
+  alt="Sequence diagram of one query. The Atlantis frontend posts the prompt, conversation ID and access token to the chat API. The chat API loads conversation context, asks the RAG service for candidate document IDs, has the Atlantis Search API validate them by rights, appends the turn to the conversation, and returns only authorised results to the frontend."
+  width={3743}
+  height={1634}
+  caption="Rights enforcement, end to end. Steps 7 and 8 are the security boundary: candidate document IDs from the RAG service are validated by the Atlantis Search API against the caller's access token before anything reaches the user."
+/>
+
+## Retrieval pipeline
+
+Every query goes through the same hybrid retrieval pipeline. The LLM agent first interprets the prompt, then two retrieval branches run under a shared filter and their results are fused into a single ranking.
+
+<Showcase
+  mediaWidth={352}
+  tone="green"
+  label="Fig. 03 · Retrieval"
+  src="/projects/secure-rag-integration/hybrid-retrieval.png"
+  alt="Flowchart of hybrid retrieval. The LLM agent interprets intent into a hard filter, a temporal mapping and topic extraction. The filter is applied to both a dense embedding search and a BM25 search in Qdrant, each returning the top 50. Reciprocal Rank Fusion merges them into the top 10 document IDs with payload, the RAG layer fetches content, and the LLM generates a structured answer."
+  width={1774}
+  height={2895}
+  zoom
+  mat
+  caption="Worked example: a prompt asking for moderated documents about roses from the year the internet was invented."
+>
+
+1. **Interpret intent.** The agent separates the prompt into hard filters, temporal constraints and topics. In the example, "moderated documents" becomes `isModerated = true` and "when the internet was invented" is mapped to 1983 ± 1.
+2. **Build one filter.** Hard filters and temporal mapping are combined into a single Qdrant filter that is applied to both retrieval branches.
+3. **Retrieve two ways.** Topics are encoded as a dense embedding (384 dimensions, cosine similarity) for semantic matching and as a sparse BM25 vector for keyword matching. Each branch returns its top 50.
+4. **Fuse.** Reciprocal Rank Fusion merges the two ranked lists and keeps the top 10, as document IDs plus payload.
+5. **Answer.** The RAG layer fetches the content and the LLM returns a structured answer: document IDs, which Atlantis then validates against the user's rights.
+
+</Showcase>
+
+## The assistant in practice
+
+<Showcase
+  side="right"
+  mediaWidth={273}
+  tone="violet"
+  label="Fig. 04 · Agent trace"
+  src="/projects/secure-rag-integration/agent-assistant.png"
+  alt="The AI Assistant panel showing the agent's reasoning trace for the query 'war': query understanding, retrieval of 20 documents, ranking, and answer generation from 16 ranked documents, plus the search_documents tool call with its parameters."
+  width={273}
+  height={697}
+>
+
+The assistant panel shows the agent's reasoning instead of hiding it. For a test query ("war") the trace lists each stage in order:
+
+- **Query understanding:** extracting search terms and filters.
+- **Retrieval:** 20 documents retrieved with the extracted query.
+- **Ranking:** the 20 documents ranked by relevance.
+- **Answer generation:** the answer is built from the 16 top-ranked documents.
+
+The tool call is listed too: `search_documents`, with the extracted terms and a result size of 20. Each stage of the path from prompt to answer can be inspected.
+
+</Showcase>
 
 ## Results
 

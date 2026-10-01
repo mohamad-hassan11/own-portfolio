@@ -1,8 +1,9 @@
-import { ProjectImage } from '@/components/mdx/project-image'
+import {
+  ProjectImage,
+  type ProjectImageProps,
+} from '@/components/mdx/project-image'
 
-type ArchitectureDiagramProps = Parameters<typeof ProjectImage>[0]
-
-// Diagrams sit on a surface so transparent PNG/SVG exports stay readable in both themes.
-export function ArchitectureDiagram(props: ArchitectureDiagramProps) {
-  return <ProjectImage {...props} className="bg-surface p-3" />
+// Diagrams are mounted on a white sheet and can be expanded to full size.
+export function ArchitectureDiagram(props: ProjectImageProps) {
+  return <ProjectImage zoom mat {...props} />
 }
