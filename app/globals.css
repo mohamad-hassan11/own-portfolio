@@ -334,9 +334,20 @@
   animation: blink 1.6s ease-in-out infinite;
 }
 
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility animate-marquee {
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-menu-in,
-  .animate-blink {
+  .animate-blink,
+  .animate-marquee {
     animation: none;
   }
 }

@@ -2,7 +2,7 @@ import { ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ProjectLinks } from '@/components/projects/project-links'
-import { TagList } from '@/components/ui/tag-list'
+import { TechMarquee } from '@/components/projects/tech-marquee'
 import type { Project } from '@/content/projects'
 
 export function CaseStudy({ project }: { project: Project }) {
@@ -48,23 +48,11 @@ export function CaseStudy({ project }: { project: Project }) {
         </div>
       )}
 
-      <div className="max-w-3xl">
+      <div className="max-w-3xl [&>h2:nth-of-type(5n+1)]:border-(color:--tone-blue) [&>h2:nth-of-type(5n+2)]:border-(color:--tone-green) [&>h2:nth-of-type(5n+3)]:border-(color:--tone-amber) [&>h2:nth-of-type(5n+4)]:border-(color:--tone-red) [&>h2:nth-of-type(5n+5)]:border-(color:--tone-violet)">
         <Content />
-
-        <section aria-labelledby="technology-heading" className="mt-16">
-          <h2
-            id="technology-heading"
-            className="text-h2 border-accent border-l-4 pl-4"
-          >
-            Technology
-          </h2>
-          <TagList
-            items={metadata.technologies}
-            label="Technologies used"
-            className="mt-5 gap-2"
-          />
-        </section>
       </div>
+
+      <TechMarquee items={metadata.technologies} />
     </article>
   )
 }

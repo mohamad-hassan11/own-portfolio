@@ -5,6 +5,7 @@ import type { ComponentPropsWithoutRef } from 'react'
 import { ArchitectureDiagram } from '@/components/mdx/architecture-diagram'
 import { Callout } from '@/components/mdx/callout'
 import { ProjectImage } from '@/components/mdx/project-image'
+import { Showcase } from '@/components/mdx/showcase'
 import { cn } from '@/lib/utils'
 
 function MdxLink({
@@ -126,6 +127,7 @@ const components: MDXComponents = {
   ProjectImage,
   ArchitectureDiagram,
   Callout,
+  Showcase,
 }
 
 export function useMDXComponents(): MDXComponents {
