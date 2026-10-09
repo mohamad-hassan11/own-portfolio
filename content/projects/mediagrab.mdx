@@ -1,0 +1,76 @@
+export const metadata = {
+  title: 'MediaGrab',
+  slug: 'mediagrab',
+  summary: 'A media collection and organization tool for managing digital assets',
+  projectType: 'Personal Project',
+  organisation: 'Self',
+  year: 2024,
+  featured: true,
+  order: 6,
+  coverImage: '/projects/mediagrab/cover.webp',
+  technologies: ['TypeScript', 'Next.js', 'React', 'Tailwind CSS', 'Node.js'],
+  githubUrl: 'https://github.com/mohamad-hassan/mediagrab',
+  liveUrl: 'https://mediagrab.vercel.app',
+}
+
+## Overview
+
+MediaGrab is a personal project designed to solve the problem of organizing digital media assets across multiple platforms. It serves as a centralized hub for collecting, managing, and accessing various types of media files.
+
+## Problem Statement
+
+As someone who works with multiple platforms (social media, websites, etc.), I found myself struggling to maintain consistency and organization across my media collection. MediaGrab addresses this challenge by providing a unified interface for all media assets.
+
+## Technical Architecture
+
+<details>
+<summary>Click to expand technical details</summary>
+
+The application features a modern React-based architecture built with TypeScript for enhanced type safety. It uses:
+
+- **Frontend**: Next.js App Router with Server Components
+- **Styling**: Tailwind CSS for responsive, maintainable UI
+- **State Management**: React Context API for global state management
+- **Data Persistence**: Local storage with fallback to browser's IndexedDB
+- **Media Processing**: Web Workers for handling large files efficiently
+
+The application is structured around a clean component hierarchy where:
+- Content components handle media display and interaction
+- Service providers manage data fetching and processing
+- Utility functions abstract common operations like file validation and format conversion
+</details>
+
+## Implementation Highlights
+
+### Responsive Design
+The application features a responsive layout that works seamlessly across devices. Media items are displayed in a grid, automatically adjusting based on screen size while maintaining optimal viewing experience.
+
+### Media Processing
+A custom media processing pipeline handles various file types efficiently using modern browser APIs and Web Workers to prevent UI blocking during intensive operations.
+
+### Performance Optimizations
+The application is optimized for performance with:
+- Lazy-loaded components
+- Efficient rendering strategies
+- Image optimization techniques
+- Code splitting for optimal bundle sizes
+
+### User Experience
+Key UX considerations include:
+- Intuitive drag-and-drop functionality
+- Search and filtering capabilities
+- Keyboard navigation support
+- Responsive feedback for user actions
+
+## Result
+
+MediaGrab successfully addresses the organization of digital media assets across platforms with a clean, modern interface that provides an enhanced user experience compared to traditional file managers.
+
+## Lessons Learned
+
+This personal project taught me valuable lessons about:
+- Building scalable front-end applications with TypeScript
+- Managing asynchronous operations efficiently in React
+- Designing responsive interfaces that work across all devices
+- Implementing performance optimizations without sacrificing usability
+- The importance of user-centered design in technical projects

@@ -4,6 +4,7 @@ import * as amsterdamEvents from './amsterdam-events.mdx'
 import * as android from './android-mobile-development.mdx'
 import * as arkive from './arkive-big-data.mdx'
 import * as flyfriends from './flyfriends.mdx'
+import * as mediagrab from './mediagrab.mdx'
 import * as pad from './pad.mdx'
 import * as rag from './secure-rag-integration.mdx'
 
@@ -13,7 +14,7 @@ export interface Project {
 }
 
 // To add a project: create <slug>.mdx here, then import it above and list it below.
-const modules = [rag, arkive, android, amsterdamEvents, pad, flyfriends]
+const modules = [rag, arkive, android, amsterdamEvents, pad, flyfriends, mediagrab]
 
 const projects: Project[] = modules
   .map((mod) => ({ metadata: mod.metadata, Content: mod.default }))
