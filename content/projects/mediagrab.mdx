@@ -1,76 +1,145 @@
 export const metadata = {
   title: 'MediaGrab',
   slug: 'mediagrab',
-  summary: 'A media collection and organization tool for managing digital assets',
+  summary:
+    'A media downloader that grew from a native Windows utility into a Next.js and FastAPI application, containerized and self-hosted on a Linux Mint laptop.',
   projectType: 'Personal Project',
   organisation: 'Self',
-  year: 2024,
+  year: 2026,
   featured: true,
-  order: 6,
-  coverImage: '/projects/mediagrab/cover.webp',
-  technologies: ['TypeScript', 'Next.js', 'React', 'Tailwind CSS', 'Node.js'],
-  githubUrl: 'https://github.com/mohamad-hassan/mediagrab',
-  liveUrl: 'https://mediagrab.vercel.app',
+  order: 2,
+  coverImage: '/projects/mediagrab/cover.png',
+  technologies: [
+    'C#',
+    'WPF',
+    '.NET',
+    'Next.js',
+    'React',
+    'TypeScript',
+    'Tailwind CSS',
+    'Python',
+    'FastAPI',
+    'yt-dlp',
+    'FFmpeg',
+    'Docker',
+    'Docker Compose',
+    'Linux Mint',
+    'Cloudflare Tunnel',
+  ],
+  githubUrl: 'https://github.com/mohamad-hassan11/MediaGrab',
+  liveUrl: null,
 }
 
 ## Overview
 
-MediaGrab is a personal project designed to solve the problem of organizing digital media assets across multiple platforms. It serves as a centralized hub for collecting, managing, and accessing various types of media files.
+MediaGrab accepts a supported media URL and downloads audio as MP3 or video as MP4, with selectable quality. It has two user-facing implementations: a C#/WPF Windows application and a browser client backed by Next.js and FastAPI. Both use yt-dlp to retrieve media and FFmpeg for conversion or stream merging. I also run the containerized web application from my own Linux Mint laptop and make it reachable through Cloudflare Tunnel and a custom domain.
 
-## Problem Statement
+## Why I built it
 
-As someone who works with multiple platforms (social media, websites, etc.), I found myself struggling to maintain consistency and organization across my media collection. MediaGrab addresses this challenge by providing a unified interface for all media assets.
+The first version was a practical Windows utility. I expanded it into a web application to learn how the same download workflow changes when it has to cross a browser, an API, background work, containers, and a real network boundary. The project became a way to work through more of the software lifecycle than the desktop application alone required.
 
-## Technical Architecture
+## How the project evolved
 
-<details>
-<summary>Click to expand technical details</summary>
+1. I built a native Windows utility for downloading audio.
+2. I added video downloads and quality selection.
+3. I created a browser interface for the same workflow.
+4. I added a FastAPI service to run media operations outside the browser.
+5. I containerized the API and web application.
+6. I used Docker Compose to build and run the services together.
+7. I configured a Linux Mint laptop as the host for the application.
+8. I connected the host to the public internet with Cloudflare Tunnel and my own domain.
 
-The application features a modern React-based architecture built with TypeScript for enhanced type safety. It uses:
+## Application architecture
 
-- **Frontend**: Next.js App Router with Server Components
-- **Styling**: Tailwind CSS for responsive, maintainable UI
-- **State Management**: React Context API for global state management
-- **Data Persistence**: Local storage with fallback to browser's IndexedDB
-- **Media Processing**: Web Workers for handling large files efficiently
+The desktop client starts yt-dlp as a local process. In the web version, Next.js forwards same-origin `/api` requests to FastAPI, which manages a download job and invokes the media tools.
 
-The application is structured around a clean component hierarchy where:
-- Content components handle media display and interaction
-- Service providers manage data fetching and processing
-- Utility functions abstract common operations like file validation and format conversion
-</details>
+<ArchitectureDiagram
+  wide
+  zoom
+  tone="blue"
+  label="Fig. 01 · Application flows"
+  src="/projects/mediagrab/application-flow.svg"
+  alt="Two MediaGrab flows. The Windows WPF client starts yt-dlp, which uses FFmpeg to create an MP3 or merged MP4 in the selected folder. The web client sends same-origin job requests through a Next.js rewrite to FastAPI; yt-dlp and FFmpeg process the media, and the browser polls for status before retrieving the completed file."
+  width={1600}
+  height={900}
+  caption="The desktop app runs the tools on Windows; the web app delegates work to the API and returns the completed file to the browser."
+/>
 
-## Implementation Highlights
+## Windows desktop application
 
-### Responsive Design
-The application features a responsive layout that works seamlessly across devices. Media items are displayed in a grid, automatically adjusting based on screen size while maintaining optimal viewing experience.
+The desktop client is a WPF application written in C#. It collects a URL, format, quality, and destination folder; the default destination is the user's Downloads folder, and a folder picker can change it. The active download service invokes yt-dlp with `ProcessStartInfo.ArgumentList` rather than reimplementing media extraction. It points yt-dlp at the app's tools directory so FFmpeg is available for post-processing.
 
-### Media Processing
-A custom media processing pipeline handles various file types efficiently using modern browser APIs and Web Workers to prevent UI blocking during intensive operations.
+The UI reads yt-dlp's output to report percentage, transfer speed, and ETA, and displays status changes for metadata lookup, conversion, and stream merging. A non-zero process exit becomes an error shown to the user. The publish profile is configured for self-contained `win-x64` folder output, not a single-file executable; the project also copies files from its `Tools` directory into build and publish output.
 
-### Performance Optimizations
-The application is optimized for performance with:
-- Lazy-loaded components
-- Efficient rendering strategies
-- Image optimization techniques
-- Code splitting for optimal bundle sizes
+Video choices include best available and height limits of 2160p, 1440p, 1080p, 720p, 480p, and 360p. Audio has best, high, and medium quality options.
 
-### User Experience
-Key UX considerations include:
-- Intuitive drag-and-drop functionality
-- Search and filtering capabilities
-- Keyboard navigation support
-- Responsive feedback for user actions
+## Web application
+
+The browser client uses Next.js, React, TypeScript, and Tailwind CSS. It accepts a URL, lets the user choose MP3 or MP4, and updates the quality choices for the selected format. While a job runs, the page shows status, progress, speed, ETA, and errors. When the API reports completion, the browser retrieves the file and starts a download.
+
+The browser does not process media itself. Its API calls use same-origin `/api` paths; the Next.js rewrite sends them to the `api` service on the Compose network. This keeps the backend address internal to the deployment instead of requiring a public API URL in the browser.
+
+## FastAPI jobs and media processing
+
+FastAPI exposes `POST /api/jobs` to start a job, `GET /api/jobs/{job_id}` to read its status, `GET /api/jobs/{job_id}/file` to retrieve the result, and `GET /api/health` for a health check. A Pydantic request model validates the URL and limits the download type to audio or video. The API schedules the work with FastAPI `BackgroundTasks`; job state is held in an in-memory registry with queued, downloading, processing, completed, and failed states.
+
+yt-dlp progress hooks update that job state with percentage, speed, and ETA. The frontend polls the status endpoint every 500 ms, then requests the file when processing finishes. Each job writes into its own temporary directory. The API schedules that directory and job record for cleanup after file retrieval, and removes partial files on failure. Because the registry is in memory, this design is for a single API process rather than a durable, multi-instance job queue.
+
+The actual media steps depend on the selected output:
+
+- **Audio:** yt-dlp selects the best available audio stream; FFmpeg extracts MP3 at the selected quality, adds metadata, converts the thumbnail to JPEG, and embeds it.
+- **Video:** yt-dlp selects a video/audio combination, applying the chosen maximum height when specified. FFmpeg merges separate streams when needed and writes MP4 with metadata.
+
+## Docker and Compose
+
+The API image starts from Python 3.12 slim, installs system FFmpeg and Node.js 22, installs the Python requirements, and runs Uvicorn on port 8000. The downloader enables yt-dlp's Node JavaScript runtime when Node is available. This puts the Python dependencies and media-processing tools in the Linux runtime instead of relying on hand-configured host packages.
+
+The web Dockerfile builds Next.js in stages and uses its standalone output in a small Node 22 Alpine runtime. Docker Compose builds both services, connects them on its service network, starts the web service after the API, and applies `restart: unless-stopped` to each. The API's port 8000 is exposed to the Compose network, not published to the host. The web container's port 3000 is bound only to `127.0.0.1` on the Linux host.
+
+## Self-hosting on Linux Mint
+
+Rather than treating deployment as a managed-cloud-only step, I configured my own laptop running Linux Mint to host MediaGrab. Docker Compose runs the API and web containers there; the loopback-only web binding gives the host a local endpoint while keeping the API reachable through Docker's internal network. This put Linux service operation, container logs, ports, filesystem behavior, and deployment troubleshooting into the same project as the application work.
+
+The Compose file sets `ALLOWED_ORIGINS` for the API, while the FastAPI code also defines its default local and Vercel origins. The app's container-to-container requests go through the Next.js rewrite, so they do not depend on the browser reaching the API container directly.
+
+## Cloudflare Tunnel and the public route
+
+I run `cloudflared` on the Linux Mint host and connect the application to my custom domain through Cloudflare Tunnel. The tunnel gives Cloudflare a route to the host's loopback-bound web service without traditional inbound port forwarding. The tunnel is an infrastructure choice, not a Compose service: its configuration is not present in the MediaGrab repository.
+
+<ArchitectureDiagram
+  wide
+  zoom
+  tone="green"
+  label="Fig. 02 · Self-hosted deployment"
+  src="/projects/mediagrab/deployment-flow.svg"
+  alt="Public requests travel from a browser through a custom domain and Cloudflare to a Cloudflare Tunnel, then to cloudflared on a Linux Mint laptop. The host-local tunnel route reaches the Next.js container bound to 127.0.0.1 port 3000. Next.js forwards API requests over the Docker Compose network to FastAPI on api port 8000, where yt-dlp and FFmpeg process the media."
+  width={1600}
+  height={900}
+  caption="The tunnel configuration runs outside Compose. Compose publishes only the web service to the host loopback interface and keeps the API on the internal service network."
+/>
+
+The tunnel avoids opening an inbound port on my network; it does not by itself describe every access-control or application-security setting. The repository does not contain the tunnel hostname or ingress configuration, so I have not added a public live link.
+
+## Development and production differences
+
+The desktop app runs Windows executables from its `Tools` directory, while the API container uses Linux packages for FFmpeg and Node. The web container communicates with the API through Compose DNS (`api:8000`), but the public browser uses the Next.js `/api` path. These boundaries made executable paths, environment configuration, container networking, and temporary-file behavior important to check separately rather than assuming local development matched deployment.
+
+The repository contains no MediaGrab UI screenshots. The illustrations on this page are architecture diagrams, not screenshots or mockups of the application.
+
+## Engineering challenges
+
+- **Managing external processes:** the WPF service builds explicit yt-dlp arguments, reads progress from process output, collects error output, and reports a failed exit code instead of hiding it.
+- **Handling video formats:** higher resolutions may be separate video and audio streams, so the selected format must allow yt-dlp and FFmpeg to merge them into MP4.
+- **Representing long-running work:** the API separates job creation from status and file retrieval. Progress hooks, a status registry, and browser polling keep the UI updated without holding one download request open.
+- **Moving to a self-hosted runtime:** Docker packages the API's system dependencies, Compose provides service discovery, and the loopback-bound web port gives the host's tunnel a local destination without publishing the API port.
+
+## What I learned
+
+- **Application development:** building both a WPF desktop interface and a Next.js/React client, with a Python API between the browser and media tools.
+- **Backend and media processing:** shaping a job-oriented API, surfacing progress and failure states, and using yt-dlp with FFmpeg for audio extraction and video merging.
+- **Deployment:** building Linux containers, coordinating services with Compose, and tracing requests across browser, Next.js, FastAPI, and Docker networking.
+- **Linux and networking:** operating the application on my Linux Mint laptop and connecting a host-local service to a public custom domain through Cloudflare Tunnel.
 
 ## Result
 
-MediaGrab successfully addresses the organization of digital media assets across platforms with a clean, modern interface that provides an enhanced user experience compared to traditional file managers.
-
-## Lessons Learned
-
-This personal project taught me valuable lessons about:
-- Building scalable front-end applications with TypeScript
-- Managing asynchronous operations efficiently in React
-- Designing responsive interfaces that work across all devices
-- Implementing performance optimizations without sacrificing usability
-- The importance of user-centered design in technical projects
+MediaGrab now includes a Windows desktop downloader and a browser-based downloader with a FastAPI job API. Both support audio/video output and quality selection; the web stack runs in Docker Compose on my Linux Mint laptop and is reachable through Cloudflare Tunnel. The GitHub repository is linked below; a live URL is omitted because the tunnel's public hostname is not recorded in the project files.

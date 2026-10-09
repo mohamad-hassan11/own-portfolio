@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="m1 1 7 4-7 4" stroke="#111827" stroke-width="2" fill="none"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="900" fill="#F5F6F8"/>
+  <text x="64" y="76" fill="#111827" font-family="Arial, sans-serif" font-size="34" font-weight="800">SELF-HOSTED DEPLOYMENT</text>
+  <text x="64" y="114" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">The public route ends at a host-local web port; the API stays inside the Compose network.</text>
+
+  <rect x="64" y="176" width="210" height="138" fill="#FFF" stroke="#111827" stroke-width="3"/>
+  <path d="M64 176h210v12H64z" fill="#2563EB"/>
+  <text x="86" y="232" fill="#111827" font-family="Arial, sans-serif" font-size="21" font-weight="700">Internet</text>
+  <text x="86" y="267" fill="#4B5563" font-family="Arial, sans-serif" font-size="16">user's browser</text>
+
+  <path d="M286 245h54" stroke="#111827" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="354" y="176" width="250" height="138" fill="#EFF6FF" stroke="#111827" stroke-width="3"/>
+  <path d="M354 176h250v12H354z" fill="#2563EB"/>
+  <text x="376" y="232" fill="#111827" font-family="Arial, sans-serif" font-size="20" font-weight="700">Custom domain</text>
+  <text x="376" y="267" fill="#4B5563" font-family="Arial, sans-serif" font-size="16">DNS / public entry</text>
+
+  <path d="M616 245h54" stroke="#111827" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="684" y="176" width="250" height="138" fill="#FFF7ED" stroke="#111827" stroke-width="3"/>
+  <path d="M684 176h250v12H684z" fill="#D97706"/>
+  <text x="706" y="232" fill="#111827" font-family="Arial, sans-serif" font-size="20" font-weight="700">Cloudflare</text>
+  <text x="706" y="267" fill="#4B5563" font-family="Arial, sans-serif" font-size="16">edge and tunnel</text>
+
+  <path d="M946 245h54" stroke="#111827" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="1014" y="176" width="250" height="138" fill="#FFF7ED" stroke="#111827" stroke-width="3"/>
+  <path d="M1014 176h250v12H1014z" fill="#D97706"/>
+  <text x="1036" y="232" fill="#111827" font-family="Arial, sans-serif" font-size="20" font-weight="700">Cloudflare Tunnel</text>
+  <text x="1036" y="267" fill="#4B5563" font-family="Arial, sans-serif" font-size="16">no inbound port forward</text>
+
+  <path d="M1276 245h54" stroke="#111827" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="1344" y="176" width="210" height="138" fill="#ECFDF5" stroke="#111827" stroke-width="3"/>
+  <path d="M1344 176h210v12h-210z" fill="#15803D"/>
+  <text x="1366" y="232" fill="#111827" font-family="Arial, sans-serif" font-size="20" font-weight="700">cloudflared</text>
+  <text x="1366" y="267" fill="#4B5563" font-family="Arial, sans-serif" font-size="15">Linux Mint laptop</text>
+
+  <path d="M1449 322v110H800v42" stroke="#15803D" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="1138" y="420" fill="#166534" font-family="Arial, sans-serif" font-size="15">host-local route to 127.0.0.1:3000</text>
+
+  <rect x="176" y="490" width="1248" height="320" fill="#FFF" stroke="#111827" stroke-width="3"/>
+  <path d="M176 490h1248v14H176z" fill="#111827"/>
+  <text x="212" y="548" fill="#111827" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="2">DOCKER COMPOSE ON THE LINUX HOST</text>
+
+  <rect x="238" y="594" width="450" height="154" fill="#EFF6FF" stroke="#111827" stroke-width="2"/>
+  <path d="M238 594h450v10H238z" fill="#2563EB"/>
+  <text x="266" y="646" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">web · Next.js</text>
+  <text x="266" y="681" fill="#4B5563" font-family="Arial, sans-serif" font-size="16">container port 3000</text>
+  <text x="266" y="712" fill="#1D4ED8" font-family="Arial, sans-serif" font-size="16" font-weight="700">host binding 127.0.0.1:3000</text>
+
+  <path d="M704 672h150" stroke="#111827" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="707" y="645" fill="#4B5563" font-family="Arial, sans-serif" font-size="15">rewrite /api to api:8000</text>
+
+  <rect x="870" y="594" width="490" height="154" fill="#ECFDF5" stroke="#111827" stroke-width="2"/>
+  <path d="M870 594h490v10H870z" fill="#15803D"/>
+  <text x="898" y="646" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">api · FastAPI</text>
+  <text x="898" y="681" fill="#4B5563" font-family="Arial, sans-serif" font-size="16">internal port 8000 (Compose only)</text>
+  <text x="898" y="712" fill="#166534" font-family="Arial, sans-serif" font-size="16">yt-dlp + FFmpeg · temporary job files</text>
+
+  <text x="212" y="782" fill="#6B7280" font-family="Arial, sans-serif" font-size="14">cloudflared runs on the host; the repository's Compose file defines only web and api services.</text>
+</svg>

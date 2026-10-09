@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" fill="none">
+  <rect width="1200" height="675" fill="#F5F6F8"/>
+  <path d="M0 0h1200v18H0z" fill="#2563EB"/>
+  <path d="M40 60h1120v575H40z" fill="#FFF" stroke="#111827" stroke-width="4"/>
+  <path d="M40 60h14v575H40z" fill="#2563EB"/>
+  <text x="88" y="126" fill="#374151" font-family="Arial, sans-serif" font-size="19" font-weight="700" letter-spacing="3">MEDIAGRAB / CASE STUDY</text>
+  <text x="88" y="220" fill="#111827" font-family="Arial, sans-serif" font-size="66" font-weight="800">From desktop utility</text>
+  <text x="88" y="298" fill="#111827" font-family="Arial, sans-serif" font-size="66" font-weight="800">to self-hosted system.</text>
+  <text x="90" y="354" fill="#4B5563" font-family="Arial, sans-serif" font-size="24">Windows · Web · API · Linux</text>
+  <path d="M90 402h1020" stroke="#D1D5DB" stroke-width="2"/>
+  <rect x="90" y="452" width="255" height="104" fill="#EFF6FF" stroke="#111827" stroke-width="3"/>
+  <path d="M90 452h255v12H90z" fill="#2563EB"/>
+  <text x="112" y="507" fill="#111827" font-family="Arial, sans-serif" font-size="21" font-weight="700">WPF desktop</text>
+  <text x="112" y="538" fill="#4B5563" font-family="Arial, sans-serif" font-size="17">C# / Windows</text>
+  <path d="M361 504h56" stroke="#111827" stroke-width="4"/>
+  <path d="m408 494 12 10-12 10" stroke="#111827" stroke-width="4"/>
+  <rect x="435" y="452" width="255" height="104" fill="#ECFDF5" stroke="#111827" stroke-width="3"/>
+  <path d="M435 452h255v12H435z" fill="#15803D"/>
+  <text x="457" y="507" fill="#111827" font-family="Arial, sans-serif" font-size="21" font-weight="700">Web + API</text>
+  <text x="457" y="538" fill="#4B5563" font-family="Arial, sans-serif" font-size="17">Next.js / FastAPI</text>
+  <path d="M706 504h56" stroke="#111827" stroke-width="4"/>
+  <path d="m753 494 12 10-12 10" stroke="#111827" stroke-width="4"/>
+  <rect x="780" y="452" width="330" height="104" fill="#FFF7ED" stroke="#111827" stroke-width="3"/>
+  <path d="M780 452h330v12H780z" fill="#D97706"/>
+  <text x="802" y="507" fill="#111827" font-family="Arial, sans-serif" font-size="21" font-weight="700">Self-hosted deployment</text>
+  <text x="802" y="538" fill="#4B5563" font-family="Arial, sans-serif" font-size="17">Docker · Linux Mint · Tunnel</text>
+  <text x="90" y="603" fill="#6B7280" font-family="Arial, sans-serif" font-size="16" letter-spacing="1">yt-dlp + FFmpeg / AUDIO + VIDEO</text>
+</svg>

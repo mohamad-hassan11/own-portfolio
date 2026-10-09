@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="m1 1 7 4-7 4" stroke="#111827" stroke-width="2" fill="none"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="900" fill="#F5F6F8"/>
+  <text x="64" y="76" fill="#111827" font-family="Arial, sans-serif" font-size="34" font-weight="800">APPLICATION ARCHITECTURE</text>
+  <text x="64" y="114" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">Two clients, with media extraction and FFmpeg processing at the point each workflow runs.</text>
+
+  <rect x="48" y="152" width="1504" height="286" fill="#FFF" stroke="#111827" stroke-width="3"/>
+  <path d="M48 152h1504v12H48z" fill="#2563EB"/>
+  <text x="80" y="203" fill="#1D4ED8" font-family="Arial, sans-serif" font-size="17" font-weight="700" letter-spacing="2">WINDOWS DESKTOP</text>
+  <text x="80" y="232" fill="#4B5563" font-family="Arial, sans-serif" font-size="16">Local process execution</text>
+
+  <rect x="80" y="276" width="278" height="118" fill="#EFF6FF" stroke="#111827" stroke-width="2"/>
+  <text x="104" y="322" fill="#111827" font-family="Arial, sans-serif" font-size="21" font-weight="700">WPF client</text>
+  <text x="104" y="354" fill="#4B5563" font-family="Arial, sans-serif" font-size="16">URL · format · quality</text>
+  <text x="104" y="378" fill="#4B5563" font-family="Arial, sans-serif" font-size="16">destination folder</text>
+  <path d="M370 335h74" stroke="#111827" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="456" y="276" width="278" height="118" fill="#FFF" stroke="#111827" stroke-width="2"/>
+  <text x="480" y="322" fill="#111827" font-family="Arial, sans-serif" font-size="21" font-weight="700">yt-dlp process</text>
+  <text x="480" y="354" fill="#4B5563" font-family="Arial, sans-serif" font-size="16">launched with arguments</text>
+  <text x="480" y="378" fill="#4B5563" font-family="Arial, sans-serif" font-size="16">progress read from output</text>
+  <path d="M746 335h74" stroke="#111827" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="832" y="276" width="278" height="118" fill="#FFF7ED" stroke="#111827" stroke-width="2"/>
+  <text x="856" y="322" fill="#111827" font-family="Arial, sans-serif" font-size="21" font-weight="700">FFmpeg</text>
+  <text x="856" y="354" fill="#4B5563" font-family="Arial, sans-serif" font-size="16">extract or merge streams</text>
+  <text x="856" y="378" fill="#4B5563" font-family="Arial, sans-serif" font-size="16">write MP3 or MP4</text>
+  <path d="M1122 335h74" stroke="#111827" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="1208" y="276" width="278" height="118" fill="#ECFDF5" stroke="#111827" stroke-width="2"/>
+  <text x="1232" y="322" fill="#111827" font-family="Arial, sans-serif" font-size="21" font-weight="700">Selected folder</text>
+  <text x="1232" y="354" fill="#4B5563" font-family="Arial, sans-serif" font-size="16">completed media file</text>
+
+  <rect x="48" y="462" width="1504" height="390" fill="#FFF" stroke="#111827" stroke-width="3"/>
+  <path d="M48 462h1504v12H48z" fill="#15803D"/>
+  <text x="80" y="514" fill="#15803D" font-family="Arial, sans-serif" font-size="17" font-weight="700" letter-spacing="2">WEB APPLICATION</text>
+  <text x="80" y="543" fill="#4B5563" font-family="Arial, sans-serif" font-size="16">Job creation, status polling, and file retrieval</text>
+
+  <rect x="80" y="603" width="300" height="142" fill="#ECFDF5" stroke="#111827" stroke-width="2"/>
+  <text x="104" y="646" fill="#111827" font-family="Arial, sans-serif" font-size="20" font-weight="700">Browser / Next.js</text>
+  <text x="104" y="678" fill="#4B5563" font-family="Arial, sans-serif" font-size="16">UI · same-origin /api rewrite</text>
+  <text x="104" y="707" fill="#4B5563" font-family="Arial, sans-serif" font-size="15">progress and file download</text>
+  <path d="M390 673h60" stroke="#111827" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="388" y="648" fill="#4B5563" font-family="Arial, sans-serif" font-size="14">/api/*</text>
+
+  <rect x="465" y="603" width="300" height="142" fill="#EFF6FF" stroke="#111827" stroke-width="2"/>
+  <text x="489" y="646" fill="#111827" font-family="Arial, sans-serif" font-size="20" font-weight="700">FastAPI</text>
+  <text x="489" y="678" fill="#4B5563" font-family="Arial, sans-serif" font-size="15">POST create · GET status/file</text>
+  <text x="489" y="704" fill="#4B5563" font-family="Arial, sans-serif" font-size="15">BackgroundTasks</text>
+  <path d="M775 673h60" stroke="#111827" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="850" y="603" width="260" height="142" fill="#FFF" stroke="#111827" stroke-width="2"/>
+  <text x="874" y="646" fill="#111827" font-family="Arial, sans-serif" font-size="20" font-weight="700">yt-dlp</text>
+  <text x="874" y="678" fill="#4B5563" font-family="Arial, sans-serif" font-size="15">media extraction</text>
+  <text x="874" y="704" fill="#4B5563" font-family="Arial, sans-serif" font-size="15">progress hooks</text>
+  <path d="M1120 673h60" stroke="#111827" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="1195" y="603" width="300" height="142" fill="#FFF7ED" stroke="#111827" stroke-width="2"/>
+  <text x="1219" y="646" fill="#111827" font-family="Arial, sans-serif" font-size="20" font-weight="700">FFmpeg + temporary output</text>
+  <text x="1219" y="678" fill="#4B5563" font-family="Arial, sans-serif" font-size="15">conversion or stream merging</text>
+  <text x="1219" y="704" fill="#4B5563" font-family="Arial, sans-serif" font-size="15">completed MP3 or MP4 file</text>
+
+  <path d="M615 765v38H230v-50" stroke="#15803D" stroke-width="2" stroke-dasharray="7 7" marker-end="url(#arrow)"/>
+  <text x="330" y="827" fill="#166534" font-family="Arial, sans-serif" font-size="14">Browser polls job status, then retrieves the file</text>
+</svg>
