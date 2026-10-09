@@ -9,7 +9,11 @@ export function ThemeToggle() {
   return (
     <button
       type="button"
-      onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
+      onClick={() => {
+    if (resolvedTheme === 'light') setTheme('dark');
+    else if (resolvedTheme === 'dark') setTheme('heroSite');
+    else setTheme('light');
+  }}
       aria-label="Toggle colour theme"
       className="brutal-sm brutal-lift bg-surface inline-flex size-10 items-center justify-center"
     >
