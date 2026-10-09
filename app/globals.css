@@ -46,33 +46,12 @@
   --accent-hover: #1a3fd0;
   --accent-foreground: #ffffff;
   --accent-text: #1a3fd0;
-   --accent-soft: rgb(35 80 240 / 0.08);
-   --tone-blue: #2350f0;
-   /* Black stars/cursor in light mode instead of the blue accent. */
-   --cursor-accent: var(--foreground);
-   --ring: #2350f0;
+  --accent-soft: rgb(35 80 240 / 0.08);
+  --tone-blue: #2350f0;
+  /* Black stars/cursor in light mode instead of the blue accent. */
+  --cursor-accent: var(--foreground);
+  --ring: #2350f0;
 }
- 
-.heroSite {
-   color-scheme: dark;
-   --background: #090122;
-   --foreground: #ff86c6;
-   --muted: #4b3169;
-   --ghost: #2c1e4f;
-   --surface: #111023;
-   --surface-hover: #18162e;
-   --border: #3a2a5c;
-   --ink: #ff86c6;
-   --shadow: rgb(255 255 255 / 0.14);
-   --accent: #0bd2f6;
-   --accent-hover: #0bb5f3;
-   --accent-foreground: #ffffff;
-   --accent-text: #0bd2f6;
-   --accent-soft: rgb(11 210 246 / 0.12);
-   --cursor-accent: #0bd2f6;
-   --ring: #0bd2f6;
-}
-
 
 @theme inline {
   --color-background: var(--background);

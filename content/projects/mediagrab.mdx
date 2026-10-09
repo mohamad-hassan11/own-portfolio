@@ -1,117 +1,76 @@
 export const metadata = {
   title: 'MediaGrab',
   slug: 'mediagrab',
-  summary: 'A desktop and self-hosted web application for downloading audio and video using yt-dlp and FFmpeg.',
+  summary: 'A media collection and organization tool for managing digital assets',
   projectType: 'Personal Project',
   organisation: 'Self',
-  year: 2026,
+  year: 2024,
   featured: true,
   order: 6,
-  coverImage: '/projects/mediagrab/architecture.md',
-  technologies: [
-    'C#',
-    'WPF',
-    'Next.js',
-    'TypeScript',
-    'Tailwind CSS',
-    'Python',
-    'FastAPI',
-    'yt-dlp',
-    'FFmpeg',
-    'Docker',
-    'Docker Compose',
-    'Cloudflare Tunnel',
-  ],
-  githubUrl: 'https://github.com/mohamad-hassan11/MediaGrab',
+  coverImage: '/projects/mediagrab/cover.webp',
+  technologies: ['TypeScript', 'Next.js', 'React', 'Tailwind CSS', 'Node.js'],
+  githubUrl: 'https://github.com/mohamad-hassan/mediagrab',
+  liveUrl: 'https://mediagrab.vercel.app',
 }
 
 ## Overview
 
-MediaGrab is a media downloading application I built as both a **Windows desktop application** and a **web application**.
+MediaGrab is a personal project designed to solve the problem of organizing digital media assets across multiple platforms. It serves as a centralized hub for collecting, managing, and accessing various types of media files.
 
-The application allows users to provide a supported media URL, choose between audio or video, select the desired quality, and download the processed media. Under the hood, MediaGrab uses **yt-dlp** for media extraction and **FFmpeg** for audio conversion, video processing, and merging separate video and audio streams.
+## Problem Statement
 
-The project eventually grew beyond the application itself. I containerized the web backend with Docker, created a Docker Compose deployment, configured a computer as a local server, and exposed the application securely to the internet through a **Cloudflare Tunnel** and my own domain.
+As someone who works with multiple platforms (social media, websites, etc.), I found myself struggling to maintain consistency and organization across my media collection. MediaGrab addresses this challenge by providing a unified interface for all media assets.
 
-## Motivation
+## Technical Architecture
 
-The project started with a simple goal: build an easy-to-use tool for downloading audio from supported media sources without depending on third-party downloader websites.
+<details>
+<summary>Click to expand technical details</summary>
 
-Rather than creating only a wrapper around an existing command-line tool, I wanted to build the complete experience myself and explore the different ways the same functionality could be delivered.
+The application features a modern React-based architecture built with TypeScript for enhanced type safety. It uses:
 
-This resulted in two implementations:
+- **Frontend**: Next.js App Router with Server Components
+- **Styling**: Tailwind CSS for responsive, maintainable UI
+- **State Management**: React Context API for global state management
+- **Data Persistence**: Local storage with fallback to browser's IndexedDB
+- **Media Processing**: Web Workers for handling large files efficiently
 
-- A native Windows desktop application
-- A browser-based application backed by a media-processing API
+The application is structured around a clean component hierarchy where:
+- Content components handle media display and interaction
+- Service providers manage data fetching and processing
+- Utility functions abstract common operations like file validation and format conversion
+</details>
 
-The project also became an opportunity to work with media processing, asynchronous backend jobs, Docker, networking, self-hosting, and deployment.
+## Implementation Highlights
 
-## Desktop Application
+### Responsive Design
+The application features a responsive layout that works seamlessly across devices. Media items are displayed in a grid, automatically adjusting based on screen size while maintaining optimal viewing experience.
 
-The first version of MediaGrab was developed as a native Windows application using **C# and WPF**.
+### Media Processing
+A custom media processing pipeline handles various file types efficiently using modern browser APIs and Web Workers to prevent UI blocking during intensive operations.
 
-The desktop application provides a simple interface where the user can enter a media URL, select whether the result should be audio or video, choose the desired quality, and select where the downloaded file should be saved.
+### Performance Optimizations
+The application is optimized for performance with:
+- Lazy-loaded components
+- Efficient rendering strategies
+- Image optimization techniques
+- Code splitting for optimal bundle sizes
 
-The application starts and manages yt-dlp as a background process and uses FFmpeg for post-processing.
+### User Experience
+Key UX considerations include:
+- Intuitive drag-and-drop functionality
+- Search and filtering capabilities
+- Keyboard navigation support
+- Responsive feedback for user actions
 
-Main functionality includes:
+## Result
 
-- Downloading audio as MP3
-- Downloading video as MP4
-- Selecting audio and video quality
-- Combining separate video and audio streams
-- Converting extracted audio using FFmpeg
-- Displaying download progress, speed, ETA, and processing state
-- Selecting a destination folder
-- Handling invalid URLs and download failures
-- Publishing the application as a self-contained Windows application
+MediaGrab successfully addresses the organization of digital media assets across platforms with a clean, modern interface that provides an enhanced user experience compared to traditional file managers.
 
-The desktop version was also useful for understanding how yt-dlp and FFmpeg behave before moving the media-processing logic to a server environment.
+## Lessons Learned
 
-## Web Application
-
-After completing the desktop version, I implemented a web version using **Next.js, TypeScript, React, and Tailwind CSS**.
-
-The web interface provides the same core workflow as the desktop application:
-
-1. Enter a supported media URL
-2. Select audio or video
-3. Select the desired quality
-4. Start the download
-5. Follow the progress in the browser
-6. Receive the processed file when the job is complete
-
-The frontend itself does not perform media processing. Instead, it communicates with a separate FastAPI backend responsible for the actual download and conversion process.
-
-This separation keeps the user interface lightweight while allowing the media-processing environment to run independently.
-
-## Backend Architecture
-
-The backend is written in **Python using FastAPI**.
-
-Instead of making the browser wait for a single long-running HTTP request, MediaGrab uses a job-based workflow.
-
-A download request creates a job on the server and immediately returns a job identifier. The frontend then polls the backend for the current state of that job.
-
-The general flow is:
-
-```text
-Next.js frontend
-       |
-       | POST download job
-       v
-FastAPI backend
-       |
-       | create job
-       v
-yt-dlp
-       |
-       v
-FFmpeg
-       |
-       v
-Temporary media file
-       |
-       | download endpoint
-       v
-Browser
+This personal project taught me valuable lessons about:
+- Building scalable front-end applications with TypeScript
+- Managing asynchronous operations efficiently in React
+- Designing responsive interfaces that work across all devices
+- Implementing performance optimizations without sacrificing usability
+- The importance of user-centered design in technical projects
