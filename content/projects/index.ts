@@ -14,7 +14,7 @@ export interface Project {
 }
 
 // To add a project: create <slug>.mdx here, then import it above and list it below.
-const modules = [rag, arkive, android, amsterdamEvents, pad, flyfriends, mediagrab]
+const modules = [rag, mediagrab, arkive, android, amsterdamEvents, pad, flyfriends]
 
 const projects: Project[] = modules
   .map((mod) => ({ metadata: mod.metadata, Content: mod.default }))
