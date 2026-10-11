@@ -1,6 +1,6 @@
 'use client'
 
-import { Check, Dice5, Moon, Orbit, RotateCcw, Sun, X } from 'lucide-react'
+import { Check, Dice5, Layers3, Moon, Orbit, RotateCcw, Sun, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
@@ -15,6 +15,7 @@ import {
   cursorStyles,
   cursorColors,
   backgroundStyles,
+  defaultStyleSettings,
 } from '@/content/style-lab'
 import {
   universeCategories,
@@ -40,6 +41,8 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
   )
   const { resolvedTheme, setTheme } = useTheme()
   const dialogRef = useRef<HTMLDialogElement>(null)
+  const resetDialogRef = useRef<HTMLDialogElement>(null)
+  const resetButtonRef = useRef<HTMLButtonElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
   const [open, setOpen] = useState(false)
   const [notice, setNotice] = useState('')
@@ -80,6 +83,44 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
     )
   }
 
+  function resetCurrentPanel() {
+    resetDialogRef.current?.close()
+    if (panel === 'universes') {
+      applyUniverse('neo')
+      setNotice('Theme reset to the default: Neo.')
+    } else if (panel === 'cursor') {
+      applyStyleSettings({
+        ...settings,
+        cursor: defaultStyleSettings.cursor,
+        cursorColor: defaultStyleSettings.cursorColor,
+      })
+      setNotice('Cursor style and color reset to universe defaults.')
+    } else {
+      applyStyleSettings({
+        ...settings,
+        background: defaultStyleSettings.background,
+        density: defaultStyleSettings.density,
+        motion: defaultStyleSettings.motion,
+        interaction: defaultStyleSettings.interaction,
+      })
+      setNotice('Background settings reset to universe defaults.')
+    }
+  }
+
+  function resetEverything() {
+    resetDialogRef.current?.close()
+    applyUniverse('neo')
+    applyStyleSettings(defaultStyleSettings)
+    setNotice('Theme, cursor, and background reset to their defaults.')
+  }
+
+  const resetSectionDescription =
+    panel === 'universes'
+      ? 'Return the theme to Neo'
+      : panel === 'cursor'
+        ? 'Restore cursor style and color'
+        : 'Restore background and motion settings'
+
   useEffect(() => {
     if (!notice) return
     const timer = window.setTimeout(() => setNotice(''), 5500)
@@ -107,8 +148,8 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
       )
         return
       // Leave shortcuts to any other active dialog or interactive overlay.
-      if (document.querySelector('dialog[open]') && !dialogRef.current?.open)
-        return
+      const activeDialog = document.querySelector('dialog[open]')
+      if (activeDialog && activeDialog !== dialogRef.current) return
       const key = event.key.toLowerCase()
       if (key === 't') {
         event.preventDefault()
@@ -182,7 +223,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
               <div className="multiverse-heading flex items-start justify-between gap-4">
                 <div>
                   <p className="text-muted font-mono text-xs tracking-widest uppercase">
-                    Multiverse / Style Lab
+                    Style Lab
                   </p>
                   <h2
                     id="multiverse-title"
@@ -197,15 +238,77 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                     Choose a universe. Mix your cursor. Set the atmosphere.
                   </p>
                 </div>
-                <button
-                  type="button"
-                  onClick={close}
-                  aria-label="Close Style Lab"
-                  className="hover:bg-surface-hover grid size-10 shrink-0 place-items-center"
-                >
-                  <X aria-hidden className="size-5" />
-                </button>
+                <div className="flex shrink-0 items-center gap-2">
+                  <button
+                    ref={resetButtonRef}
+                    type="button"
+                    onClick={() => resetDialogRef.current?.showModal()}
+                    aria-label="Reset options"
+                    data-tooltip="Reset options"
+                    className="multiverse-control lab-reset app-tooltip grid size-10 place-items-center p-0"
+                  >
+                    <RotateCcw aria-hidden className="size-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={close}
+                    aria-label="Close Style Lab"
+                    className="multiverse-control grid size-10 place-items-center p-0"
+                  >
+                    <X aria-hidden className="size-5" />
+                  </button>
+                </div>
               </div>
+              <dialog
+                ref={resetDialogRef}
+                className="lab-reset-dialog"
+                aria-labelledby="lab-reset-title"
+                onClose={() => resetButtonRef.current?.focus()}
+                onClick={(event) => {
+                  if (event.target === event.currentTarget)
+                    resetDialogRef.current?.close()
+                }}
+              >
+                <div className="lab-reset-dialog-heading">
+                  <div>
+                    <h2 id="lab-reset-title">Choose what to reset</h2>
+                    <p className="lab-reset-intro">
+                      Pick a quick reset. You can customize everything again anytime.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="Close reset options"
+                    onClick={() => resetDialogRef.current?.close()}
+                  >
+                    <X aria-hidden className="size-4" />
+                  </button>
+                </div>
+                <div className="lab-reset-options">
+                  <button type="button" onClick={resetCurrentPanel}>
+                    <span className="lab-reset-option-icon">
+                      <RotateCcw aria-hidden className="size-4" />
+                    </span>
+                    <span className="lab-reset-option-copy">
+                      <span>Reset this section</span>
+                      <span>{resetSectionDescription}</span>
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    data-emphasis="true"
+                    onClick={resetEverything}
+                  >
+                    <span className="lab-reset-option-icon">
+                      <Layers3 aria-hidden className="size-4" />
+                    </span>
+                    <span className="lab-reset-option-copy">
+                      <span>Reset the whole Style Lab</span>
+                      <span>Restore the theme, cursor, and background</span>
+                    </span>
+                  </button>
+                </div>
+              </dialog>
               <div
                 role="tablist"
                 aria-label="Style Lab controls"
@@ -285,8 +388,8 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                               aria-pressed={universe === item.id}
                               onClick={() => select(item.id)}
                               aria-label={item.name}
-                              title={item.description}
-                              className="universe-card"
+                              data-tooltip={item.description}
+                              className="universe-card app-tooltip"
                               data-active={universe === item.id}
                             >
                               <span
@@ -333,19 +436,6 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                       </div>
                     </section>
                   ))}
-                  <div className="universe-reset-row">
-                    <button
-                      type="button"
-                      className="multiverse-control lab-reset"
-                      onClick={() => {
-                        applyUniverse('neo')
-                        setNotice('Theme reset to the default: Neo.')
-                      }}
-                    >
-                      <RotateCcw aria-hidden className="size-3.5" />
-                      Reset to default theme
-                    </button>
-                  </div>
                 </div>
                 {(['cursor', 'background'] as const).map((item) => (
                   <div
@@ -386,38 +476,46 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                   </div>
                   <button
                     type="button"
-                    className="multiverse-control lab-surprise"
-                    aria-label={`Surprise me: shuffle ${panel === 'universes' ? 'theme' : panel}`}
+                    className="multiverse-control lab-surprise app-tooltip"
+                    aria-label="Surprise me: shuffle theme, cursor, and background"
+                    data-tooltip="Shuffle the theme, cursor, and background."
+                    data-tooltip-position="top"
                     onClick={() => {
-                      if (panel === 'universes') {
-                        const next = surpriseCombination(universe, mode)
-                        select(next.id, next.mode)
-                      } else if (panel === 'cursor') {
-                        const next = surpriseCursor(settings, universe)
-                        applyStyleSettings(next)
-                        setNotice(
-                          `New cursor mix: ${cursorStyles.find(({ id }) => id === next.cursor)?.name}, ${cursorColors.find(({ id }) => id === next.cursorColor)?.name}.`,
-                        )
-                      } else {
-                        const next = surpriseBackground(settings)
-                        applyStyleSettings(next)
-                        setNotice(
-                          `New atmosphere: ${backgroundStyles.find(({ id }) => id === next.background)?.name}${next.background === 'stars' || next.background === 'constellation' ? `, ${next.density} density` : ''}.`,
-                        )
-                      }
+                      const nextUniverse = surpriseCombination(universe, mode)
+                      const nextCursor = surpriseCursor(
+                        settings,
+                        nextUniverse.id,
+                      )
+                      const nextBackground = surpriseBackground(nextCursor)
+                      const universeName = universes.find(
+                        ({ id }) => id === nextUniverse.id,
+                      )!.name
+                      const cursorName = cursorStyles.find(
+                        ({ id }) => id === nextCursor.cursor,
+                      )!.name
+                      const colorName = cursorColors.find(
+                        ({ id }) => id === nextCursor.cursorColor,
+                      )!.name
+                      const backgroundName = backgroundStyles.find(
+                        ({ id }) => id === nextBackground.background,
+                      )!.name
+
+                      applyUniverse(nextUniverse.id)
+                      setTheme(nextUniverse.mode)
+                      applyStyleSettings({
+                        ...settings,
+                        cursor: nextCursor.cursor,
+                        cursorColor: nextCursor.cursorColor,
+                        background: nextBackground.background,
+                        density: nextBackground.density,
+                      })
+                      setNotice(
+                        `Surprise mix: ${universeName}, ${nextUniverse.mode} mode, ${cursorName} cursor in ${colorName}, ${backgroundName} background${nextBackground.background === 'stars' || nextBackground.background === 'constellation' ? ` at ${nextBackground.density} density` : ''}.`,
+                      )
                     }}
                   >
                     <Dice5 aria-hidden className="size-5" />
-                    <span>
-                      Surprise Me
-                      <span className="lab-surprise-scope">
-                        {panel === 'universes'
-                          ? 'Shuffle theme'
-                          : panel === 'cursor'
-                            ? 'Shuffle cursor'
-                            : 'Shuffle background'}
-                      </span>
-                    </span>
+                    <span>Surprise Me</span>
                   </button>
                 </div>
                 <p className="text-muted mt-4 text-xs leading-relaxed">

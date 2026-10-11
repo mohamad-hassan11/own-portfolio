@@ -1751,15 +1751,6 @@ html:is(
   font-family: var(--font-mono);
   font-size: 0.625rem;
 }
-.universe-reset-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-.universe-reset-row button {
-  flex-shrink: 0;
-}
 .multiverse-dialog[data-panel='universes'] .multiverse-footer [role='status'] {
   position: absolute;
   width: 1px;
@@ -1784,6 +1775,225 @@ html:is(
   background: color-mix(in srgb, var(--reset-color) 15%, var(--background));
   border-color: var(--reset-color);
 }
+.app-tooltip {
+  position: relative;
+}
+.lab-reset-dialog {
+  width: min(28rem, calc(100% - 2rem));
+  max-width: none;
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  background: var(--surface);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), sans-serif;
+  box-shadow: 0 14px 38px rgb(0 0 0 / 0.2);
+}
+.lab-reset-dialog::backdrop {
+  background: rgb(0 0 0 / 0.38);
+  backdrop-filter: blur(2px);
+}
+
+/* Style Lab dialogs use the same frosted glass surface as the rest of the
+   glass universe, while retaining stronger contrast than ordinary panels. */
+html[data-skin='glass'] :is(.multiverse-dialog, .lab-reset-dialog) {
+  border-color: var(--border);
+  background:
+    linear-gradient(145deg, rgb(255 255 255 / 0.12), transparent 42%),
+    color-mix(in srgb, var(--background) 66%, transparent);
+  backdrop-filter: blur(28px) saturate(175%);
+  -webkit-backdrop-filter: blur(28px) saturate(175%);
+}
+
+html.dark[data-skin='glass'] :is(.multiverse-dialog, .lab-reset-dialog) {
+  border-top-color: rgb(255 255 255 / 0.48);
+  box-shadow:
+    0 24px 80px rgb(0 0 0 / 0.48),
+    inset 0 1px 0 rgb(255 255 255 / 0.16);
+}
+
+html.light[data-skin='glass'] :is(.multiverse-dialog, .lab-reset-dialog) {
+  border-top-color: rgb(255 255 255 / 0.88);
+  box-shadow:
+    0 24px 64px rgb(16 20 37 / 0.18),
+    inset 0 1px 0 rgb(255 255 255 / 0.72);
+}
+
+html.dark[data-skin='glass'] :is(.multiverse-dialog, .lab-reset-dialog)::backdrop {
+  background: rgb(5 7 15 / 0.48);
+  backdrop-filter: blur(8px);
+}
+
+html.light[data-skin='glass'] :is(.multiverse-dialog, .lab-reset-dialog)::backdrop {
+  background: rgb(35 47 84 / 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.lab-reset-dialog-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.lab-reset-eyebrow {
+  margin-bottom: 0.375rem;
+  color: var(--muted);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+.lab-reset-dialog-heading h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+}
+.lab-reset-intro {
+  margin-top: 0.375rem;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+.lab-reset-dialog-heading > button {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  flex: none;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+.lab-reset-dialog-heading > button:hover {
+  background: var(--surface-hover);
+}
+.lab-reset-options {
+  display: grid;
+  gap: 0.625rem;
+}
+.lab-reset-options button {
+  display: flex;
+  min-height: 4.5rem;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: 0.875rem;
+  text-align: left;
+  transition:
+    border-color 140ms ease,
+    background-color 140ms ease,
+    transform 140ms ease;
+}
+.lab-reset-options button:hover,
+.lab-reset-options button:focus-visible {
+  border-color: var(--ring);
+  background: var(--surface-hover);
+}
+.lab-reset-options button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.lab-reset-options button:active {
+  transform: scale(0.99);
+}
+.lab-reset-option-icon {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: none;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  color: var(--muted);
+  background: var(--background);
+}
+.lab-reset-options button[data-emphasis='true'] .lab-reset-option-icon {
+  color: var(--reset-color, #9f1239);
+  border-color: color-mix(in srgb, var(--reset-color, #9f1239) 25%, var(--border));
+  background: color-mix(in srgb, var(--reset-color, #9f1239) 8%, var(--background));
+}
+.lab-reset-option-copy {
+  display: grid;
+  gap: 0.25rem;
+}
+.lab-reset-option-copy > span:first-child {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.lab-reset-option-copy > span:last-child {
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lab-reset-options button {
+    transition: none;
+  }
+}
+.app-tooltip::after,
+.app-tooltip::before {
+  position: absolute;
+  z-index: 80;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 140ms ease,
+    transform 140ms ease;
+}
+.app-tooltip::after {
+  content: attr(data-tooltip);
+  top: calc(100% + 0.625rem);
+  right: 0;
+  width: max-content;
+  max-width: min(16rem, calc(100vw - 2rem));
+  padding: 0.5rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  border-radius: 0.625rem;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  color: var(--foreground);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.18);
+  backdrop-filter: blur(14px);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.3;
+  transform: translateY(-0.25rem) scale(0.98);
+}
+.app-tooltip::before {
+  content: '';
+  top: calc(100% + 0.375rem);
+  right: 0.75rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  background: var(--surface);
+  transform: translateY(-0.25rem) rotate(45deg);
+}
+.app-tooltip[data-tooltip-position='top']::after {
+  top: auto;
+  bottom: calc(100% + 0.625rem);
+}
+.app-tooltip[data-tooltip-position='top']::before {
+  top: auto;
+  bottom: calc(100% + 0.375rem);
+  border: 0;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.app-tooltip:hover::after,
+.app-tooltip:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.app-tooltip:hover::before,
+.app-tooltip:focus-visible::before {
+  opacity: 1;
+  transform: translateY(0) rotate(45deg);
+}
 .lab-surprise {
   color: var(--accent-text);
   border-color: var(--accent-text);
@@ -1802,15 +2012,11 @@ html:is(
 .lab-surprise:active > svg {
   transform: rotate(12deg);
 }
-.lab-surprise-scope {
-  display: block;
-  margin-top: 0.125rem;
-  font-size: 0.5625rem;
-  font-weight: 400;
-  line-height: 1.1;
-  opacity: 0.85;
-}
 @media (prefers-reduced-motion: reduce) {
+  .app-tooltip::after,
+  .app-tooltip::before {
+    transition: none;
+  }
   .lab-surprise > svg {
     transition: none;
   }
@@ -1868,15 +2074,6 @@ html:is(
   .universe-tile-label svg {
     width: 0.625rem;
     height: 0.625rem;
-  }
-  .universe-reset-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  .universe-reset-row button {
-    padding: 0.5rem;
-    font-size: 0.75rem;
   }
   .multiverse-dialog .multiverse-footer .multiverse-control {
     padding: 0.5rem;

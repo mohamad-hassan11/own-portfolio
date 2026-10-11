@@ -1,6 +1,6 @@
 'use client'
 
-import { Check, Hand, MousePointer2, RotateCcw } from 'lucide-react'
+import { Check, Hand, MousePointer2 } from 'lucide-react'
 import { useSyncExternalStore } from 'react'
 import { useTheme } from 'next-themes'
 import { getCursorColor, getCursorColorStyle } from '@/lib/cursor-color'
@@ -11,7 +11,6 @@ import {
   cursorStyles,
   cursorColors,
   isCursorColor,
-  defaultStyleSettings,
   type StyleSettings,
 } from '@/content/style-lab'
 import { applyStyleSettings } from '@/lib/style-lab'
@@ -117,9 +116,9 @@ export function StyleLabControls({
                   key={option.id}
                   type="button"
                   aria-label={option.name}
-                  title={option.name}
+                  data-tooltip={option.name}
                   aria-pressed={settings.cursorColor === option.id}
-                  className="lab-color-choice"
+                  className="lab-color-choice app-tooltip"
                   data-active={settings.cursorColor === option.id}
                   onClick={() =>
                     update(
@@ -186,10 +185,10 @@ export function StyleLabControls({
               <button
                 key={option.id}
                 type="button"
-                className="lab-background-choice"
+                className="lab-background-choice app-tooltip"
                 data-active={settings.background === option.id}
                 aria-pressed={settings.background === option.id}
-                title={option.description}
+                data-tooltip={option.description}
                 onClick={() =>
                   update(
                     { background: option.id },
@@ -271,35 +270,6 @@ export function StyleLabControls({
           </fieldset>
         </section>
       )}
-      <button
-        type="button"
-        className="multiverse-control lab-reset"
-        onClick={() => {
-          if (panel === 'cursor')
-            update(
-              {
-                cursor: defaultStyleSettings.cursor,
-                cursorColor: defaultStyleSettings.cursorColor,
-              },
-              'Cursor style and color reset to universe defaults.',
-            )
-          else
-            update(
-              {
-                background: defaultStyleSettings.background,
-                density: defaultStyleSettings.density,
-                motion: defaultStyleSettings.motion,
-                interaction: defaultStyleSettings.interaction,
-              },
-              'Background settings reset to universe defaults.',
-            )
-        }}
-      >
-        <RotateCcw aria-hidden className="size-3.5" />
-        {panel === 'cursor'
-          ? "Reset to theme's default cursor"
-          : "Reset to theme's background"}
-      </button>
     </div>
   )
 }
