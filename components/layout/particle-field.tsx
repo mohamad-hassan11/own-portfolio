@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { useStyleSettings } from './use-style-settings'
 
 interface Particle {
   x: number
@@ -9,68 +10,117 @@ interface Particle {
   vy: number
   r: number
 }
-
 interface Ripple {
   x: number
   y: number
   start: number
 }
-
 const LINK_DISTANCE = 130
 const CURSOR_LINK_DISTANCE = 170
-const PARTICLE_DENSITY = 1 / 16000 // particles per square pixel
 const RIPPLE_DURATION = 900
 
-// Reads the resolved accent colour so particles follow the active theme.
 function readAccentRgb() {
-  const value = getComputedStyle(document.documentElement)
-    .getPropertyValue('--cursor-accent')
-    .trim()
-  const probe = document.createElement('div')
-  probe.style.color = value || '#3d6bff'
+  const probe = document.createElement('span')
+  probe.style.color = 'var(--cursor-accent)'
   document.body.appendChild(probe)
   const rgb = getComputedStyle(probe).color
-  document.body.removeChild(probe)
+  probe.remove()
   const match = rgb.match(/\d+/g)
   return match ? `${match[0]}, ${match[1]}, ${match[2]}` : '61, 107, 255'
 }
 
 export function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const { background, density, motion, interaction } = useStyleSettings()
+  const visible =
+    background === 'theme' ||
+    background === 'constellation' ||
+    background === 'stars'
 
   useEffect(() => {
     const canvas = canvasRef.current
-    if (!canvas) return
-
+    if (!canvas || !visible) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
-
-    const reduceMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    ).matches
-    const fine = window.matchMedia('(pointer: fine)').matches
-
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const fine = window.matchMedia('(pointer: fine)')
     let particles: Particle[] = []
     let ripples: Ripple[] = []
     let accent = readAccentRgb()
     let width = 0
     let height = 0
-    let dpr = 1
-    const pointer = { x: -9999, y: -9999, active: false }
+    let frame = 0
+    let lastTime = 0
+    const pointer = { x: 0, y: 0, active: false }
+    const linked = background !== 'stars'
+    const canAnimate = () =>
+      motion === 'animated' &&
+      !reduced.matches &&
+      !document.hidden &&
+      !document.querySelector('dialog[open]')
 
-    const seedParticles = () => {
-      const count = Math.min(140, Math.round(width * height * PARTICLE_DENSITY))
-      particles = Array.from({ length: count }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.18,
-        vy: (Math.random() - 0.5) * 0.18,
-        r: Math.random() * 1.4 + 0.6,
-      }))
+    const draw = (time = performance.now()) => {
+      frame = 0
+      const animate = canAnimate()
+      // Frame-rate independent movement; cap jumps when returning to a tab.
+      const elapsed =
+        animate && lastTime ? Math.min(time - lastTime, 32) / 16.67 : 0
+      lastTime = time
+      ctx.clearRect(0, 0, width, height)
+      for (const particle of particles) {
+        particle.x += particle.vx * elapsed
+        particle.y += particle.vy * elapsed
+        if (particle.x < 0 || particle.x > width) particle.vx *= -1
+        if (particle.y < 0 || particle.y > height) particle.vy *= -1
+        ctx.beginPath()
+        ctx.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(${accent}, 0.4)`
+        ctx.fill()
+      }
+      if (linked)
+        for (let i = 0; i < particles.length; i++) {
+          const a = particles[i]
+          for (let j = i + 1; j < particles.length; j++) {
+            const b = particles[j]
+            const squared = (a.x - b.x) ** 2 + (a.y - b.y) ** 2
+            if (squared >= LINK_DISTANCE ** 2) continue
+            ctx.beginPath()
+            ctx.moveTo(a.x, a.y)
+            ctx.lineTo(b.x, b.y)
+            ctx.strokeStyle = `rgba(${accent}, ${0.14 * (1 - Math.sqrt(squared) / LINK_DISTANCE)})`
+            ctx.lineWidth = 1
+            ctx.stroke()
+          }
+          if (pointer.active && animate && interaction) {
+            const distance = Math.hypot(a.x - pointer.x, a.y - pointer.y)
+            if (distance < CURSOR_LINK_DISTANCE) {
+              ctx.beginPath()
+              ctx.moveTo(a.x, a.y)
+              ctx.lineTo(pointer.x, pointer.y)
+              ctx.strokeStyle = `rgba(${accent}, ${0.24 * (1 - distance / CURSOR_LINK_DISTANCE)})`
+              ctx.stroke()
+            }
+          }
+        }
+      ripples = animate
+        ? ripples.filter(({ start }) => time - start < RIPPLE_DURATION)
+        : []
+      for (const ripple of ripples) {
+        const progress = (time - ripple.start) / RIPPLE_DURATION
+        ctx.beginPath()
+        ctx.arc(ripple.x, ripple.y, progress * 70, 0, Math.PI * 2)
+        ctx.strokeStyle = `rgba(${accent}, ${0.3 * (1 - progress)})`
+        ctx.stroke()
+      }
+      if (animate) frame = requestAnimationFrame(draw)
     }
-
+    const refresh = () => {
+      cancelAnimationFrame(frame)
+      lastTime = 0
+      draw()
+    }
     const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 2)
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
       width = window.innerWidth
       height = window.innerHeight
       canvas.width = width * dpr
@@ -78,135 +128,83 @@ export function ParticleField() {
       canvas.style.width = `${width}px`
       canvas.style.height = `${height}px`
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      seedParticles()
+      const factor = density === 'subtle' ? 0.5 : density === 'lively' ? 1.5 : 1
+      const cap = fine.matches ? 100 : 40
+      const count = Math.min(
+        cap,
+        Math.round(((width * height) / 16000) * factor),
+      )
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: (Math.random() - 0.5) * 0.18,
+        r: Math.random() * 1.2 + 0.6,
+      }))
+      refresh()
     }
-
-    const onPointerMove = (event: PointerEvent) => {
+    const move = (event: PointerEvent) => {
+      if (!fine.matches) return
       pointer.x = event.clientX
       pointer.y = event.clientY
       pointer.active = true
     }
-
-    const onPointerLeave = () => {
+    const leave = () => {
       pointer.active = false
     }
-
-    const onPointerDown = (event: PointerEvent) => {
+    const click = (event: PointerEvent) => {
+      if (!canAnimate()) return
       ripples.push({
         x: event.clientX,
         y: event.clientY,
         start: performance.now(),
       })
-      if (ripples.length > 6) ripples.shift()
+      if (ripples.length > 4) ripples.shift()
     }
-
-    const onThemeChange = () => {
+    const dialogToggle = (event: Event) => {
+      if (event.target instanceof HTMLDialogElement) refresh()
+    }
+    const themeChange = () => {
       accent = readAccentRgb()
+      refresh()
     }
-
-    let frame = 0
-    const step = () => {
-      ctx.clearRect(0, 0, width, height)
-
-      for (const particle of particles) {
-        particle.x += particle.vx
-        particle.y += particle.vy
-
-        if (particle.x < 0 || particle.x > width) particle.vx *= -1
-        if (particle.y < 0 || particle.y > height) particle.vy *= -1
-
-        ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(${accent}, 0.55)`
-        ctx.fill()
-      }
-
-      for (let i = 0; i < particles.length; i++) {
-        const a = particles[i]
-
-        for (let j = i + 1; j < particles.length; j++) {
-          const b = particles[j]
-          const dx = a.x - b.x
-          const dy = a.y - b.y
-          const dist = Math.hypot(dx, dy)
-          if (dist < LINK_DISTANCE) {
-            ctx.beginPath()
-            ctx.moveTo(a.x, a.y)
-            ctx.lineTo(b.x, b.y)
-            ctx.strokeStyle = `rgba(${accent}, ${0.16 * (1 - dist / LINK_DISTANCE)})`
-            ctx.lineWidth = 1
-            ctx.stroke()
-          }
-        }
-
-        if (pointer.active) {
-          const dx = a.x - pointer.x
-          const dy = a.y - pointer.y
-          const dist = Math.hypot(dx, dy)
-          if (dist < CURSOR_LINK_DISTANCE) {
-            ctx.beginPath()
-            ctx.moveTo(a.x, a.y)
-            ctx.lineTo(pointer.x, pointer.y)
-            ctx.strokeStyle = `rgba(${accent}, ${0.32 * (1 - dist / CURSOR_LINK_DISTANCE)})`
-            ctx.lineWidth = 1
-            ctx.stroke()
-          }
-        }
-      }
-
-      const now = performance.now()
-      ripples = ripples.filter((ripple) => now - ripple.start < RIPPLE_DURATION)
-      for (const ripple of ripples) {
-        const t = (now - ripple.start) / RIPPLE_DURATION
-        ctx.beginPath()
-        ctx.arc(ripple.x, ripple.y, t * 90, 0, Math.PI * 2)
-        ctx.strokeStyle = `rgba(${accent}, ${0.4 * (1 - t)})`
-        ctx.lineWidth = 1.5
-        ctx.stroke()
-      }
-
-      frame = requestAnimationFrame(step)
-    }
-
-    resize()
-    window.addEventListener('resize', resize)
-    const media = window.matchMedia('(prefers-color-scheme: dark)')
-
-    if (fine) {
-      window.addEventListener('pointermove', onPointerMove, { passive: true })
-      window.addEventListener('pointerleave', onPointerLeave)
-    }
-    window.addEventListener('pointerdown', onPointerDown)
-    media.addEventListener('change', onThemeChange)
-
-    const observer = new MutationObserver(onThemeChange)
+    const observer = new MutationObserver(themeChange)
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['class'],
+      attributeFilter: ['class', 'data-skin'],
     })
-
-    if (!reduceMotion) {
-      frame = requestAnimationFrame(step)
-    } else {
-      step()
+    resize()
+    window.addEventListener('resize', resize)
+    document.addEventListener('visibilitychange', refresh)
+    document.addEventListener('toggle', dialogToggle, true)
+    reduced.addEventListener('change', refresh)
+    fine.addEventListener('change', resize)
+    if (interaction && motion === 'animated') {
+      window.addEventListener('pointermove', move, { passive: true })
+      document.documentElement.addEventListener('mouseleave', leave)
+      window.addEventListener('pointerdown', click, { passive: true })
     }
-
     return () => {
       cancelAnimationFrame(frame)
-      window.removeEventListener('resize', resize)
-      window.removeEventListener('pointermove', onPointerMove)
-      window.removeEventListener('pointerleave', onPointerLeave)
-      window.removeEventListener('pointerdown', onPointerDown)
-      media.removeEventListener('change', onThemeChange)
       observer.disconnect()
+      window.removeEventListener('resize', resize)
+      document.removeEventListener('visibilitychange', refresh)
+      document.removeEventListener('toggle', dialogToggle, true)
+      reduced.removeEventListener('change', refresh)
+      fine.removeEventListener('change', resize)
+      window.removeEventListener('pointermove', move)
+      document.documentElement.removeEventListener('mouseleave', leave)
+      window.removeEventListener('pointerdown', click)
+      ctx.clearRect(0, 0, width, height)
     }
-  }, [])
+  }, [visible, background, density, motion, interaction])
 
   return (
     <canvas
       ref={canvasRef}
       aria-hidden
-      className="pointer-events-none fixed inset-0 -z-20"
+      hidden={!visible}
+      className="particle-field pointer-events-none fixed inset-0 -z-20"
     />
   )
 }

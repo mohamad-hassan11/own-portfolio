@@ -193,39 +193,18 @@
 }
 
 /* Theme-specific markers: static CSS shapes, with no extra cursor work. */
-html:is(
-    [data-skin='fusion'],
-    [data-skin='pixel'],
-    [data-skin='vaporwave'],
-    [data-skin='blueprint'],
-    [data-skin='botanical'],
-    [data-skin='editorial'],
-    [data-skin='orbit']
-  )
-  .custom-cursor {
+.custom-cursor:not([data-style='neo']):not([data-style='glass']):not(
+    [data-style='native']
+  ) {
   border: 0;
   background: transparent;
 }
-html:is(
-    [data-skin='fusion'],
-    [data-skin='pixel'],
-    [data-skin='vaporwave'],
-    [data-skin='blueprint'],
-    [data-skin='botanical'],
-    [data-skin='editorial'],
-    [data-skin='orbit']
-  )
-  .custom-cursor::before,
-html:is(
-    [data-skin='fusion'],
-    [data-skin='pixel'],
-    [data-skin='vaporwave'],
-    [data-skin='blueprint'],
-    [data-skin='botanical'],
-    [data-skin='editorial'],
-    [data-skin='orbit']
-  )
-  .custom-cursor::after {
+.custom-cursor:not([data-style='neo']):not([data-style='glass']):not(
+    [data-style='native']
+  )::before,
+.custom-cursor:not([data-style='neo']):not([data-style='glass']):not(
+    [data-style='native']
+  )::after {
   content: '';
   position: absolute;
   pointer-events: none;
@@ -233,29 +212,29 @@ html:is(
 }
 
 /* Fusion: a faceted diamond with a contrasting center. */
-html[data-skin='fusion'] .custom-cursor {
+.custom-cursor[data-style='fusion'] {
   width: 14px;
   height: 14px;
 }
-html[data-skin='fusion'] .custom-cursor::before {
+.custom-cursor[data-style='fusion']::before {
   inset: 2px;
   border: 1px solid var(--cursor-accent);
   transform: rotate(45deg);
 }
-html[data-skin='fusion'] .custom-cursor::after {
+.custom-cursor[data-style='fusion']::after {
   inset: 5px;
   background: var(--accent-text);
 }
-html[data-skin='fusion'] .custom-cursor[data-mode='interactive']::before {
+.custom-cursor[data-style='fusion'][data-mode='interactive']::before {
   background: var(--cursor-accent);
 }
 
 /* Pixel: a small stepped cross drawn on a pixel grid. */
-html[data-skin='pixel'] .custom-cursor {
+.custom-cursor[data-style='pixel'] {
   width: 15px;
   height: 15px;
 }
-html[data-skin='pixel'] .custom-cursor::before {
+.custom-cursor[data-style='pixel']::before {
   inset: 0;
   background: var(--cursor-accent);
   clip-path: polygon(
@@ -273,17 +252,17 @@ html[data-skin='pixel'] .custom-cursor::before {
     40% 40%
   );
 }
-html[data-skin='pixel'] .custom-cursor[data-mode='interactive']::after {
+.custom-cursor[data-style='pixel'][data-mode='interactive']::after {
   inset: 6px;
   background: var(--background);
 }
 
 /* Vaporwave: a four-point neon star, without a glow or pulse. */
-html[data-skin='vaporwave'] .custom-cursor {
+.custom-cursor[data-style='vaporwave'] {
   width: 16px;
   height: 16px;
 }
-html[data-skin='vaporwave'] .custom-cursor::before {
+.custom-cursor[data-style='vaporwave']::before {
   inset: 0;
   background: var(--cursor-accent);
   clip-path: polygon(
@@ -297,46 +276,46 @@ html[data-skin='vaporwave'] .custom-cursor::before {
     38% 38%
   );
 }
-html[data-skin='vaporwave'] .custom-cursor[data-mode='interactive']::after {
+.custom-cursor[data-style='vaporwave'][data-mode='interactive']::after {
   inset: 6px;
   background: var(--accent);
 }
 
 /* Blueprint: a fine drafting crosshair with a center registration mark. */
-html[data-skin='blueprint'] .custom-cursor {
+.custom-cursor[data-style='blueprint'] {
   width: 17px;
   height: 17px;
 }
-html[data-skin='blueprint'] .custom-cursor::before {
+.custom-cursor[data-style='blueprint']::before {
   left: 0;
   right: 0;
   top: 8px;
   height: 1px;
   background: var(--cursor-accent);
 }
-html[data-skin='blueprint'] .custom-cursor::after {
+.custom-cursor[data-style='blueprint']::after {
   top: 0;
   bottom: 0;
   left: 8px;
   width: 1px;
   background: var(--cursor-accent);
 }
-html[data-skin='blueprint'] .custom-cursor[data-mode='interactive'] {
+.custom-cursor[data-style='blueprint'][data-mode='interactive'] {
   outline: 1px solid var(--cursor-accent);
   outline-offset: -4px;
 }
 
 /* Botanical: a leaf silhouette and a fine central vein. */
-html[data-skin='botanical'] .custom-cursor {
+.custom-cursor[data-style='botanical'] {
   width: 12px;
   height: 16px;
 }
-html[data-skin='botanical'] .custom-cursor::before {
+.custom-cursor[data-style='botanical']::before {
   inset: 0;
   border: 1px solid var(--cursor-accent);
-  border-radius: 100% 0 100% 0;
+  border-radius: 100% 0 100% 0 !important;
 }
-html[data-skin='botanical'] .custom-cursor::after {
+.custom-cursor[data-style='botanical']::after {
   top: 2px;
   bottom: 2px;
   left: 5px;
@@ -344,54 +323,54 @@ html[data-skin='botanical'] .custom-cursor::after {
   background: var(--cursor-accent);
   transform: rotate(35deg);
 }
-html[data-skin='botanical'] .custom-cursor[data-mode='interactive']::before {
+.custom-cursor[data-style='botanical'][data-mode='interactive']::before {
   background: var(--cursor-accent);
 }
-html[data-skin='botanical'] .custom-cursor[data-mode='interactive']::after {
+.custom-cursor[data-style='botanical'][data-mode='interactive']::after {
   background: var(--background);
 }
 
 /* Editorial: a fountain-pen nib with a small ink slit. */
-html[data-skin='editorial'] .custom-cursor {
+.custom-cursor[data-style='editorial'] {
   width: 12px;
   height: 18px;
 }
-html[data-skin='editorial'] .custom-cursor::before {
+.custom-cursor[data-style='editorial']::before {
   inset: 0;
   background: var(--cursor-accent);
   clip-path: polygon(50% 0, 100% 65%, 75% 100%, 25% 100%, 0 65%);
 }
-html[data-skin='editorial'] .custom-cursor::after {
+.custom-cursor[data-style='editorial']::after {
   top: 6px;
   bottom: 4px;
   left: 5px;
   width: 2px;
   background: var(--background);
 }
-html[data-skin='editorial'] .custom-cursor[data-mode='interactive']::after {
+.custom-cursor[data-style='editorial'][data-mode='interactive']::after {
   top: 4px;
   bottom: 2px;
 }
 
 /* Orbit: a small planet ring with a fixed satellite. */
-html[data-skin='orbit'] .custom-cursor {
+.custom-cursor[data-style='orbit'] {
   width: 16px;
   height: 16px;
 }
-html[data-skin='orbit'] .custom-cursor::before {
+.custom-cursor[data-style='orbit']::before {
   inset: 2px;
   border: 1px solid var(--cursor-accent);
-  border-radius: 50%;
+  border-radius: 50% !important;
 }
-html[data-skin='orbit'] .custom-cursor::after {
+.custom-cursor[data-style='orbit']::after {
   top: 0;
   right: 0;
   width: 4px;
   height: 4px;
-  border-radius: 50%;
+  border-radius: 50% !important;
   background: var(--cursor-accent);
 }
-html[data-skin='orbit'] .custom-cursor[data-mode='interactive']::before {
+.custom-cursor[data-style='orbit'][data-mode='interactive']::before {
   background: var(--cursor-accent);
 }
 
@@ -686,8 +665,8 @@ html[data-skin='glass'] .pattern-dots {
   border-radius: 1rem;
 }
 
-html[data-skin='glass'] .custom-cursor {
-  border-radius: 50%;
+.custom-cursor[data-style='glass'] {
+  border-radius: 50% !important;
 }
 
 /* --- Vaporwave: retro sunset grid, neon magenta/cyan, glowing type. --- */
@@ -1494,5 +1473,474 @@ html.cursor-ready .multiverse-dialog::backdrop {
   .multiverse-dialog[open],
   .multiverse-notice[data-visible='true'] {
     animation: none;
+  }
+}
+
+/* Independently selected backgrounds override universe scenery only. */
+html[data-background]:not([data-background='theme']) body {
+  background-image: none;
+  background-size: auto;
+  background-attachment: scroll;
+}
+html[data-background]:not([data-background='theme']) body::before,
+html[data-background]:not([data-background='theme']) body::after {
+  content: none;
+}
+html[data-background][data-background='grid'] body {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+html[data-background][data-background='dots'] body {
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.custom-cursor[data-style='native'] {
+  display: none;
+}
+
+html:is(
+    [data-background='none'],
+    [data-background='grid'],
+    [data-background='dots']
+  )
+  .particle-field {
+  display: none;
+}
+.lab-select {
+  max-width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  background: var(--surface);
+  color: var(--foreground);
+  padding: 0.625rem 0.75rem;
+  font: inherit;
+  font-size: 0.875rem;
+}
+.lab-background-choice {
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  padding: 0.75rem;
+}
+.lab-background-choice[data-active='true'] {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 1px var(--ring);
+}
+.lab-background-preview {
+  position: relative;
+  display: block;
+  height: 3rem;
+  margin-bottom: 0.75rem;
+  background: var(--background);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.lab-background-preview[data-effect='grid'] {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+.lab-background-preview[data-effect='dots'] {
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 10px 10px;
+}
+.lab-background-preview:is(
+    [data-effect='stars'],
+    [data-effect='constellation'],
+    [data-effect='theme']
+  )
+  i {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--accent-text);
+  border-radius: 50%;
+  left: 20%;
+  top: 25%;
+}
+.lab-background-preview i:nth-child(2) {
+  left: 45%;
+  top: 70%;
+}
+.lab-background-preview i:nth-child(3) {
+  left: 75%;
+  top: 35%;
+}
+.lab-background-preview[data-effect='constellation']::before {
+  content: '';
+  position: absolute;
+  left: 20%;
+  top: 45%;
+  width: 55%;
+  height: 1px;
+  background: var(--border);
+  transform: rotate(5deg);
+}
+.lab-tabs {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.375rem;
+  padding-top: 1rem;
+}
+.lab-tabs button {
+  flex: 1;
+  justify-content: center;
+}
+.multiverse-dialog input[type='checkbox'] {
+  accent-color: var(--accent);
+  width: 1rem;
+  height: 1rem;
+}
+
+.lab-cursor-choice {
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  text-align: left;
+}
+.lab-cursor-choice:hover {
+  border-color: var(--muted);
+}
+.lab-cursor-choice[data-active='true'] {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 1px var(--ring);
+}
+.lab-cursor-samples {
+  display: flex;
+  height: 3rem;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 0.5rem;
+  background: var(--background);
+  color: var(--cursor-accent);
+}
+.lab-cursor-sample {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+}
+.custom-cursor.cursor-preview {
+  display: block;
+  position: relative;
+  inset: auto;
+  opacity: 1;
+  margin: 0;
+  transform: scale(2);
+  will-change: auto;
+  pointer-events: none;
+}
+
+.lab-color-choice,
+.lab-color-custom {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.5rem;
+  padding: 0.375rem;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  background: var(--surface);
+}
+.lab-color-choice[data-active='true'] {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 1px var(--ring);
+}
+.lab-color-swatch {
+  display: block;
+  width: 1.375rem;
+  height: 1.375rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+}
+.lab-color-custom {
+  font-size: 0.75rem;
+  padding-inline: 0.5rem;
+}
+.lab-color-custom input {
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+/* A vertical, categorized overview within the same shell as the other tabs. */
+.multiverse-dialog {
+  padding: 1.25rem;
+}
+.multiverse-catalog[data-panel='universes'] {
+  overflow: visible;
+  flex-shrink: 0;
+  scrollbar-gutter: auto;
+}
+.universe-overview:not([hidden]) {
+  display: grid;
+}
+.universe-overview {
+  gap: 0.75rem;
+}
+.universe-overview > section {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.5rem;
+  align-items: start;
+}
+.universe-category-heading {
+  padding-top: 0.375rem;
+}
+.universe-category-heading h3 {
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+.universe-options {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.universe-options[data-category='retro'] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.universe-options[data-category='perspectives'] {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.universe-overview .universe-card {
+  padding: 0.25rem;
+}
+.universe-overview .universe-preview {
+  height: 3.75rem;
+  padding: 0.375rem;
+  gap: 0.125rem;
+}
+.universe-overview .universe-preview .preview-title {
+  font-size: 0.875rem;
+  line-height: 1;
+}
+.universe-overview
+  .universe-preview:is([data-skin='pixel'], [data-skin='fusion'])
+  .preview-title {
+  font-size: 0.4375rem;
+  line-height: 1.4;
+}
+.universe-overview .universe-preview[data-skin='blueprint'] .preview-title {
+  font-size: 0.5625rem;
+  line-height: 1.2;
+}
+.universe-overview .preview-line {
+  display: none;
+}
+.universe-overview .preview-panels i {
+  height: 0.5rem;
+}
+.universe-tile-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+.universe-tile-number {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+}
+.universe-reset-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.universe-reset-row button {
+  flex-shrink: 0;
+}
+.multiverse-dialog[data-panel='universes'] .multiverse-footer [role='status'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.lab-tabs button {
+  min-width: 0;
+}
+.lab-reset {
+  --reset-color: #9f1239;
+  color: var(--reset-color);
+  border-color: color-mix(in srgb, var(--reset-color) 50%, var(--border));
+  background: color-mix(in srgb, var(--reset-color) 8%, var(--background));
+}
+.dark .lab-reset {
+  --reset-color: #fda4af;
+}
+.lab-reset:hover {
+  background: color-mix(in srgb, var(--reset-color) 15%, var(--background));
+  border-color: var(--reset-color);
+}
+.lab-surprise {
+  color: var(--accent-text);
+  border-color: var(--accent-text);
+  background: var(--accent-soft);
+  gap: 0.625rem;
+}
+.lab-surprise:hover {
+  background: color-mix(in srgb, var(--accent-text) 16%, var(--background));
+}
+.lab-surprise > svg {
+  transition: transform 150ms ease-out;
+}
+.lab-surprise:hover > svg {
+  transform: rotate(-12deg);
+}
+.lab-surprise:active > svg {
+  transform: rotate(12deg);
+}
+.lab-surprise-scope {
+  display: block;
+  margin-top: 0.125rem;
+  font-size: 0.5625rem;
+  font-weight: 400;
+  line-height: 1.1;
+  opacity: 0.85;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lab-surprise > svg {
+    transition: none;
+  }
+  .lab-surprise:hover > svg,
+  .lab-surprise:active > svg {
+    transform: none;
+  }
+}
+@media (max-width: 639px) {
+  .multiverse-dialog {
+    padding: 0.875rem;
+  }
+  .multiverse-dialog #multiverse-title {
+    font-size: 1.25rem;
+  }
+  .multiverse-dialog #multiverse-description {
+    font-size: 0.75rem;
+  }
+  .multiverse-dialog .lab-tabs {
+    padding-top: 0.5rem;
+  }
+  .multiverse-dialog .multiverse-catalog {
+    margin-top: 0.75rem;
+  }
+  .universe-overview {
+    gap: 0.5rem;
+  }
+  .universe-overview > section {
+    display: block;
+  }
+  .universe-category-heading {
+    padding-top: 0;
+    margin-bottom: 0.25rem;
+  }
+  .universe-options {
+    gap: 0.375rem;
+  }
+  .universe-overview .universe-preview {
+    height: 2.5rem;
+    padding: 0.25rem;
+  }
+  .universe-overview .universe-preview .preview-title {
+    font-size: 0.625rem;
+  }
+  .universe-overview .preview-nav {
+    display: none;
+  }
+  .universe-tile-label {
+    font-size: 0.625rem;
+    gap: 0.125rem;
+  }
+  .universe-tile-number {
+    display: none;
+  }
+  .universe-tile-label svg {
+    width: 0.625rem;
+    height: 0.625rem;
+  }
+  .universe-reset-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .universe-reset-row button {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+  .multiverse-dialog .multiverse-footer .multiverse-control {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+  .multiverse-dialog .multiverse-footer > div {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    gap: 0.5rem;
+  }
+  .multiverse-dialog .multiverse-footer > p {
+    margin-top: 0.375rem;
+    font-size: 0.625rem;
+  }
+  .lab-tabs button {
+    padding-inline: 0.5rem;
+    font-size: 0.75rem;
+  }
+}
+@media (max-width: 639px) and (min-height: 740px) {
+  .universe-overview .universe-preview {
+    height: 3.5rem;
+  }
+  .universe-overview .universe-preview .preview-title {
+    font-size: 0.8125rem;
+  }
+}
+@media (max-height: 640px) {
+  .multiverse-dialog {
+    padding: 0.75rem;
+  }
+  .multiverse-dialog #multiverse-title {
+    font-size: 1rem;
+  }
+  .multiverse-dialog #multiverse-description {
+    display: none;
+  }
+  .multiverse-dialog .lab-tabs {
+    padding-top: 0.5rem;
+  }
+  .multiverse-dialog .multiverse-catalog {
+    margin-top: 0.5rem;
+  }
+  .universe-overview {
+    gap: 0.25rem;
+  }
+  .universe-category-heading {
+    margin-bottom: 0;
+  }
+  .universe-overview .universe-preview {
+    height: 2.5rem;
+  }
+  .universe-overview .preview-panels {
+    display: none;
+  }
+}
+@media (max-width: 639px) and (max-height: 640px) {
+  .universe-overview .universe-preview {
+    height: 1.875rem;
+  }
+}
+
+@media (max-width: 639px) and (max-height: 640px) {
+  .lab-surprise-scope {
+    display: none;
   }
 }

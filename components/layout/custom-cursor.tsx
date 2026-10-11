@@ -1,8 +1,19 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useSyncExternalStore } from 'react'
+import { useTheme } from 'next-themes'
+import { getCursorColorStyle } from '@/lib/cursor-color'
+import { useStyleSettings } from './use-style-settings'
+import { getUniverse, subscribeUniverse } from '@/lib/universe'
 
 export function CustomCursor() {
+  const { cursor: style, cursorColor } = useStyleSettings()
+  const { resolvedTheme } = useTheme()
+  const universe = useSyncExternalStore(
+    subscribeUniverse,
+    getUniverse,
+    () => 'neo' as const,
+  )
   const cursorRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -12,6 +23,8 @@ export function CustomCursor() {
     const enabled = window.matchMedia(
       '(min-width: 768px) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
     )
+
+    const active = () => enabled.matches && style !== 'native'
 
     const move = (event: PointerEvent) => {
       cursor.style.transform = `translate(${event.clientX}px, ${event.clientY}px) translate(-50%, -50%)`
@@ -36,7 +49,7 @@ export function CustomCursor() {
     // A manual popover places the cursor above modal dialogs without moving
     // their content or adding another animation loop.
     const raiseCursor = () => {
-      if (!enabled.matches) return
+      if (!active()) return
       cursor.hidePopover()
       cursor.showPopover()
     }
@@ -45,11 +58,11 @@ export function CustomCursor() {
     }
 
     const sync = () => {
-      document.documentElement.classList.toggle('cursor-ready', enabled.matches)
+      document.documentElement.classList.toggle('cursor-ready', active())
       hide()
       window.removeEventListener('pointermove', move)
       window.removeEventListener('pointerover', hover)
-      if (enabled.matches) {
+      if (active()) {
         raiseCursor()
         window.addEventListener('pointermove', move, { passive: true })
         window.addEventListener('pointerover', hover, { passive: true })
@@ -74,13 +87,15 @@ export function CustomCursor() {
       window.removeEventListener('blur', hide)
       document.documentElement.removeEventListener('mouseleave', hide)
     }
-  }, [])
+  }, [style])
 
   return (
     <div
       ref={cursorRef}
       aria-hidden
       popover="manual"
+      data-style={style === 'theme' ? universe : style}
+      style={getCursorColorStyle(cursorColor, resolvedTheme)}
       data-mode="default"
       data-visible="false"
       className="custom-cursor pointer-events-none fixed top-0 left-0 z-[100]"
