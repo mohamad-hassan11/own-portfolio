@@ -4,7 +4,11 @@ import { Check, Moon, Orbit, Shuffle, Sun, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
-import { universes, type UniverseId } from '@/content/universes'
+import {
+  universeCategories,
+  universes,
+  type UniverseId,
+} from '@/content/universes'
 import {
   applyUniverse,
   getUniverse,
@@ -36,6 +40,9 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
     else {
       onOpen()
       dialogRef.current?.showModal()
+      dialogRef.current
+        ?.querySelector('[data-active="true"].universe-card')
+        ?.scrollIntoView({ block: 'nearest', behavior: 'instant' })
       setOpen(true)
     }
   }
@@ -86,9 +93,10 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
       } else if (key === 'd') {
         event.preventDefault()
         setTheme(mode === 'dark' ? 'light' : 'dark')
-      } else if (dialogRef.current?.open && /^[1-5]$/.test(key)) {
+      } else if (dialogRef.current?.open && /^[1-9]$/.test(key)) {
         event.preventDefault()
-        select(universes[Number(key) - 1].id)
+        const selected = universes[Number(key) - 1]
+        if (selected) select(selected.id)
       }
     }
     document.addEventListener('keydown', onKey)
@@ -144,7 +152,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                 }
               }}
             >
-              <div className="flex items-start justify-between gap-4">
+              <div className="multiverse-heading flex items-start justify-between gap-4">
                 <div>
                   <p className="text-muted font-mono text-xs tracking-widest uppercase">
                     Portfolio Multiverse
@@ -159,7 +167,8 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                     id="multiverse-description"
                     className="text-muted mt-2 text-sm"
                   >
-                    One developer. Five universes. Ten experiences.
+                    One developer. {universes.length} universes.{' '}
+                    {universes.length * 2} experiences.
                   </p>
                 </div>
                 <button
@@ -172,108 +181,135 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                 </button>
               </div>
               <div
-                className="mt-5 grid grid-cols-1 gap-3 min-[440px]:grid-cols-2 sm:grid-cols-3"
+                className="multiverse-catalog mt-5 space-y-6"
                 role="group"
                 aria-label="Choose a universe"
               >
-                {universes.map((item, index) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    aria-pressed={universe === item.id}
-                    onClick={() => select(item.id)}
-                    className="universe-card"
-                    data-active={universe === item.id}
+                {universeCategories.map((category) => (
+                  <section
+                    key={category.id}
+                    aria-labelledby={`universe-category-${category.id}`}
                   >
-                    <span
-                      aria-hidden
-                      className={`universe-preview ${mode}`}
-                      data-skin={item.id}
-                    >
-                      <span className="preview-nav">
-                        <i />
-                        <i />
-                        <i />
-                      </span>
-                      <span className="preview-title">
-                        BUILD
-                        <br />
-                        WITH INTENT.
-                      </span>
-                      <span className="preview-line" />
-                      <span className="preview-panels">
-                        <i />
-                        <i />
-                        <i />
-                      </span>
-                    </span>
-                    <span className="mt-3 flex items-center justify-between gap-2 font-semibold">
-                      <span>
-                        <span className="text-muted mr-2 font-mono text-xs">
-                          0{index + 1}
-                        </span>
-                        {item.name}
-                      </span>
-                      {universe === item.id && (
-                        <Check
-                          aria-label="Active universe"
-                          className="text-accent-text size-4"
-                        />
-                      )}
-                    </span>
-                    <span className="text-muted mt-1 block text-xs leading-relaxed">
-                      {item.description}
-                    </span>
-                  </button>
+                    <div className="mb-3">
+                      <h3
+                        id={`universe-category-${category.id}`}
+                        className="text-sm font-semibold"
+                      >
+                        {category.name}
+                      </h3>
+                      <p className="text-muted mt-1 text-xs leading-relaxed">
+                        {category.description}
+                      </p>
+                    </div>
+                    <div className="grid grid-cols-1 gap-3 min-[440px]:grid-cols-2 sm:grid-cols-3">
+                      {universes
+                        .filter((item) => item.category === category.id)
+                        .map((item) => (
+                          <button
+                            key={item.id}
+                            type="button"
+                            aria-pressed={universe === item.id}
+                            onClick={() => select(item.id)}
+                            className="universe-card"
+                            data-active={universe === item.id}
+                          >
+                            <span
+                              aria-hidden
+                              className={`universe-preview ${mode}`}
+                              data-skin={item.id}
+                            >
+                              <span className="preview-nav">
+                                <i />
+                                <i />
+                                <i />
+                              </span>
+                              <span className="preview-title">
+                                BUILD
+                                <br />
+                                WITH INTENT.
+                              </span>
+                              <span className="preview-line" />
+                              <span className="preview-panels">
+                                <i />
+                                <i />
+                                <i />
+                              </span>
+                            </span>
+                            <span className="mt-3 flex items-center justify-between gap-2 font-semibold">
+                              <span>
+                                <span className="text-muted mr-2 font-mono text-xs">
+                                  0
+                                  {universes.findIndex(
+                                    ({ id }) => id === item.id,
+                                  ) + 1}
+                                </span>
+                                {item.name}
+                              </span>
+                              {universe === item.id && (
+                                <Check
+                                  aria-label="Active universe"
+                                  className="text-accent-text size-4"
+                                />
+                              )}
+                            </span>
+                            <span className="text-muted mt-1 block text-xs leading-relaxed">
+                              {item.description}
+                            </span>
+                          </button>
+                        ))}
+                    </div>
+                  </section>
                 ))}
               </div>
-              <div className="border-border mt-5 flex flex-wrap items-center justify-between gap-3 border-t pt-4">
-                <div
-                  role="group"
-                  aria-label="Color mode"
-                  className="flex gap-1"
-                >
-                  {(['light', 'dark'] as const).map((value) => {
-                    const Icon = value === 'light' ? Sun : Moon
-                    return (
-                      <button
-                        key={value}
-                        type="button"
-                        aria-pressed={mode === value}
-                        onClick={() => setTheme(value)}
-                        className="multiverse-control"
-                        data-active={mode === value}
-                      >
-                        <Icon aria-hidden className="size-4" />
-                        {value === 'light' ? 'Light' : 'Dark'}
-                      </button>
-                    )
-                  })}
+              <div className="multiverse-footer">
+                <div className="border-border mt-5 flex flex-wrap items-center justify-between gap-3 border-t pt-4">
+                  <div
+                    role="group"
+                    aria-label="Color mode"
+                    className="flex gap-1"
+                  >
+                    {(['light', 'dark'] as const).map((value) => {
+                      const Icon = value === 'light' ? Sun : Moon
+                      return (
+                        <button
+                          key={value}
+                          type="button"
+                          aria-pressed={mode === value}
+                          onClick={() => setTheme(value)}
+                          className="multiverse-control"
+                          data-active={mode === value}
+                        >
+                          <Icon aria-hidden className="size-4" />
+                          {value === 'light' ? 'Light' : 'Dark'}
+                        </button>
+                      )
+                    })}
+                  </div>
+                  <button
+                    type="button"
+                    className="multiverse-control"
+                    onClick={() => {
+                      const next = surpriseCombination(universe, mode)
+                      select(next.id, next.mode)
+                    }}
+                  >
+                    <Shuffle aria-hidden className="size-4" />
+                    Surprise Me
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  className="multiverse-control"
-                  onClick={() => {
-                    const next = surpriseCombination(universe, mode)
-                    select(next.id, next.mode)
-                  }}
+                <p className="text-muted mt-4 text-xs leading-relaxed">
+                  <kbd>T</kbd> open / close · <kbd>D</kbd> light / dark ·{' '}
+                  <kbd>1–{universes.length}</kbd> choose · <kbd>Esc</kbd> close
+                </p>
+                <p
+                  role="status"
+                  aria-live="polite"
+                  aria-atomic="true"
+                  className="text-muted mt-3 text-xs leading-relaxed"
                 >
-                  <Shuffle aria-hidden className="size-4" />
-                  Surprise Me
-                </button>
+                  {open ? notice : ''}
+                </p>
               </div>
-              <p className="text-muted mt-4 text-xs leading-relaxed">
-                <kbd>T</kbd> open / close · <kbd>D</kbd> light / dark ·{' '}
-                <kbd>1–5</kbd> choose · <kbd>Esc</kbd> close
-              </p>
-              <p
-                role="status"
-                aria-live="polite"
-                aria-atomic="true"
-                className="text-muted mt-3 text-xs leading-relaxed"
-              >
-                {open ? notice : ''}
-              </p>
             </dialog>
             <div
               role="status"

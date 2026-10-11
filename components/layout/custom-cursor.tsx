@@ -33,24 +33,41 @@ export function CustomCursor() {
     const hide = () => {
       cursor.dataset.visible = 'false'
     }
+    // A manual popover places the cursor above modal dialogs without moving
+    // their content or adding another animation loop.
+    const raiseCursor = () => {
+      if (!enabled.matches) return
+      cursor.hidePopover()
+      cursor.showPopover()
+    }
+    const onDialogToggle = (event: Event) => {
+      if (event.target instanceof HTMLDialogElement) raiseCursor()
+    }
+
     const sync = () => {
       document.documentElement.classList.toggle('cursor-ready', enabled.matches)
       hide()
       window.removeEventListener('pointermove', move)
       window.removeEventListener('pointerover', hover)
       if (enabled.matches) {
+        raiseCursor()
         window.addEventListener('pointermove', move, { passive: true })
         window.addEventListener('pointerover', hover, { passive: true })
+      } else {
+        cursor.hidePopover()
       }
     }
 
     sync()
+    document.addEventListener('toggle', onDialogToggle, true)
     enabled.addEventListener('change', sync)
     window.addEventListener('blur', hide)
     document.documentElement.addEventListener('mouseleave', hide)
 
     return () => {
       document.documentElement.classList.remove('cursor-ready')
+      cursor.hidePopover()
+      document.removeEventListener('toggle', onDialogToggle, true)
       enabled.removeEventListener('change', sync)
       window.removeEventListener('pointermove', move)
       window.removeEventListener('pointerover', hover)
@@ -63,6 +80,7 @@ export function CustomCursor() {
     <div
       ref={cursorRef}
       aria-hidden
+      popover="manual"
       data-mode="default"
       data-visible="false"
       className="custom-cursor pointer-events-none fixed top-0 left-0 z-[100]"
