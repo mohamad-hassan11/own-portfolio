@@ -4,52 +4,57 @@ import { useEffect, useRef } from 'react'
 
 export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null)
-  const labelRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
-    if (
-      !window.matchMedia('(pointer: fine)').matches ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    )
-      return
-
     const cursor = cursorRef.current
-    const label = labelRef.current
-    if (!cursor || !label) return
+    if (!cursor) return
 
-    document.documentElement.classList.add('cursor-ready')
+    const enabled = window.matchMedia(
+      '(min-width: 768px) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
+    )
 
     const move = (event: PointerEvent) => {
-      // Track the pointer directly instead of easing behind it on every frame.
-      cursor.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0) translate(-50%, -50%)`
-      cursor.dataset.visible = 'true'
+      cursor.style.transform = `translate(${event.clientX}px, ${event.clientY}px) translate(-50%, -50%)`
+      if (cursor.dataset.visible !== 'true') cursor.dataset.visible = 'true'
+    }
 
-      const target = event.target as Element | null
-      const labeled = target?.closest<HTMLElement>('[data-cursor-label]')
-      const interactive = target?.closest('a, button, summary, input, textarea')
-
-      if (labeled) {
-        cursor.dataset.mode = 'label'
-        label.textContent = labeled.dataset.cursorLabel ?? 'VIEW'
-      } else if (interactive) {
-        cursor.dataset.mode = 'interactive'
-        label.textContent = ''
-      } else {
-        cursor.dataset.mode = 'default'
-        label.textContent = ''
-      }
+    // Only inspect targets when entering an element, not on every movement.
+    const hover = (event: PointerEvent) => {
+      const target = event.target
+      const interactive =
+        target instanceof Element &&
+        target.closest(
+          'a[href], button:not(:disabled), summary, input, textarea, select, [role="button"]',
+        )
+      const mode = interactive ? 'interactive' : 'default'
+      if (cursor.dataset.mode !== mode) cursor.dataset.mode = mode
     }
 
     const hide = () => {
       cursor.dataset.visible = 'false'
     }
+    const sync = () => {
+      document.documentElement.classList.toggle('cursor-ready', enabled.matches)
+      hide()
+      window.removeEventListener('pointermove', move)
+      window.removeEventListener('pointerover', hover)
+      if (enabled.matches) {
+        window.addEventListener('pointermove', move, { passive: true })
+        window.addEventListener('pointerover', hover, { passive: true })
+      }
+    }
 
-    window.addEventListener('pointermove', move, { passive: true })
+    sync()
+    enabled.addEventListener('change', sync)
+    window.addEventListener('blur', hide)
     document.documentElement.addEventListener('mouseleave', hide)
 
     return () => {
       document.documentElement.classList.remove('cursor-ready')
+      enabled.removeEventListener('change', sync)
       window.removeEventListener('pointermove', move)
+      window.removeEventListener('pointerover', hover)
+      window.removeEventListener('blur', hide)
       document.documentElement.removeEventListener('mouseleave', hide)
     }
   }, [])
@@ -60,12 +65,7 @@ export function CustomCursor() {
       aria-hidden
       data-mode="default"
       data-visible="false"
-      className="custom-cursor pointer-events-none fixed top-0 left-0 z-[100] hidden items-center justify-center overflow-hidden md:flex"
-    >
-      <span
-        ref={labelRef}
-        className="font-mono text-[10px] font-bold tracking-wider"
-      />
-    </div>
+      className="custom-cursor pointer-events-none fixed top-0 left-0 z-[100]"
+    />
   )
 }

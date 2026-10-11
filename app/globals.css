@@ -163,20 +163,13 @@
 }
 
 .custom-cursor {
+  display: none;
   width: 12px;
   height: 12px;
   opacity: 0;
   border: 1px solid var(--cursor-accent);
   background: transparent;
-  color: var(--background);
-  mix-blend-mode: normal;
   will-change: transform;
-  transition:
-    width 100ms ease-out,
-    height 100ms ease-out,
-    opacity 150ms ease,
-    background-color 180ms ease,
-    border-color 180ms ease;
 }
 
 .custom-cursor[data-visible='true'] {
@@ -184,27 +177,12 @@
 }
 
 .custom-cursor[data-mode='interactive'] {
-  width: 24px;
-  height: 24px;
-  border: 1px solid var(--cursor-accent);
-  background:
-    linear-gradient(var(--cursor-accent), var(--cursor-accent)) center / 1px
-      100% no-repeat,
-    linear-gradient(90deg, var(--cursor-accent), var(--cursor-accent)) center /
-      100% 1px no-repeat;
-}
-
-.custom-cursor[data-mode='label'] {
-  width: 74px;
-  height: 32px;
-  border: 1px solid var(--foreground);
   background: var(--cursor-accent);
-  mix-blend-mode: normal;
 }
 
-@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+@media (min-width: 768px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .custom-cursor {
-    display: none;
+    display: block;
   }
 }
 
@@ -501,19 +479,6 @@ html[data-skin='glass'] .pattern-dots {
 
 html[data-skin='glass'] .custom-cursor {
   border-radius: 50%;
-  border-color: transparent;
-  background: color-mix(in srgb, var(--cursor-accent) 55%, transparent);
-  box-shadow: 0 0 24px var(--cursor-accent);
-}
-
-html[data-skin='glass'] .custom-cursor[data-mode='interactive'] {
-  background: color-mix(in srgb, var(--cursor-accent) 22%, transparent);
-}
-
-html[data-skin='glass'] .custom-cursor[data-mode='label'] {
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--cursor-accent) 85%, transparent);
-  color: var(--background);
 }
 
 /* --- Vaporwave: retro sunset grid, neon magenta/cyan, glowing type. --- */
@@ -853,18 +818,6 @@ html[data-skin='fusion'] .text-h1 {
 
 html[data-skin='fusion'] .pattern-dots {
   background-image: radial-gradient(var(--accent) 1.5px, transparent 1.5px);
-}
-
-html[data-skin='fusion'] .custom-cursor {
-  border-radius: 0;
-  border-color: var(--border);
-  background: color-mix(in srgb, var(--cursor-accent) 25%, transparent);
-  box-shadow: 0 0 18px var(--cursor-accent);
-}
-
-html[data-skin='fusion'] .custom-cursor[data-mode='label'] {
-  background: color-mix(in srgb, var(--cursor-accent) 85%, transparent);
-  color: var(--background);
 }
 
 /* Selector chrome stays legible while each miniature inherits real skin tokens. */
