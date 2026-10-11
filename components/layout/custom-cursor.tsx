@@ -19,22 +19,9 @@ export function CustomCursor() {
 
     document.documentElement.classList.add('cursor-ready')
 
-    let targetX = window.innerWidth / 2
-    let targetY = window.innerHeight / 2
-    let currentX = targetX
-    let currentY = targetY
-    let frame = 0
-
-    const animate = () => {
-      currentX += (targetX - currentX) * 0.22
-      currentY += (targetY - currentY) * 0.22
-      cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`
-      frame = requestAnimationFrame(animate)
-    }
-
     const move = (event: PointerEvent) => {
-      targetX = event.clientX
-      targetY = event.clientY
+      // Track the pointer directly instead of easing behind it on every frame.
+      cursor.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0) translate(-50%, -50%)`
       cursor.dataset.visible = 'true'
 
       const target = event.target as Element | null
@@ -57,13 +44,11 @@ export function CustomCursor() {
       cursor.dataset.visible = 'false'
     }
 
-    frame = requestAnimationFrame(animate)
     window.addEventListener('pointermove', move, { passive: true })
     document.documentElement.addEventListener('mouseleave', hide)
 
     return () => {
       document.documentElement.classList.remove('cursor-ready')
-      cancelAnimationFrame(frame)
       window.removeEventListener('pointermove', move)
       document.documentElement.removeEventListener('mouseleave', hide)
     }

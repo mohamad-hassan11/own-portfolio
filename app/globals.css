@@ -170,10 +170,10 @@
   background: transparent;
   color: var(--background);
   mix-blend-mode: normal;
-  will-change: transform, width, height, opacity;
+  will-change: transform;
   transition:
-    width 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    height 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    width 100ms ease-out,
+    height 100ms ease-out,
     opacity 150ms ease,
     background-color 180ms ease,
     border-color 180ms ease;
@@ -184,8 +184,8 @@
 }
 
 .custom-cursor[data-mode='interactive'] {
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
   border: 1px solid var(--cursor-accent);
   background:
     linear-gradient(var(--cursor-accent), var(--cursor-accent)) center / 1px
@@ -353,16 +353,15 @@
 }
 
 /* ============================================================
-   Style skins: an experimental layer on top of the base
-   neo-brutalist design above. Toggle via the buttons next to the
-   theme switch (components/layout/skin-switcher.tsx). "neo" is
+   Portfolio Multiverse: five visual languages on top of the base
+   neo-brutalist design above. Explore via the Multiverse selector. "neo" is
    that base look, so it needs no rules here. Every other skin
    defines its own `.dark`/`.light` token pair so the existing
    theme toggle keeps working no matter which skin is active.
    ============================================================ */
 
 /* --- Glassmorphism: frosted, translucent panels with a crisp edge sheen. --- */
-html.dark[data-skin='glass'] {
+:is(html.dark, .universe-preview.dark)[data-skin='glass'] {
   --background: #070a18;
   --foreground: #f5f7ff;
   --muted: #b7c3e6;
@@ -381,7 +380,7 @@ html.dark[data-skin='glass'] {
   --ring: #cfe0ff;
 }
 
-html.light[data-skin='glass'] {
+:is(html.light, .universe-preview.light)[data-skin='glass'] {
   --background: #eef2fb;
   --foreground: #101425;
   --muted: #4b5573;
@@ -518,7 +517,7 @@ html[data-skin='glass'] .custom-cursor[data-mode='label'] {
 }
 
 /* --- Vaporwave: retro sunset grid, neon magenta/cyan, glowing type. --- */
-html.dark[data-skin='vaporwave'] {
+:is(html.dark, .universe-preview.dark)[data-skin='vaporwave'] {
   --background: #1a0b2e;
   --foreground: #ffe3fb;
   --muted: #c9a6e0;
@@ -537,7 +536,7 @@ html.dark[data-skin='vaporwave'] {
   --ring: #00e5ff;
 }
 
-html.light[data-skin='vaporwave'] {
+:is(html.light, .universe-preview.light)[data-skin='vaporwave'] {
   --background: #fbe7f5;
   --foreground: #2b0f45;
   --muted: #7a4a8f;
@@ -635,7 +634,7 @@ html.dark[data-skin='vaporwave'] .text-h3 {
 }
 
 /* --- Pixel art: chunky retro fonts, hard corners, blocky shadows. --- */
-html.dark[data-skin='pixel'] {
+:is(html.dark, .universe-preview.dark)[data-skin='pixel'] {
   --background: #0f1a12;
   --foreground: #cdeecb;
   --muted: #7fae7a;
@@ -654,7 +653,7 @@ html.dark[data-skin='pixel'] {
   --ring: #86e88f;
 }
 
-html.light[data-skin='pixel'] {
+:is(html.light, .universe-preview.light)[data-skin='pixel'] {
   /* Unlit Game Boy DMG screen: pale olive-green LCD, dark ink. */
   --background: #d7e894;
   --foreground: #2b3a14;
@@ -710,7 +709,7 @@ html[data-skin='pixel'] .brutal-lift:hover {
 }
 
 /* --- Fusion: brutalist blocks + glass fill + neon glow + pixel display type. --- */
-html.dark[data-skin='fusion'] {
+:is(html.dark, .universe-preview.dark)[data-skin='fusion'] {
   --background: #0a0118;
   --foreground: #f3eaff;
   --muted: #b9a8d9;
@@ -729,7 +728,7 @@ html.dark[data-skin='fusion'] {
   --ring: #00e5ff;
 }
 
-html.light[data-skin='fusion'] {
+:is(html.light, .universe-preview.light)[data-skin='fusion'] {
   --background: #f5f3ff;
   --foreground: #170a2e;
   --muted: #5b4a78;
@@ -866,4 +865,171 @@ html[data-skin='fusion'] .custom-cursor {
 html[data-skin='fusion'] .custom-cursor[data-mode='label'] {
   background: color-mix(in srgb, var(--cursor-accent) 85%, transparent);
   color: var(--background);
+}
+
+/* Selector chrome stays legible while each miniature inherits real skin tokens. */
+.multiverse-dialog {
+  margin: auto;
+  width: min(44rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: clamp(1rem, 3vw, 1.75rem);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), sans-serif;
+  box-shadow: 0 24px 80px rgb(0 0 0 / 0.3);
+}
+.multiverse-dialog[open] {
+  animation: menu-in 180ms ease-out;
+}
+.multiverse-dialog::backdrop {
+  background: rgb(0 0 0 / 0.55);
+}
+
+/* Modal dialogs sit above the page cursor in the browser's top layer. */
+html.cursor-ready .multiverse-dialog,
+html.cursor-ready .multiverse-dialog *,
+html.cursor-ready .multiverse-dialog::backdrop {
+  cursor: auto !important;
+}
+
+html.cursor-ready .multiverse-dialog button {
+  cursor: pointer !important;
+}
+.universe-card {
+  display: block;
+  padding: 0.625rem;
+  border: 1px solid var(--border);
+  border-radius: 0.625rem;
+  text-align: left;
+  background: var(--surface);
+}
+.universe-card:hover {
+  border-color: var(--muted);
+}
+.universe-card[data-active='true'] {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 1px var(--ring);
+}
+.universe-preview {
+  display: flex;
+  height: 7.5rem;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow: hidden;
+  padding: 0.75rem;
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  --font-display: var(--font-barlow);
+}
+.preview-nav {
+  display: flex;
+  gap: 0.25rem;
+}
+.preview-nav i {
+  width: 0.75rem;
+  height: 0.15rem;
+  background: var(--muted);
+}
+.preview-nav i:first-child {
+  background: var(--accent);
+  margin-right: auto;
+}
+.preview-title {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+.preview-line {
+  height: 0.15rem;
+  width: 65%;
+  background: var(--muted);
+}
+.preview-panels {
+  display: flex;
+  gap: 0.35rem;
+}
+.preview-panels i {
+  height: 1rem;
+  flex: 1;
+  border: 1px solid var(--ink);
+  background: var(--surface);
+  box-shadow: 2px 2px 0 var(--shadow);
+}
+.universe-preview[data-skin='glass'] {
+  background-image: radial-gradient(
+    at top right,
+    var(--accent-soft),
+    transparent
+  );
+}
+.universe-preview[data-skin='glass'] .preview-panels i {
+  border-radius: 0.4rem;
+}
+.universe-preview[data-skin='vaporwave'],
+.universe-preview[data-skin='fusion'],
+.universe-preview[data-skin='pixel'] {
+  background-image:
+    linear-gradient(var(--ghost) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ghost) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+.universe-preview[data-skin='vaporwave'] .preview-title {
+  text-shadow: 1px 1px var(--accent-text);
+}
+.universe-preview[data-skin='pixel'] .preview-title,
+.universe-preview[data-skin='fusion'] .preview-title {
+  font-family: var(--font-press-start), monospace;
+  font-size: 0.65rem;
+  line-height: 1.5;
+}
+.multiverse-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.multiverse-control:hover {
+  background: var(--surface-hover);
+}
+.multiverse-control[data-active='true'] {
+  background: var(--accent);
+  color: var(--accent-foreground);
+  border-color: var(--accent);
+}
+.multiverse-notice {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  width: min(30rem, calc(100% - 2rem));
+  pointer-events: none;
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+.multiverse-notice[data-visible='true'] {
+  padding: 0.875rem 1rem;
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 0.2);
+  animation: menu-in 180ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .multiverse-dialog[open],
+  .multiverse-notice[data-visible='true'] {
+    animation: none;
+  }
 }

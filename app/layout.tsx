@@ -7,6 +7,7 @@ import {
   VT323,
 } from 'next/font/google'
 import Script from 'next/script'
+import { universes } from '@/content/universes'
 import './globals.css'
 
 const geistSans = Geist({
@@ -43,12 +44,13 @@ export const metadata: Metadata = {
 }
 
 // Applies a stored style skin before paint, so returning visitors don't see a flash of the default look.
-const noFlashSkinScript = `try{var s=localStorage.getItem('site-skin');if(s&&s!=='neo'){document.documentElement.setAttribute('data-skin',s)}}catch(e){}`
+const noFlashSkinScript = `try{var s=localStorage.getItem('site-skin');if(${JSON.stringify(universes.map(({ id }) => id))}.includes(s)){document.documentElement.setAttribute('data-skin',s)}}catch(e){}`
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="en"
+      data-skin="neo"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={`${geistSans.variable} ${jetbrains.variable} ${barlow.variable} ${pressStart.variable} ${vt323.variable}`}
