@@ -1674,6 +1674,60 @@ html:is(
 .multiverse-dialog {
   padding: 1.25rem;
 }
+.multiverse-dialog[data-panel='cursor'],
+.multiverse-dialog[data-panel='background'] {
+  overflow-y: hidden;
+}
+.multiverse-catalog[data-panel='cursor'],
+.multiverse-catalog[data-panel='background'] {
+  overflow: visible;
+  flex-shrink: 0;
+  scrollbar-gutter: auto;
+}
+.multiverse-dialog [aria-label='Cursor style'] {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.lab-cursor-choice {
+  min-width: 0;
+  padding: 0.5rem;
+}
+.lab-cursor-samples {
+  height: 2.25rem;
+  margin-bottom: 0.375rem;
+}
+.lab-cursor-sample {
+  width: 2rem;
+  height: 2rem;
+}
+.lab-cursor-choice > span:last-child {
+  gap: 0.25rem;
+  font-size: 0.6875rem;
+  line-height: 1.2;
+}
+.multiverse-dialog [aria-label='Background style'] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.lab-background-choice {
+  min-width: 0;
+  padding: 0.625rem;
+}
+.lab-background-preview {
+  height: 2.25rem;
+  margin-bottom: 0.5rem;
+}
+.multiverse-dialog [aria-label='Cursor color presets'] {
+  gap: 0.5rem;
+  margin-top: 0.625rem;
+}
+.multiverse-dialog[data-panel='cursor'] fieldset,
+.multiverse-dialog[data-panel='background'] fieldset {
+  margin-top: 0.875rem;
+  padding-top: 0.75rem;
+}
 .multiverse-catalog[data-panel='universes'] {
   overflow: visible;
   flex-shrink: 0;
@@ -1994,6 +2048,12 @@ html.light[data-skin='glass'] :is(.multiverse-dialog, .lab-reset-dialog)::backdr
   opacity: 1;
   transform: translateY(0) rotate(45deg);
 }
+@media (max-width: 1023px) {
+  .app-tooltip::after,
+  .app-tooltip::before {
+    display: none;
+  }
+}
 .lab-surprise {
   color: var(--accent-text);
   border-color: var(--accent-text);
@@ -2117,6 +2177,15 @@ html.light[data-skin='glass'] :is(.multiverse-dialog, .lab-reset-dialog)::backdr
   .multiverse-dialog .multiverse-catalog {
     margin-top: 0.5rem;
   }
+  .multiverse-dialog[data-panel='cursor'] section > p,
+  .multiverse-dialog[data-panel='background'] section > p {
+    display: none;
+  }
+  .multiverse-dialog[data-panel='cursor'] fieldset,
+  .multiverse-dialog[data-panel='background'] fieldset {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+  }
   .universe-overview {
     gap: 0.25rem;
   }
@@ -2139,5 +2208,61 @@ html.light[data-skin='glass'] :is(.multiverse-dialog, .lab-reset-dialog)::backdr
 @media (max-width: 639px) and (max-height: 640px) {
   .lab-surprise-scope {
     display: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .multiverse-catalog[data-panel='cursor'],
+  .multiverse-catalog[data-panel='background'] {
+    overflow: visible;
+    flex-shrink: 0;
+    scrollbar-gutter: auto;
+  }
+  .multiverse-dialog [aria-label='Cursor style'] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.375rem;
+    margin-top: 0.625rem;
+  }
+  .lab-cursor-choice {
+    min-width: 0;
+    padding: 0.375rem;
+  }
+  .lab-cursor-samples {
+    height: 2rem;
+    margin-bottom: 0.25rem;
+  }
+  .lab-cursor-sample {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  .lab-cursor-choice > span:last-child {
+    gap: 0.125rem;
+    font-size: 0.625rem;
+    line-height: 1.2;
+  }
+  .multiverse-dialog [aria-label='Background style'] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.375rem;
+    margin-top: 0.625rem;
+  }
+  .lab-background-choice {
+    min-width: 0;
+    padding: 0.5rem;
+  }
+  .lab-background-preview {
+    height: 2rem;
+    margin-bottom: 0.375rem;
+  }
+  .lab-background-choice > span:last-child {
+    font-size: 0.75rem;
+    line-height: 1.25;
+  }
+  .multiverse-dialog [aria-label='Cursor color presets'] {
+    gap: 0.375rem;
+    margin-top: 0.5rem;
+  }
+  .multiverse-dialog fieldset {
+    margin-top: 0.75rem;
+    padding-top: 0.625rem;
   }
 }
