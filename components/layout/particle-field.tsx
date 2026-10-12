@@ -19,6 +19,10 @@ interface Particle {
   y: number
   size: number
   phase: number
+  heading: number
+  targetHeading: number
+  turnIn: number
+  speed: number
 }
 interface Ripple {
   x: number
@@ -35,8 +39,7 @@ const particleStyles: Background[] = [
   'rain',
   'sprinkles',
 ]
-// Keep background movement slow and consistent; the user cannot change it.
-const movementVector: [number, number] = [0, -1]
+// Independent, gently changing headings prevent the field from scrolling as a unit.
 const movementVelocity = 0.5
 
 function readColor(color: StyleSettings['backgroundColor']) {
@@ -252,7 +255,6 @@ export function ParticleField() {
     if (!ctx) return
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
     const fine = window.matchMedia('(pointer: fine)')
-    const vector = movementVector
     const isParticle = particleStyles.includes(background)
     const linked = background === 'theme' || background === 'constellation'
     let particles: Particle[] = []
@@ -293,28 +295,39 @@ export function ParticleField() {
           phase,
           density,
           size,
-          vector,
           color,
           pointer: {
             ...pointer,
             active: pointer.active && animate && interaction,
           },
         })
-      } else if (!isParticle)
-        drawPattern(ctx, background, width, height, spacing, phase, vector)
-      else {
+      } else if (!isParticle) {
+        ctx.globalAlpha *= 0.94 + Math.cos(phase * 0.006) * 0.06
+        drawPattern(ctx, background, width, height, spacing, 0, [0, 0])
+        ctx.globalAlpha = opacity / 100
+      } else {
         for (const particle of particles) {
-          const drift = movementVelocity
-          particle.x =
-            (particle.x + vector[0] * drift * elapsed + width) % width
-          particle.y =
-            (particle.y + vector[1] * drift * elapsed + height) % height
+          particle.turnIn -= elapsed
+          if (particle.turnIn <= 0) {
+            particle.targetHeading = Math.random() * TWO_PI
+            particle.turnIn = 180 + Math.random() * 420
+          }
+          const turn = Math.atan2(
+            Math.sin(particle.targetHeading - particle.heading),
+            Math.cos(particle.targetHeading - particle.heading),
+          )
+          particle.heading += turn * (1 - Math.exp(-elapsed * 0.008))
+          const dx = Math.cos(particle.heading)
+          const dy = Math.sin(particle.heading)
+          const drift = movementVelocity * particle.speed
+          particle.x = (particle.x + dx * drift * elapsed + width) % width
+          particle.y = (particle.y + dy * drift * elapsed + height) % height
           if (background === 'rain') {
             trace(ctx, [
               [particle.x, particle.y],
               [
-                particle.x - vector[0] * particle.size * 5,
-                particle.y - vector[1] * particle.size * 5,
+                particle.x - dx * particle.size * 5,
+                particle.y - dy * particle.size * 5,
               ],
             ])
           } else if (background === 'sprinkles') {
@@ -413,6 +426,10 @@ export function ParticleField() {
         y: Math.random() * height,
         size: (0.5 + Math.random() * 0.8) * (0.45 + size * 0.22),
         phase: Math.random() * TWO_PI,
+        heading: Math.random() * TWO_PI,
+        targetHeading: Math.random() * TWO_PI,
+        turnIn: 180 + Math.random() * 420,
+        speed: 0.4 + Math.random() * 0.8,
       }))
       refresh()
     }

@@ -8,7 +8,6 @@ interface Composition {
   phase: number
   density: number
   size: number
-  vector: [number, number]
   pointer: { x: number; y: number; active: boolean }
   color: string
 }
@@ -33,7 +32,6 @@ export function drawComposition(
     phase,
     density,
     size,
-    vector,
     pointer,
     color,
   } = options
@@ -43,12 +41,10 @@ export function drawComposition(
   const ink = (alpha: number) => patternPaint(ctx, color, w, h, alpha, 1.7)
   ctx.save()
   if (style === 'spotlight') {
-    const x = pointer.active
-      ? pointer.x
-      : w * (0.5 + Math.sin(t * vector[0]) * 0.16)
+    const x = pointer.active ? pointer.x : w * (0.5 + Math.sin(t * 0.73) * 0.16)
     const y = pointer.active
       ? pointer.y
-      : h * (0.45 + Math.sin(t * vector[1]) * 0.12)
+      : h * (0.45 + Math.sin(t * 0.91 + 1.2) * 0.12)
     const r = Math.min(w, h) * (0.3 + size * 0.055)
     const light = ctx.createRadialGradient(x, y, 0, x, y, r)
     light.addColorStop(0, patternColor(color, 0.06 + density * 0.015, 0.5, 1.7))
@@ -76,9 +72,10 @@ export function drawComposition(
   } else if (style === 'sculpture') {
     const r = Math.min(w, h) * (0.2 + size * 0.025)
     ctx.translate(w * 0.72, h * 0.48)
-    ctx.rotate(t * vector[0] * 0.15 + px * 0.35)
+    ctx.rotate(Math.sin(t * 0.37) * 0.3 + px * 0.35)
     for (let i = 0; i < 5 + density * 2; i++) {
-      const angle = (i * Math.PI) / (5 + density * 2) + t * vector[1] * 0.12
+      const angle =
+        (i * Math.PI) / (5 + density * 2) + Math.sin(t * 0.53 + i) * 0.24
       ctx.beginPath()
       ctx.ellipse(
         0,
@@ -100,15 +97,15 @@ export function drawComposition(
       const x =
         w * (0.12 + ((i * 0.618) % 0.78)) +
         px * 65 * depth +
-        Math.sin(t + seed) * 12 * vector[0]
+        Math.sin(t * (0.61 + i * 0.07) + seed) * 12
       const y =
         h * (0.12 + ((i * 0.381) % 0.76)) +
         py * 65 * depth +
-        Math.cos(t + seed) * 12 * vector[1]
+        Math.cos(t * (0.83 + i * 0.05) + seed) * 12
       const r = (24 + size * 12) * depth
       ctx.save()
       ctx.translate(x, y)
-      ctx.rotate(seed + t * 0.05)
+      ctx.rotate(seed + Math.sin(t * 0.41 + seed) * 0.15)
       ctx.beginPath()
       ctx.moveTo(-r, -r * 0.35)
       ctx.lineTo(r * 0.7, -r)

@@ -309,7 +309,7 @@ export interface StyleSettings {
   interaction: boolean
 }
 
-export const densityRange = { min: 1, max: 5 } as const
+export const densityRange = { min: 0, max: 10 } as const
 export const sizeRange = { min: 1, max: 10 } as const
 export const opacityRange = { min: 10, max: 100 } as const
 
@@ -323,65 +323,65 @@ export const universeBackgroundDefaults: Record<
   neo: {
     background: 'constellation',
     backgroundColor: 'blue',
-    density: 5,
+    density: 10,
     size: 10,
     opacity: 75,
   },
   glass: {
     background: 'constellation',
     backgroundColor: 'violet',
-    density: 2,
-    size: 3,
-    opacity: 35,
+    density: 6,
+    size: 6,
+    opacity: 50,
   },
   fusion: {
     background: 'shards',
     backgroundColor: 'cyan',
-    density: 2,
-    size: 3,
-    opacity: 35,
+    density: 5,
+    size: 6,
+    opacity: 50,
   },
   pixel: {
     background: 'dots',
     backgroundColor: 'mint',
-    density: 2,
-    size: 3,
-    opacity: 35,
+    density: 6,
+    size: 6,
+    opacity: 50,
   },
   vaporwave: {
     background: 'diagonals',
     backgroundColor: 'rose',
-    density: 2,
-    size: 3,
-    opacity: 35,
+    density: 6,
+    size: 6,
+    opacity: 50,
   },
   blueprint: {
     background: 'hexagons',
     backgroundColor: 'cyan',
-    density: 2,
-    size: 3,
-    opacity: 35,
+    density: 6,
+    size: 6,
+    opacity: 50,
   },
   botanical: {
     background: 'fireflies',
     backgroundColor: 'mint',
-    density: 2,
-    size: 3,
-    opacity: 35,
+    density: 6,
+    size: 6,
+    opacity: 50,
   },
   editorial: {
     background: 'rings',
     backgroundColor: 'amber',
-    density: 2,
-    size: 3,
-    opacity: 35,
+    density: 6,
+    size: 6,
+    opacity: 50,
   },
   orbit: {
     background: 'stars',
     backgroundColor: 'violet',
-    density: 2,
-    size: 3,
-    opacity: 35,
+    density: 6,
+    size: 6,
+    opacity: 50,
   },
 }
 
