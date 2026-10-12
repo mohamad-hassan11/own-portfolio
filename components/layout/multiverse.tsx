@@ -1,15 +1,6 @@
 'use client'
 
-import {
-  Check,
-  Dice5,
-  Layers3,
-  Moon,
-  Orbit,
-  RotateCcw,
-  Sun,
-  X,
-} from 'lucide-react'
+import { Check, Dice5, Layers3, Orbit, RotateCcw, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
@@ -464,28 +455,6 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
               </div>
               <div className="multiverse-footer">
                 <div className="border-border mt-5 flex flex-wrap items-center justify-between gap-3 border-t pt-4">
-                  <div
-                    role="group"
-                    aria-label="Color mode"
-                    className="flex gap-1"
-                  >
-                    {(['light', 'dark'] as const).map((value) => {
-                      const Icon = value === 'light' ? Sun : Moon
-                      return (
-                        <button
-                          key={value}
-                          type="button"
-                          aria-pressed={mode === value}
-                          onClick={() => setTheme(value)}
-                          className="multiverse-control"
-                          data-active={mode === value}
-                        >
-                          <Icon aria-hidden className="size-4" />
-                          {value === 'light' ? 'Light' : 'Dark'}
-                        </button>
-                      )
-                    })}
-                  </div>
                   <button
                     type="button"
                     className="multiverse-control lab-surprise app-tooltip"

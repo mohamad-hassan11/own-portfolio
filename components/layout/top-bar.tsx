@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { Multiverse } from '@/components/layout/multiverse'
+import { ThemeSwitch } from '@/components/layout/theme-switch'
 import type { NavItem } from '@/content/types'
 import { cn } from '@/lib/utils'
 
@@ -100,6 +101,9 @@ export function TopBar({ name, title, links, cvHref }: TopBarProps) {
             </a>
           )}
           <Multiverse onOpen={() => setOpenPath(null)} />
+          <div className="hidden md:flex">
+            <ThemeSwitch />
+          </div>
           <button
             ref={buttonRef}
             type="button"
@@ -147,6 +151,9 @@ export function TopBar({ name, title, links, cvHref }: TopBarProps) {
                 </a>
               </li>
             )}
+            <li className="px-3 pt-2 pb-1">
+              <ThemeSwitch />
+            </li>
           </ul>
         </nav>
       )}

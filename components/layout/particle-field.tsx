@@ -394,7 +394,8 @@ export function ParticleField() {
         ? ripples.filter(({ start }) => time - start < RIPPLE_DURATION)
         : []
       for (const ripple of ripples) {
-        const progress = (time - ripple.start) / RIPPLE_DURATION
+        // A frame timestamp can precede a pointer event received in that frame.
+        const progress = Math.max(0, (time - ripple.start) / RIPPLE_DURATION)
         ctx.beginPath()
         ctx.arc(ripple.x, ripple.y, progress * 70, 0, TWO_PI)
         ctx.strokeStyle = rgba(0.3 * (1 - progress))
