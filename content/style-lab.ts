@@ -1,7 +1,7 @@
 import type { UniverseId } from './universes'
 
 export const cursorStyles = [
-  { id: 'theme', name: 'Match universe' },
+  { id: 'theme', name: 'Match theme' },
   { id: 'native', name: 'System pointer' },
   { id: 'neo', name: 'Outline' },
   { id: 'glass', name: 'Circle' },
@@ -15,7 +15,7 @@ export const cursorStyles = [
 ] as const
 
 export const cursorColors = [
-  { id: 'theme', name: 'Match universe', light: '', dark: '' },
+  { id: 'theme', name: 'Match theme', light: '', dark: '' },
   { id: 'ink', name: 'Ink', light: '#17202a', dark: '#f4f4f5' },
   { id: 'blue', name: 'Blue', light: '#1d4ed8', dark: '#93c5fd' },
   { id: 'mint', name: 'Mint', light: '#047857', dark: '#6ee7b7' },
@@ -55,8 +55,8 @@ export const backgroundStyles = [
   {
     id: 'theme',
     category: 'base',
-    name: 'Match universe',
-    description: 'The original atmosphere of your selected universe.',
+    name: 'Match theme',
+    description: 'The original atmosphere of your selected theme.',
   },
   {
     id: 'none',
@@ -211,7 +211,7 @@ export const backgroundColors = [
   {
     id: 'theme',
     category: 'theme',
-    name: 'Match universe',
+    name: 'Match theme',
     light: '',
     dark: '',
   },
@@ -447,7 +447,7 @@ export const styleLabFooter = {
   shortcuts: [
     { key: 'T', label: 'Toggle style lab' },
     { key: 'D', label: 'Switch light / dark' },
-    { key: 'numbers', label: 'Select a universe' },
+    { key: 'numbers', label: 'Select a theme' },
     { key: 'Esc', label: 'Close dialog' },
   ],
 } as const

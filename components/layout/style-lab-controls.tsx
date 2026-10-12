@@ -63,8 +63,8 @@ export function StyleLabControls({
             Your pointer, your signature.
           </h3>
           <p className="text-muted mt-1 text-xs leading-relaxed">
-            Choose a marker independently of your universe. Every shape stays
-            small and follows directly.
+            Choose a marker independently of your theme. Every shape stays small
+            and follows directly.
           </p>
           <div
             role="group"
@@ -154,7 +154,7 @@ export function StyleLabControls({
                     }}
                   />
                   {option.id === 'theme' && (
-                    <span className="text-xs">Match universe</span>
+                    <span className="text-xs">{option.name}</span>
                   )}
                 </button>
               ))}
@@ -379,7 +379,7 @@ export function StyleLabControls({
                           }}
                         />
                         {option.id === 'theme' && (
-                          <span className="text-xs">Match universe</span>
+                          <span className="text-xs">{option.name}</span>
                         )}
                       </button>
                     ))}

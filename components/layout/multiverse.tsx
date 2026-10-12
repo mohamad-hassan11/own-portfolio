@@ -104,7 +104,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
     setTheme(nextMode)
     const selected = universes.find((item) => item.id === id)!
     setNotice(
-      `Universe discovered: ${selected.name}. ${selected.description} ${nextMode === 'dark' ? 'Dark' : 'Light'} mode.`,
+      `Theme selected: ${selected.name}. ${selected.description} ${nextMode === 'dark' ? 'Dark' : 'Light'} mode.`,
     )
   }
 
@@ -120,7 +120,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
         cursor: defaultStyleSettings.cursor,
         cursorColor: defaultStyleSettings.cursorColor,
       })
-      setNotice('Cursor style and color reset to universe defaults.')
+      setNotice('Cursor style and color reset to theme defaults.')
     } else {
       applyStyleSettings({
         ...settings,
@@ -128,7 +128,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
         motion: defaultStyleSettings.motion,
         interaction: defaultStyleSettings.interaction,
       })
-      setNotice('Background settings reset to universe defaults.')
+      setNotice('Background settings reset to theme defaults.')
     }
   }
 
@@ -260,7 +260,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                     id="multiverse-description"
                     className="text-muted mt-2 text-sm"
                   >
-                    Choose a universe. Mix your cursor. Set the atmosphere.
+                    Choose a theme. Mix your cursor. Set the atmosphere.
                   </p>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
@@ -381,7 +381,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                     onClick={() => choosePanel(item)}
                   >
                     {item === 'universes'
-                      ? 'Universes'
+                      ? 'Theme'
                       : item === 'cursor'
                         ? 'Cursor'
                         : 'Background'}
@@ -539,25 +539,27 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                     {styleLabFooter.description}
                   </p>
                 </div>
-                <div
-                  className="lab-shortcuts"
-                  role="group"
-                  aria-label={styleLabFooter.shortcutsLabel}
-                >
-                  <span className="lab-shortcuts-heading">
-                    {styleLabFooter.shortcutsLabel}
-                  </span>
-                  <ul>
-                    {styleLabFooter.shortcuts.map(({ key, label }) => (
-                      <li key={key}>
-                        <kbd>
-                          {key === 'numbers' ? `1–${universes.length}` : key}
-                        </kbd>
-                        <span>{label}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {hasMousePointer && (
+                  <div
+                    className="lab-shortcuts"
+                    role="group"
+                    aria-label={styleLabFooter.shortcutsLabel}
+                  >
+                    <span className="lab-shortcuts-heading">
+                      {styleLabFooter.shortcutsLabel}
+                    </span>
+                    <ul>
+                      {styleLabFooter.shortcuts.map(({ key, label }) => (
+                        <li key={key}>
+                          <kbd>
+                            {key === 'numbers' ? `1–${universes.length}` : key}
+                          </kbd>
+                          <span>{label}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
                 <p
                   role="status"
                   aria-live="polite"
