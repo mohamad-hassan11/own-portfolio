@@ -12,6 +12,7 @@ import {
   surpriseBackground,
 } from '@/lib/style-lab'
 import {
+  styleLabFooter,
   cursorStyles,
   cursorColors,
   backgroundStyles,
@@ -69,7 +70,8 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
   )
   const mode = resolvedTheme === 'light' ? 'light' : 'dark'
 
-  const activePanel = !hasMousePointer && panel === 'cursor' ? 'background' : panel
+  const activePanel =
+    !hasMousePointer && panel === 'cursor' ? 'background' : panel
 
   function choosePanel(next: LabPanel) {
     if (next === 'cursor' && !hasMousePointer) return
@@ -346,9 +348,12 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                   if (event.key === 'ArrowRight')
                     next = (index + 1) % availablePanels.length
                   else if (event.key === 'ArrowLeft')
-                    next = (index + availablePanels.length - 1) % availablePanels.length
+                    next =
+                      (index + availablePanels.length - 1) %
+                      availablePanels.length
                   else if (event.key === 'Home') next = 0
-                  else if (event.key === 'End') next = availablePanels.length - 1
+                  else if (event.key === 'End')
+                    next = availablePanels.length - 1
                   else return
                   event.preventDefault()
                   choosePanel(availablePanels[next])
@@ -470,26 +475,24 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                 {(['cursor', 'background'] as const)
                   .filter((item) => item !== 'cursor' || hasMousePointer)
                   .map((item) => (
-                  <div
-                    key={item}
-                    role="tabpanel"
-                    id={`lab-panel-${item}`}
-                    aria-labelledby={`lab-tab-${item}`}
-                    hidden={activePanel !== item}
-                    tabIndex={0}
-                  >
-                    <StyleLabControls panel={item} onChange={setNotice} />
-                  </div>
+                    <div
+                      key={item}
+                      role="tabpanel"
+                      id={`lab-panel-${item}`}
+                      aria-labelledby={`lab-tab-${item}`}
+                      hidden={activePanel !== item}
+                      tabIndex={0}
+                    >
+                      <StyleLabControls panel={item} onChange={setNotice} />
+                    </div>
                   ))}
               </div>
               <div className="multiverse-footer">
-                <div className="border-border mt-5 flex flex-wrap items-center justify-between gap-3 border-t pt-4">
+                <div className="lab-footer-actions">
                   <button
                     type="button"
-                    className="multiverse-control lab-surprise app-tooltip"
+                    className="lab-surprise"
                     aria-label="Surprise me: shuffle theme, cursor, and background"
-                    data-tooltip="Shuffle the theme, cursor, and background."
-                    data-tooltip-position="top"
                     onClick={() => {
                       const nextUniverse = surpriseCombination(universe, mode)
                       const nextCursor = surpriseCursor(
@@ -524,20 +527,42 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                       )
                     }}
                   >
-                    <Dice5 aria-hidden className="size-5" />
-                    <span>Surprise Me</span>
+                    <span className="lab-surprise-die">
+                      <Dice5 aria-hidden className="size-5" />
+                    </span>
+                    <span>{styleLabFooter.button}</span>
+                    <span aria-hidden className="lab-surprise-spark">
+                      ✦
+                    </span>
                   </button>
+                  <p className="lab-surprise-scope">
+                    {styleLabFooter.description}
+                  </p>
                 </div>
-                <p className="text-muted mt-4 text-xs leading-relaxed">
-                  <kbd>T</kbd> open / close · <kbd>D</kbd> light / dark ·{' '}
-                  <kbd>1–{universes.length}</kbd> universe · <kbd>Esc</kbd>{' '}
-                  close
-                </p>
+                <div
+                  className="lab-shortcuts"
+                  role="group"
+                  aria-label={styleLabFooter.shortcutsLabel}
+                >
+                  <span className="lab-shortcuts-heading">
+                    {styleLabFooter.shortcutsLabel}
+                  </span>
+                  <ul>
+                    {styleLabFooter.shortcuts.map(({ key, label }) => (
+                      <li key={key}>
+                        <kbd>
+                          {key === 'numbers' ? `1–${universes.length}` : key}
+                        </kbd>
+                        <span>{label}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
                 <p
                   role="status"
                   aria-live="polite"
                   aria-atomic="true"
-                  className="text-muted mt-3 text-xs leading-relaxed"
+                  className="sr-only"
                 >
                   {open ? notice : ''}
                 </p>
@@ -547,8 +572,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
               role="status"
               aria-live="polite"
               aria-atomic="true"
-              className="multiverse-notice"
-              data-visible={Boolean(notice) && !open}
+              className="sr-only"
             >
               {!open ? notice : ''}
             </div>

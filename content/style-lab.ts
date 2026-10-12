@@ -438,3 +438,16 @@ export function validateStyleSettings(value: unknown): StyleSettings {
       typeof settings.interaction === 'boolean' ? settings.interaction : true,
   }
 }
+
+export const styleLabFooter = {
+  button: 'Surprise me',
+  description:
+    'Roll a fresh mix of theme, cursor and background. Try again for another combination.',
+  shortcutsLabel: 'Keyboard shortcuts',
+  shortcuts: [
+    { key: 'T', label: 'Toggle style lab' },
+    { key: 'D', label: 'Switch light / dark' },
+    { key: 'numbers', label: 'Select a universe' },
+    { key: 'Esc', label: 'Close dialog' },
+  ],
+} as const
