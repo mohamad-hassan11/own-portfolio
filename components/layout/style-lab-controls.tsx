@@ -193,6 +193,9 @@ export function StyleLabControls({
           <p className="text-muted mt-1 text-xs leading-relaxed">
             {backgroundLabCopy.introduction}
           </p>
+          <p className="text-muted mt-2 text-xs leading-relaxed">
+            {backgroundLabCopy.accessibility}
+          </p>
           <div
             role="group"
             aria-label="Background category"
@@ -247,193 +250,195 @@ export function StyleLabControls({
                 </button>
               ))}
           </div>
-          <fieldset
-            disabled={!hasBackground}
-            className="border-border mt-5 space-y-5 border-t pt-4 disabled:opacity-50"
-          >
-            <legend className="sr-only">Background controls</legend>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {(
-                [
-                  {
-                    key: 'size',
-                    label: 'Element size',
-                    low: 'Fine',
-                    high: 'Large',
-                    min: sizeRange.min,
-                    max: sizeRange.max,
-                  },
-                  {
-                    key: 'opacity',
-                    label: 'Pattern opacity',
-                    low: 'Subtle',
-                    high: 'Solid',
-                    min: opacityRange.min,
-                    max: opacityRange.max,
-                  },
-                  {
-                    key: 'density',
-                    label: 'Density',
-                    low: 'Sparse',
-                    high: 'Full',
-                    min: densityRange.min,
-                    max: densityRange.max,
-                  },
-                ] as const
-              ).map(({ key, label, low, high, min, max }) => (
-                <label key={key} className="lab-range-control">
-                  <span className="flex justify-between gap-3 text-sm">
-                    <span>{label}</span>
-                    <output>
-                      {settings[key]} / {max}
-                    </output>
-                  </span>
-                  <input
-                    type="range"
-                    min={min}
-                    max={max}
-                    step="1"
-                    value={settings[key]}
-                    onChange={(event) =>
-                      update(
-                        { [key]: Number(event.target.value) },
-                        `${label}: ${event.target.value} of ${max}.`,
-                      )
-                    }
-                  />
-                  <span className="text-muted flex justify-between text-xs">
-                    <span>{low}</span>
-                    <span>{high}</span>
-                  </span>
-                </label>
-              ))}
-            </div>
-            <div>
-              <p className="text-sm font-semibold">Pattern color</p>
-              <div
-                role="group"
-                aria-label="Pattern color category"
-                className="mt-3 flex flex-wrap gap-2"
-              >
-                {backgroundColorCategories.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className="lab-category-choice"
-                    aria-pressed={activeColorCategory === item.id}
-                    onClick={() => setColorCategory(item.id)}
-                  >
-                    {item.name}
-                  </button>
-                ))}
-              </div>
-              <div
-                role="group"
-                aria-label="Background color presets"
-                className="mt-3 flex flex-wrap gap-2"
-              >
-                {backgroundColors
-                  .filter(
-                    ({ category: optionCategory }) =>
-                      optionCategory === activeColorCategory,
-                  )
-                  .map((option) => (
-                    <button
-                      key={option.id}
-                      type="button"
-                      aria-label={option.name}
-                      aria-pressed={settings.backgroundColor === option.id}
-                      data-tooltip={option.name}
-                      data-active={settings.backgroundColor === option.id}
-                      className="lab-color-choice app-tooltip"
-                      onClick={() =>
+          <details className="border-border mt-5 border-t pt-4">
+            <summary className="cursor-pointer text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-4">
+              Advanced background settings
+            </summary>
+            <fieldset
+              disabled={!hasBackground}
+              className="mt-4 space-y-5 disabled:opacity-50"
+            >
+              <legend className="sr-only">Background controls</legend>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {(
+                  [
+                    {
+                      key: 'size',
+                      label: 'Element size',
+                      low: 'Fine',
+                      high: 'Large',
+                      min: sizeRange.min,
+                      max: sizeRange.max,
+                    },
+                    {
+                      key: 'opacity',
+                      label: 'Pattern opacity',
+                      low: 'Subtle',
+                      high: 'Solid',
+                      min: opacityRange.min,
+                      max: opacityRange.max,
+                    },
+                    {
+                      key: 'density',
+                      label: 'Density',
+                      low: 'Sparse',
+                      high: 'Full',
+                      min: densityRange.min,
+                      max: densityRange.max,
+                    },
+                  ] as const
+                ).map(({ key, label, low, high, min, max }) => (
+                  <label key={key} className="lab-range-control">
+                    <span className="flex justify-between gap-3 text-sm">
+                      <span>{label}</span>
+                      <output>
+                        {settings[key]} / {max}
+                      </output>
+                    </span>
+                    <input
+                      type="range"
+                      min={min}
+                      max={max}
+                      step="1"
+                      value={settings[key]}
+                      onChange={(event) =>
                         update(
-                          { backgroundColor: option.id },
-                          `Background color: ${option.name}.`,
+                          { [key]: Number(event.target.value) },
+                          `${label}: ${event.target.value} of ${max}.`,
                         )
                       }
+                    />
+                    <span className="text-muted flex justify-between text-xs">
+                      <span>{low}</span>
+                      <span>{high}</span>
+                    </span>
+                  </label>
+                ))}
+              </div>
+              <div>
+                <p className="text-sm font-semibold">Pattern color</p>
+                <div
+                  role="group"
+                  aria-label="Pattern color category"
+                  className="mt-3 flex flex-wrap gap-2"
+                >
+                  {backgroundColorCategories.map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      className="lab-category-choice"
+                      aria-pressed={activeColorCategory === item.id}
+                      onClick={() => setColorCategory(item.id)}
                     >
-                      <span
-                        aria-hidden
-                        className="lab-color-swatch"
-                        style={{
-                          background:
-                            option.id === 'rainbow'
-                              ? 'linear-gradient(120deg, #ef4444, #f97316, #eab308, #22c55e, #3b82f6, #8b5cf6, #ec4899)'
-                              : option.id === 'aurora'
-                                ? 'linear-gradient(120deg, #16a34a, #06b6d4, #3b82f6, #a855f7)'
-                                : option.id === 'sunset'
-                                  ? 'linear-gradient(120deg, #7c3aed, #db2777, #f97316, #facc15)'
-                                  : option.id === 'theme'
-                                    ? 'var(--cursor-accent)'
-                                    : resolvedTheme === 'light'
-                                      ? option.light
-                                      : option.dark,
-                        }}
-                      />
-                      {option.id === 'theme' && (
-                        <span className="text-xs">Match universe</span>
-                      )}
+                      {item.name}
                     </button>
                   ))}
-                <label
-                  className="lab-color-custom"
-                  htmlFor="lab-background-color"
+                </div>
+                <div
+                  role="group"
+                  aria-label="Background color presets"
+                  className="mt-3 flex flex-wrap gap-2"
                 >
-                  <input
-                    id="lab-background-color"
-                    type="color"
-                    value={
-                      settings.backgroundColor.startsWith('#')
-                        ? settings.backgroundColor
-                        : '#8aa8ff'
-                    }
-                    onChange={(event) => {
-                      if (isBackgroundColor(event.target.value))
-                        update(
-                          { backgroundColor: event.target.value },
-                          `Custom background color: ${event.target.value}.`,
-                        )
-                    }}
-                  />
-                  Custom color
-                </label>
+                  {backgroundColors
+                    .filter(
+                      ({ category: optionCategory }) =>
+                        optionCategory === activeColorCategory,
+                    )
+                    .map((option) => (
+                      <button
+                        key={option.id}
+                        type="button"
+                        aria-label={option.name}
+                        aria-pressed={settings.backgroundColor === option.id}
+                        data-tooltip={option.name}
+                        data-active={settings.backgroundColor === option.id}
+                        className="lab-color-choice app-tooltip"
+                        onClick={() =>
+                          update(
+                            { backgroundColor: option.id },
+                            `Background color: ${option.name}.`,
+                          )
+                        }
+                      >
+                        <span
+                          aria-hidden
+                          className="lab-color-swatch"
+                          style={{
+                            background:
+                              option.id === 'rainbow'
+                                ? 'linear-gradient(120deg, #ef4444, #f97316, #eab308, #22c55e, #3b82f6, #8b5cf6, #ec4899)'
+                                : option.id === 'aurora'
+                                  ? 'linear-gradient(120deg, #16a34a, #06b6d4, #3b82f6, #a855f7)'
+                                  : option.id === 'sunset'
+                                    ? 'linear-gradient(120deg, #7c3aed, #db2777, #f97316, #facc15)'
+                                    : option.id === 'theme'
+                                      ? 'var(--cursor-accent)'
+                                      : resolvedTheme === 'light'
+                                        ? option.light
+                                        : option.dark,
+                          }}
+                        />
+                        {option.id === 'theme' && (
+                          <span className="text-xs">Match universe</span>
+                        )}
+                      </button>
+                    ))}
+                  <label
+                    className="lab-color-custom"
+                    htmlFor="lab-background-color"
+                  >
+                    <input
+                      id="lab-background-color"
+                      type="color"
+                      value={
+                        settings.backgroundColor.startsWith('#')
+                          ? settings.backgroundColor
+                          : '#8aa8ff'
+                      }
+                      onChange={(event) => {
+                        if (isBackgroundColor(event.target.value))
+                          update(
+                            { backgroundColor: event.target.value },
+                            `Custom background color: ${event.target.value}.`,
+                          )
+                      }}
+                    />
+                    Custom color
+                  </label>
+                </div>
               </div>
-            </div>
-            <label className="flex items-center gap-3 text-sm">
-              <input
-                type="checkbox"
-                checked={settings.motion === 'animated'}
-                onChange={(event) =>
-                  update(
-                    { motion: event.target.checked ? 'animated' : 'still' },
-                    event.target.checked
-                      ? 'Background motion enabled.'
-                      : 'Background motion paused.',
-                  )
-                }
-              />
-              Animate background
-            </label>
-            <label className="flex items-center gap-3 text-sm">
-              <input
-                type="checkbox"
-                checked={settings.interaction}
-                onChange={(event) =>
-                  update(
-                    { interaction: event.target.checked },
-                    event.target.checked
-                      ? 'Pointer interaction enabled.'
-                      : 'Pointer interaction disabled.',
-                  )
-                }
-              />
-              {backgroundLabCopy.interaction}
-            </label>
-            <p className="text-muted text-xs leading-relaxed">
-              {backgroundLabCopy.accessibility}
-            </p>
-          </fieldset>
+              <label className="flex items-center gap-3 text-sm">
+                <input
+                  type="checkbox"
+                  checked={settings.motion === 'animated'}
+                  onChange={(event) =>
+                    update(
+                      { motion: event.target.checked ? 'animated' : 'still' },
+                      event.target.checked
+                        ? 'Background motion enabled.'
+                        : 'Background motion paused.',
+                    )
+                  }
+                />
+                Animate background
+              </label>
+              <label className="flex items-center gap-3 text-sm">
+                <input
+                  type="checkbox"
+                  checked={settings.interaction}
+                  onChange={(event) =>
+                    update(
+                      { interaction: event.target.checked },
+                      event.target.checked
+                        ? 'Pointer interaction enabled.'
+                        : 'Pointer interaction disabled.',
+                    )
+                  }
+                />
+                {backgroundLabCopy.interaction}
+              </label>
+            </fieldset>
+          </details>
         </section>
       )}
     </div>
