@@ -31,8 +31,21 @@ import {
 } from '@/lib/universe'
 
 const serverUniverse = () => 'neo' as const
-const labPanels = ['universes', 'cursor', 'background'] as const
+const labPanels = ['universes', 'background', 'cursor'] as const
 type LabPanel = (typeof labPanels)[number]
+const mousePointerQuery = '(hover: hover) and (pointer: fine)'
+
+function subscribeMousePointer(callback: () => void) {
+  const query = window.matchMedia(mousePointerQuery)
+  query.addEventListener('change', callback)
+  return () => query.removeEventListener('change', callback)
+}
+
+function getMousePointer() {
+  return window.matchMedia(mousePointerQuery).matches
+}
+
+const getServerMousePointer = () => false
 
 export function Multiverse({ onOpen }: { onOpen: () => void }) {
   const universe = useSyncExternalStore(
@@ -49,9 +62,17 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
   const [notice, setNotice] = useState('')
   const [panel, setPanel] = useState<LabPanel>('universes')
   const settings = useStyleSettings()
+  const hasMousePointer = useSyncExternalStore(
+    subscribeMousePointer,
+    getMousePointer,
+    getServerMousePointer,
+  )
   const mode = resolvedTheme === 'light' ? 'light' : 'dark'
 
+  const activePanel = !hasMousePointer && panel === 'cursor' ? 'background' : panel
+
   function choosePanel(next: LabPanel) {
+    if (next === 'cursor' && !hasMousePointer) return
     setPanel(next)
     setNotice('')
     const catalog = dialogRef.current?.querySelector('.multiverse-catalog')
@@ -87,11 +108,11 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
 
   function resetCurrentPanel() {
     resetDialogRef.current?.close()
-    if (panel === 'universes') {
+    if (activePanel === 'universes') {
       applyUniverse('neo')
       applyStyleSettings({ ...settings, ...universeBackgroundDefaults.neo })
       setNotice('Theme reset to the default: Neo.')
-    } else if (panel === 'cursor') {
+    } else if (activePanel === 'cursor') {
       applyStyleSettings({
         ...settings,
         cursor: defaultStyleSettings.cursor,
@@ -117,9 +138,9 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
   }
 
   const resetSectionDescription =
-    panel === 'universes'
+    activePanel === 'universes'
       ? 'Return the theme to Neo'
-      : panel === 'cursor'
+      : activePanel === 'cursor'
         ? 'Restore cursor style and color'
         : 'Restore background and motion settings'
 
@@ -204,7 +225,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
               aria-labelledby="multiverse-title"
               aria-describedby="multiverse-description"
               className="multiverse-dialog"
-              data-panel={panel}
+              data-panel={activePanel}
               onClose={() => {
                 setOpen(false)
                 triggerRef.current?.focus()
@@ -317,20 +338,23 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                 aria-label="Style Lab controls"
                 className="lab-tabs"
                 onKeyDown={(event) => {
-                  const index = labPanels.indexOf(panel)
+                  const availablePanels: LabPanel[] = hasMousePointer
+                    ? [...labPanels]
+                    : labPanels.filter((item) => item !== 'cursor')
+                  const index = availablePanels.indexOf(activePanel)
                   let next: number
                   if (event.key === 'ArrowRight')
-                    next = (index + 1) % labPanels.length
+                    next = (index + 1) % availablePanels.length
                   else if (event.key === 'ArrowLeft')
-                    next = (index + labPanels.length - 1) % labPanels.length
+                    next = (index + availablePanels.length - 1) % availablePanels.length
                   else if (event.key === 'Home') next = 0
-                  else if (event.key === 'End') next = labPanels.length - 1
+                  else if (event.key === 'End') next = availablePanels.length - 1
                   else return
                   event.preventDefault()
-                  choosePanel(labPanels[next])
+                  choosePanel(availablePanels[next])
                   dialogRef.current
                     ?.querySelector<HTMLButtonElement>(
-                      `#lab-tab-${labPanels[next]}`,
+                      `#lab-tab-${availablePanels[next]}`,
                     )
                     ?.focus()
                 }}
@@ -341,11 +365,14 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                     type="button"
                     role="tab"
                     id={`lab-tab-${item}`}
-                    aria-selected={panel === item}
+                    aria-selected={activePanel === item}
                     aria-controls={`lab-panel-${item}`}
-                    tabIndex={panel === item ? 0 : -1}
+                    tabIndex={activePanel === item ? 0 : -1}
                     className="multiverse-control"
-                    data-active={panel === item}
+                    data-active={activePanel === item}
+                    disabled={item === 'cursor' && !hasMousePointer}
+                    aria-disabled={item === 'cursor' && !hasMousePointer}
+                    hidden={item === 'cursor' && !hasMousePointer}
                     onClick={() => choosePanel(item)}
                   >
                     {item === 'universes'
@@ -356,12 +383,12 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                   </button>
                 ))}
               </div>
-              <div className="multiverse-catalog mt-5" data-panel={panel}>
+              <div className="multiverse-catalog mt-5" data-panel={activePanel}>
                 <div
                   role="tabpanel"
                   id="lab-panel-universes"
                   aria-labelledby="lab-tab-universes"
-                  hidden={panel !== 'universes'}
+                  hidden={activePanel !== 'universes'}
                   className="universe-overview"
                   tabIndex={0}
                 >
@@ -440,18 +467,20 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                     </section>
                   ))}
                 </div>
-                {(['cursor', 'background'] as const).map((item) => (
+                {(['cursor', 'background'] as const)
+                  .filter((item) => item !== 'cursor' || hasMousePointer)
+                  .map((item) => (
                   <div
                     key={item}
                     role="tabpanel"
                     id={`lab-panel-${item}`}
                     aria-labelledby={`lab-tab-${item}`}
-                    hidden={panel !== item}
+                    hidden={activePanel !== item}
                     tabIndex={0}
                   >
                     <StyleLabControls panel={item} onChange={setNotice} />
                   </div>
-                ))}
+                  ))}
               </div>
               <div className="multiverse-footer">
                 <div className="border-border mt-5 flex flex-wrap items-center justify-between gap-3 border-t pt-4">
