@@ -1,41 +1,249 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { backgroundColors, type StyleSettings } from '@/content/style-lab'
+import {
+  compositionStyles,
+  drawComposition,
+} from '@/lib/background-compositions'
+import {
+  isPatternGradient,
+  patternColor,
+  patternPaint,
+} from '@/lib/background-paint'
 import { useStyleSettings } from './use-style-settings'
 
+type Background = StyleSettings['background']
 interface Particle {
   x: number
   y: number
-  vx: number
-  vy: number
-  r: number
+  size: number
+  phase: number
 }
 interface Ripple {
   x: number
   y: number
   start: number
 }
-const LINK_DISTANCE = 130
-const CURSOR_LINK_DISTANCE = 170
+const TWO_PI = Math.PI * 2
 const RIPPLE_DURATION = 900
+const particleStyles: Background[] = [
+  'theme',
+  'constellation',
+  'stars',
+  'fireflies',
+  'rain',
+  'sprinkles',
+]
+// Keep background movement slow and consistent; the user cannot change it.
+const movementVector: [number, number] = [0, -1]
+const movementVelocity = 0.5
 
-function readAccentRgb() {
+function readColor(color: StyleSettings['backgroundColor']) {
+  if (isPatternGradient(color)) return color
+  const option = backgroundColors.find(({ id }) => id === color)
   const probe = document.createElement('span')
-  probe.style.color = 'var(--cursor-accent)'
+  probe.style.color =
+    option && option.id !== 'theme'
+      ? document.documentElement.classList.contains('light')
+        ? option.light
+        : option.dark
+      : color.startsWith('#')
+        ? color
+        : 'var(--cursor-accent)'
   document.body.appendChild(probe)
-  const rgb = getComputedStyle(probe).color
+  const computed = getComputedStyle(probe).color
   probe.remove()
-  const match = rgb.match(/\d+/g)
-  return match ? `${match[0]}, ${match[1]}, ${match[2]}` : '61, 107, 255'
+  const parts = computed.match(/\d+/g)
+  return parts ? `${parts[0]}, ${parts[1]}, ${parts[2]}` : '138, 168, 255'
+}
+
+function trace(ctx: CanvasRenderingContext2D, points: [number, number][]) {
+  ctx.beginPath()
+  points.forEach(([x, y], index) =>
+    index ? ctx.lineTo(x, y) : ctx.moveTo(x, y),
+  )
+  ctx.stroke()
+}
+
+function drawPattern(
+  ctx: CanvasRenderingContext2D,
+  style: Background,
+  width: number,
+  height: number,
+  spacing: number,
+  phase: number,
+  direction: [number, number],
+) {
+  const offsetX = (((phase * direction[0]) % spacing) + spacing) % spacing
+  const offsetY = (((phase * direction[1]) % spacing) + spacing) % spacing
+  const cols = Math.ceil(width / spacing) + 2
+  const rows = Math.ceil(height / spacing) + 2
+  const tile = (
+    draw: (x: number, y: number, col: number, row: number) => void,
+  ) => {
+    for (let row = -1; row < rows; row++)
+      for (let col = -1; col < cols; col++)
+        draw(col * spacing + offsetX, row * spacing + offsetY, col, row)
+  }
+  switch (style) {
+    case 'grid':
+      for (let x = offsetX; x < width + spacing; x += spacing)
+        trace(ctx, [
+          [x, 0],
+          [x, height],
+        ])
+      for (let y = offsetY; y < height + spacing; y += spacing)
+        trace(ctx, [
+          [0, y],
+          [width, y],
+        ])
+      break
+    case 'dots':
+      tile((x, y) => {
+        ctx.beginPath()
+        ctx.arc(x, y, 1.5, 0, TWO_PI)
+        ctx.fill()
+      })
+      break
+    case 'diagonals': {
+      // The span covers a full tile; repeated lines flow smoothly in either direction.
+      const shift =
+        (((phase * (direction[0] - direction[1])) % spacing) + spacing) %
+        spacing
+      for (let x = -height - spacing; x < width + spacing; x += spacing)
+        trace(ctx, [
+          [x + shift, 0],
+          [x + height + shift, height],
+        ])
+      break
+    }
+    case 'crosses':
+      tile((x, y) => {
+        const arm = spacing * 0.12
+        trace(ctx, [
+          [x - arm, y],
+          [x + arm, y],
+        ])
+        trace(ctx, [
+          [x, y - arm],
+          [x, y + arm],
+        ])
+      })
+      break
+    case 'diamonds':
+      tile((x, y) => {
+        trace(ctx, [
+          [x, y - spacing / 2],
+          [x + spacing / 2, y],
+          [x, y + spacing / 2],
+          [x - spacing / 2, y],
+          [x, y - spacing / 2],
+        ])
+      })
+      break
+    case 'triangles':
+    case 'isometric':
+      tile((x, y, col, row) => {
+        const shift = row % 2 ? spacing / 2 : 0
+        trace(ctx, [
+          [x + shift, y],
+          [x + shift + spacing / 2, y + spacing],
+          [x + shift - spacing / 2, y + spacing],
+          [x + shift, y],
+        ])
+        if (style === 'isometric')
+          trace(ctx, [
+            [x + shift, y],
+            [x + shift, y + spacing],
+          ])
+      })
+      break
+    case 'hexagons':
+      tile((x, y, col, row) => {
+        const cx = x + (row % 2 ? spacing / 2 : 0)
+        const r = spacing * 0.48
+        const points = Array.from({ length: 7 }, (_, i): [number, number] => [
+          cx + Math.cos((i * TWO_PI) / 6) * r,
+          y + Math.sin((i * TWO_PI) / 6) * r,
+        ])
+        trace(ctx, points)
+      })
+      break
+    case 'rings':
+      tile((x, y, col, row) => {
+        ctx.beginPath()
+        ctx.arc(x + (row % 2 ? spacing / 2 : 0), y, spacing * 0.44, 0, TWO_PI)
+        ctx.stroke()
+      })
+      break
+    case 'arcs':
+      tile((x, y, col, row) => {
+        ctx.beginPath()
+        const even = (col + row) % 2 === 0
+        ctx.arc(
+          even ? x : x + spacing,
+          y,
+          spacing * 0.82,
+          even ? 0 : Math.PI / 2,
+          even ? Math.PI / 2 : Math.PI,
+        )
+        ctx.stroke()
+      })
+      break
+    case 'circuit':
+      tile((x, y, col, row) => {
+        const turn = (col + row) % 3
+        trace(ctx, [
+          [x, y - spacing / 2],
+          [x, y + spacing * 0.12],
+          [x + spacing * (turn ? 0.42 : -0.42), y + spacing * 0.12],
+        ])
+        ctx.beginPath()
+        ctx.arc(x, y + spacing * 0.12, 2, 0, TWO_PI)
+        ctx.fill()
+      })
+      break
+    case 'waves':
+    case 'contours': {
+      const step = Math.max(7, spacing / 6)
+      for (let y = -spacing; y < height + spacing; y += spacing) {
+        ctx.beginPath()
+        for (let x = -step; x < width + step; x += step) {
+          const bend =
+            style === 'waves'
+              ? Math.sin(
+                  (x + phase * direction[0]) / (spacing * 1.8) + y / spacing,
+                ) *
+                spacing *
+                0.18
+              : (Math.sin(x / (spacing * 1.3) + y * 0.013) +
+                  Math.sin(x / (spacing * 0.65) - y * 0.009)) *
+                spacing *
+                0.12
+          const py = y + offsetY + bend
+          if (x === -step) ctx.moveTo(x, py)
+          else ctx.lineTo(x, py)
+        }
+        ctx.stroke()
+      }
+      break
+    }
+  }
 }
 
 export function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const { background, density, motion, interaction } = useStyleSettings()
-  const visible =
-    background === 'theme' ||
-    background === 'constellation' ||
-    background === 'stars'
+  const {
+    background,
+    density,
+    size,
+    opacity,
+    backgroundColor,
+    motion,
+    interaction,
+  } = useStyleSettings()
+  const visible = background !== 'none'
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -44,72 +252,139 @@ export function ParticleField() {
     if (!ctx) return
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
     const fine = window.matchMedia('(pointer: fine)')
+    const vector = movementVector
+    const isParticle = particleStyles.includes(background)
+    const linked = background === 'theme' || background === 'constellation'
     let particles: Particle[] = []
     let ripples: Ripple[] = []
-    let accent = readAccentRgb()
+    let color = readColor(backgroundColor)
     let width = 0
     let height = 0
     let frame = 0
     let lastTime = 0
+    let phase = 0
     const pointer = { x: 0, y: 0, active: false }
-    const linked = background !== 'stars'
+    const rgba = (alpha: number) =>
+      patternPaint(ctx, color, width, height, alpha)
     const canAnimate = () =>
-      motion === 'animated' &&
-      !reduced.matches &&
-      !document.hidden &&
-      !document.querySelector('dialog[open]')
+      motion === 'animated' && !reduced.matches && !document.hidden
 
     const draw = (time = performance.now()) => {
       frame = 0
       const animate = canAnimate()
-      // Frame-rate independent movement; cap jumps when returning to a tab.
       const elapsed =
         animate && lastTime ? Math.min(time - lastTime, 32) / 16.67 : 0
       lastTime = time
+      phase += elapsed * movementVelocity
       ctx.clearRect(0, 0, width, height)
-      for (const particle of particles) {
-        particle.x += particle.vx * elapsed
-        particle.y += particle.vy * elapsed
-        if (particle.x < 0 || particle.x > width) particle.vx *= -1
-        if (particle.y < 0 || particle.y > height) particle.vy *= -1
-        ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(${accent}, 0.4)`
-        ctx.fill()
-      }
-      if (linked)
-        for (let i = 0; i < particles.length; i++) {
-          const a = particles[i]
-          for (let j = i + 1; j < particles.length; j++) {
-            const b = particles[j]
-            const squared = (a.x - b.x) ** 2 + (a.y - b.y) ** 2
-            if (squared >= LINK_DISTANCE ** 2) continue
-            ctx.beginPath()
-            ctx.moveTo(a.x, a.y)
-            ctx.lineTo(b.x, b.y)
-            ctx.strokeStyle = `rgba(${accent}, ${0.14 * (1 - Math.sqrt(squared) / LINK_DISTANCE)})`
-            ctx.lineWidth = 1
-            ctx.stroke()
-          }
-          if (pointer.active && animate && interaction) {
-            const distance = Math.hypot(a.x - pointer.x, a.y - pointer.y)
-            if (distance < CURSOR_LINK_DISTANCE) {
+      ctx.globalAlpha = opacity / 100
+      const spacing = Math.max(
+        30,
+        48 * (0.65 + size * 0.17) * (1.35 - density * 0.11),
+      )
+      ctx.lineWidth = 1
+      ctx.strokeStyle = rgba(0.42)
+      ctx.fillStyle = rgba(0.62)
+      if (compositionStyles.has(background)) {
+        drawComposition(ctx, {
+          style: background,
+          width,
+          height,
+          phase,
+          density,
+          size,
+          vector,
+          color,
+          pointer: {
+            ...pointer,
+            active: pointer.active && animate && interaction,
+          },
+        })
+      } else if (!isParticle)
+        drawPattern(ctx, background, width, height, spacing, phase, vector)
+      else {
+        for (const particle of particles) {
+          const drift = movementVelocity
+          particle.x =
+            (particle.x + vector[0] * drift * elapsed + width) % width
+          particle.y =
+            (particle.y + vector[1] * drift * elapsed + height) % height
+          if (background === 'rain') {
+            trace(ctx, [
+              [particle.x, particle.y],
+              [
+                particle.x - vector[0] * particle.size * 5,
+                particle.y - vector[1] * particle.size * 5,
+              ],
+            ])
+          } else if (background === 'sprinkles') {
+            ctx.save()
+            ctx.translate(particle.x, particle.y)
+            ctx.rotate(particle.phase)
+            trace(ctx, [
+              [-particle.size * 2, 0],
+              [particle.size * 2, 0],
+            ])
+            ctx.restore()
+          } else {
+            if (background === 'fireflies') {
+              const glow = ctx.createRadialGradient(
+                particle.x,
+                particle.y,
+                0,
+                particle.x,
+                particle.y,
+                particle.size * 7,
+              )
+              glow.addColorStop(0, patternColor(color, 0.4, particle.x / width))
+              glow.addColorStop(1, patternColor(color, 0, particle.x / width))
+              ctx.fillStyle = glow
               ctx.beginPath()
-              ctx.moveTo(a.x, a.y)
-              ctx.lineTo(pointer.x, pointer.y)
-              ctx.strokeStyle = `rgba(${accent}, ${0.24 * (1 - distance / CURSOR_LINK_DISTANCE)})`
-              ctx.stroke()
+              ctx.arc(particle.x, particle.y, particle.size * 7, 0, TWO_PI)
+              ctx.fill()
+            }
+            ctx.fillStyle = rgba(background === 'fireflies' ? 0.62 : 0.42)
+            ctx.beginPath()
+            ctx.arc(particle.x, particle.y, particle.size, 0, TWO_PI)
+            ctx.fill()
+          }
+        }
+        if (linked) {
+          const linkDistance = 110 + size * 10
+          for (let i = 0; i < particles.length; i++) {
+            const a = particles[i]
+            for (let j = i + 1; j < particles.length; j++) {
+              const b = particles[j]
+              const distance = Math.hypot(a.x - b.x, a.y - b.y)
+              if (distance < linkDistance) {
+                ctx.strokeStyle = rgba(0.14 * (1 - distance / linkDistance))
+                trace(ctx, [
+                  [a.x, a.y],
+                  [b.x, b.y],
+                ])
+              }
+            }
+            if (pointer.active && animate && interaction) {
+              const distance = Math.hypot(a.x - pointer.x, a.y - pointer.y)
+              if (distance < 170) {
+                ctx.strokeStyle = rgba(0.24 * (1 - distance / 170))
+                trace(ctx, [
+                  [a.x, a.y],
+                  [pointer.x, pointer.y],
+                ])
+              }
             }
           }
         }
+      }
       ripples = animate
         ? ripples.filter(({ start }) => time - start < RIPPLE_DURATION)
         : []
       for (const ripple of ripples) {
         const progress = (time - ripple.start) / RIPPLE_DURATION
         ctx.beginPath()
-        ctx.arc(ripple.x, ripple.y, progress * 70, 0, Math.PI * 2)
-        ctx.strokeStyle = `rgba(${accent}, ${0.3 * (1 - progress)})`
+        ctx.arc(ripple.x, ripple.y, progress * 70, 0, TWO_PI)
+        ctx.strokeStyle = rgba(0.3 * (1 - progress))
         ctx.stroke()
       }
       if (animate) frame = requestAnimationFrame(draw)
@@ -128,18 +403,16 @@ export function ParticleField() {
       canvas.style.width = `${width}px`
       canvas.style.height = `${height}px`
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      const factor = density === 'subtle' ? 0.5 : density === 'lively' ? 1.5 : 1
-      const cap = fine.matches ? 100 : 40
+      const cap = fine.matches ? 320 : 180
       const count = Math.min(
         cap,
-        Math.round(((width * height) / 16000) * factor),
+        Math.round(((width * height) / 18000) * (0.4 + density * 0.5)),
       )
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.18,
-        vy: (Math.random() - 0.5) * 0.18,
-        r: Math.random() * 1.2 + 0.6,
+        size: (0.5 + Math.random() * 0.8) * (0.45 + size * 0.22),
+        phase: Math.random() * TWO_PI,
       }))
       refresh()
     }
@@ -153,7 +426,7 @@ export function ParticleField() {
       pointer.active = false
     }
     const click = (event: PointerEvent) => {
-      if (!canAnimate()) return
+      if (!canAnimate() || !interaction) return
       ripples.push({
         x: event.clientX,
         y: event.clientY,
@@ -161,11 +434,8 @@ export function ParticleField() {
       })
       if (ripples.length > 4) ripples.shift()
     }
-    const dialogToggle = (event: Event) => {
-      if (event.target instanceof HTMLDialogElement) refresh()
-    }
     const themeChange = () => {
-      accent = readAccentRgb()
+      color = readColor(backgroundColor)
       refresh()
     }
     const observer = new MutationObserver(themeChange)
@@ -176,7 +446,6 @@ export function ParticleField() {
     resize()
     window.addEventListener('resize', resize)
     document.addEventListener('visibilitychange', refresh)
-    document.addEventListener('toggle', dialogToggle, true)
     reduced.addEventListener('change', refresh)
     fine.addEventListener('change', resize)
     if (interaction && motion === 'animated') {
@@ -189,7 +458,6 @@ export function ParticleField() {
       observer.disconnect()
       window.removeEventListener('resize', resize)
       document.removeEventListener('visibilitychange', refresh)
-      document.removeEventListener('toggle', dialogToggle, true)
       reduced.removeEventListener('change', refresh)
       fine.removeEventListener('change', resize)
       window.removeEventListener('pointermove', move)
@@ -197,7 +465,16 @@ export function ParticleField() {
       window.removeEventListener('pointerdown', click)
       ctx.clearRect(0, 0, width, height)
     }
-  }, [visible, background, density, motion, interaction])
+  }, [
+    visible,
+    background,
+    density,
+    size,
+    opacity,
+    backgroundColor,
+    motion,
+    interaction,
+  ])
 
   return (
     <canvas

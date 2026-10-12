@@ -1,6 +1,15 @@
 'use client'
 
-import { Check, Dice5, Layers3, Moon, Orbit, RotateCcw, Sun, X } from 'lucide-react'
+import {
+  Check,
+  Dice5,
+  Layers3,
+  Moon,
+  Orbit,
+  RotateCcw,
+  Sun,
+  X,
+} from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
@@ -16,6 +25,7 @@ import {
   cursorColors,
   backgroundStyles,
   defaultStyleSettings,
+  universeBackgroundDefaults,
 } from '@/content/style-lab'
 import {
   universeCategories,
@@ -76,6 +86,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
   function select(id: UniverseId, nextMode = mode) {
     if (id === universe && nextMode === mode) return
     applyUniverse(id)
+    applyStyleSettings({ ...settings, ...universeBackgroundDefaults[id] })
     setTheme(nextMode)
     const selected = universes.find((item) => item.id === id)!
     setNotice(
@@ -87,6 +98,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
     resetDialogRef.current?.close()
     if (panel === 'universes') {
       applyUniverse('neo')
+      applyStyleSettings({ ...settings, ...universeBackgroundDefaults.neo })
       setNotice('Theme reset to the default: Neo.')
     } else if (panel === 'cursor') {
       applyStyleSettings({
@@ -98,8 +110,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
     } else {
       applyStyleSettings({
         ...settings,
-        background: defaultStyleSettings.background,
-        density: defaultStyleSettings.density,
+        ...universeBackgroundDefaults[universe],
         motion: defaultStyleSettings.motion,
         interaction: defaultStyleSettings.interaction,
       })
@@ -273,7 +284,8 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                   <div>
                     <h2 id="lab-reset-title">Choose what to reset</h2>
                     <p className="lab-reset-intro">
-                      Pick a quick reset. You can customize everything again anytime.
+                      Pick a quick reset. You can customize everything again
+                      anytime.
                     </p>
                   </div>
                   <button
@@ -510,7 +522,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                         density: nextBackground.density,
                       })
                       setNotice(
-                        `Surprise mix: ${universeName}, ${nextUniverse.mode} mode, ${cursorName} cursor in ${colorName}, ${backgroundName} background${nextBackground.background === 'stars' || nextBackground.background === 'constellation' ? ` at ${nextBackground.density} density` : ''}.`,
+                        `Surprise mix: ${universeName}, ${nextUniverse.mode} mode, ${cursorName} cursor in ${colorName}, ${backgroundName} background.`,
                       )
                     }}
                   >

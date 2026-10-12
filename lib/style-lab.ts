@@ -3,6 +3,9 @@ import {
   cursorStyles,
   cursorColors,
   backgroundStyles,
+  densityRange,
+  sizeRange,
+  opacityRange,
   validateStyleSettings,
   type StyleSettings,
 } from '@/content/style-lab'
@@ -81,10 +84,17 @@ export function surpriseBackground(
   const choices = backgroundStyles.filter(
     ({ id }) => id !== 'theme' && id !== settings.background,
   )
-  const densities = ['subtle', 'balanced', 'lively'] as const
   return {
     ...settings,
     background: choices[Math.floor(random() * choices.length)]!.id,
-    density: densities[Math.floor(random() * densities.length)]!,
+    density:
+      densityRange.min +
+      Math.floor(random() * (densityRange.max - densityRange.min + 1)),
+    size:
+      sizeRange.min +
+      Math.floor(random() * (sizeRange.max - sizeRange.min + 1)),
+    opacity:
+      opacityRange.min +
+      Math.floor(random() * (opacityRange.max - opacityRange.min + 1)),
   }
 }
