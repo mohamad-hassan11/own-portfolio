@@ -67,6 +67,17 @@ The desktop client starts yt-dlp as a local process. In the web version, Next.js
 
 ## Windows desktop application
 
+<ProjectImage
+  src="/projects/mediagrab/app-views/Desktop_app.png"
+  alt="MediaGrab Windows desktop application UI"
+  label="Fig. 01 · Desktop UI"
+  caption="The WPF desktop client showing URL input, format/quality selection, and download progress"
+  tone="blue"
+  zoom
+  width={1600}
+  height={900}
+/>
+
 The desktop client is a WPF application written in C#. It collects a URL, format, quality, and destination folder; the default destination is the user's Downloads folder, and a folder picker can change it. The active download service invokes yt-dlp with `ProcessStartInfo.ArgumentList` rather than reimplementing media extraction. It points yt-dlp at the app's tools directory so FFmpeg is available for post-processing.
 
 The UI reads yt-dlp's output to report percentage, transfer speed, and ETA, and displays status changes for metadata lookup, conversion, and stream merging. A non-zero process exit becomes an error shown to the user. The publish profile is configured for self-contained `win-x64` folder output, not a single-file executable; the project also copies files from its `Tools` directory into build and publish output.
@@ -74,6 +85,28 @@ The UI reads yt-dlp's output to report percentage, transfer speed, and ETA, and 
 Video choices include best available and height limits of 2160p, 1440p, 1080p, 720p, 480p, and 360p. Audio has best, high, and medium quality options.
 
 ## Web application
+
+<ProjectImage
+  src="/projects/mediagrab/app-views/Web-light.png"
+  alt="MediaGrab web application light mode"
+  label="Fig. 02 · Web UI — Light"
+  caption="Browser client in light mode showing URL input, format selection, and progress"
+  tone="green"
+  zoom
+  width={1600}
+  height={900}
+/>
+
+<ProjectImage
+  src="/projects/mediagrab/app-views/Web-dark.png"
+  alt="MediaGrab web application dark mode"
+  label="Fig. 03 · Web UI — Dark"
+  caption="Same browser client in dark mode"
+  tone="violet"
+  zoom
+  width={1600}
+  height={900}
+/>
 
 The browser client uses Next.js, React, TypeScript, and Tailwind CSS. It accepts a URL, lets the user choose MP3 or MP4, and updates the quality choices for the selected format. While a job runs, the page shows status, progress, speed, ETA, and errors. When the API reports completion, the browser retrieves the file and starts a download.
 
