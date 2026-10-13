@@ -42,5 +42,14 @@ export function formatDateRange(
 }
 
 export function isExternalUrl(href: string) {
-  return /^https?:\/\//.test(href)
+  return /^https?:\/\//i.test(href)
+}
+
+export function isSafeHref(href: string) {
+  // Reject control characters and protocol-relative URLs before scheme checks.
+  if (!href || /[\u0000-\u0020\u007f\\]/.test(href) || href.startsWith('//')) {
+    return false
+  }
+  const scheme = href.match(/^([a-z][a-z\d+.-]*):/i)?.[1]?.toLowerCase()
+  return !scheme || ['http', 'https', 'mailto', 'tel'].includes(scheme)
 }

@@ -6,7 +6,7 @@ import { ArchitectureDiagram } from '@/components/mdx/architecture-diagram'
 import { Callout } from '@/components/mdx/callout'
 import { ProjectImage } from '@/components/mdx/project-image'
 import { Showcase } from '@/components/mdx/showcase'
-import { cn } from '@/lib/utils'
+import { cn, isExternalUrl, isSafeHref } from '@/lib/utils'
 
 function MdxLink({
   href = '',
@@ -16,7 +16,9 @@ function MdxLink({
   const className =
     'text-accent-text underline underline-offset-4 hover:no-underline'
 
-  if (/^https?:\/\//.test(href)) {
+  if (!isSafeHref(href)) return <span className={className}>{children}</span>
+
+  if (isExternalUrl(href)) {
     return (
       <a
         href={href}

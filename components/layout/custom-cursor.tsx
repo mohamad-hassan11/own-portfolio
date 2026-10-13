@@ -24,7 +24,11 @@ export function CustomCursor() {
       '(min-width: 768px) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
     )
 
-    const active = () => enabled.matches && style !== 'native'
+    const active = () =>
+      enabled.matches &&
+      style !== 'native' &&
+      typeof cursor.showPopover === 'function' &&
+      typeof cursor.hidePopover === 'function'
 
     const move = (event: PointerEvent) => {
       cursor.style.transform = `translate(${event.clientX}px, ${event.clientY}px) translate(-50%, -50%)`
@@ -67,7 +71,7 @@ export function CustomCursor() {
         window.addEventListener('pointermove', move, { passive: true })
         window.addEventListener('pointerover', hover, { passive: true })
       } else {
-        cursor.hidePopover()
+        cursor.hidePopover?.()
       }
     }
 
@@ -79,7 +83,7 @@ export function CustomCursor() {
 
     return () => {
       document.documentElement.classList.remove('cursor-ready')
-      cursor.hidePopover()
+      cursor.hidePopover?.()
       document.removeEventListener('toggle', onDialogToggle, true)
       enabled.removeEventListener('change', sync)
       window.removeEventListener('pointermove', move)
