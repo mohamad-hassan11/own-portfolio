@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Festivals Native Android Architecture</title>
+  <desc id="desc">High-level architecture diagram of the Festivals native Android application, illustrating the Jetpack Compose presentation layer, MVVM ViewModels with Coroutines, local Room database persistence, and remote Firebase services.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 1L10 5L0 9Z" fill="#1e293b"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 1L10 5L0 9Z" fill="#006d40"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 1L10 5L0 9Z" fill="#2563eb"/>
+    </marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; fill: #0f172a; }
+      .header-title { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; fill: #0f172a; }
+      .header-desc { font-size: 18px; fill: #475569; font-weight: 400; }
+      .section-badge { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+      .card-title { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .card-item { font-size: 13px; fill: #334155; }
+      .card-sub { font-size: 12px; fill: #64748b; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+      .link { fill: none; stroke: #334155; stroke-width: 2.2; marker-end: url(#arrow); }
+      .link-green { fill: none; stroke: #006d40; stroke-width: 2.2; marker-end: url(#arrow-green); }
+      .link-blue { fill: none; stroke: #2563eb; stroke-width: 2.2; marker-end: url(#arrow-blue); }
+      .flow-label { font-size: 11px; font-weight: 600; fill: #475569; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    </style>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1600" height="900" fill="#f8fafc"/>
+
+  <!-- Top Title Area -->
+  <g transform="translate(60, 48)">
+    <rect x="0" y="0" width="8" height="42" fill="#006d40" rx="2"/>
+    <text x="24" y="26" class="header-title">Festivals · Native Android Architecture</text>
+    <text x="24" y="46" class="header-desc">Single-Activity Jetpack Compose · MVVM Architecture · Room SQLite Relational Store · Firebase Cloud Services</text>
+  </g>
+
+  <!-- ================= TIER 1: PRESENTATION LAYER ================= -->
+  <rect x="60" y="112" width="1480" height="236" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="76" y="126" width="360" height="26" rx="6" fill="#e2e8f0"/>
+  <text x="86" y="144" class="section-badge" fill="#334155">1. Presentation Layer · Jetpack Compose &amp; Navigation</text>
+
+  <!-- Component 1: Host & Navigation -->
+  <rect x="76" y="162" width="340" height="170" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="94" y="190" class="card-title">MainActivity &amp; NavHost</text>
+  <text x="94" y="214" class="card-item">• Single Activity ComponentArchitecture</text>
+  <text x="94" y="234" class="card-item">• BottomNavigationBar with dynamic routes</text>
+  <text x="94" y="254" class="card-item">• Typed navigation args (id: Long, count: Int)</text>
+  <text x="94" y="274" class="card-item">• Material 3 theme &amp; dark mode toggle</text>
+  <text x="94" y="304" class="card-sub">nl.hva.festivals.MainActivity</text>
+
+  <!-- Component 2: Discover & Detail -->
+  <rect x="432" y="162" width="345" height="170" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="450" y="190" class="card-title">Discovery &amp; Festival Detail</text>
+  <text x="450" y="214" class="card-item">• DiscoverScreen: categorized festival carousels</text>
+  <text x="450" y="234" class="card-item">• FestivalScreen: posters, dates, lineup scroll</text>
+  <text x="450" y="254" class="card-item">• Dynamic reservation existence check</text>
+  <text x="450" y="274" class="card-item">• Floating Action Button booking triggers</text>
+  <text x="450" y="304" class="card-sub">DiscoverScreen · FestivalScreen</text>
+
+  <!-- Component 3: Booking & Ticket Wallet -->
+  <rect x="793" y="162" width="365" height="170" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="811" y="190" class="card-title">Ticketing &amp; Cashless Wallet</text>
+  <text x="811" y="214" class="card-item">• ReservationFormScreen: user input &amp; bank</text>
+  <text x="811" y="234" class="card-item">• ReservationScreen: Current / History tabs</text>
+  <text x="811" y="254" class="card-item">• ReservationCardScreen: status badge &amp; hubs</text>
+  <text x="811" y="274" class="card-item">• TicketScreen &amp; Wristband cashless balance</text>
+  <text x="811" y="304" class="card-sub">ReservationCard · TicketScreen · Balance</text>
+
+  <!-- Component 4: Personalization & Auth -->
+  <rect x="1174" y="162" width="350" height="170" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="1192" y="190" class="card-title">Personalization &amp; Access</text>
+  <text x="1192" y="214" class="card-item">• FavoriteScreen: bookmarked festival grid</text>
+  <text x="1192" y="234" class="card-item">• NoteScreen: personal festival packing notes</text>
+  <text x="1192" y="254" class="card-item">• SettingsScreen: theme toggle &amp; demo seeding</text>
+  <text x="1192" y="274" class="card-item">• LoginScreen: email/password with logo asset</text>
+  <text x="1192" y="304" class="card-sub">FavoriteScreen · NoteScreen · LoginScreen</text>
+
+  <!-- Connecting Lines 1 -> 2 -->
+  <path d="M 246 332 L 246 398" class="link-green"/>
+  <text x="256" y="372" class="flow-label">State Observables</text>
+
+  <path d="M 604 332 L 604 398" class="link"/>
+  <text x="614" y="372" class="flow-label">User Actions</text>
+
+  <path d="M 975 332 L 975 398" class="link"/>
+  <text x="985" y="372" class="flow-label">Bookings &amp; Notes</text>
+
+  <path d="M 1349 332 L 1349 398" class="link-blue"/>
+  <text x="1359" y="372" class="flow-label">Auth &amp; Session</text>
+
+  <!-- ================= TIER 2: MVVM STATE & LOGIC LAYER ================= -->
+  <rect x="60" y="400" width="1480" height="190" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="76" y="414" width="310" height="26" rx="6" fill="#e2e8f0"/>
+  <text x="86" y="432" class="section-badge" fill="#334155">2. State Management · ViewModels &amp; Coroutines</text>
+
+  <!-- VM 1: FestivalViewModel -->
+  <rect x="76" y="448" width="340" height="126" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="94" y="474" class="card-title">FestivalViewModel</text>
+  <text x="94" y="496" class="card-item">• festivalsList: LiveData&lt;List&lt;FestivalWithArtists&gt;&gt;</text>
+  <text x="94" y="516" class="card-item">• observeAsState() in Compose UI tree</text>
+  <text x="94" y="536" class="card-item">• Catalog seeding &amp; database resets</text>
+  <text x="94" y="558" class="card-sub">nl.hva.festivals.vm.FestivalViewModel</text>
+
+  <!-- VM 2: ReservationViewModel -->
+  <rect x="432" y="448" width="345" height="126" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="450" y="474" class="card-title">ReservationViewModel</text>
+  <text x="450" y="496" class="card-item">• reservationWithFestivalEntity: LiveData</text>
+  <text x="450" y="516" class="card-item">• Insert reservation via Dispatchers.IO</text>
+  <text x="450" y="536" class="card-item">• Category filtering: CURRENT vs. HISTORY</text>
+  <text x="450" y="558" class="card-sub">nl.hva.festivals.vm.ReservationViewModel</text>
+
+  <!-- VM 3: Favorite & Note ViewModels -->
+  <rect x="793" y="448" width="365" height="126" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="811" y="474" class="card-title">Favorite &amp; Note ViewModels</text>
+  <text x="811" y="496" class="card-item">• FavoriteViewModel: add/remove user favorites</text>
+  <text x="811" y="516" class="card-item">• NoteViewModel: noteList LiveData&lt;List&lt;Note&gt;&gt;</text>
+  <text x="811" y="536" class="card-item">• Dialog-triggered note deletion &amp; Toast feedback</text>
+  <text x="811" y="558" class="card-sub">FavoriteViewModel · NoteViewModel</text>
+
+  <!-- VM 4: AuthViewModel -->
+  <rect x="1174" y="448" width="350" height="126" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="1192" y="474" class="card-title">AuthViewModel &amp; Session</text>
+  <text x="1192" y="496" class="card-item">• users: LiveData&lt;List&lt;User&gt;&gt; via UsersRepository</text>
+  <text x="1192" y="516" class="card-item">• viewModelScope.launch with 10s network timeout</text>
+  <text x="1192" y="536" class="card-item">• Static session state in Configuration.getUser()</text>
+  <text x="1192" y="558" class="card-sub">nl.hva.festivals.ui.components.AuthViewModel</text>
+
+  <!-- Connecting Lines 2 -> 3 -->
+  <path d="M 450 574 L 450 638" class="link-green"/>
+  <text x="460" y="612" class="flow-label">Room DAOs &amp; Queries</text>
+
+  <path d="M 1350 574 L 1350 638" class="link-blue"/>
+  <text x="1360" y="612" class="flow-label">UsersRepository (Firestore)</text>
+
+  <!-- ================= TIER 3: DATA & PERSISTENCE LAYER ================= -->
+  <rect x="60" y="640" width="1480" height="220" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="76" y="654" width="370" height="26" rx="6" fill="#e2e8f0"/>
+  <text x="86" y="672" class="section-badge" fill="#334155">3. Persistence &amp; Services · Room ORM &amp; Firebase</text>
+
+  <!-- Database & DAOs Box -->
+  <rect x="76" y="688" width="880" height="154" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="96" y="714" class="card-title">Room Relational Database (SQLite) · FestivalsAppDatabase</text>
+  <text x="96" y="736" class="card-item">• DAOs: FestivalsDao, ArtistsDao, ReservationDao, FavoriteDao, NoteDao</text>
+  <text x="96" y="756" class="card-item">• Multi-table relations: FestivalWithArtists (@Relation with @Junction cross-ref table)</text>
+  <text x="96" y="776" class="card-item">• Compound entities: ReservationAndFestival, NoteAndFestival, Favorite (composite PK [userId, festivalId])</text>
+  <text x="96" y="796" class="card-item">• Converters: Date ↔ Long timestamp, BigDecimal ↔ String, ReservationStatus, ReservationCategory</text>
+  <text x="96" y="826" class="card-sub">nl.hva.festivals.db.FestivalsAppDatabase (Room 2.5.2 KAPT)</text>
+
+  <!-- Remote Cloud Services Box -->
+  <rect x="976" y="688" width="548" height="154" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="996" y="714" class="card-title">Remote Services &amp; Network Pipelines</text>
+  <text x="996" y="738" class="card-item">• Firebase Firestore: "Users" collection with email index</text>
+  <text x="996" y="758" class="card-item">• Remote User profile, password auth &amp; wristband credits</text>
+  <text x="996" y="778" class="card-item">• Coil Image Pipeline: rememberAsyncImagePainter caching</text>
+  <text x="996" y="798" class="card-item">• Asynchronous network loading for external poster CDN assets</text>
+  <text x="996" y="826" class="card-sub">Firebase Firestore 25.1.0 · Coil Compose 2.5.0</text>
+</svg>

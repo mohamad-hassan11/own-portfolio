@@ -1,0 +1,20 @@
+Enter reminders and display them in a scrolling list.
+
+**Implementation highlight.** A Compose mutableStateListOf holds Reminder models; LazyColumn renders each addition without manually refreshing the view.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `MainActivity.kt`, `Reminder.kt`.
+
+### Runtime verification
+
+Entered and added three fictional reminders, then verified that all three appeared in the scrolling list. The captured app was rebuilt from a source-fingerprint-checked disposable copy using a separate .portfolio package ID. The existing template JUnit test passed. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+The list is in memory and is not persisted across process death. Input feedback and insertion are separate paths.
+
+</details>

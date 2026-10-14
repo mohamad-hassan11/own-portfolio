@@ -1,0 +1,20 @@
+Roll a six-sided die and track its running average.
+
+**Implementation highlight.** Remembered state tracks the roll count and cumulative total, maps each outcome to a drawable, and rounds the computed average.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `MainActivity.kt`.
+
+### Runtime verification
+
+Performed six additional rolls and observed the running average and roll-count display. This capture uses an existing APK because the current source build has an invalid drawable filename. The capture uses an existing APK whose source match is unverified. The current source build did not reach its unit tests. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+Statistics belong to the current composition; this is not a persistent analytics system. Current source build fails at resource merging because a drawable filename starts with a digit. The capture uses the existing APK with unverified source match.
+
+</details>

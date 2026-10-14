@@ -1,0 +1,37 @@
+import { AndroidMadCollection } from '@/components/projects/android-mad-collection'
+
+export const metadata = {
+  title: 'Android MAD — Six Levels of Mobile Engineering',
+  slug: 'android-mad',
+  summary:
+    'Eighteen independent Kotlin and Jetpack Compose apps trace a learning journey from reactive interfaces and navigation to remote services, cloud documents, and local relational persistence.',
+  projectType: 'Mobile development learning collection',
+  featured: false,
+  order: 4.5,
+  layout: 'collection',
+  technologies: [
+    'Kotlin',
+    'Jetpack Compose',
+    'Material 3',
+    'Navigation Compose',
+    'ViewModel',
+    'LiveData',
+    'Retrofit',
+    'Coroutines',
+    'Firebase Firestore',
+    'Room',
+    'Gradle',
+  ],
+}
+
+<div id="collection-top" className="scroll-mt-24" />
+
+## Overview
+
+Each level contains an explicitly labelled example, Task 1, and Task 2. These are eighteen separate Gradle projects with a single `:app` module each, rather than one application with eighteen features. Together they show how the responsibility for state moves from composables into ViewModels, repositories, remote services, and a local database.
+
+Screens were captured with ADB from live Android applications. Seventeen apps were rebuilt in disposable copies with separate demo package IDs; Dice & Average uses an existing APK because its current source contains an invalid drawable filename. Fictional data makes the local lists, rating flow, and draft forms concrete. The import manifest records the source fingerprints, build results, exact capture steps, and limitations.
+
+Local database captures include relaunch checks for persisted shopping items and game records. Remote service outcomes are reported as observed: the dog image loads, the cat image does not render, and Number Facts returns an error. Movie search credentials and Firestore configuration were replaced with demonstration placeholders in the build copies. Cloud forms are captured as unsubmitted drafts because a test backend has not been verified.
+
+<AndroidMadCollection />

@@ -1,0 +1,223 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Festivals Relational Database Schema &amp; Firestore Data Model</title>
+  <desc id="desc">Entity relationship diagram for the Room SQLite database and Firebase Firestore collection in the Festivals Android application, showing multi-table relations and cross-references.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 1L10 5L0 9Z" fill="#334155"/>
+    </marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; fill: #0f172a; }
+      .header-title { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; fill: #0f172a; }
+      .header-desc { font-size: 18px; fill: #475569; font-weight: 400; }
+      .table-title { font-size: 16px; font-weight: 700; fill: #ffffff; }
+      .col-pk { font-size: 13px; font-weight: 700; fill: #006d40; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .col-fk { font-size: 13px; font-weight: 700; fill: #2563eb; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .col-name { font-size: 13px; fill: #0f172a; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .col-type { font-size: 12px; fill: #64748b; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .rel-line { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#arrow); }
+      .rel-badge { font-size: 11px; font-weight: 700; fill: #475569; background: #e2e8f0; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="900" fill="#f8fafc"/>
+
+  <!-- Header -->
+  <g transform="translate(60, 48)">
+    <rect x="0" y="0" width="8" height="42" fill="#006d40" rx="2"/>
+    <text x="24" y="26" class="header-title">Festivals · Room Relational Database Schema</text>
+    <text x="24" y="46" class="header-desc">SQLite entities via Room ORM 2.5 with Many-to-Many Junctions, Embedded Relations, and Firebase Firestore User Mapping</text>
+  </g>
+
+  <!-- ================= ENTITY 1: FESTIVALS (CENTERPIECE) ================= -->
+  <g transform="translate(560, 130)">
+    <rect width="440" height="310" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <rect width="440" height="42" rx="8" fill="#006d40"/>
+    <text x="20" y="27" class="table-title">Festivals (@Entity)</text>
+
+    <!-- Columns -->
+    <text x="20" y="70" class="col-pk">PK</text>
+    <text x="60" y="70" class="col-name">festivalId</text>
+    <text x="310" y="70" class="col-type">Long</text>
+    <line x1="20" y1="82" x2="420" y2="82" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="60" y="104" class="col-name">title</text>
+    <text x="310" y="104" class="col-type">String</text>
+    <line x1="20" y1="114" x2="420" y2="114" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="60" y="136" class="col-name">ticketPrice</text>
+    <text x="310" y="136" class="col-type">BigDecimal (TypeConv)</text>
+    <line x1="20" y1="146" x2="420" y2="146" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="60" y="168" class="col-name">date</text>
+    <text x="310" y="168" class="col-type">Date (TimestampConv)</text>
+    <line x1="20" y1="178" x2="420" y2="178" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="60" y="200" class="col-name">fullDescription</text>
+    <text x="310" y="200" class="col-type">String</text>
+    <line x1="20" y1="210" x2="420" y2="210" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="60" y="232" class="col-name">smallDescription</text>
+    <text x="310" y="232" class="col-type">String</text>
+    <line x1="20" y1="242" x2="420" y2="242" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="60" y="264" class="col-name">poster</text>
+    <text x="310" y="264" class="col-type">String (URL)</text>
+    <line x1="20" y1="274" x2="420" y2="274" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="60" y="296" class="col-name">location</text>
+    <text x="310" y="296" class="col-type">String</text>
+  </g>
+
+  <!-- ================= ENTITY 2: JUNCTION (FestivalArtistCrossRef) ================= -->
+  <g transform="translate(100, 130)">
+    <rect width="360" height="150" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <rect width="360" height="42" rx="8" fill="#334155"/>
+    <text x="20" y="27" class="table-title">FestivalArtistCrossRef (M:N Junction)</text>
+
+    <text x="20" y="74" class="col-pk">PK, FK</text>
+    <text x="80" y="74" class="col-name">festivalId</text>
+    <text x="270" y="74" class="col-type">Long</text>
+    <line x1="20" y1="88" x2="340" y2="88" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="20" y="112" class="col-pk">PK, FK</text>
+    <text x="80" y="112" class="col-name">artistId</text>
+    <text x="270" y="112" class="col-type">Long</text>
+    <text x="20" y="136" class="col-type">composite PK: [festivalId, artistId]</text>
+  </g>
+
+  <!-- ================= ENTITY 3: ARTISTS ================= -->
+  <g transform="translate(100, 320)">
+    <rect width="360" height="150" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <rect width="360" height="42" rx="8" fill="#006d40"/>
+    <text x="20" y="27" class="table-title">Artists (@Entity)</text>
+
+    <text x="20" y="74" class="col-pk">PK</text>
+    <text x="60" y="74" class="col-name">artistId</text>
+    <text x="270" y="74" class="col-type">Long</text>
+    <line x1="20" y1="88" x2="340" y2="88" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="60" y="110" class="col-name">name</text>
+    <text x="270" y="110" class="col-type">String</text>
+    <line x1="20" y1="120" x2="340" y2="120" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="60" y="138" class="col-name">imageUrl</text>
+    <text x="270" y="138" class="col-type">String (URL)</text>
+  </g>
+
+  <!-- ================= ENTITY 4: RESERVATION ================= -->
+  <g transform="translate(560, 500)">
+    <rect width="440" height="230" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <rect width="440" height="42" rx="8" fill="#006d40"/>
+    <text x="20" y="27" class="table-title">Reservation (@Entity)</text>
+
+    <text x="20" y="74" class="col-pk">PK</text>
+    <text x="60" y="74" class="col-name">reservationId</text>
+    <text x="310" y="74" class="col-type">Long</text>
+    <line x1="20" y1="86" x2="420" y2="86" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="20" y="108" class="col-fk">FK</text>
+    <text x="60" y="108" class="col-name">userId</text>
+    <text x="310" y="108" class="col-type">Long (User.id)</text>
+    <line x1="20" y1="118" x2="420" y2="118" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="20" y="140" class="col-fk">FK</text>
+    <text x="60" y="140" class="col-name">festivalId</text>
+    <text x="310" y="140" class="col-type">Long (Festivals.id)</text>
+    <line x1="20" y1="150" x2="420" y2="150" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="60" y="172" class="col-name">status</text>
+    <text x="310" y="172" class="col-type">ReservationStatus (ENUM)</text>
+    <line x1="20" y1="182" x2="420" y2="182" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="60" y="204" class="col-name">category</text>
+    <text x="310" y="204" class="col-type">ReservationCategory (ENUM)</text>
+  </g>
+
+  <!-- ================= ENTITY 5: FAVORITES ================= -->
+  <g transform="translate(1080, 130)">
+    <rect width="420" height="150" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <rect width="420" height="42" rx="8" fill="#006d40"/>
+    <text x="20" y="27" class="table-title">Favorite_per_user (@Entity)</text>
+
+    <text x="20" y="74" class="col-pk">PK, FK</text>
+    <text x="80" y="74" class="col-name">userId</text>
+    <text x="290" y="74" class="col-type">Long (User.id)</text>
+    <line x1="20" y1="88" x2="400" y2="88" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="20" y="112" class="col-pk">PK, FK</text>
+    <text x="80" y="112" class="col-name">festivalId</text>
+    <text x="290" y="112" class="col-type">Long (Festivals.id)</text>
+    <text x="20" y="136" class="col-type">composite PK: [userId, festivalId]</text>
+  </g>
+
+  <!-- ================= ENTITY 6: NOTES / PACKING LIST ================= -->
+  <g transform="translate(1080, 320)">
+    <rect width="420" height="190" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <rect width="420" height="42" rx="8" fill="#006d40"/>
+    <text x="20" y="27" class="table-title">Note (@Entity)</text>
+
+    <text x="20" y="74" class="col-pk">PK</text>
+    <text x="60" y="74" class="col-name">noteId</text>
+    <text x="290" y="74" class="col-type">Long (auto-generate)</text>
+    <line x1="20" y1="86" x2="400" y2="86" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="20" y="108" class="col-fk">FK</text>
+    <text x="60" y="108" class="col-name">userId</text>
+    <text x="290" y="108" class="col-type">Long (User.id)</text>
+    <line x1="20" y1="118" x2="400" y2="118" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="20" y="140" class="col-fk">FK</text>
+    <text x="60" y="140" class="col-name">festivalId</text>
+    <text x="290" y="140" class="col-type">Long (Festivals.id)</text>
+    <line x1="20" y1="150" x2="400" y2="150" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="60" y="172" class="col-name">content</text>
+    <text x="290" y="172" class="col-type">String</text>
+  </g>
+
+  <!-- ================= CLOUD DOCUMENT 7: FIRESTORE USERS ================= -->
+  <g transform="translate(1080, 550)">
+    <rect width="420" height="230" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="2"/>
+    <rect width="420" height="42" rx="8" fill="#1e40af"/>
+    <text x="20" y="27" class="table-title">Firestore "Users" Collection</text>
+
+    <text x="20" y="74" class="col-pk">ID</text>
+    <text x="60" y="74" class="col-name">id</text>
+    <text x="290" y="74" class="col-type">Long</text>
+    <line x1="20" y1="86" x2="400" y2="86" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="60" y="108" class="col-name">email</text>
+    <text x="290" y="108" class="col-type">String</text>
+    <line x1="20" y1="118" x2="400" y2="118" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="60" y="140" class="col-name">password</text>
+    <text x="290" y="140" class="col-type">String (Hash/Token)</text>
+    <line x1="20" y1="150" x2="400" y2="150" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="60" y="172" class="col-name">firstName, lastName</text>
+    <text x="290" y="172" class="col-type">String</text>
+    <line x1="20" y1="182" x2="400" y2="182" stroke="#f1f5f9" stroke-width="1"/>
+
+    <text x="60" y="204" class="col-name">balance</text>
+    <text x="290" y="204" class="col-type">Double (Cashless EUR)</text>
+  </g>
+
+  <!-- Connecting Relationships -->
+  <!-- CrossRef to Festivals -->
+  <path d="M 460 200 L 550 200" class="rel-line"/>
+  <!-- CrossRef to Artists -->
+  <path d="M 280 280 L 280 310" class="rel-line"/>
+
+  <!-- Reservation to Festivals -->
+  <path d="M 780 495 L 780 445" class="rel-line"/>
+
+  <!-- Favorites to Festivals -->
+  <path d="M 1075 200 L 1005 200" class="rel-line"/>
+
+  <!-- Notes to Festivals -->
+  <path d="M 1075 390 L 1005 390" class="rel-line"/>
+
+  <!-- Users to Reservation -->
+  <path d="M 1075 620 L 1005 620" class="rel-line" stroke="#2563eb"/>
+</svg>

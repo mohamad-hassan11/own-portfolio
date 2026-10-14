@@ -1,0 +1,20 @@
+Organize named web portals and open them from an overview.
+
+**Implementation highlight.** A PortalsViewModel owns portal models, a dedicated form checks names and URL input, and URI handling opens the selected destination.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `PortalsViewModel.kt`, `PortalAppAddPortalScreen.kt`, `PortalAppOverviewScreen.kt`.
+
+### Runtime verification
+
+Added two named reference bookmarks through the portal form and verified the overview. External links were not followed. The captured app was rebuilt from a source-fingerprint-checked disposable copy using a separate .portfolio package ID. The existing template JUnit test passed. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+The original source directory is spelled madlevel3taks2. Portals are held in memory and external destinations were not followed.
+
+</details>

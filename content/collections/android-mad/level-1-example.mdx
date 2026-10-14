@@ -1,0 +1,20 @@
+Identify the pictured animal and submit a text answer.
+
+**Implementation highlight.** A remembered text field feeds a case-insensitive comparison against a string resource, with Toast feedback.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `MainActivity.kt`.
+
+### Runtime verification
+
+Entered giraffe, submitted the answer, and captured the Toast stating that the answer is correct. The captured app was rebuilt from a source-fingerprint-checked disposable copy using a separate .portfolio package ID. The existing template JUnit test passed. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+Answer matching normalizes case but does not trim surrounding whitespace. State is local to composition.
+
+</details>

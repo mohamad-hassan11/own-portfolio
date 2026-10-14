@@ -67,7 +67,9 @@ export function CaseStudy({ project }: { project: Project }) {
         </div>
       ) : null}
 
-      <div className="max-w-3xl [&>h2:nth-of-type(5n+1)]:border-(color:--tone-blue) [&>h2:nth-of-type(5n+2)]:border-(color:--tone-green) [&>h2:nth-of-type(5n+3)]:border-(color:--tone-amber) [&>h2:nth-of-type(5n+4)]:border-(color:--tone-red) [&>h2:nth-of-type(5n+5)]:border-(color:--tone-violet)">
+      <div
+        className={`${metadata.layout === 'collection' ? '[&>h2]:max-w-3xl [&>p]:max-w-3xl' : 'max-w-3xl'} [&>h2:nth-of-type(5n+1)]:border-(color:--tone-blue) [&>h2:nth-of-type(5n+2)]:border-(color:--tone-green) [&>h2:nth-of-type(5n+3)]:border-(color:--tone-amber) [&>h2:nth-of-type(5n+4)]:border-(color:--tone-red) [&>h2:nth-of-type(5n+5)]:border-(color:--tone-violet)`}
+      >
         <Content />
       </div>
 

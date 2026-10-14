@@ -68,6 +68,8 @@ export interface ProjectMetadata {
   year?: number
   featured: boolean
   order: number
+  /** Collection content can fill the case-study container; prose stays compact. */
+  layout?: 'default' | 'collection'
   /** Path under /public. Used on cards, the case-study header and social previews. */
   coverImage?: string
   /** Full screenshot dimensions. Opts into an uncropped, compact case-study cover. */

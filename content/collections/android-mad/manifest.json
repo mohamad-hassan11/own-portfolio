@@ -1,0 +1,2054 @@
+{
+  "schemaVersion": 2,
+  "apps": [
+    {
+      "id": "level-1-example",
+      "level": 1,
+      "role": "example",
+      "title": "Guess the Animal",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 1/madlevel1example",
+      "sourceFingerprint": "426fde3b6d8130e685dcfb25886398f916a4ab3f43d7ff0515f85e71c4274e7a",
+      "analysis": "source-reviewed",
+      "evidenceFiles": ["MainActivity.kt"],
+      "contentPath": "content/collections/android-mad/level-1-example.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-1/level-1-example/animal-feedback.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Guess the Animal with giraffe entered and answer feedback",
+          "caption": "Answer submission \u00b7 live feedback",
+          "sha256": "59e0e6392d006ba5acb6a2fab09a6c694c2e6cff9331a8a69c7c8e2faaba7e87"
+        }
+      ],
+      "limitations": [
+        "Answer matching normalizes case but does not trim surrounding whitespace. State is local to composition."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 1/madlevel1example/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "85e840fbe1c056e28e1904126dc85b41b7375836b8400bdc49b7435b324ee242",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "activity": "nl.hva.madlevel1example.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:27:46Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "7f9ac48d4fb1c82fc19fce1f42da944618164fd5c0774bdcb232665369224ebf",
+      "importStatus": "complete",
+      "buildVerification": {
+        "id": "level-1-example",
+        "sourceFingerprint": "426fde3b6d8130e685dcfb25886398f916a4ab3f43d7ff0515f85e71c4274e7a",
+        "status": "passed",
+        "redactedPaths": [],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:45:44Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-1-example.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-1-example/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "ee54711072c2e8664aa596660380d76e3b9940fc00b74480cf3c69cb5183e0fa",
+        "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel1example.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-1/level-1-example/animal-answer.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-1-example/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "ee54711072c2e8664aa596660380d76e3b9940fc00b74480cf3c69cb5183e0fa",
+          "sourceFingerprint": "426fde3b6d8130e685dcfb25886398f916a4ab3f43d7ff0515f85e71c4274e7a",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:47:31Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Entered fictional input in field 1"
+          ],
+          "runtimeVerification": "Entered an answer and verified the input field. Correct and incorrect answer feedback was not separately asserted."
+        },
+        {
+          "src": "/projects/android-mad/level-1/level-1-example/animal-feedback.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-1-example/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "ee54711072c2e8664aa596660380d76e3b9940fc00b74480cf3c69cb5183e0fa",
+          "sourceFingerprint": "426fde3b6d8130e685dcfb25886398f916a4ab3f43d7ff0515f85e71c4274e7a",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:57:44Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Entered fictional input in field 1",
+            "Selected Process user input"
+          ],
+          "runtimeVerification": "Entered giraffe, submitted the answer, and captured the resulting feedback. The captured Toast was visually reviewed."
+        }
+      ],
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-1/level-1-example/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "Guess the Animal: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "0ed64f88f38664a049569d65d895cbb3804cc5a46347118237678677d5d60754"
+        }
+      ],
+      "evidenceMedia": [
+        {
+          "src": "/projects/android-mad/level-1/level-1-example/animal-answer.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Guess the Animal with the fictional demonstration answer giraffe entered",
+          "caption": "Answer entry \u00b7 live emulator",
+          "sha256": "9540d3a57010f165ca7736f18d372d0b5b7111d37fce1feb5e0c72d41b332fba"
+        }
+      ],
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-1-task1",
+      "level": 1,
+      "role": "task1",
+      "title": "Reminders",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 1/madlevel1task1",
+      "sourceFingerprint": "72971bfb0e072d5aa6a817c326b39f195fb468dccc06e9c164eff468f4f5fb10",
+      "analysis": "source-reviewed",
+      "evidenceFiles": ["MainActivity.kt", "Reminder.kt"],
+      "contentPath": "content/collections/android-mad/level-1-task1.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-1/level-1-task1/populated-reminders.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Reminders app showing three fictional weekend reminders",
+          "caption": "Fictional weekend reminders \u00b7 add flow exercised",
+          "sha256": "8eff232a09c75aabd18be3e9d6a30774057cae4e3df81586deb1b8358a57a11f"
+        }
+      ],
+      "limitations": [
+        "The list is in memory and is not persisted across process death. Input feedback and insertion are separate paths."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 1/madlevel1task1/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "c41cf391f89af82e5cdee03ff7e6ddb276903d84656cde977e807f53bd428005",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "activity": "nl.hva.madlevel1task1.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:31:07Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "72ba28946c34d4e1bdc79988596a441893f2c40450b4e23635fc427743ccad74",
+      "importStatus": "complete",
+      "buildVerification": {
+        "id": "level-1-task1",
+        "sourceFingerprint": "72971bfb0e072d5aa6a817c326b39f195fb468dccc06e9c164eff468f4f5fb10",
+        "status": "passed",
+        "redactedPaths": [],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:45:53Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-1-task1.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-1-task1/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "c345e503acaa9df0a8b20ea4796eba611cae0ea7d9522b81b3ec4d07fe39f7ca",
+        "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel1task1.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-1/level-1-task1/populated-reminders.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-1-task1/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "c345e503acaa9df0a8b20ea4796eba611cae0ea7d9522b81b3ec4d07fe39f7ca",
+          "sourceFingerprint": "72971bfb0e072d5aa6a817c326b39f195fb468dccc06e9c164eff468f4f5fb10",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:46:51Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Entered fictional input in field 1",
+            "Selected ADD",
+            "Verified visible state: Pack a rain jacket",
+            "Entered fictional input in field 1",
+            "Selected ADD",
+            "Verified visible state: Charge the camera",
+            "Entered fictional input in field 1",
+            "Selected ADD",
+            "Verified visible state: Plan a weekend walk"
+          ],
+          "runtimeVerification": "Entered and added three fictional reminders, then verified that all three appeared in the scrolling list."
+        }
+      ],
+      "evidenceMedia": [],
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-1/level-1-task1/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "Reminders: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "e37f06043bb4ec457e56656bd09a0fea8a4ad8dc6e6d01016c7fa298e446f8ac"
+        }
+      ],
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-1-task2",
+      "level": 1,
+      "role": "task2",
+      "title": "Places Explorer",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 1/madlevel1task2",
+      "sourceFingerprint": "b3354409852ca907d5779452c707e8ef4b256a8c239f58802ed8ea645df40139",
+      "analysis": "source-reviewed",
+      "evidenceFiles": ["MainActivity.kt", "Place.kt"],
+      "contentPath": "content/collections/android-mad/level-1-task2.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-1/level-1-task2/filtered-places.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Places Explorer filtered to Amsterdam, showing Dam and Weesperplein",
+          "caption": "Amsterdam filter \u00b7 bundled place catalog",
+          "sha256": "782eb46fd49e6a8856a724c29e9705d5d185b15454878193bc1633ccdcdc165f"
+        }
+      ],
+      "limitations": [
+        "The catalog is bundled with the app, with no location service or remote search."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 1/madlevel1task2/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "01848958c31362d4eee99d8c177a847727bd608dbc4ee76f546ad917d948554e",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "activity": "nl.hva.madlevel1task2.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:31:12Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "5a6c0b2f5fd9206bf77ea6616567a9465881ef7774dc5fcfcb32f950d003218f",
+      "importStatus": "complete",
+      "buildVerification": {
+        "id": "level-1-task2",
+        "sourceFingerprint": "b3354409852ca907d5779452c707e8ef4b256a8c239f58802ed8ea645df40139",
+        "status": "passed",
+        "redactedPaths": [],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:46:03Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-1-task2.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-1-task2/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "c98bf5510f72a25dfa1cc50b2c8b8337e0881dbde42d0e90c04910a07c7f6685",
+        "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel1task2.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-1/level-1-task2/filtered-places.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-1-task2/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "c98bf5510f72a25dfa1cc50b2c8b8337e0881dbde42d0e90c04910a07c7f6685",
+          "sourceFingerprint": "b3354409852ca907d5779452c707e8ef4b256a8c239f58802ed8ea645df40139",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:47:40Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Entered fictional input in field 1",
+            "Verified visible state: Amsterdam"
+          ],
+          "runtimeVerification": "Entered Amsterdam in the search field and verified the filtered city cards."
+        }
+      ],
+      "evidenceMedia": [],
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-1/level-1-task2/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "Places Explorer: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "24d9b154ccce74e1201f06b980d88083fd28fc8994800398f72f1821e0034759"
+        }
+      ],
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-2-example",
+      "level": 2,
+      "role": "example",
+      "title": "Dice & Average",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 2/madlevel2example",
+      "sourceFingerprint": "b293966856a548f296e4871d5c96370b87fcc90a646293c64dd25f536bb6b9c4",
+      "analysis": "source-reviewed",
+      "evidenceFiles": ["MainActivity.kt"],
+      "contentPath": "content/collections/android-mad/level-2-example.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-2/level-2-example/running-average.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Dice app displaying a die result and running average after seven rolls",
+          "caption": "Seven rolls \u00b7 running average",
+          "sha256": "046f0f44d935b6c110f3f95b433631b021435f160f7d147765dc46829f3971a0"
+        }
+      ],
+      "limitations": [
+        "Statistics belong to the current composition; this is not a persistent analytics system.",
+        "Current source build fails at resource merging because a drawable filename starts with a digit. The capture uses the existing APK with unverified source match."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 2/madlevel2example/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "79c4f19c0fa18cf8515a215d6ebc1cc585e3ada1297fc31e35a22cc8941227af",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "activity": "nl.hva.madlevel2example.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:37:54Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "996d5cc2d3962bb5ec81e78bd8ed574dc5f21cb1a6c2b702dcd2ebde494b6399",
+      "importStatus": "partial",
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-2/level-2-example/running-average.webp",
+          "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 2/madlevel2example/app/build/intermediates/apk/debug/app-debug.apk",
+          "apkSha256": "79c4f19c0fa18cf8515a215d6ebc1cc585e3ada1297fc31e35a22cc8941227af",
+          "sourceFingerprint": "b293966856a548f296e4871d5c96370b87fcc90a646293c64dd25f536bb6b9c4",
+          "sourceMatch": "unverified existing APK",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:47:52Z",
+          "steps": [
+            "Launched existing APK",
+            "Selected Next roll",
+            "Selected Next roll",
+            "Selected Next roll",
+            "Selected Next roll",
+            "Selected Next roll",
+            "Selected Next roll"
+          ],
+          "runtimeVerification": "Performed six additional rolls and observed the running average and roll-count display. This capture uses an existing APK because the current source build has an invalid drawable filename."
+        }
+      ],
+      "evidenceMedia": [],
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-2/level-2-example/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "Dice & Average: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "8d6bdf0d51dbfd009830e0bb5821d12e6f136e5c351c8c7625279e112946b8d9"
+        }
+      ],
+      "buildVerification": {
+        "id": "level-2-example",
+        "sourceFingerprint": "b293966856a548f296e4871d5c96370b87fcc90a646293c64dd25f536bb6b9c4",
+        "status": "failed",
+        "redactedPaths": [],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 1,
+        "completedAt": "2026-10-14T05:52:24Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-2-example.log",
+        "reason": "Source drawable filename 8fffb7c7ce5cf954.gif starts with a digit"
+      },
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-2-task1",
+      "level": 2,
+      "role": "task1",
+      "title": "True/False Quiz",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 2/madlevel2task1",
+      "sourceFingerprint": "73732ccb1dd935822047b732d50022069a2a47a2d540cc7e9d50b329791a1739",
+      "analysis": "source-reviewed",
+      "evidenceFiles": ["MainActivity.kt", "Statement.kt"],
+      "contentPath": "content/collections/android-mad/level-2-task1.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-2/level-2-task1/custom-statement.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "True False Quiz with a fictional demonstration statement about a triangle",
+          "caption": "Custom statement \u00b7 local quiz state",
+          "sha256": "ff964a327213407e56baaebeeffe809e51ce09b95d184d64710121a794772abf"
+        },
+        {
+          "src": "/projects/android-mad/level-2/level-2-task1/answered-statements.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "True False Quiz after correctly answering the demonstration statement",
+          "caption": "Correct answer \u00b7 statement removed",
+          "sha256": "5e77809d3323b09ff44d2716294164ce2f4b677dd69a9f78e36fdfe26d77bbc7"
+        }
+      ],
+      "limitations": [
+        "Predefined statements are appended in the composable body, so recomposition can duplicate them. Initialization should be isolated from rendering. No durable question storage is implemented."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 2/madlevel2task1/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "a7234179f298935e29481b000a9741b5ddd85ad0acfab30455d8f53b766b8268",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "activity": "nl.hva.madlevel2task1.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:37:58Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "a7f0236239daee75e5618e28da4c82ef124572b851b2f61f4eff13fdbf9a613c",
+      "importStatus": "complete",
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-2/level-2-task1/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "True/False Quiz: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "42342df8008951f5e859ce16b86fbfe5fcf844b449d6aab67a5db9bc2dcc62b3"
+        }
+      ],
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-2/level-2-task1/custom-statement.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-2-task1/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "bc26989606294a1b160147da6443833b4c34d37bec0b39cf1476d6076fa60e6a",
+          "sourceFingerprint": "73732ccb1dd935822047b732d50022069a2a47a2d540cc7e9d50b329791a1739",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T06:00:36Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Entered fictional input in field 1",
+            "Selected True",
+            "Verified visible state: A triangle has three sides."
+          ],
+          "runtimeVerification": "Added a true demonstration statement and verified its appearance. Predefined statements remain visible; data is local to the app."
+        },
+        {
+          "src": "/projects/android-mad/level-2/level-2-task1/answered-statements.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-2-task1/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "bc26989606294a1b160147da6443833b4c34d37bec0b39cf1476d6076fa60e6a",
+          "sourceFingerprint": "73732ccb1dd935822047b732d50022069a2a47a2d540cc7e9d50b329791a1739",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T06:00:36Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Entered fictional input in field 1",
+            "Selected True",
+            "Verified visible state: A triangle has three sides.",
+            "Selected A triangle has three sides.",
+            "Verified removed statement: A triangle has three sides."
+          ],
+          "runtimeVerification": "Added a true demonstration statement, tapped it as a true answer, and verified that it was removed from the quiz list."
+        }
+      ],
+      "evidenceMedia": [],
+      "buildVerification": {
+        "id": "level-2-task1",
+        "sourceFingerprint": "73732ccb1dd935822047b732d50022069a2a47a2d540cc7e9d50b329791a1739",
+        "status": "passed",
+        "redactedPaths": [],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:46:23Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-2-task1.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-2-task1/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "bc26989606294a1b160147da6443833b4c34d37bec0b39cf1476d6076fa60e6a",
+        "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel2task1.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-2-task2",
+      "level": 2,
+      "role": "task2",
+      "title": "AND Truth Table",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 2/madlevel2task2",
+      "sourceFingerprint": "e71790f52372989918ad5b91ed8d68d19452fd5d76a47687a7fe84f18303a14a",
+      "analysis": "source-reviewed",
+      "evidenceFiles": ["MainActivity.kt", "Equation.kt"],
+      "contentPath": "content/collections/android-mad/level-2-task2.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-2/level-2-task2/generated-equation.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "AND Truth Table displaying a generated equation and answer controls",
+          "caption": "Generated equation \u00b7 local state",
+          "sha256": "54dde7b9160a5b2475ef373f7969788a1bd4824120da0f91a3bafde6140cb4d3"
+        },
+        {
+          "src": "/projects/android-mad/level-2/level-2-task2/answered-equation.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "AND exercise after accepting the correct operand-based answer",
+          "caption": "Operand-based answer \u00b7 accepted",
+          "sha256": "fcffd2d7887577fd965d8163c64f0c9e16f78d52e2e3ff33497049197455f1d7"
+        }
+      ],
+      "limitations": [
+        "The displayed third value is generated randomly, but answer checking uses only the two operands. The display and evaluated proposition can therefore disagree; the exercise needs a clearer truth-table contract."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 2/madlevel2task2/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "3ec79dfd1a2962592ec2277a86ce3619a60d8c5933f6911edc887303738dc5bb",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "activity": "nl.hva.madlevel2task2.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:38:02Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "0c0bafaf0ec5c210aef9c13f58a4e3d5508b2162b7579b8946ed687df46bcf86",
+      "importStatus": "complete",
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-2/level-2-task2/answered-equation.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-2-task2/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "9c2769140ace714dedc33ae9d14ccaa86bfae7bc1e3160969a8f14f5cdf09205",
+          "sourceFingerprint": "e71790f52372989918ad5b91ed8d68d19452fd5d76a47687a7fe84f18303a14a",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T06:00:56Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Selected Next",
+            "Selected False",
+            "Verified visible state: \u2705"
+          ],
+          "runtimeVerification": "Generated an equation, computed AND from its two operands, selected the matching answer, and observed the accepted check-mark state. The initial randomly displayed third value can still disagree with the proposition."
+        },
+        {
+          "src": "/projects/android-mad/level-2/level-2-task2/generated-equation.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-2-task2/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "9c2769140ace714dedc33ae9d14ccaa86bfae7bc1e3160969a8f14f5cdf09205",
+          "sourceFingerprint": "e71790f52372989918ad5b91ed8d68d19452fd5d76a47687a7fe84f18303a14a",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T06:00:56Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Selected Next",
+            "Selected False",
+            "Verified visible state: \u2705",
+            "Selected Next"
+          ],
+          "runtimeVerification": "Selected Next and observed a generated equation with True and False controls. The randomly displayed third value can disagree with the evaluated result, as noted below."
+        }
+      ],
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-2/level-2-task2/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "AND Truth Table: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "0aa6c0a84c6b6ef49c1a4b643310a35a0a153db7f5bb3419a943fdec3bffd6be"
+        }
+      ],
+      "evidenceMedia": [],
+      "buildVerification": {
+        "id": "level-2-task2",
+        "sourceFingerprint": "e71790f52372989918ad5b91ed8d68d19452fd5d76a47687a7fe84f18303a14a",
+        "status": "passed",
+        "redactedPaths": [],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:46:33Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-2-task2.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-2-task2/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "9c2769140ace714dedc33ae9d14ccaa86bfae7bc1e3160969a8f14f5cdf09205",
+        "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel2task2.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-3-example",
+      "level": 3,
+      "role": "example",
+      "title": "Reminders with Navigation",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 3/madlevel3example",
+      "sourceFingerprint": "30edd0bdb8066db2936afe02fb4d544418033219de46467480d7dad1d7e140e4",
+      "analysis": "source-reviewed",
+      "evidenceFiles": [
+        "MainActivity.kt",
+        "RemindersViewModel.kt",
+        "AddReminderScreen.kt",
+        "RemindersListScreen.kt"
+      ],
+      "contentPath": "content/collections/android-mad/level-3-example.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-3/level-3-example/navigation-reminders.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Reminders overview with two fictional reminders added through its separate form",
+          "caption": "Fictional reminders \u00b7 shared ViewModel and navigation",
+          "sha256": "f941614233d32802554227cf704dc96d626b43ab4a15b8ecac6ef1f78c75595e"
+        }
+      ],
+      "limitations": [
+        "ViewModel state survives configuration changes but is not durable storage."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 3/madlevel3example/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "9855bacf2269fb2d0d34b942b25fa75c76dba95d4db8b9494b256049a71fa1bc",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "activity": "nl.hva.madlevel3example.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:38:06Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "341a580fe177d5dc9331ce3400333ddfaf0605153b5793baace7658a6feb877e",
+      "importStatus": "complete",
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-3/level-3-example/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "Reminders with Navigation: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "813caf6f4bdbf9a66f96388156b37ded94ca0fc58a4e4295767e492a1185207f"
+        }
+      ],
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-3/level-3-example/navigation-reminders.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-3-example/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "6713e350ed14f9a3c6b314f60d71f5e91081e5c1cad1eb1091b4a940a798b922",
+          "sourceFingerprint": "30edd0bdb8066db2936afe02fb4d544418033219de46467480d7dad1d7e140e4",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:50:20Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Opened the reviewed add form",
+            "Entered fictional input in field 1",
+            "Selected ADD REMINDER",
+            "Verified visible state: Pack the sketchbook",
+            "Opened the reviewed add form",
+            "Entered fictional input in field 1",
+            "Selected ADD REMINDER",
+            "Verified visible state: Visit the city museum"
+          ],
+          "runtimeVerification": "Added two fictional reminders through the dedicated form and verified their appearance after returning to the overview."
+        }
+      ],
+      "evidenceMedia": [],
+      "buildVerification": {
+        "id": "level-3-example",
+        "sourceFingerprint": "30edd0bdb8066db2936afe02fb4d544418033219de46467480d7dad1d7e140e4",
+        "status": "passed",
+        "redactedPaths": [],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:46:43Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-3-example.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-3-example/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "6713e350ed14f9a3c6b314f60d71f5e91081e5c1cad1eb1091b4a940a798b922",
+        "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel3example.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-3-task1",
+      "level": 3,
+      "role": "task1",
+      "title": "Game Rating",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 3/madlevel3task1",
+      "sourceFingerprint": "0c7fdcd9fc6390d8c15b11dbd4d543d467960046e985ceefcebfa7d4eb905d73",
+      "analysis": "source-reviewed",
+      "evidenceFiles": [
+        "GameViewModel.kt",
+        "GameRatingScreen.kt",
+        "GameRatingSummaryScreen.kt"
+      ],
+      "contentPath": "content/collections/android-mad/level-3-task1.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-3/level-3-task1/rating.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Game Rating displaying a randomly selected game and custom star rating",
+          "caption": "Custom rating \u00b7 input control",
+          "sha256": "e48ce89bc62a00066c358b87af45f06026a6dd0348f4010856650d8ab5e67e37"
+        },
+        {
+          "src": "/projects/android-mad/level-3/level-3-task1/custom-rating-summary.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Game Rating summary preserving the demonstration star rating",
+          "caption": "Custom rating \u00b7 shared state",
+          "sha256": "c963d82e2991c1470e355628c4b774a8d9b23a475b2598d7f60e0e38b37d4c9c"
+        }
+      ],
+      "limitations": [
+        "Resetting the flow clears the shared values; ratings are not written to a database."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 3/madlevel3task1/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "25133e3d4a147c9be61876c2942c3af6238d05cb833d879299670910b94bc6ea",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "installation": "ADB non-streaming test APK install",
+        "activity": "nl.hva.madlevel3task1.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:41:26Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "308905be7f735cbb12de7747d6307e48cbb271121092ff84fbc4ab006612586f",
+      "importStatus": "complete",
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-3/level-3-task1/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "Game Rating: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "93b69d82f53b7cee789bffd1994e0393a3d2799f78134993e78019440d3c2ed6"
+        }
+      ],
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-3/level-3-task1/rating-summary.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-3-task1/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "a590833d7582a1bb5b89f455a8426b1ca4cb511887ca9f40bb1c3969ad566637",
+          "sourceFingerprint": "0c7fdcd9fc6390d8c15b11dbd4d543d467960046e985ceefcebfa7d4eb905d73",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:50:54Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Selected START",
+            "Verified visible state: TO SUMMARY",
+            "Selected TO SUMMARY",
+            "Verified visible state: START OVER"
+          ],
+          "runtimeVerification": "Started the flow, kept its default five-star rating, and verified the summary screen and restart control."
+        },
+        {
+          "src": "/projects/android-mad/level-3/level-3-task1/rating.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-3-task1/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "a590833d7582a1bb5b89f455a8426b1ca4cb511887ca9f40bb1c3969ad566637",
+          "sourceFingerprint": "0c7fdcd9fc6390d8c15b11dbd4d543d467960046e985ceefcebfa7d4eb905d73",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T06:05:46Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Selected START",
+            "Verified visible state: TO SUMMARY",
+            "Changed the reviewed star control from its default five-star value"
+          ],
+          "runtimeVerification": "Started the flow and changed the star control from its default rating. The following summary verifies the selected value."
+        },
+        {
+          "src": "/projects/android-mad/level-3/level-3-task1/custom-rating-summary.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-3-task1/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "a590833d7582a1bb5b89f455a8426b1ca4cb511887ca9f40bb1c3969ad566637",
+          "sourceFingerprint": "0c7fdcd9fc6390d8c15b11dbd4d543d467960046e985ceefcebfa7d4eb905d73",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T06:05:46Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Selected START",
+            "Verified visible state: TO SUMMARY",
+            "Changed the reviewed star control from its default five-star value",
+            "Selected TO SUMMARY",
+            "Verified visible state: START OVER"
+          ],
+          "runtimeVerification": "Started the flow, changed the rating to 3.0 stars, and verified that the same value was displayed on the summary screen."
+        }
+      ],
+      "evidenceMedia": [
+        {
+          "src": "/projects/android-mad/level-3/level-3-task1/rating-summary.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Game Rating summary displaying the selected game and default five-star rating",
+          "caption": "Rating summary \u00b7 shared state",
+          "sha256": "29c2eefb42482df1feeafd4ea625eecc00e98b07df76aa022203e065129ef833"
+        }
+      ],
+      "buildVerification": {
+        "id": "level-3-task1",
+        "sourceFingerprint": "0c7fdcd9fc6390d8c15b11dbd4d543d467960046e985ceefcebfa7d4eb905d73",
+        "status": "passed",
+        "redactedPaths": [],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:46:56Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-3-task1.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-3-task1/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "a590833d7582a1bb5b89f455a8426b1ca4cb511887ca9f40bb1c3969ad566637",
+        "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel3task1.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-3-task2",
+      "level": 3,
+      "role": "task2",
+      "title": "Portal Manager",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 3/madlevel3taks2",
+      "sourceFingerprint": "217844db2bfecb32b239f4f25065456f84aedad2826e9a7d8e64a49ed6641f8d",
+      "analysis": "source-reviewed",
+      "evidenceFiles": [
+        "PortalsViewModel.kt",
+        "PortalAppAddPortalScreen.kt",
+        "PortalAppOverviewScreen.kt"
+      ],
+      "contentPath": "content/collections/android-mad/level-3-task2.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-3/level-3-task2/populated-portals.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Portal Manager with two fictional reference bookmarks",
+          "caption": "Reference bookmarks \u00b7 local demo data",
+          "sha256": "fcef0a7a67aea898e9644cd3a2f1d483a80f507b1161e422ae52ca8f39a9be5b"
+        }
+      ],
+      "limitations": [
+        "The original source directory is spelled madlevel3taks2. Portals are held in memory and external destinations were not followed."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 3/madlevel3taks2/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "9a2daaf1b5b211c9f75a73e6994af25ba546deb1e31e6adc76aec993b972d2dc",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "installation": "ADB non-streaming test APK install",
+        "activity": "nl.hva.madlevel3task2.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:41:32Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "2b2f55951a7a5c03bd396078c2e34ffb9b04c905847a638472938c12ac52706c",
+      "importStatus": "complete",
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-3/level-3-task2/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "Portal Manager: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "b696acc15f2864717247d56d53289ad82ccfd6bf1d24d35f0efbf3aaf630a239"
+        }
+      ],
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-3/level-3-task2/populated-portals.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-3-task2/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "5ea1c4d84dcdafa4f9c45f6932bba314e86f23841fd78de8b5184d0a33b35227",
+          "sourceFingerprint": "217844db2bfecb32b239f4f25065456f84aedad2826e9a7d8e64a49ed6641f8d",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:51:10Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Opened the reviewed add form",
+            "Entered fictional input in field 1",
+            "Entered fictional input in field 2",
+            "Selected ADD PORTAL",
+            "Verified visible state: Android Guides",
+            "Opened the reviewed add form",
+            "Entered fictional input in field 1",
+            "Entered fictional input in field 2",
+            "Selected ADD PORTAL",
+            "Verified visible state: Kotlin Reference"
+          ],
+          "runtimeVerification": "Added two named reference bookmarks through the portal form and verified the overview. External links were not followed."
+        }
+      ],
+      "evidenceMedia": [],
+      "buildVerification": {
+        "id": "level-3-task2",
+        "sourceFingerprint": "217844db2bfecb32b239f4f25065456f84aedad2826e9a7d8e64a49ed6641f8d",
+        "status": "passed",
+        "redactedPaths": [],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:47:08Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-3-task2.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-3-task2/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "5ea1c4d84dcdafa4f9c45f6932bba314e86f23841fd78de8b5184d0a33b35227",
+        "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel3task2.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-4-example",
+      "level": 4,
+      "role": "example",
+      "title": "Number Facts",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 4/madlevel4example",
+      "sourceFingerprint": "0bccc53e4dae6493ffb31c1600fc8c0729e363ba1b569e5a310857b82a03f52a",
+      "analysis": "source-reviewed",
+      "evidenceFiles": [
+        "NumbersRepository.kt",
+        "NumbersViewModel.kt",
+        "NumbersApiService.kt",
+        "MainActivity.kt"
+      ],
+      "contentPath": "content/collections/android-mad/level-4-example.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-4/level-4-example/number-request.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Number Facts after requesting a random trivia fact",
+          "caption": "Live number request \u00b7 service-dependent state",
+          "sha256": "9a81b4af5972896c3779c56104ded6a574bc1c3268d14b036c5a77b89dd87120"
+        }
+      ],
+      "limitations": [
+        "The endpoint uses HTTP. Service availability, cleartext policy, and exception handling affect runtime success.",
+        "The live request displayed An unknown error occured; successful number retrieval remains unverified."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 4/madlevel4example/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "79085cb2c146c0593534da290c04913a6d83c53124338fb22ae877773e6b21db",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "installation": "ADB non-streaming test APK install",
+        "activity": "nl.hva.madlevel4example.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:41:37Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "f90929115c93c08deda663f2b04a4eadce12f708c12538fece5731e8a132ded1",
+      "importStatus": "partial",
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-4/level-4-example/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "Number Facts: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "06352b1f59ce12b1ccc39adc8950649bfc4e0faee5db678a0f54fac71c143b82"
+        }
+      ],
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-4/level-4-example/number-request.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-4-example/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "0d2e39b9131b526bd3ae094ff5b703a03d99ce4ae688749dfe74e7801d1180bd",
+          "sourceFingerprint": "0bccc53e4dae6493ffb31c1600fc8c0729e363ba1b569e5a310857b82a03f52a",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:53:39Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Selected the reviewed API request surface"
+          ],
+          "runtimeVerification": "Requested a random fact and captured the resulting service state. The precise success or failure was reviewed against the captured screen."
+        }
+      ],
+      "evidenceMedia": [],
+      "buildVerification": {
+        "id": "level-4-example",
+        "sourceFingerprint": "0bccc53e4dae6493ffb31c1600fc8c0729e363ba1b569e5a310857b82a03f52a",
+        "status": "passed",
+        "redactedPaths": [],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:47:32Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-4-example.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-4-example/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "0d2e39b9131b526bd3ae094ff5b703a03d99ce4ae688749dfe74e7801d1180bd",
+        "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel4example.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-4-task1",
+      "level": 4,
+      "role": "task1",
+      "title": "Cats & Dogs",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 4/madlevel4task1",
+      "sourceFingerprint": "88caa315c5168b8b230442b77e61b6fcedc253220c01038a048bef402ea3a62c",
+      "analysis": "source-reviewed",
+      "evidenceFiles": [
+        "CatsRepository.kt",
+        "DogsRepository.kt",
+        "CatsViewModel.kt",
+        "DogsViewModel.kt",
+        "ApiService.kt"
+      ],
+      "contentPath": "content/collections/android-mad/level-4-task1.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-4/level-4-task1/dog-request.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Cats and Dogs after requesting a random dog image",
+          "caption": "Dog request \u00b7 live API state",
+          "sha256": "36b7691040eb922e7745cdd47db8c250fc9c479c03123ddcb8947673479ae210"
+        }
+      ],
+      "limitations": [
+        "Remote APIs and image delivery are external dependencies. A captured empty or error screen is not evidence of successful image retrieval.",
+        "The Dog CEO request rendered an image. The cat request did not render an image during capture."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 4/madlevel4task1/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "96093ecfdffa893e1002556d181e65051cddde43e709dab05cc36187f7a7068f",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "installation": "ADB non-streaming test APK install",
+        "activity": "nl.hva.madlevel4task1.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:41:42Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "b7feb11138ce96d84972cde2c55b4b0fe080b651fbb58ab6ec668cead3f45ffb",
+      "importStatus": "partial",
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-4/level-4-task1/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "Cats & Dogs: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "2b7a66b40f5a3806d90302b84e0e2476ef81d7da111679d0475313319a4e51d6"
+        }
+      ],
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-4/level-4-task1/cat-request.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-4-task1/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "9acead1a7faa0e259f320f16695f51101b0934d270569309773747904e2c5859",
+          "sourceFingerprint": "88caa315c5168b8b230442b77e61b6fcedc253220c01038a048bef402ea3a62c",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:53:56Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Selected the reviewed API request surface"
+          ],
+          "runtimeVerification": "Requested a cat image and captured the resulting API state. Remote image success is only claimed when visible in the capture."
+        },
+        {
+          "src": "/projects/android-mad/level-4/level-4-task1/dog-request.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-4-task1/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "9acead1a7faa0e259f320f16695f51101b0934d270569309773747904e2c5859",
+          "sourceFingerprint": "88caa315c5168b8b230442b77e61b6fcedc253220c01038a048bef402ea3a62c",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:53:56Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Selected the reviewed API request surface",
+            "Selected dogs",
+            "Selected the reviewed API request surface"
+          ],
+          "runtimeVerification": "Switched to the dog tab, requested an image, and captured the resulting API state. Remote image success is only claimed when visible in the capture."
+        }
+      ],
+      "evidenceMedia": [
+        {
+          "src": "/projects/android-mad/level-4/level-4-task1/cat-request.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Cats and Dogs after requesting a random cat image",
+          "caption": "Cat request \u00b7 live API state",
+          "sha256": "5bb3e44d9a96dc991b436c533c79afbfa3a8e5c64464767367a33c4535f1f793"
+        }
+      ],
+      "buildVerification": {
+        "id": "level-4-task1",
+        "sourceFingerprint": "88caa315c5168b8b230442b77e61b6fcedc253220c01038a048bef402ea3a62c",
+        "status": "passed",
+        "redactedPaths": [],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:48:01Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-4-task1.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-4-task1/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "9acead1a7faa0e259f320f16695f51101b0934d270569309773747904e2c5859",
+        "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel4task1.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-4-task2",
+      "level": 4,
+      "role": "task2",
+      "title": "Movie Search & Details",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 4/madlevel4task2",
+      "sourceFingerprint": "589f4cd3f4fb79c35c87938567d902d1d8679bd2438c28354ed468460b25c592",
+      "analysis": "source-reviewed",
+      "evidenceFiles": [
+        "MoviesRepository.kt",
+        "MoviesViewModel.kt",
+        "MoviesListScreen.kt",
+        "MovieDetailsScreen.kt"
+      ],
+      "contentPath": "content/collections/android-mad/level-4-task2.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-4/level-4-task2/movie-query.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Movie Search with the fictional demonstration query Interstellar entered",
+          "caption": "Search input \u00b7 service credentials redacted",
+          "sha256": "79c4b8496464b29430a28a5b2a97debb11183e5901afee07834ab06d8a7c6d14"
+        }
+      ],
+      "limitations": [
+        "The API requires configured credentials, which are not reproduced here. Selected-movie state is held in memory rather than encoded in the route.",
+        "Movie authorization was redacted in the disposable build; authenticated search and detail navigation were not exercised."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 4/madlevel4task2/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "6e4291cf297f38ac5d04d2d5edd267906525aeff9f0cc561ed6159478061766a",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "installation": "ADB non-streaming test APK install",
+        "activity": "nl.hva.madlevel4task2.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:41:48Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "ca9a92978b69c47452a5535c3b7a462ea028c03dc37571e0eb7c916824126e21",
+      "importStatus": "partial",
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-4/level-4-task2/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "Movie Search & Details: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "c2db43581d5fcfd487a39cee0f6312832a9d9b25f18cea41a9219b66f57f64f1"
+        }
+      ],
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-4/level-4-task2/movie-query.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-4-task2/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "ede2dc4525cf5b5d8ec2f7ad335ee45b881737ff7b57e881c63991c92053b05b",
+          "sourceFingerprint": "589f4cd3f4fb79c35c87938567d902d1d8679bd2438c28354ed468460b25c592",
+          "sourceMatch": "credential-redacted copy",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:54:26Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Entered fictional input in field 1",
+            "Verified visible state: Interstellar"
+          ],
+          "runtimeVerification": "Entered a demonstration movie query. A credential-redacted build was used where available; authenticated search results and detail navigation remain unverified."
+        }
+      ],
+      "evidenceMedia": [],
+      "buildVerification": {
+        "id": "level-4-task2",
+        "sourceFingerprint": "589f4cd3f4fb79c35c87938567d902d1d8679bd2438c28354ed468460b25c592",
+        "status": "passed",
+        "redactedPaths": [
+          "app/src/main/java/nl/hva/madlevel4task2/data/api/Api.kt"
+        ],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:48:45Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-4-task2.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-4-task2/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "ede2dc4525cf5b5d8ec2f7ad335ee45b881737ff7b57e881c63991c92053b05b",
+        "sourceMatch": "credential-redacted copy",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel4task2.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-5-example",
+      "level": 5,
+      "role": "example",
+      "title": "Create & Play Quiz",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 5/madlevel5example",
+      "sourceFingerprint": "a89878caf65b4f3bd8975110aa74131422688357a3f635b2613ef40f3418c15a",
+      "analysis": "source-reviewed",
+      "evidenceFiles": [
+        "QuizRepository.kt",
+        "QuizViewModel.kt",
+        "CreateQuizScreen.kt",
+        "PlayQuizScreen.kt"
+      ],
+      "contentPath": "content/collections/android-mad/level-5-example.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-5/level-5-example/quiz-draft.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Create Quiz form containing a fictional triangle question and answer",
+          "caption": "Fictional quiz draft \u00b7 not submitted",
+          "sha256": "ee6ee0ceba74822a18266f0ed578e45467f47871b9442e7b0e74e518c7b5a6f6"
+        }
+      ],
+      "limitations": [
+        "Writes replace a shared document rather than a per-user quiz. Backend rules and authentication were not verified; no Firestore writes were exercised.",
+        "The disposable copy uses a fictional Firebase configuration. No backend form was submitted and no test backend was verified."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 5/madlevel5example/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "60032d96da8b4e238007f1fdb045094b090a172d6808ef65ba7f6e11c017a6e2",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "installation": "ADB non-streaming test APK install",
+        "activity": "nl.hva.madlevel5example.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:41:53Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "87aa69da8249617bed70e4ffa1ef6106c702628334909b68c3794fc6df554881",
+      "importStatus": "partial",
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-5/level-5-example/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "Create & Play Quiz: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "9baf70e559fcf58262fa6218fc8357114795a3b5f08819f8906651311e85b35f"
+        }
+      ],
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-5/level-5-example/quiz-draft.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-5-example/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "ad3b0614a9ac4ad88bc467f50e65abdc9ff5771ac187a71e122a37da7da81a6c",
+          "sourceFingerprint": "a89878caf65b4f3bd8975110aa74131422688357a3f635b2613ef40f3418c15a",
+          "sourceMatch": "credential-redacted copy",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:54:36Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Selected CREATE QUIZ",
+            "Entered fictional input in field 1",
+            "Entered fictional input in field 2",
+            "Verified visible state: Three"
+          ],
+          "runtimeVerification": "Opened the create screen and filled a fictional question and answer. The Firestore create action was not submitted; no verified test backend is available."
+        }
+      ],
+      "evidenceMedia": [],
+      "buildVerification": {
+        "id": "level-5-example",
+        "sourceFingerprint": "a89878caf65b4f3bd8975110aa74131422688357a3f635b2613ef40f3418c15a",
+        "status": "passed",
+        "redactedPaths": ["app/google-services.json"],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:49:29Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-5-example.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-5-example/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "ad3b0614a9ac4ad88bc467f50e65abdc9ff5771ac187a71e122a37da7da81a6c",
+        "sourceMatch": "credential-redacted copy",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel5example.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-5-task1",
+      "level": 5,
+      "role": "task1",
+      "title": "Profile Manager",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 5/madlevel5task1",
+      "sourceFingerprint": "47c2a7fe8d7784a507109dd344c08aefe51aefab06154fb29ce1040b0d9e6975",
+      "analysis": "source-reviewed",
+      "evidenceFiles": [
+        "ProfileRepository.kt",
+        "ProfileViewModel.kt",
+        "CreateProfileScreen.kt",
+        "ProfileScreen.kt"
+      ],
+      "contentPath": "content/collections/android-mad/level-5-task1.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-5/level-5-task1/profile-draft.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Profile Manager form containing fictional Alex Taylor profile details",
+          "caption": "Fictional profile draft \u00b7 not submitted",
+          "sha256": "4b0ccc2aa6ecee38d978b21894f4ad0d938cb97d7c970f11c6c57d9921d9928e"
+        }
+      ],
+      "limitations": [
+        "The stored image URI is a device reference, not evidence of uploaded cloud image storage. Backend permissions and writes were not verified.",
+        "The disposable copy uses a fictional Firebase configuration. No backend form was submitted and no test backend was verified."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 5/madlevel5task1/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "47bbbc3f5c7bf6be79f9df2f0035e0f5d02bfdf2299c3d89c57445a90dee7c28",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "installation": "ADB non-streaming test APK install",
+        "activity": "nl.hva.madlevel5task1.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:41:58Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "231080aefaf9e163c4ea08e6784fe8ee5526a44684b8935a614e4d20373017b5",
+      "importStatus": "partial",
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-5/level-5-task1/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "Profile Manager: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "9f58b409ade2cd86cf7def71aef466ce800cde9cb98d894666a1c848f20d9df3"
+        }
+      ],
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-5/level-5-task1/profile-draft.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-5-task1/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "a079c2bc6229dbfb70cf68f4ed6881f4225a9f24685333d8f461d7f4dd65ca14",
+          "sourceFingerprint": "47c2a7fe8d7784a507109dd344c08aefe51aefab06154fb29ce1040b0d9e6975",
+          "sourceMatch": "credential-redacted copy",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T06:01:14Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Entered fictional input in field 1",
+            "Entered fictional input in field 2",
+            "Entered fictional input in field 3",
+            "Verified visible state: Alex",
+            "Verified visible state: Taylor",
+            "Verified visible state: Fictional profile for the portfolio demo"
+          ],
+          "runtimeVerification": "Filled all profile fields with fictional demonstration data. The Firestore confirmation action was not submitted; profile persistence remains unverified."
+        }
+      ],
+      "evidenceMedia": [],
+      "buildVerification": {
+        "id": "level-5-task1",
+        "sourceFingerprint": "47c2a7fe8d7784a507109dd344c08aefe51aefab06154fb29ce1040b0d9e6975",
+        "status": "passed",
+        "redactedPaths": ["app/google-services.json"],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:53:00Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-5-task1.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-5-task1/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "a079c2bc6229dbfb70cf68f4ed6881f4225a9f24685333d8f461d7f4dd65ca14",
+        "sourceMatch": "credential-redacted copy",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel5task1.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-5-task2",
+      "level": 5,
+      "role": "task2",
+      "title": "Question Quest",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 5/madlevel5task2",
+      "sourceFingerprint": "3868b9a2cd4852830f8d3aa55506bf329006a3b7c555a390e530eed7900ccedd",
+      "analysis": "source-reviewed",
+      "evidenceFiles": [
+        "QuestionsRepository.kt",
+        "QuestionsViewModel.kt",
+        "AppQuestionScreen.kt"
+      ],
+      "contentPath": "content/collections/android-mad/level-5-task2.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-5/level-5-task2/quest-home.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Question Quest home explaining the question sequence and showing the Start Quest control",
+          "caption": "Quest entry screen \u00b7 cloud flow unverified",
+          "sha256": "c889f66201715b41cb00e356a92c77a3b8077dda2151ac66b797607f3ff3a13d"
+        }
+      ],
+      "limitations": [
+        "The collection spelling quetions is preserved from source. Runtime questions depend on remote documents and access rules; completion was not verified.",
+        "The disposable copy uses a fictional Firebase configuration. No backend form was submitted and no test backend was verified."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 5/madlevel5task2/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "27904fc2adbcb1079eafdd2527fdb14480792bf52a3a595fdc9067d54b78a6c4",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "installation": "ADB non-streaming test APK install",
+        "activity": "nl.hva.madlevel5task2.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:42:04Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "63cfd7b37a8e0bc44f0debe7d4253fcdb186860b14b1333b49772afe36ee47e7",
+      "importStatus": "partial",
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-5/level-5-task2/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "Question Quest: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "fb3d8a8054cbd0d20b948db5ea3ccfe91a473e991247d1af6ef81f43cc568c1e"
+        }
+      ],
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-5/level-5-task2/quest-home.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-5-task2/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "f25ba57636f38777f6e040cf70e1162898fe0a65a8d19313a25fc89153860c6e",
+          "sourceFingerprint": "3868b9a2cd4852830f8d3aa55506bf329006a3b7c555a390e530eed7900ccedd",
+          "sourceMatch": "credential-redacted copy",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:55:14Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Verified visible state: START QUEST"
+          ],
+          "runtimeVerification": "Verified the safe quest entry screen. Questions depend on an unverified Firestore backend; the quest was not started and no completion claim is made."
+        }
+      ],
+      "evidenceMedia": [],
+      "buildVerification": {
+        "id": "level-5-task2",
+        "sourceFingerprint": "3868b9a2cd4852830f8d3aa55506bf329006a3b7c555a390e530eed7900ccedd",
+        "status": "passed",
+        "redactedPaths": ["app/google-services.json"],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:53:13Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-5-task2.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-5-task2/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "f25ba57636f38777f6e040cf70e1162898fe0a65a8d19313a25fc89153860c6e",
+        "sourceMatch": "credential-redacted copy",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel5task2.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-6-example",
+      "level": 6,
+      "role": "example",
+      "title": "Shopping List",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 6/madlevel6example",
+      "sourceFingerprint": "9afa92ba9b1be6c4d48353864c9ad86b74d461b8619bee6adea7c49514604969",
+      "analysis": "source-reviewed",
+      "evidenceFiles": [
+        "ShoppingListDao.kt",
+        "ShoppingListRepository.kt",
+        "ShoppingListViewModel.kt",
+        "ShoppingListScreen.kt"
+      ],
+      "contentPath": "content/collections/android-mad/level-6-example.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-6/level-6-example/persisted-shopping.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Shopping List with fictional apples, oat milk, and pasta quantities",
+          "caption": "Fictional groceries \u00b7 persisted after relaunch",
+          "sha256": "fb02b613fb633fa79fce6f003bee92bcf37d13c3abc072824297df4afde52865"
+        }
+      ],
+      "limitations": [
+        "Room provides local persistence, not multi-device synchronization. Source database operations were inspected; Android tests were not executed."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 6/madlevel6example/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "0fe95ee703db0ab15d894a0f488cb3a1a12d8c5270b066958408eeb8311be040",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "installation": "ADB non-streaming test APK install",
+        "activity": "nl.hva.madlevel6example.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:42:09Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "1c8494ce23110f5e58681cea9c54072aae7d7aa432c88acdaa56728d173afed2",
+      "importStatus": "complete",
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-6/level-6-example/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "Shopping List: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "29df402bf192d2ad91339ad8d0dc305545ff25386cfb9502b8859e134201869c"
+        }
+      ],
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-6/level-6-example/persisted-shopping.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-6-example/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "c416d0f4acedf4a93b3d6704c81098e9d1f6a565b2c67d261616e6ff94cfdd97",
+          "sourceFingerprint": "9afa92ba9b1be6c4d48353864c9ad86b74d461b8619bee6adea7c49514604969",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:59:03Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Selected Add item",
+            "Entered fictional input in field 1",
+            "Entered fictional input in field 2",
+            "Selected OK",
+            "Verified visible state: Apples",
+            "Selected Add item",
+            "Entered fictional input in field 1",
+            "Entered fictional input in field 2",
+            "Selected OK",
+            "Verified visible state: Oat milk",
+            "Selected Add item",
+            "Entered fictional input in field 1",
+            "Entered fictional input in field 2",
+            "Selected OK",
+            "Verified visible state: Pasta",
+            "Launched rebuilt APK",
+            "Verified visible state: Apples",
+            "Verified visible state: Oat milk",
+            "Verified visible state: Pasta"
+          ],
+          "runtimeVerification": "Added three fictional grocery items and quantities through the dialog. Force-stopped and relaunched the app, then verified that all three rows persisted in Room."
+        }
+      ],
+      "evidenceMedia": [],
+      "buildVerification": {
+        "id": "level-6-example",
+        "sourceFingerprint": "9afa92ba9b1be6c4d48353864c9ad86b74d461b8619bee6adea7c49514604969",
+        "status": "passed",
+        "redactedPaths": [],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:50:34Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-6-example.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-6-example/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "c416d0f4acedf4a93b3d6704c81098e9d1f6a565b2c67d261616e6ff94cfdd97",
+        "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel6example.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-6-task1",
+      "level": 6,
+      "role": "task1",
+      "title": "Game Backlog",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 6/madlevel6task1",
+      "sourceFingerprint": "d8f738653b03d8874140e72cd0f45257d2556f68d9c29e6bcd3177af77f00600",
+      "analysis": "source-reviewed",
+      "evidenceFiles": [
+        "GameDao.kt",
+        "Converters.kt",
+        "GameAppHomeScreen.kt",
+        "GameAppAddGameScreen.kt"
+      ],
+      "contentPath": "content/collections/android-mad/level-6-task1.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-6/level-6-task1/persisted-backlog.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Game Backlog with fictional Celeste and Stardew Valley entries and release dates",
+          "caption": "Fictional backlog \u00b7 persisted after relaunch",
+          "sha256": "9f58dcf646857a822d23f3676020e0e7ceb12453947a936d36711bc2f8dead87"
+        }
+      ],
+      "limitations": [
+        "Form date parsing and deletion timing deserve dedicated edge-case tests. Destructive migration fallback can discard data on schema changes."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 6/madlevel6task1/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "1ee78b8156a6d583c15fc40e1b2bf74c486db9c34bf7dfd049f89bfd22c57030",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "installation": "ADB non-streaming test APK install",
+        "activity": "nl.hva.madlevel6task1.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:42:14Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "37f51340d5b2c142045885f61be1a7fee5b4b907562bc1cd74f5f0d875156ffa",
+      "importStatus": "complete",
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-6/level-6-task1/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "Game Backlog: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "5e555e5eaaa8961296fa9aa2282bf76722a5cfaff6e9fa9bd1acef04d7eff219"
+        }
+      ],
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-6/level-6-task1/persisted-backlog.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-6-task1/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "70aacc42bf4a44b948ec9b03a4293376dcdfd297424ac1935e196c1efd331017",
+          "sourceFingerprint": "d8f738653b03d8874140e72cd0f45257d2556f68d9c29e6bcd3177af77f00600",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:56:33Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Opened the reviewed add form",
+            "Entered fictional input in field 1",
+            "Entered fictional input in field 2",
+            "Entered fictional input in field 3",
+            "Entered fictional input in field 4",
+            "Entered fictional input in field 5",
+            "Selected Save",
+            "Verified visible state: Celeste",
+            "Opened the reviewed add form",
+            "Entered fictional input in field 1",
+            "Entered fictional input in field 2",
+            "Entered fictional input in field 3",
+            "Entered fictional input in field 4",
+            "Entered fictional input in field 5",
+            "Selected Save",
+            "Verified visible state: Stardew Valley",
+            "Launched rebuilt APK",
+            "Verified visible state: Celeste",
+            "Verified visible state: Stardew Valley"
+          ],
+          "runtimeVerification": "Added two demonstration games with platform and release date data. Force-stopped and relaunched the app, then verified both entries persisted and were displayed in release-date order. Deletion and undo were not exercised."
+        }
+      ],
+      "evidenceMedia": [],
+      "buildVerification": {
+        "id": "level-6-task1",
+        "sourceFingerprint": "d8f738653b03d8874140e72cd0f45257d2556f68d9c29e6bcd3177af77f00600",
+        "status": "passed",
+        "redactedPaths": [],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:51:03Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-6-task1.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-6-task1/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "70aacc42bf4a44b948ec9b03a4293376dcdfd297424ac1935e196c1efd331017",
+        "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel6task1.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "supplementaryValidation": {
+          "status": "passed",
+          "testPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-6-task1/app/src/test/java/PortfolioDateConversionTest.kt",
+          "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-6-task1-domain-validation.log",
+          "suites": [
+            {
+              "name": "nl.hva.madlevel6task1.PortfolioDateConversionTest",
+              "tests": 2,
+              "failures": 0,
+              "errors": 0
+            },
+            {
+              "name": "nl.hva.madlevel6task1.ExampleUnitTest",
+              "tests": 1,
+              "failures": 0,
+              "errors": 0
+            }
+          ],
+          "scope": "Tests added only in disposable copy; original source untouched"
+        },
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    },
+    {
+      "id": "level-6-task2",
+      "level": 6,
+      "role": "task2",
+      "title": "Rock, Paper, Scissors",
+      "sourcePath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 6/madlevel6task2",
+      "sourceFingerprint": "0275efd0c3e21807ddad89b0b648a01eb8a634ea52b6a37d26bf9231ce505416",
+      "analysis": "source-reviewed",
+      "evidenceFiles": [
+        "Utils.kt",
+        "GameDao.kt",
+        "Converters.kt",
+        "AppPlayGameScreen.kt",
+        "AppHistoryScreen.kt"
+      ],
+      "contentPath": "content/collections/android-mad/level-6-task2.mdx",
+      "media": [
+        {
+          "src": "/projects/android-mad/level-6/level-6-task2/played-rounds.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Rock Paper Scissors showing a played round and updated win draw loss statistics",
+          "caption": "Three local rounds \u00b7 recorded statistics",
+          "sha256": "4427eda312e4e19288bd5d505382d6ec10ef94deaefba0639af5c754fcaa45de"
+        },
+        {
+          "src": "/projects/android-mad/level-6/level-6-task2/round-history.webp",
+          "width": 720,
+          "height": 1600,
+          "alt": "Rock Paper Scissors history showing locally stored round results",
+          "caption": "Round history \u00b7 Room records",
+          "sha256": "4776573cde9891bd276e34440ef1957b911b972314fdfb5ca621b6915c35f1e3"
+        }
+      ],
+      "limitations": [
+        "The history query uses ORDER BY gameDate = 'des', which does not establish descending date order. Game insertion is initiated during composition, a lifecycle concern."
+      ],
+      "execution": {
+        "status": "launched",
+        "apkPath": "/home/null/projects/Android-MobileDevelopment/MAD/Level 6/madlevel6task2/app/build/intermediates/apk/debug/app-debug.apk",
+        "apkSha256": "1138c46fab7e3197389407113465453a1c2cf6c71e9414fc7af879b39d4ae910",
+        "sourceMatch": "unverified",
+        "build": "not attempted: existing APK candidate; existing test-only APK; no source rebuild performed",
+        "installation": "ADB non-streaming test APK install",
+        "activity": "nl.hva.madlevel6task2.MainActivity",
+        "launchResult": "Activity launch completed and package remained foreground"
+      },
+      "validation": "passed",
+      "captureProvenance": {
+        "method": "ADB exec-out screencap -p",
+        "device": "emulator-5554",
+        "capturedAt": "2026-10-14T05:42:20Z",
+        "interactions": "Launch only; no backend writes submitted"
+      },
+      "contentFingerprint": "e3ba366d3b7297ea6cee82824e326361fa59b431cab05b3ae7d72f706bbd63c1",
+      "importStatus": "complete",
+      "launchMedia": [
+        {
+          "src": "/projects/android-mad/level-6/level-6-task2/screen.webp",
+          "width": 1080,
+          "height": 2400,
+          "alt": "Rock, Paper, Scissors: emulator launch screen",
+          "caption": "Launch screen \u00b7 existing APK \u00b7 source match unverified",
+          "sha256": "225df8ef702c1d7fa726f26fc584023968f5023f2bd893d7f9b64864eff47e00"
+        }
+      ],
+      "scenarioCaptures": [
+        {
+          "src": "/projects/android-mad/level-6/level-6-task2/played-rounds.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-6-task2/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "2ec24d44f979f35c8ad0020bc25a2f54332b907aebe390efb39874fed0e73851",
+          "sourceFingerprint": "0275efd0c3e21807ddad89b0b648a01eb8a634ea52b6a37d26bf9231ce505416",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:56:42Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Selected rock",
+            "Selected rock",
+            "Selected rock"
+          ],
+          "runtimeVerification": "Selected each of the three throw controls and observed round results and updated statistics. The source labels all three images rock; capture steps identify the chosen control by index."
+        },
+        {
+          "src": "/projects/android-mad/level-6/level-6-task2/round-history.webp",
+          "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-6-task2/app/build/outputs/apk/debug/app-debug.apk",
+          "apkSha256": "2ec24d44f979f35c8ad0020bc25a2f54332b907aebe390efb39874fed0e73851",
+          "sourceFingerprint": "0275efd0c3e21807ddad89b0b648a01eb8a634ea52b6a37d26bf9231ce505416",
+          "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+          "method": "ADB exec-out screencap -p",
+          "device": "emulator-5554",
+          "capturedAt": "2026-10-14T05:56:42Z",
+          "steps": [
+            "Launched rebuilt APK",
+            "Selected rock",
+            "Selected rock",
+            "Selected rock",
+            "Selected History"
+          ],
+          "runtimeVerification": "Played three rounds and opened history to verify that recorded throws and outcomes were visible. History ordering remains subject to the query limitation noted below."
+        }
+      ],
+      "evidenceMedia": [],
+      "buildVerification": {
+        "id": "level-6-task2",
+        "sourceFingerprint": "0275efd0c3e21807ddad89b0b648a01eb8a634ea52b6a37d26bf9231ce505416",
+        "status": "passed",
+        "redactedPaths": [],
+        "demoPackageSuffix": ".portfolio",
+        "exitCode": 0,
+        "completedAt": "2026-10-14T05:51:47Z",
+        "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-6-task2.log",
+        "apkPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-6-task2/app/build/outputs/apk/debug/app-debug.apk",
+        "apkSha256": "2ec24d44f979f35c8ad0020bc25a2f54332b907aebe390efb39874fed0e73851",
+        "sourceMatch": "source fingerprint verified; isolated demo package and SDK path configured",
+        "tests": [
+          {
+            "name": "nl.hva.madlevel6task2.ExampleUnitTest",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0
+          }
+        ],
+        "supplementaryValidation": {
+          "status": "passed",
+          "testPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-6-task2/app/src/test/java/PortfolioWinnerTest.kt",
+          "logPath": "/home/null/projects/Portfolio/.workspace/android-mad/builds/level-6-task2-domain-validation.log",
+          "suites": [
+            {
+              "name": "nl.hva.madlevel6task2.ExampleUnitTest",
+              "tests": 1,
+              "failures": 0,
+              "errors": 0
+            },
+            {
+              "name": "nl.hva.madlevel6task2.PortfolioWinnerTest",
+              "tests": 9,
+              "failures": 0,
+              "errors": 0
+            }
+          ],
+          "scope": "Tests added only in disposable copy; original source untouched"
+        },
+        "reason": "Disposable demo package build; original source fingerprint checked before copying"
+      },
+      "completionScope": "Source analysis, demo build, reviewed core interaction capture, documentation, and portfolio artifact validation. Complete import does not imply exhaustive feature or Android instrumentation coverage."
+    }
+  ]
+}

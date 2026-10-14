@@ -1,0 +1,20 @@
+Request a random number trivia fact from Numbers API.
+
+**Implementation highlight.** Retrofit and a repository return a Resource wrapper; a ViewModel exposes LiveData for empty, loading, success, and error UI states.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `NumbersRepository.kt`, `NumbersViewModel.kt`, `NumbersApiService.kt`, `MainActivity.kt`.
+
+### Runtime verification
+
+Selected Get new number and observed the live error message An unknown error occured. The error-state capture is authentic; successful fact retrieval remains unverified. The captured app was rebuilt from a source-fingerprint-checked disposable copy using a separate .portfolio package ID. The existing template JUnit test passed. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+The endpoint uses HTTP. Service availability, cleartext policy, and exception handling affect runtime success. The live request displayed An unknown error occured; successful number retrieval remains unverified.
+
+</details>

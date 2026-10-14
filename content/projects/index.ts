@@ -1,8 +1,9 @@
 import type { ComponentType } from 'react'
 import type { ProjectMetadata } from '@/content/types'
-import * as android from './android-mobile-development.mdx'
+import * as androidMad from './android-mad.mdx'
 import * as arkive from './arkive-big-data.mdx'
 import * as ewa from './ewa.mdx'
+import * as festivals from './festivals.mdx'
 import * as flyfriends from './flyfriends.mdx'
 import * as keylingo from './keylingo.mdx'
 import * as lexitype from './lexitype.mdx'
@@ -20,7 +21,8 @@ const modules = [
   rag,
   mediagrab,
   arkive,
-  android,
+  festivals,
+  androidMad,
   ewa,
   pad,
   flyfriends,

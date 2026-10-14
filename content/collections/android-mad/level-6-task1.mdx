@@ -1,0 +1,20 @@
+Track game titles, platforms, and release dates in a local backlog.
+
+**Implementation highlight.** Room queries order games by release date, converters map Date values to timestamps, and Snackbar actions defer deletion to offer an undo window.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `GameDao.kt`, `Converters.kt`, `GameAppHomeScreen.kt`, `GameAppAddGameScreen.kt`.
+
+### Runtime verification
+
+Added two demonstration games with platform and release date data. Force-stopped and relaunched the app, then verified both entries persisted and were displayed in release-date order. Deletion and undo were not exercised. The captured app was rebuilt from a source-fingerprint-checked disposable copy using a separate .portfolio package ID. The existing template JUnit test passed. Two supplementary checks passed for null handling and millisecond-preserving date conversion. Supplementary tests were added only to the disposable copy. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+Form date parsing and deletion timing deserve dedicated edge-case tests. Destructive migration fallback can discard data on schema changes.
+
+</details>

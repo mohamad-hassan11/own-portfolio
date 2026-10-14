@@ -1,0 +1,20 @@
+Search a movie catalog and navigate to a selected movie's details.
+
+**Implementation highlight.** Retrofit queries TMDB; a MoviesViewModel exposes response state and keeps the selected movie for the detail route, with asynchronous poster and backdrop loading.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `MoviesRepository.kt`, `MoviesViewModel.kt`, `MoviesListScreen.kt`, `MovieDetailsScreen.kt`.
+
+### Runtime verification
+
+Entered Interstellar in the search field of the credential-redacted demo build. Authenticated search results and detail navigation remain unverified. The captured app was rebuilt from a source-fingerprint-checked disposable copy using a separate .portfolio package ID. Service credentials/configuration were replaced with demonstration placeholders in that copy. The existing template JUnit test passed. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+The API requires configured credentials, which are not reproduced here. Selected-movie state is held in memory rather than encoded in the route. Movie authorization was redacted in the disposable build; authenticated search and detail navigation were not exercised.
+
+</details>

@@ -1,0 +1,88 @@
+import { FestivalsStudio } from '@/components/projects/festivals-studio'
+import {
+  FestivalsQuickJump,
+  FestivalsChallengesGrid,
+  FestivalsArchitectureHub,
+  FestivalsVerificationGrid,
+  FestivalsTakeaways,
+} from '@/components/projects/festivals-page-components'
+
+export const metadata = {
+  title: 'Festivals — Native Android Discovery & Ticket Reservation',
+  slug: 'festivals',
+  summary:
+    'A native Android application built with Kotlin, Jetpack Compose, Room ORM, and Firebase Firestore for festival discovery, artist lineup browsing, ticket reservations, and cashless balance management.',
+  projectType: 'University specialisation capstone',
+  organisation: 'Hogeschool van Amsterdam',
+  year: 2024,
+  featured: true,
+  order: 4,
+  layout: 'collection',
+  coverImage: '/projects/festivals/cover.webp',
+  coverImageDimensions: { width: 512, height: 512 },
+  technologies: [
+    'Kotlin',
+    'Jetpack Compose',
+    'Material 3',
+    'Room ORM',
+    'SQLite',
+    'Firebase Firestore',
+    'Coroutines',
+    'Coil',
+    'Gradle',
+  ],
+  githubUrl: null,
+  liveUrl: null,
+}
+
+<div id="overview" className="scroll-mt-24" />
+
+## Overview
+
+Festivals is a native Android application engineered as the capstone project for the HBO-ICT Android Mobile Development specialisation semester at the Hogeschool van Amsterdam (HvA). The application serves as a comprehensive festival companion, bringing event discovery, dynamic artist lineup inspection, ticket reservation workflows, personal packing checklists, and cashless wristband balance monitoring together into a single mobile experience.
+
+Built with Kotlin and modern Android Jetpack libraries, the application demonstrates a fully declarative UI with Jetpack Compose and Material 3, a robust local-first relational database powered by Room ORM with many-to-many entity joins, and a cloud-backed authentication and profile layer using Firebase Firestore.
+
+<FestivalsQuickJump />
+
+<div id="challenges" className="scroll-mt-24" />
+
+## The problem and constraints
+
+Outdoor music and dance festival attendees typically navigate disjointed channels: third-party ticketing platforms, separate festival schedule apps, physical payment wristbands, and unorganized notes for festival prep. Mobile web apps and hybrid wrappers frequently suffer from poor responsiveness, high memory overhead, and clumsy offline resilience in festival environments with weak cellular coverage.
+
+The engineering challenge was to build an end-to-end native Android application satisfying strict technical constraints across UI, local persistence, cloud boundaries, and defensive state verification:
+
+<FestivalsChallengesGrid />
+
+<div id="architecture" className="scroll-mt-24" />
+
+## Application architecture
+
+The application follows the Android recommended MVVM (Model-View-ViewModel) architectural pattern, separating presentation, business logic, and persistence into clear, testable boundaries.
+
+<FestivalsArchitectureHub />
+
+<div id="studio" className="scroll-mt-24" />
+
+## Interactive architecture & domain studio
+
+Captured directly from an active Android emulator running the compiled application (`Medium_Phone_API_37.0`), the interactive studio organizes the mobile application into five core engineering stations. Each station synchronizes architectural principles, Kotlin/Compose implementation details, and authentic emulator captures with step navigation and full-resolution inspection.
+
+<FestivalsStudio />
+
+<div id="verification" className="scroll-mt-24" />
+
+## Testing, execution and verification
+
+The application engineering pipeline incorporates automated testing dependencies across local unit tests, UI instrumentation, and live AVD verification:
+
+<FestivalsVerificationGrid />
+
+<div id="takeaways" className="scroll-mt-24" />
+
+## Result & architectural post-mortem
+
+The Capstone Festivals project delivered a complete, polished native Android application that successfully demonstrates modern Android engineering practices: completely declarative UI in Jetpack Compose with Material 3 styling and dynamic light/dark theming, robust multi-table SQLite relational persistence using Room ORM with many-to-many junction entities, clean MVVM separation with Android ViewModels, Coroutines, and LiveData state streams, and cloud integration with Firebase Firestore.
+
+<FestivalsTakeaways />

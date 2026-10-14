@@ -1,0 +1,20 @@
+Maintain a shopping list with item names and amounts.
+
+**Implementation highlight.** A Room entity and DAO provide insert, update, delete, and observable list queries; the repository dispatches storage work and Compose observes LiveData.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `ShoppingListDao.kt`, `ShoppingListRepository.kt`, `ShoppingListViewModel.kt`, `ShoppingListScreen.kt`.
+
+### Runtime verification
+
+Added three fictional grocery items and quantities through the dialog. Force-stopped and relaunched the app, then verified that all three rows persisted in Room. The captured app was rebuilt from a source-fingerprint-checked disposable copy using a separate .portfolio package ID. The existing template JUnit test passed. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+Room provides local persistence, not multi-device synchronization. Source database operations were inspected; Android tests were not executed.
+
+</details>

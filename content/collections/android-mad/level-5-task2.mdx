@@ -1,0 +1,20 @@
+Work through an ordered multiple-choice question sequence.
+
+**Implementation highlight.** The repository reads Firestore's quetions collection ordered by id, advances through retrieved Question models, and checks remaining questions for the navigation flow.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `QuestionsRepository.kt`, `QuestionsViewModel.kt`, `AppQuestionScreen.kt`.
+
+### Runtime verification
+
+Verified the safe quest entry screen. Questions depend on an unverified Firestore backend; the quest was not started and no completion claim is made. The captured app was rebuilt from a source-fingerprint-checked disposable copy using a separate .portfolio package ID. Service credentials/configuration were replaced with demonstration placeholders in that copy. The existing template JUnit test passed. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+The collection spelling quetions is preserved from source. Runtime questions depend on remote documents and access rules; completion was not verified. The disposable copy uses a fictional Firebase configuration. No backend form was submitted and no test backend was verified.
+
+</details>

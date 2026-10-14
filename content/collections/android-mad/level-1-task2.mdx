@@ -1,0 +1,20 @@
+Browse a local catalog of places with photographs and a search field.
+
+**Implementation highlight.** Place models pair names with drawable resources; the remembered search query drives filtering of the displayed collection.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `MainActivity.kt`, `Place.kt`.
+
+### Runtime verification
+
+Entered Amsterdam in the search field and verified the filtered city cards. The captured app was rebuilt from a source-fingerprint-checked disposable copy using a separate .portfolio package ID. The existing template JUnit test passed. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+The catalog is bundled with the app, with no location service or remote search.
+
+</details>

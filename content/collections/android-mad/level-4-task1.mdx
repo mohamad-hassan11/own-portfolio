@@ -1,0 +1,20 @@
+Switch between cat and dog screens and request random animal imagery.
+
+**Implementation highlight.** Separate Retrofit clients and repositories isolate Cataas and Dog CEO response formats; ViewModels publish resource states and Compose renders fetched images.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `CatsRepository.kt`, `DogsRepository.kt`, `CatsViewModel.kt`, `DogsViewModel.kt`, `ApiService.kt`.
+
+### Runtime verification
+
+Requested a cat image, switched to the dog tab, and requested a dog image. The Dog CEO response displayed success and rendered a dog photograph. The cat photograph did not render during this capture. The captured app was rebuilt from a source-fingerprint-checked disposable copy using a separate .portfolio package ID. The existing template JUnit test passed. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+Remote APIs and image delivery are external dependencies. A captured empty or error screen is not evidence of successful image retrieval. The Dog CEO request rendered an image. The cat request did not render an image during capture.
+
+</details>

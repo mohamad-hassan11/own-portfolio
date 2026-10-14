@@ -1,0 +1,20 @@
+Create a question and answer, then play the stored quiz.
+
+**Implementation highlight.** A Firestore repository reads and replaces one fixed quiz document; coroutine-based ViewModel methods expose quiz and error state to navigation screens.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `QuizRepository.kt`, `QuizViewModel.kt`, `CreateQuizScreen.kt`, `PlayQuizScreen.kt`.
+
+### Runtime verification
+
+Opened the create screen and filled a fictional question and answer. The Firestore create action was not submitted; no verified test backend is available. The captured app was rebuilt from a source-fingerprint-checked disposable copy using a separate .portfolio package ID. Service credentials/configuration were replaced with demonstration placeholders in that copy. The existing template JUnit test passed. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+Writes replace a shared document rather than a per-user quiz. Backend rules and authentication were not verified; no Firestore writes were exercised. The disposable copy uses a fictional Firebase configuration. No backend form was submitted and no test backend was verified.
+
+</details>

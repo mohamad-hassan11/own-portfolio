@@ -1,0 +1,20 @@
+Move between a reminders overview and a dedicated add screen.
+
+**Implementation highlight.** A shared RemindersViewModel owns the observable list while Navigation Compose manages the add route and return through popBackStack.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `MainActivity.kt`, `RemindersViewModel.kt`, `AddReminderScreen.kt`, `RemindersListScreen.kt`.
+
+### Runtime verification
+
+Added two fictional reminders through the dedicated form and verified their appearance after returning to the overview. The captured app was rebuilt from a source-fingerprint-checked disposable copy using a separate .portfolio package ID. The existing template JUnit test passed. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+ViewModel state survives configuration changes but is not durable storage.
+
+</details>

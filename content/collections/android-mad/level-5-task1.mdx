@@ -1,0 +1,20 @@
+Create profile details, choose an image, and display the profile.
+
+**Implementation highlight.** A repository reads and writes a fixed Firestore profile document; Compose form state and a gallery picker feed a ViewModel holding the selected URI and bitmap.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `ProfileRepository.kt`, `ProfileViewModel.kt`, `CreateProfileScreen.kt`, `ProfileScreen.kt`.
+
+### Runtime verification
+
+Filled the profile form with fictional Alex Taylor details and verified all three fields. Confirm was not selected; Firestore persistence and gallery selection remain unverified. The captured app was rebuilt from a source-fingerprint-checked disposable copy using a separate .portfolio package ID. Service credentials/configuration were replaced with demonstration placeholders in that copy. The existing template JUnit test passed. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+The stored image URI is a device reference, not evidence of uploaded cloud image storage. Backend permissions and writes were not verified. The disposable copy uses a fictional Firebase configuration. No backend form was submitted and no test backend was verified.
+
+</details>

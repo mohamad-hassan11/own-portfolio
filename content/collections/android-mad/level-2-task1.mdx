@@ -1,0 +1,20 @@
+Evaluate statements and add custom quiz statements.
+
+**Implementation highlight.** Tap and long-press gestures classify true and false statements; successful answers remove the corresponding model from an observable list. Callbacks add custom statements.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `MainActivity.kt`, `Statement.kt`.
+
+### Runtime verification
+
+Added the demonstration statement A triangle has three sides, verified its appearance, tapped it as a true answer, and verified that the row was removed. The captured app was rebuilt from a source-fingerprint-checked disposable copy using a separate .portfolio package ID. The existing template JUnit test passed. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+Predefined statements are appended in the composable body, so recomposition can duplicate them. Initialization should be isolated from rendering. No durable question storage is implemented.
+
+</details>

@@ -1,0 +1,20 @@
+Choose a game, assign a rating, and review a summary.
+
+**Implementation highlight.** One GameViewModel shares the randomly chosen game and slider value across start, rating, and summary destinations.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `GameViewModel.kt`, `GameRatingScreen.kt`, `GameRatingSummaryScreen.kt`.
+
+### Runtime verification
+
+Started the flow, changed the rating to 3.0 stars, and verified that the same value was displayed on the summary screen. The captured app was rebuilt from a source-fingerprint-checked disposable copy using a separate .portfolio package ID. The existing template JUnit test passed. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+Resetting the flow clears the shared values; ratings are not written to a database.
+
+</details>

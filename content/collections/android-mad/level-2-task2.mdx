@@ -1,0 +1,20 @@
+Practice Boolean AND by answering generated equations.
+
+**Implementation highlight.** Equation models hold the operands and answer; randomly generated values map to truth symbols and Toast feedback checks the chosen answer.
+
+<details className="border-border mt-6 border-t pt-4">
+<summary className="text-foreground cursor-pointer font-semibold">Engineering details & verification</summary>
+
+### Architecture & evidence
+
+This independent Kotlin application uses Jetpack Compose and Material 3. Its Gradle settings include a single `:app` module. Relevant implementation files: `MainActivity.kt`, `Equation.kt`.
+
+### Runtime verification
+
+Generated an equation, computed AND from the two operands, chose the matching answer, and observed the accepted check-mark state. The gallery shows both a generated equation and the accepted state. The captured app was rebuilt from a source-fingerprint-checked disposable copy using a separate .portfolio package ID. The existing template JUnit test passed. Android instrumentation tests were not run. Build and capture provenance are recorded in the import manifest.
+
+### Constraints & follow-up
+
+The displayed third value is generated randomly, but answer checking uses only the two operands. The display and evaluated proposition can therefore disagree; the exercise needs a clearer truth-table contract.
+
+</details>
