@@ -7,9 +7,12 @@ export const skills: SkillCategory[] = [
     name: 'Frontend',
     order: 1,
     skills: [
+      'React',
+      'Next.js',
       'Angular',
       'TypeScript',
       'JavaScript',
+      'Tailwind CSS',
       'RxJS',
       'Angular Router',
       'HTML',
@@ -71,6 +74,8 @@ export const skills: SkillCategory[] = [
       'JUnit',
       'Pytest',
       'Cypress',
+      'Playwright',
+      'Vitest',
     ],
   },
 ]

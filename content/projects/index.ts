@@ -4,6 +4,7 @@ import * as android from './android-mobile-development.mdx'
 import * as arkive from './arkive-big-data.mdx'
 import * as ewa from './ewa.mdx'
 import * as flyfriends from './flyfriends.mdx'
+import * as keylingo from './keylingo.mdx'
 import * as mediagrab from './mediagrab.mdx'
 import * as pad from './pad.mdx'
 import * as rag from './secure-rag-integration.mdx'
@@ -14,7 +15,16 @@ export interface Project {
 }
 
 // To add a project: create <slug>.mdx here, then import it above and list it below.
-const modules = [rag, mediagrab, arkive, android, ewa, pad, flyfriends]
+const modules = [
+  rag,
+  mediagrab,
+  arkive,
+  android,
+  ewa,
+  pad,
+  flyfriends,
+  keylingo,
+]
 
 const projects: Project[] = modules
   .map((mod) => ({ metadata: mod.metadata, Content: mod.default }))
