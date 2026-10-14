@@ -1,18 +1,23 @@
 export const metadata = {
-  title: 'PAD',
+  title: 'PAD — OBA Reservations & Activities',
   slug: 'pad',
   summary:
-    'An earlier full-stack web project using Node.js and Express with an MVC-style architecture and end-to-end tests.',
+    'A university team application for reserving OBA study places and browsing library activities, built with modular JavaScript, an Express API, and MySQL.',
   projectType: 'University team project',
+  organisation: 'Hogeschool van Amsterdam',
+  year: 2021,
   featured: false,
   order: 6,
+  coverImage: '/projects/pad/welcome.webp',
   technologies: [
     'Node.js',
     'Express',
     'MySQL',
     'JavaScript',
+    'jQuery',
     'Bootstrap',
     'Cypress',
+    'QRCode.js',
   ],
   githubUrl: null,
   liveUrl: null,
@@ -20,16 +25,73 @@ export const metadata = {
 
 ## Overview
 
-PAD is a full-stack web application built during the second semester of my HBO-ICT programme, with a Node.js and Express backend and a modular vanilla frontend.
+PAD (Project Agile Development) is a browser application built during the second semester of my HBO-ICT programme. The team's application brings two Openbare Bibliotheek Amsterdam (OBA) workflows together: reserving a study place at a library branch and exploring library activities.
 
-## Approach
+Visitors can search for a branch, select a study place, enter booking details, and receive a QR confirmation. A separate activity overview presents results from OBA's search API with pagination and filters, followed by a contact-registration form.
 
-Built with Node.js and Express on the backend, MySQL for data storage, and a modular frontend using HTML, CSS, JavaScript (ES6) and Bootstrap. The architecture follows an MVC-style pattern with a clear separation between views, controllers and repositories, plus API communication through AJAX and session handling in the browser.
+## My role
 
-## Implementation
+I implemented the activity overview controller: retrieving paginated results, mapping external activity data into cards, and handling location, date, and activity-type filters. The study-place reservation flow and shared framework described here belong to the wider team application.
 
-Implemented REST-style endpoints, asynchronous client-server communication, and end-to-end tests with Cypress.
+## Study-place reservations
+
+The booking interface uses four steps: location, study place, registration, and confirmation. Branch search supports autocomplete and a card carousel. Selecting a branch loads its study places, with occupied and available states distinguished in the interface.
+
+<ProjectImage
+  zoom
+  tone="red"
+  label="Fig. 01 · Reservation workflow"
+  src="/projects/pad/reservation.webp"
+  alt="OBA study-place reservation interface with four steps, a branch search field, and carousel controls. The location step is active and no branch cards are displayed."
+  width={990}
+  height={747}
+  caption="An existing application capture showing the first reservation step. No branch results are visible in this capture."
+/>
+
+The Express booking endpoint validates required fields and phone-number length, then inserts the visitor's details, date, time slot, and study-place ID into MySQL using query placeholders. After insertion, the browser uses the returned reservation ID to retrieve confirmation data. QRCode.js encodes that data as JSON in a QR code. This is a reservation confirmation; the repository does not implement a QR scanning or check-in service.
+
+## Activity browsing and registration
+
+The backend's `/activity/:page` route retrieves JSON from OBA's search API. The frontend turns each result into a card with a title, date, branch, subject, description, and image. It calculates the page count from the API's result total and disables navigation at the first and last pages.
+
+Location, date, and subject filters act on the cards already loaded for the current page. Subject options are derived from the returned data and deduplicated, with a fallback for missing subjects. Changing pages resets selected filters. This keeps the implementation small, although it means filtering applies to one page of results rather than the complete catalogue.
+
+Selecting an activity opens a registration form. Its dedicated controller sends contact details to `/activiteit/registratie` and displays confirmation or validation errors. The implemented database insert stores contact details without an activity ID, so it represents a basic registration flow rather than event-specific ticketing.
+
+## Application architecture
+
+The frontend extends the supplied PAD framework with ES6 classes, jQuery, and Bootstrap 4. Hash-based navigation selects a controller, which loads an HTML view and binds its interactions. Repositories wrap API operations; a shared network manager converts jQuery AJAX callbacks into promises for use with `async` / `await`. The study-place controller also makes direct AJAX reads for branch and study-place lists.
+
+<ArchitectureDiagram
+  wide
+  tone="blue"
+  label="Fig. 02 · Client, API, and data"
+  src="/projects/pad/architecture.svg"
+  alt="HTML views and JavaScript controllers communicate through repositories and a shared AJAX network manager with an Express API. The study-place controller also makes direct AJAX reads. Express runs parameterized MySQL queries for reservations and sends HTTPS requests to the external OBA search API for activity results."
+  width={1600}
+  height={900}
+  caption="Architecture reconstructed from the source. Reservation data is stored in the application's MySQL database; activity listings come from the external OBA service."
+/>
+
+Express handles JSON requests, validation, database queries, and the external API connection. A shared MySQL connection pool supports database access. The architecture separates frontend presentation and API access, while backend route handlers keep validation and persistence together in a single application module.
+
+## Engineering decisions
+
+- **Adapting external data:** the activity controller translates OBA's result structure into display fields and derives subject filters from the response. This made data mapping and missing-field handling part of the frontend work.
+- **Coordinating asynchronous interactions:** repository promises let controllers wait for API responses before updating cards or showing booking confirmation. The network manager gives registration forms access to structured server errors.
+- **Connecting booking and confirmation:** the insert ID links a successful reservation request to a second query for QR data, including the associated branch through a database join.
+- **Keeping scope explicit:** study-place status is displayed, but the booking handler does not enforce conflicting reservations. Availability enforcement would require additional database and server-side rules.
+
+## Testing and execution
+
+The repository includes Cypress 7 browser scenarios for activity-page elements, pagination and filter interactions, branch search, booking, registration validation, and QR output. Several scenarios stub API responses to inspect request payloads and error states. Some older login and booking tests target routes or selectors that are absent from the current application, so their presence is not evidence of a passing suite.
+
+For this case study, the original frontend was served locally without changing its source. The welcome screen and navigation to the reservation view were checked in Chromium. Database and activity-service requests were blocked during capture; no successful database booking or live activity retrieval is claimed. The bundled SQL only creates the framework's example tables, leaving the reservation schema unavailable for a complete local backend run.
+
+## Result
+
+The project demonstrates a team-built browser client and Express API spanning database-backed reservations and an external activity feed. My activity-overview work developed practical experience with asynchronous JavaScript, third-party data structures, pagination, DOM-based filtering, and integrating a feature into an existing team framework.
 
 ## What I learned
 
-Strengthened client-server design, REST-style API development, asynchronous programming, database integration and end-to-end testing, while learning how to structure and maintain a team-scale codebase from both frontend and backend perspectives.
+Working within separate views, controllers, and repositories made client-server responsibilities concrete. The project also illustrates why UI state, database constraints, and browser tests must stay aligned as features evolve: displaying availability does not enforce it, and tests tied to older routes need maintenance alongside the application.

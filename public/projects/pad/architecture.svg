@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">PAD application architecture</title>
+  <desc id="desc">Browser views and controllers use repositories and AJAX to reach Express. Express queries MySQL for reservations and the external OBA search API for activities. Study-place reads also use direct AJAX.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10Z" fill="#334155"/>
+    </marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #172033; }
+      .heading { font-size: 38px; font-weight: 700; }
+      .label { font-size: 20px; font-weight: 700; letter-spacing: 2px; }
+      .name { font-size: 27px; font-weight: 700; }
+      .detail { font-size: 23px; fill: #475569; }
+      .link { fill: none; stroke: #334155; stroke-width: 3; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+  <text x="60" y="72" class="heading">PAD · Reservations and activity discovery</text>
+  <text x="60" y="112" class="detail">Modular browser client → Express API → application data and external listings</text>
+
+  <rect x="60" y="154" width="1480" height="260" rx="16" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/>
+  <text x="90" y="197" class="label">BROWSER · HTML / CSS / JAVASCRIPT / JQUERY / BOOTSTRAP</text>
+  <rect x="90" y="230" width="440" height="145" rx="10" fill="#fff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="115" y="272" class="name">Views + controllers</text>
+  <text x="115" y="312" class="detail">Hash navigation, cards, forms</text>
+  <text x="115" y="346" class="detail">Filters and QR confirmation</text>
+  <path d="M530 302H607" class="link"/>
+  <rect x="620" y="230" width="340" height="145" rx="10" fill="#fff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="645" y="272" class="name">Repositories</text>
+  <text x="645" y="312" class="detail">Activity and booking calls</text>
+  <text x="645" y="346" class="detail">async / await</text>
+  <path d="M960 302H1067" class="link"/>
+  <rect x="1080" y="230" width="430" height="145" rx="10" fill="#fff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="1105" y="272" class="name">Network manager</text>
+  <text x="1105" y="312" class="detail">JSON requests over AJAX</text>
+  <text x="1105" y="346" class="detail">Promises and error responses</text>
+  <path d="M1295 375V461H800V515" class="link"/>
+  <text x="1020" y="447" class="detail">HTTP / JSON</text>
+  <path d="M310 375V480H575V570H602" class="link"/>
+  <text x="95" y="455" class="detail">Direct AJAX reads</text>
+
+  <rect x="615" y="527" width="440" height="145" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="640" y="569" class="name">Node.js + Express</text>
+  <text x="640" y="609" class="detail">Route handlers and validation</text>
+  <text x="640" y="643" class="detail">Queries and activity API proxy</text>
+
+  <path d="M725 672V738H345V772" class="link"/>
+  <text x="120" y="720" class="detail">Parameterized SQL · connection pool</text>
+  <path d="M940 672V738H1255V772" class="link"/>
+  <text x="1030" y="720" class="detail">HTTPS · paginated search results</text>
+  <rect x="90" y="785" width="510" height="90" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="115" y="823" class="name">MySQL</text>
+  <text x="115" y="858" class="detail">Branches, study places, registrations</text>
+  <rect x="1000" y="785" width="510" height="90" rx="10" fill="#faf5ff" stroke="#9333ea" stroke-width="2"/>
+  <text x="1025" y="823" class="name">External OBA search API</text>
+  <text x="1025" y="858" class="detail">Activity metadata and image URLs</text>
+</svg>
