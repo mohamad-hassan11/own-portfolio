@@ -140,6 +140,8 @@ Use predictable paths, for example `public/projects/my-project/cover.webp`, `arc
 
 `ProjectImage` accepts `width` / `height` to set the aspect ratio (default 16:9). Prefer web-sized `.webp` files.
 
+For a full-page screenshot cover, add `coverImageDimensions: { width, height }` to the project metadata using the asset's actual pixel dimensions. This preserves the full image in project cards and gives the case study a compact, uncropped preview with an expand control. Compress the asset before adding it: this preview serves the supplied file directly to preserve interface text.
+
 Available MDX components: `ProjectImage`, `ArchitectureDiagram`, `Callout`, plus standard Markdown (headings, lists, quotes, code blocks, links, images).
 
 ### Experience, education, skills

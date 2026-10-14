@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">FlyFriends application architecture</title>
+  <desc id="desc">Static HTML pages use jQuery scripts and FYSCloud browser helpers. Shared code handles session values and navigation. FYSCloud managed services receive SQL queries and file uploads; the repository has no custom backend.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#334155"/></marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #172033; }
+      .heading { font-size: 38px; font-weight: 700; }
+      .label { font-size: 20px; font-weight: 700; letter-spacing: 2px; }
+      .name { font-size: 27px; font-weight: 700; }
+      .detail { font-size: 23px; fill: #475569; }
+      .link { fill: none; stroke: #334155; stroke-width: 3; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+  <text x="60" y="72" class="heading">FlyFriends · Interest-based travel companions</text>
+  <text x="60" y="112" class="detail">Multi-page browser application → FYSCloud managed services</text>
+  <rect x="60" y="155" width="1480" height="315" rx="16" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/>
+  <text x="90" y="198" class="label">BROWSER · HTML / CSS / JAVASCRIPT / JQUERY</text>
+  <rect x="90" y="230" width="470" height="200" rx="10" fill="#fff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="115" y="273" class="name">Pages + page scripts</text>
+  <text x="115" y="314" class="detail">Registration, interests, profiles</text>
+  <text x="115" y="350" class="detail">Matching cards + friend actions</text>
+  <text x="115" y="386" class="detail">Settings and destination links</text>
+  <path d="M560 330H667" class="link"/>
+  <rect x="680" y="230" width="340" height="200" rx="10" fill="#fff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="705" y="273" class="name">FYSCloud helpers</text>
+  <text x="705" y="314" class="detail">queryDatabase + uploadFile</text>
+  <text x="705" y="350" class="detail">Session + URL utilities</text>
+  <text x="705" y="386" class="detail">Image preview / data URLs</text>
+  <path d="M1210 330H1033" class="link"/>
+  <rect x="1220" y="230" width="290" height="200" rx="10" fill="#fff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="1245" y="273" class="name">Shared app.js</text>
+  <text x="1245" y="314" class="detail">Navigation state</text>
+  <text x="1245" y="350" class="detail">Browser redirects</text>
+  <text x="1245" y="386" class="detail">Logout</text>
+  <path d="M850 430V542" class="link"/>
+  <text x="890" y="511" class="detail">SQL queries + file upload requests</text>
+  <rect x="570" y="555" width="560" height="135" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="595" y="600" class="name">FYSCloud managed services</text>
+  <text x="595" y="642" class="detail">External service · no custom backend in repo</text>
+  <path d="M720 690V732H390V772" class="link"/>
+  <path d="M980 690V732H1250V772" class="link"/>
+  <rect x="90" y="785" width="660" height="90" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="115" y="822" class="name">Relational data</text>
+  <text x="115" y="858" class="detail">Users · interests · user–interest links · matches · destinations</text>
+  <rect x="970" y="785" width="540" height="90" rx="10" fill="#faf5ff" stroke="#9333ea" stroke-width="2"/>
+  <text x="995" y="822" class="name">Uploaded files</text>
+  <text x="995" y="858" class="detail">Profile photos · returned URL stored on user</text>
+</svg>

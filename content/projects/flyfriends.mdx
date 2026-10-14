@@ -1,28 +1,90 @@
 export const metadata = {
-  title: 'FlyFriends',
+  title: 'FlyFriends — Travel Companion Matching',
   slug: 'flyfriends',
   summary:
-    'An earlier web project with profile management and matching logic backed by a SQL database.',
+    'A university team web application that connects travellers through shared interests, with multi-step registration, SQL-based matching, profiles, and friend requests.',
   projectType: 'University team project',
+  organisation: 'Hogeschool van Amsterdam',
+  year: 2021,
   featured: false,
   order: 7,
-  technologies: ['HTML', 'CSS', 'JavaScript', 'SQL'],
+  coverImage: '/projects/flyfriends/landing-lossless.webp',
+  coverImageDimensions: { width: 1440, height: 1264 },
+  technologies: ['HTML', 'CSS', 'JavaScript', 'jQuery', 'SQL', 'FYSCloud'],
   githubUrl: null,
   liveUrl: null,
 }
 
 ## Overview
 
-FlyFriends is a team-built web application from the first semester of my HBO-ICT programme, where travellers can create profiles, select interests and find matching travel partners.
+FlyFriends was built for Fasten Your Seatbelts (FYS), a first-semester HBO-ICT team project at Hogeschool van Amsterdam. The application helps travellers discover potential travel companions through shared interests. Development took place in 2020–2021.
 
-## Approach
+The team built a multi-page browser application with account registration, interest selection, profile completion, matching, and friend requests. A destination page complements the social workflow with travel images and database-supplied links.
 
-Built with HTML, CSS and JavaScript in a modular multi-page setup, using the FYSCloud platform for API/database access, session handling and client-side route protection.
+## My role
 
-## Implementation
+My contributions focused on login and registration, saving selected interests, profile completion and photo uploads, and connecting the destination page to database content. I also corrected an early matching flow to use the signed-in user's session ID instead of a fixed ID, and contributed navigation and integration fixes across the pages. These contributions are recorded in the repository's Git history; the matching algorithm, friend-state interface, and profile viewer described below are part of the wider team implementation.
 
-Worked with SQL-style queries, dynamic DOM rendering, filtering logic and asynchronous data flows to deliver login, profile management, matching and friend requests.
+## Registration and profile completion
+
+Onboarding spans three pages. The first collects name, email, password, and date of birth, inserts a user record, and establishes session values. The interest page loads categories from the database and writes selected user–interest relationships. The final page saves location, gender, and a biography, previews a selected image, uploads it through FYSCloud, and stores the returned photo URL before navigating to matching.
+
+<ProjectImage
+  zoom
+  tone="amber"
+  label="Fig. 01 · Account registration"
+  src="/projects/flyfriends/registration.webp"
+  alt="Original Dutch registration form with empty first-name, last-name, email, password, and birth-date fields, a Sign Up button, and a login link."
+  width={640}
+  height={700}
+  className="max-w-xs"
+  caption="The unchanged first registration form, cropped to its content panel. No personal data was entered and no account was created during capture."
+/>
+
+Settings provide separate updates for name, email, password, biography, and profile photo. Profile viewing uses the current session ID or an ID from the URL, then renders personal information and interests from database results.
+
+## Matching and friend requests
+
+The matching query joins the user–interest relation against itself to find other users with shared interests. It groups results by candidate, returns interest names as JSON, and calculates a displayed percentage as **shared interests divided by the candidate's total interests**. Candidates are ordered by shared-interest count, then name. The score is therefore directional and the list is ranked by overlap count, rather than percentage.
+
+JavaScript parses the returned interest data and populates cards from an HTML template. Shared interests receive distinct styling; region and interest checkboxes show or hide the loaded cards in the browser. These are local display filters, not new database searches.
+
+Friendship is represented by directed rows in the `Match` table. No rows means no connection; one outgoing row is a pending request; one incoming row is a request to accept or decline; two reciprocal rows represent friendship. The interface updates its action icons after inserting or deleting those rows. The profile viewer displays an email address only when it finds reciprocal rows, although the initial profile query already retrieves the email: this is a display rule, not a server-enforced privacy boundary.
+
+## Architecture
+
+Each HTML page loads shared CSS and `app.js`, plus a page-specific script where needed. Shared code reads session values, adjusts navigation, redirects visitors away from account pages when unsigned, and handles logout. Page scripts use jQuery for events and DOM updates, with FYSCloud providing database calls, session helpers, URL utilities, and file uploads.
+
+<ArchitectureDiagram
+  wide
+  tone="blue"
+  label="Fig. 02 · Browser and managed services"
+  src="/projects/flyfriends/architecture.svg"
+  alt="Static HTML pages and jQuery scripts use shared session and navigation code. FYSCloud browser helpers send SQL queries and photo uploads to managed cloud services, which access relational data and uploaded files. No custom backend is present in the repository."
+  width={1600}
+  height={900}
+  caption="Architecture reconstructed from the source. SQL is issued through the FYSCloud browser API; the repository contains no custom application server."
+/>
+
+The implementation places queries next to the page interactions that consume them. Many account, profile, and friendship operations use query placeholders; interest selection instead builds a multi-row insert string. The relational structure visible in the queries includes users, interests, a user–interest join table, destinations, and directed match rows.
+
+## Engineering decisions and lessons
+
+- **Connecting state across pages:** session values carry the signed-in identity through registration, profile completion, and matching. Replacing a fixed matching ID with the session ID made the workflow operate on the current user.
+- **Representing many-to-many data:** the user–interest table supports both selecting several interests and finding overlap through SQL joins. Aggregation turns those relationships into a compact response for card rendering.
+- **Coordinating file and database operations:** photo preview, upload, and URL persistence are separate asynchronous steps. The completion page nests these callbacks so navigation follows the successful photo update; its earlier biography update is issued independently.
+- **Understanding client-server boundaries:** the educational implementation stores and compares passwords directly, redirects roles in browser code, and hides contact information after retrieval. A production version would need password hashing, server-side authorization, and access-controlled profile responses.
+
+## Testing and execution
+
+The source has no README, package manifest, automated test suite, or database schema export. It is served as static files and relies on the externally hosted FYSCloud 0.0.3 bundle and configured cloud services for dynamic behavior. Hosting configuration is present, but a live deployment was not verified.
+
+For this case study, the source was served locally without modification. Chromium rendered the public welcome and registration content, and the registration-to-login link was checked. The original FYSCloud CDN could not be resolved, so captures used JavaScript-disabled browsing. No configured API calls, database writes, or photo uploads were performed. Authenticated matching, friend requests, and persistence were inspected in source rather than verified end to end; no populated matching screen or complete workflow recording was fabricated.
+
+## Result
+
+FlyFriends brought several connected features into one team application: onboarding, relational interest matching, profiles, and friend requests. My work on the registration and integration flows developed practical experience with asynchronous JavaScript, database relationships, browser session state, file handling, and coordinating changes across a shared codebase.
 
 ## What I learned
 
-The biggest learning curve was moving from basic frontend pages to a full-stack mindset: structuring maintainable page-specific scripts, handling real user state, writing reliable database queries from the client layer, and coordinating team development across multiple connected features.
+The project made the transition from static pages to stateful application workflows concrete. It also provides a useful early example of how database structure shapes a feature: shared interests drive matching, while reciprocal relationships determine friend state. Reviewing the implementation highlights the next engineering step beyond a working browser flow: enforcing identity, privacy, and data integrity at the service boundary.

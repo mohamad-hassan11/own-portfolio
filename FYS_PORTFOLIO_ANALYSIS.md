@@ -1,0 +1,66 @@
+# FYS / FlyFriends portfolio import
+
+## Scope and confirmed decisions
+
+- The requested source exists as `/home/null/projects/Fasten Your Seatbelts/team-5`, rather than the hyphenated path. It was treated as read-only.
+- Updated the existing `content/projects/flyfriends.mdx` entry and retained `/projects/flyfriends`, order 7, and non-featured status. No duplicate entry or registry change was needed.
+- Reused the portfolio's `ProjectImage` and `ArchitectureDiagram` components, alt text, dimensions, zoom behavior, and theme styling.
+- Added no dependency or configuration change. An optional `coverImageDimensions` metadata field enables a compact, uncropped screenshot cover and a card frame at the screenshot’s aspect ratio; existing covers retain their previous presentation. The existing zoom component accepts an optional flag to serve the prepared capture without recompression. No commit, push, or deployment was performed.
+
+## Verified findings and evidence
+
+| Area                      | Evidence                                                                                                               | Finding                                                                                                                                                                                                                                                       |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Purpose and context       | `index.html`, existing portfolio entry, source Git history                                                             | First-semester HvA team project for discovering travel companions through shared interests; development in 2020–2021. Metadata uses 2021; the overview records the full period.                                                                               |
+| Application structure     | Root HTML pages, `assets/js/app.js`, `assets/js/pages/`, CSS                                                           | Multi-page HTML/CSS/JavaScript application. jQuery events and DOM operations; FYSCloud session, URL, database, and upload helpers. No custom backend is present.                                                                                              |
+| Onboarding                | `registratie.js`, `interesses.js`, `registratie1.js`                                                                   | Account insert, session establishment, interest relationships, profile details, image preview, upload, and photo URL persistence.                                                                                                                             |
+| Matching                  | `matching.js`                                                                                                          | Self-join over user–interest relationships, candidate aggregation, JSON interest results, shared-interest counts, and a candidate-relative percentage. Sorting uses overlap count, then name.                                                                 |
+| Filtering                 | `matching.js`                                                                                                          | Region and interest controls manipulate already-rendered cards. They do not issue filtered database queries.                                                                                                                                                  |
+| Relationships             | `matching.js`, `profiel.js`                                                                                            | Directed `Match` rows represent outgoing, incoming, and reciprocal connections. Profile email display depends on reciprocal rows.                                                                                                                             |
+| Settings and destinations | `settings.js`, `bestemmingen.js`, corresponding HTML                                                                   | Independent account/profile updates; destination images with database-supplied country labels and links.                                                                                                                                                      |
+| Personal contribution     | Commits authored by `M.Hassan`, especially `2607342`, `e0dda84`, `0276830`, `65ba899`, `65877d8`, `3a71390`, `59b4718` | Login, registration, interests, profile completion/upload, destination data integration, current-session matching fix, and cross-page navigation/integration changes. Matching algorithm, friend interface, and profile viewer remain attributed to the team. |
+| Execution and tests       | File inventory, HTML script tags, configuration property inspection                                                    | No README, package manifest, automated tests, database schema export, or local service implementation. Pages require the FYSCloud 0.0.3 CDN bundle and managed services for dynamic behavior.                                                                 |
+
+## Technical boundaries
+
+- Browser code issues SQL through FYSCloud. This is an educational cloud integration, not a repository-owned API/server architecture.
+- Account code stores and compares passwords directly; no password hashing is implemented in the inspected application.
+- Browser redirects select account/admin pages; an administrative ID is hardcoded. Server-side authorization is not demonstrated by the source.
+- Profile data includes email before the browser checks friendship. Hiding the field is a display rule, not an enforced privacy boundary.
+- Most account/profile/friendship queries use placeholders. Interest inserts are built as a SQL string from selected IDs.
+- Profile completion starts the biography/details update independently of photo upload. Navigation is nested after the photo URL update; no transactional persistence is implemented here.
+- Configuration contains credential fields. Values were never printed, copied, used for API access, or included in portfolio assets. Source/live links remain unset because no public endpoint was verified.
+
+## Authentic media and capture
+
+| Portfolio asset                                    | Provenance                                                                                   | Processing                                                                                                                                                                |
+| -------------------------------------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `public/projects/flyfriends/landing-lossless.webp` | Fresh full-page Chromium capture of original `index.html` at its native 1440 × 1264 viewport | 1440 × 1264 lossless WebP, 419,492 bytes. No crop, enlargement, downsampling, or lossy encoding. Native width exceeds twice the 672-pixel detail preview.                 |
+| `public/projects/flyfriends/registration.webp`     | Fresh Chromium capture of the original `registratie.html` content panel                      | 640 × 700, WebP quality 85, 11,684 bytes. Empty form; no personal information or synthetic data.                                                                          |
+| `public/projects/flyfriends/architecture.svg`      | Diagram reconstructed from inspected source                                                  | 1600 × 900. Separates pages, shared navigation, browser helpers, managed services, relational data, and uploaded files. This is a diagram, not an application screenshot. |
+
+The source was served read-only with `python3 -B -m http.server` on localhost. Downloading the original FYSCloud bundle failed with a DNS resolution error both inside and outside the sandbox. Chromium therefore used JavaScript-disabled browsing with local CSS/images and the original Google font URLs allowed. All other external traffic and local JavaScript paths were blocked. No FYSCloud configuration was executed and no forms were submitted.
+
+The current landing capture includes the whole original page. The registration capture remains cropped to its real content panel. No HTML, CSS, DOM, profile data, or service responses were replaced or injected. The unavailable FYSCloud library means the logo and guest navigation state cannot initialize; the capture honestly shows the original static fallback, including that incomplete header. Both screenshots were visually inspected. The public registration-to-login link was checked. Authenticated matching, friend requests, database persistence, and uploads could not be exercised; no populated matching screenshot or complete workflow recording was fabricated. No existing authentic application captures were found in the source; unrelated portfolio media was not reused.
+
+## Portfolio content
+
+The case study now covers project context, evidence-backed personal contributions, onboarding, matching semantics, friend states, architecture, asynchronous integration decisions, security boundaries, execution limitations, results, and lessons. Metadata adds a descriptive title/summary, HvA affiliation, year, screenshot cover, jQuery, and FYSCloud while preserving the established project registration.
+
+The landing-page screenshot appears once in the case study as its cover. Its former body figure was removed. The lossless capture uses a new URL to avoid reuse of the earlier compressed image. Its dimensions enable a 672-pixel maximum cover preview at the original aspect ratio, plus an expand control. The project-card frame now uses that same aspect ratio, so the image fills the frame without letterboxing or a substantial crop. Both card and detail views serve the same prepared file directly, preventing another lossy optimization pass and allowing browser cache reuse. The source and measured response are 419,492 bytes, below the revised 450 kB budget. This deliberate size increase removes the compression artifacts visible in the smaller versions. Original/native screenshot checks found no abrupt gradient transitions greater than two RGB levels; the earlier compressed version had abrupt transitions. Existing project covers retain their layout and optimization. The registration figure has a 320-pixel maximum preview width, allowing the original 640-pixel capture to provide 2× density without enlargement. The diagram remains SVG.
+
+## Validation
+
+- `npm run typecheck`: passed.
+- `npm run lint`: passed.
+- `npm run build -- --webpack`: passed on Node 26.11.1 / Next.js 16.3.8; all 15 static pages generated. Webpack was used because previous portfolio investigation documented Turbopack worker-port restrictions in this environment; no bundler configuration was changed.
+- Targeted Prettier check for the MDX and this record: passed.
+- `git diff --check`: passed; changes are confined to this entry and media, the opt-in cover metadata/presentation and zoom support, and their documentation.
+- Production browser smoke checks: passed. Verified the single FlyFriends card, navigation to the existing route, heading and description metadata, prerender-manifest entry, two body figures, a single full-page landing cover without a repeated body figure, native image dimensions and aspect-ratio preservation, cover zoom, matching card-frame aspect ratio, direct lossless URLs in card and detail views, a registration preview capped at 320 pixels, image loading, zoom dialogs and Escape dismissal, dark/light theme switching, 390 × 844 mobile width, all three media responses, sitemap inclusion, the All projects link, and absence of browser errors or failing responses.
+- Screenshots and the rendered SVG were visually reviewed, together with desktop dark/light and mobile portfolio captures.
+- The portfolio has no test script or existing test suite. Targeted Playwright checks used an already-installed workspace dependency; no packages were installed.
+- All 80 source files outside `.git` retain pre-task modification timestamps (latest: 16 November 2023), and the source working-tree status matches the pre-task inventory. Existing changes were retained. An initial SHA-256 snapshot was cleared from `.next` by the production build, so a before/after hash comparison is not claimed.
+
+The temporary portfolio verification script and QA images remain in ignored `.next/fys-import/`. The production build cleared the earlier source-capture script and initial hash snapshot from that directory. The production and source capture servers were stopped after validation.
+
+Remaining limitations concern the unavailable source runtime: FYSCloud-backed behavior and a live deployment were not verified. The portfolio build and presentation were validated independently.

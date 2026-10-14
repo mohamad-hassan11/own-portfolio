@@ -47,10 +47,18 @@ export function ProjectCard({
     >
       <div
         className={cn(
-          'border-ink pattern-dots relative aspect-[16/10] w-full overflow-hidden border-2',
+          'border-ink pattern-dots relative w-full overflow-hidden border-2',
+          !project.coverImageDimensions && 'aspect-[16/10]',
           flagship &&
             'md:order-2 md:aspect-auto md:min-h-72 md:translate-x-6 md:translate-y-6',
         )}
+        style={
+          project.coverImageDimensions
+            ? {
+                aspectRatio: `${project.coverImageDimensions.width} / ${project.coverImageDimensions.height}`,
+              }
+            : undefined
+        }
       >
         {project.coverImage ? (
           <Image
@@ -58,6 +66,7 @@ export function ProjectCard({
             alt=""
             fill
             priority={priority}
+            unoptimized={Boolean(project.coverImageDimensions)}
             sizes={
               flagship
                 ? '(min-width: 768px) 520px, 100vw'

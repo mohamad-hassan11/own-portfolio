@@ -70,6 +70,8 @@ export interface ProjectMetadata {
   order: number
   /** Path under /public. Used on cards, the case-study header and social previews. */
   coverImage?: string
+  /** Full screenshot dimensions. Opts into an uncropped, compact case-study cover. */
+  coverImageDimensions?: { width: number; height: number }
   technologies: string[]
   githubUrl?: string | null
   liveUrl?: string | null

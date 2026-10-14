@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ProjectLinks } from '@/components/projects/project-links'
 import { TechMarquee } from '@/components/projects/tech-marquee'
+import { ImageZoom } from '@/components/mdx/image-zoom'
 import type { Project } from '@/content/projects'
 
 export function CaseStudy({ project }: { project: Project }) {
@@ -35,7 +36,25 @@ export function CaseStudy({ project }: { project: Project }) {
         </div>
       </header>
 
-      {metadata.coverImage && (
+      {metadata.coverImage && metadata.coverImageDimensions ? (
+        <figure className="brutal bg-surface mb-14 max-w-2xl">
+          <div className="border-ink flex justify-end border-b-2 px-3 py-2">
+            <ImageZoom
+              src={metadata.coverImage}
+              alt={`${metadata.title} cover`}
+              {...metadata.coverImageDimensions}
+              unoptimized
+            />
+          </div>
+          <Image
+            src={metadata.coverImage}
+            alt={`${metadata.title} cover`}
+            {...metadata.coverImageDimensions}
+            unoptimized
+            className="h-auto w-full"
+          />
+        </figure>
+      ) : metadata.coverImage ? (
         <div className="brutal bg-surface relative mb-14 aspect-[16/9] overflow-hidden">
           <Image
             src={metadata.coverImage}
@@ -46,7 +65,7 @@ export function CaseStudy({ project }: { project: Project }) {
             className="object-cover"
           />
         </div>
-      )}
+      ) : null}
 
       <div className="max-w-3xl [&>h2:nth-of-type(5n+1)]:border-(color:--tone-blue) [&>h2:nth-of-type(5n+2)]:border-(color:--tone-green) [&>h2:nth-of-type(5n+3)]:border-(color:--tone-amber) [&>h2:nth-of-type(5n+4)]:border-(color:--tone-red) [&>h2:nth-of-type(5n+5)]:border-(color:--tone-violet)">
         <Content />

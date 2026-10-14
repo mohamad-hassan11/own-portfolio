@@ -12,13 +12,21 @@ interface ImageZoomProps {
   width: number
   height: number
   mat?: boolean
+  unoptimized?: boolean
 }
 
 const controlClass =
   'text-metadata text-muted hover:text-foreground inline-flex items-center gap-1.5 font-semibold transition-colors duration-200'
 
 // Native <dialog> gives focus trapping, Esc to close and an inert background.
-export function ImageZoom({ src, alt, width, height, mat }: ImageZoomProps) {
+export function ImageZoom({
+  src,
+  alt,
+  width,
+  height,
+  mat,
+  unoptimized,
+}: ImageZoomProps) {
   const dialogRef = useRef<HTMLDialogElement>(null)
 
   return (
@@ -60,6 +68,7 @@ export function ImageZoom({ src, alt, width, height, mat }: ImageZoomProps) {
             alt={alt}
             width={width}
             height={height}
+            unoptimized={unoptimized}
             sizes={`${width}px`}
             style={{ maxWidth: width, minWidth: Math.min(width, 900) }}
             className="mx-auto h-auto w-full"
