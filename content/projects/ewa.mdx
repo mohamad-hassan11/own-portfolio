@@ -1,0 +1,133 @@
+export const metadata = {
+  title: 'Climate Cleanup (EWA)',
+  slug: 'ewa',
+  summary:
+    'A greenhouse management application connecting environmental monitoring, historical sensor charts, and specialist collaboration through Angular and Spring Boot.',
+  projectType: 'University team project',
+  organisation: 'Hogeschool van Amsterdam',
+  featured: true,
+  order: 5,
+  coverImage:
+    '/projects/enterprise_web_application/enterprise_web_application_2.png',
+  technologies: [
+    'Angular',
+    'TypeScript',
+    'Spring Boot',
+    'Java',
+    'MySQL',
+    'RxJS',
+    'REST',
+    'Spring Data JPA',
+    'JWT',
+    'Chart.js',
+    'Azure Storage',
+  ],
+  githubUrl: null,
+  liveUrl: null,
+}
+
+## Overview
+
+Climate Cleanup is a greenhouse management application built as part of the Enterprise Web Applications (EWA) course at the Hogeschool van Amsterdam. The Climate Control Unit (CCU-2) system combines environmental monitoring and parameter controls with historical charts, shared notes, and team management.
+
+## The problem
+
+Greenhouse operations involve several kinds of expertise: botany, agronomy, and technology. Teams need to inspect environmental conditions, review changes over time, and share observations in the same working environment. The application brings these activities together across different greenhouses, with administrator and regular-user roles.
+
+## My role
+
+I contributed across the Angular frontend and Spring Boot backend as a full-stack member of the university project team. The features and architecture described here represent the team's application.
+
+## Monitoring and history
+
+The application supports readings and controls for greenhouse parameters including air temperature, humidity, soil conditions, CO₂, and lighting. Its backend retrieves sensor data from MySQL and an external CCU hardware or simulator API, while the frontend presents live readings and historical trends.
+
+<ProjectImage
+  wide
+  tone="green"
+  label="Fig. 01 · Sensor interface"
+  src="/projects/enterprise_web_application/enterprise_web_application_1.gif"
+  alt="Animated Climate Cleanup sensor interface for Green House 2, showing environmental parameter cards, adjustment controls, and loading indicators."
+  width={1728}
+  height={934}
+  caption="A short looping preview of the sensor controls while readings load."
+/>
+
+Chart.js, integrated through ng2-charts, provides time-series visualisation. The history view below plots exposure and CO₂ on separate vertical axes and offers a table-view control alongside the chart.
+
+<ProjectImage
+  wide
+  zoom
+  tone="green"
+  label="Fig. 02 · Sensor history"
+  src="/projects/enterprise_web_application/enterprise_web_application_2.png"
+  alt="Climate Cleanup history view showing exposure and CO₂ level as two line series with separate vertical axes, a View as Table button, and pagination."
+  width={1667}
+  height={969}
+  caption="Historical exposure and CO₂ readings. The chart provides a view of changes over time alongside a table-view option."
+/>
+
+## Specialist collaboration
+
+The notes board lets team members create, edit, and delete observations, with filters organised by specialty. This gives operational notes a place alongside the sensor views rather than leaving them separate from the greenhouse dashboard.
+
+<ProjectImage
+  wide
+  zoom
+  tone="amber"
+  label="Fig. 03 · Shared notes"
+  src="/projects/enterprise_web_application/enterprise_web_application_3.png"
+  alt="Climate Cleanup notes board with Botany selected among specialty filters. Two cards describe a tomato growth inspection and a nutrient mixture update, with edit and delete controls."
+  width={1560}
+  height={740}
+  caption="The Botany notes board, showing specialist observations and note-management controls."
+/>
+
+## Application architecture
+
+The Angular 12 client uses TypeScript, RxJS, routing, and HTTP services to communicate with a Java 11 / Spring Boot REST API. On the backend, controllers expose endpoints for authentication, sensors, history, notes, teams, users, and settings. Services handle business operations and integrations, while Spring Data JPA repositories connect application entities to MySQL.
+
+<ArchitectureDiagram
+  wide
+  tone="blue"
+  label="Fig. 04 · Architecture overview"
+  src="/projects/enterprise_web_application/architecture-overview.svg"
+  alt="Angular client communicates with the Spring Boot backend through REST and JWT bearer tokens. Backend controllers, services, and Spring Data JPA repositories support MySQL persistence, with service integrations for the external CCU hardware or simulator API, Azure storage, and SMTP email."
+  width={1600}
+  height={1000}
+  caption="A high-level overview of the application layers, persistence, and external integrations documented in the project summary."
+/>
+
+### Authentication and roles
+
+Authentication uses JWTs and a custom backend request filter, with BCrypt for password encoding. Angular route guards control access to authenticated and administrator views, and an HTTP interceptor attaches the bearer token to API requests. Browser guards govern navigation; API authentication is handled separately on the backend.
+
+The application distinguishes administrators from regular users. Administrator features include inviting users, managing team membership, and updating roles.
+
+### External services and persistence
+
+Spring WebClient communicates with the external CCU API for hardware or simulator readings. MySQL stores application data through JPA entities and repositories, including users, teams, sensors, sensor data, and notes. Azure storage supports avatars and file attachments, and an SMTP email service provides notifications and alerts.
+
+## Account management
+
+The settings interface brings account details, profile images, password changes, and preferences into the application. Profile-image uploads are handled through the backend file service and Azure Blob Storage.
+
+<ProjectImage
+  wide
+  zoom
+  tone="violet"
+  label="Fig. 05 · Account settings"
+  src="/projects/enterprise_web_application/enterprise_web_application_4.png"
+  alt="Climate Cleanup account settings with account and preferences navigation, profile-picture controls, name and email fields, password-change fields, and Cancel and Save buttons."
+  width={1762}
+  height={968}
+  caption="The account settings interface, showing profile and password-management fields."
+/>
+
+## Testing approach
+
+The project's frontend testing tools are Jasmine and Karma. The backend uses JUnit 5, Mockito, and Spring Boot's testing support.
+
+## Result
+
+The team built a full-stack greenhouse management application combining sensor monitoring and controls, historical visualisation, specialty-based notes, and account and team management. The interface captures show the history chart, collaboration board, and account settings, while the architecture connects the browser client to persistent data and external services.

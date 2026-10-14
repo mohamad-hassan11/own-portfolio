@@ -23,8 +23,6 @@ Portfolio content lives in `content/`:
 - `content/about.mdx`
 - `content/site.ts`, `experience.ts`, `education.ts`, `skills.ts`
 
-Do not hardcode editable portfolio content inside React components.
-Images, the CV and profile photo live under `public/`.
 
 ## Frontend rule
 
@@ -66,7 +64,6 @@ The portfolio should feel:
 
 Avoid:
 - progress bars for skills
-- excessive animation
 - excessive gradients
 - developer clichés
 - giant technology-logo collections
