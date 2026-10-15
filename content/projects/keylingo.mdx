@@ -1,6 +1,12 @@
+import {
+  ProjectJourney,
+  JourneySection,
+} from '@/components/projects/project-journey'
+
 export const metadata = {
   title: 'KeyLingo — Multilingual Touch-Typing & Vocabulary Trainer',
   slug: 'keylingo',
+  layout: 'journey',
   summary:
     'An offline-first multilingual touch-typing trainer combining structured curricula, deterministic reflex drills, and vocabulary acquisition across English, Dutch, and Arabic.',
   projectType: 'Open-source web application',
@@ -24,37 +30,276 @@ export const metadata = {
   liveUrl: null,
 }
 
-## Overview
+export const journeyStages = [
+  {
+    id: 'overview',
+    title: 'Overview',
+    tone: 'blue',
+    sectionIds: ['overview'],
+  },
+  {
+    id: 'domain-engine',
+    title: 'Domain engine',
+    tone: 'green',
+    sectionIds: [
+      'architecture-and-pure-domain-engine',
+      'input-pipeline-and-hidden-textarea-strategy',
+    ],
+  },
+  {
+    id: 'languages-practice',
+    title: 'Languages & practice',
+    tone: 'amber',
+    sectionIds: [
+      'multilingual-unicode-and-arabic-diacritic-engine',
+      'practice-modes-and-curriculum-design',
+    ],
+  },
+  {
+    id: 'experience-progress',
+    title: 'Experience & progress',
+    tone: 'violet',
+    sectionIds: [
+      'adaptive-theming-and-visual-ergonomics',
+      'typing-metrics-and-persistence',
+    ],
+  },
+  {
+    id: 'quality-lessons',
+    title: 'Quality & lessons',
+    tone: 'red',
+    sectionIds: ['testing-and-quality-assurance', 'result', 'what-i-learned'],
+  },
+]
+
+export const journeySections = [
+  {
+    id: 'overview',
+    title: 'Overview',
+  },
+  {
+    id: 'architecture-and-pure-domain-engine',
+    title: 'Architecture and pure domain engine',
+  },
+  {
+    id: 'input-pipeline-and-hidden-textarea-strategy',
+    title: 'Input pipeline and hidden textarea strategy',
+  },
+  {
+    id: 'multilingual-unicode-and-arabic-diacritic-engine',
+    title: 'Multilingual Unicode and Arabic diacritic engine',
+  },
+  {
+    id: 'practice-modes-and-curriculum-design',
+    title: 'Practice modes and curriculum design',
+  },
+  {
+    id: 'adaptive-theming-and-visual-ergonomics',
+    title: 'Adaptive theming and visual ergonomics',
+  },
+  {
+    id: 'typing-metrics-and-persistence',
+    title: 'Typing metrics and persistence',
+  },
+  {
+    id: 'testing-and-quality-assurance',
+    title: 'Testing and quality assurance',
+  },
+  {
+    id: 'result',
+    title: 'Result',
+  },
+  {
+    id: 'what-i-learned',
+    title: 'What I learned',
+  },
+]
+
+export const journeyMedia = [
+  {
+    id: 'evidence-1',
+    src: '/projects/keylingo/guided-practice.webp',
+    alt: 'KeyLingo guided lesson practice screen in dark mode displaying the active lesson objective, live metrics HUD, target text with character state highlighting, a virtual keyboard highlighting key J, and an anatomical hand guide highlighting the right index finger.',
+    label: 'Guided touch-typing practice (Dark mode)',
+    caption:
+      "Active guided lesson practice in dark mode. Key 'j' is highlighted on the ANSI 15.0u virtual keyboard alongside the corresponding right index finger on the anatomical hand guide.",
+    width: 1440,
+    height: 960,
+    sectionId: 'overview',
+  },
+  {
+    id: 'evidence-2',
+    src: '/projects/keylingo/architecture.svg',
+    alt: 'Four-tier architecture diagram showing presentation layer with hidden textarea, reactive state hooks powered by useSyncExternalStore, pure TypeScript domain engines with 100% branch test coverage, and offline-first storage and dictionary services.',
+    label: 'System architecture',
+    caption:
+      'Reconstructed architecture. Presentation components bind to the synchronous domain state machine through React hooks, backed by offline dictionary data and versioned storage migrations.',
+    width: 1600,
+    height: 900,
+    sectionId: 'architecture-and-pure-domain-engine',
+  },
+  {
+    id: 'evidence-3',
+    src: '/projects/keylingo/translation-panel.webp',
+    alt: "Vocabulary practice view in dark mode with an open slide-in translation panel displaying the word 'friend', its Dutch translation 'vriend', part of speech, contextual example sentence, and a button to save to vocabulary.",
+    label: 'Vocabulary practice and translation drawer (Dark mode)',
+    caption:
+      'Non-penalizing word lookup drawer in dark mode. Opening the translation drawer automatically pauses session timers without registering typing errors, resuming once dismissed.',
+    width: 1440,
+    height: 960,
+    sectionId: 'input-pipeline-and-hidden-textarea-strategy',
+  },
+  {
+    id: 'evidence-4',
+    src: '/projects/keylingo/arabic-practice.webp',
+    alt: 'Arabic touch-typing session in dark mode showing Arabic home-row practice with right-to-left text alignment, Arabic 101 keyboard layout, and active finger guidance.',
+    label: 'Arabic 101 touch-typing and RTL directionality (Dark mode)',
+    caption:
+      'Arabic 101 layout with right-to-left text orientation in dark mode. Home-row tactile keys and shift-activated diacritics are mapped to physical hardware positions.',
+    width: 1440,
+    height: 960,
+    sectionId: 'multilingual-unicode-and-arabic-diacritic-engine',
+  },
+  {
+    id: 'evidence-5',
+    src: '/projects/keylingo/reflex-training.webp',
+    alt: 'Reflex and agility drill configurator in dark mode showing difficulty selection, drill length, QWERTY layout, seed number, and live performance metrics.',
+    label: 'Reflex agility drills (Dark mode)',
+    caption:
+      'Reflex training configurator in dark mode. A seeded 32-bit PRNG creates deterministic, reproducible character combinations with optional weak-key weighting.',
+    width: 1440,
+    height: 960,
+    sectionId: 'practice-modes-and-curriculum-design',
+  },
+  {
+    id: 'evidence-6',
+    src: '/projects/keylingo/vocabulary-practice-light.webp',
+    alt: 'KeyLingo vocabulary practice interface in light mode, featuring CEFR A1 Dutch word cards, live performance HUD, and illuminated virtual keyboard.',
+    label: 'Vocabulary acquisition (Light mode)',
+    caption:
+      'Vocabulary acquisition mode in light theme. Typography, CEFR difficulty tags, and virtual key illumination adapt cleanly for well-lit environments.',
+    width: 1440,
+    height: 960,
+    sectionId: 'adaptive-theming-and-visual-ergonomics',
+  },
+  {
+    id: 'evidence-7',
+    src: '/projects/keylingo/guided-practice-light.webp',
+    alt: 'Guided typing lesson displayed in light mode, featuring anatomical finger positioning, target key guidance, and active accuracy metrics.',
+    label: 'Guided lesson interface (Light mode)',
+    caption:
+      'Guided lesson screen under the light color scheme, demonstrating hand guide fidelity and target key highlights across light surfaces.',
+    width: 1440,
+    height: 960,
+    sectionId: 'adaptive-theming-and-visual-ergonomics',
+  },
+  {
+    id: 'evidence-8',
+    src: '/projects/keylingo/progress-dashboard.webp',
+    alt: 'Typing analytics dashboard in dark mode displaying cumulative net WPM, accuracy percentage, total practice duration, current streak, performance trend charts, and weak key ranking.',
+    label: 'Analytics and keyboard error heatmap (Dark mode)',
+    caption:
+      'Performance dashboard in dark mode tracking cumulative Net WPM, accuracy, streaks, recent session timelines, and per-key error distributions.',
+    width: 1440,
+    height: 960,
+    sectionId: 'typing-metrics-and-persistence',
+  },
+]
+
+export const composition = {
+  variant: 'input',
+  heading: 'Input first. Character by character.',
+  description:
+    'Physical-key feedback and text evaluation follow different paths. Inspect how the documented input engine handles multilingual composition.',
+  studioTitle: 'Inspect the input engine',
+  conclusionId: 'result',
+  choices: [
+    {
+      id: 'key',
+      label: 'Physical key',
+      heading: 'Position drives illumination',
+      description:
+        'The keydown event reads event.code for physical-key feedback, independently of character evaluation.',
+      mediaIds: [],
+    },
+    {
+      id: 'text',
+      label: 'Committed text',
+      heading: 'Capture native input',
+      description:
+        'A hidden textarea receives beforeinput and input events. Compositions are buffered until committed.',
+      mediaIds: [],
+    },
+    {
+      id: 'grapheme',
+      label: 'Grapheme',
+      heading: 'Keep the character intact',
+      description:
+        'NFC normalization and Intl.Segmenter preserve accented and Arabic grapheme clusters.',
+      mediaIds: [],
+    },
+    {
+      id: 'evaluation',
+      label: 'Evaluation',
+      heading: 'Strict or lenient Arabic matching',
+      description:
+        'The engine can verify full Arabic diacritics or strip short-vowel marks before comparison.',
+      mediaIds: [],
+    },
+  ],
+  supporting: {
+    heading: 'Practice captures',
+    description: 'Existing application views alongside the input explanation.',
+    choices: [
+      {
+        id: 'latin',
+        label: 'Latin practice',
+        heading: 'Guided touch typing',
+        description:
+          'The recorded lesson pairs character feedback with keyboard and finger guidance.',
+        mediaIds: ['evidence-1'],
+      },
+      {
+        id: 'arabic',
+        label: 'Arabic practice',
+        heading: 'RTL text, physical keyboard geometry',
+        description:
+          'Arabic practice changes text direction while preserving the keyboard’s physical layout.',
+        mediaIds: ['evidence-4'],
+      },
+      {
+        id: 'reflex',
+        label: 'Reflex training',
+        heading: 'Reproducible drills',
+        description:
+          'A seeded generator supports repeatable practice and the documented adaptive option.',
+        mediaIds: ['evidence-5'],
+      },
+    ],
+    initialChoice: 0,
+  },
+}
+
+<ProjectJourney
+  project={metadata}
+  composition={composition}
+  stages={journeyStages}
+  sections={journeySections}
+  media={journeyMedia}
+  initialStage={2}
+>
+
+<JourneySection id="overview" title="Overview">
 
 KeyLingo is an offline-first browser application that bridges touch-typing instruction and language learning. Traditional typing trainers treat words as arbitrary keystroke strings, offering little cognitive value to multilingual typists. KeyLingo unites physical keyboard mastery across different layouts (QWERTY US, US-International, and Arabic 101) with CEFR-graded vocabulary acquisition (A1–B2) in English, Dutch, and Modern Standard Arabic.
 
 The application features three distinct practice modes: a 14-stage guided curriculum with progressive key unlocking, seeded reflex drills for motor agility, and a vocabulary mode with an integrated, non-penalizing word lookup drawer. The system runs entirely client-side with versioned local storage, eliminating external backend dependencies and network latency.
 
-<ProjectImage
-  zoom
-  tone="blue"
-  label="Fig. 01 · Guided touch-typing practice (Dark mode)"
-  src="/projects/keylingo/guided-practice.webp"
-  alt="KeyLingo guided lesson practice screen in dark mode displaying the active lesson objective, live metrics HUD, target text with character state highlighting, a virtual keyboard highlighting key J, and an anatomical hand guide highlighting the right index finger."
-  width={1440}
-  height={960}
-  caption="Active guided lesson practice in dark mode. Key 'j' is highlighted on the ANSI 15.0u virtual keyboard alongside the corresponding right index finger on the anatomical hand guide."
-/>
+</JourneySection>
 
-## Architecture and pure domain engine
+<JourneySection id="architecture-and-pure-domain-engine" title="Architecture and pure domain engine">
 
 KeyLingo decouples its core typing engine and Unicode text processing from the React component tree. The typing engine is structured as a pure, immutable finite state machine without DOM or framework dependencies. Every user action (`inputCharacter`, `deleteCharacter`, `pause`, `resume`, `restart`) receives the current session state and returns a new state object.
-
-<ArchitectureDiagram
-  wide
-  tone="purple"
-  label="Fig. 02 · System architecture"
-  src="/projects/keylingo/architecture.svg"
-  alt="Four-tier architecture diagram showing presentation layer with hidden textarea, reactive state hooks powered by useSyncExternalStore, pure TypeScript domain engines with 100% branch test coverage, and offline-first storage and dictionary services."
-  width={1600}
-  height={900}
-  caption="Reconstructed architecture. Presentation components bind to the synchronous domain state machine through React hooks, backed by offline dictionary data and versioned storage migrations."
-/>
 
 A dedicated hook (`useTypingSession`) acts as an adapter between the domain engine and React:
 
@@ -62,7 +307,9 @@ A dedicated hook (`useTypingSession`) acts as an adapter between the domain engi
 2. **Decoupled metrics ticker:** While keystroke evaluation is synchronous, timer updates and derived speed calculations run on a 100ms interval to prevent unnecessary layout thrashing.
 3. **Reactive synchronization:** Stores for user preferences, lesson progress, and personal vocabulary use `useSyncExternalStore` to ensure synchronized state across multiple components and browser tabs.
 
-## Input pipeline and hidden textarea strategy
+</JourneySection>
+
+<JourneySection id="input-pipeline-and-hidden-textarea-strategy" title="Input pipeline and hidden textarea strategy">
 
 Capturing keyboard input in modern web applications presents significant challenges across international layouts. Relying solely on `keydown` events breaks down with dead keys (common on Dutch US-International keyboards for characters like `ë`, `é`, and `ö`) and Input Method Editors (IMEs) used for Arabic or non-Latin scripts. Furthermore, `KeyboardEvent.key` varies according to the operating system's keyboard settings rather than the physical layout being practiced.
 
@@ -73,18 +320,9 @@ To resolve this, KeyLingo separates physical key visualisation from character ev
 - **Anti-paste guard:** Native and synthetic paste actions are intercepted and prevented, preserving authentic typing measurement.
 - **Physical layout illumination:** The `keydown` event is used exclusively to read `event.code` (the physical key position), driving visual press states on the virtual keyboard without affecting text verification.
 
-<ProjectImage
-  zoom
-  tone="emerald"
-  label="Fig. 03 · Vocabulary practice and translation drawer (Dark mode)"
-  src="/projects/keylingo/translation-panel.webp"
-  alt="Vocabulary practice view in dark mode with an open slide-in translation panel displaying the word 'friend', its Dutch translation 'vriend', part of speech, contextual example sentence, and a button to save to vocabulary."
-  width={1440}
-  height={960}
-  caption="Non-penalizing word lookup drawer in dark mode. Opening the translation drawer automatically pauses session timers without registering typing errors, resuming once dismissed."
-/>
+</JourneySection>
 
-## Multilingual Unicode and Arabic diacritic engine
+<JourneySection id="multilingual-unicode-and-arabic-diacritic-engine" title="Multilingual Unicode and Arabic diacritic engine">
 
 Handling Arabic and multi-byte Latin diacritics in JavaScript requires careful text segmentation:
 
@@ -93,18 +331,9 @@ Handling Arabic and multi-byte Latin diacritics in JavaScript requires careful t
 - **Configurable Arabic diacritic matching:** In everyday Arabic typing, diacritics (_tashkeel_) are often omitted, whereas language learners require them. KeyLingo implements two comparison modes: **strict** (full diacritic verification) and **lenient** (stripping short-vowel marks via `/[\u064B-\u0652\u0670]/g` prior to evaluation).
 - **Bidirectional layout handling:** The practice interface dynamically switches directionality (`dir="rtl"`) when Arabic content is selected, while the virtual keyboard remains pinned to `dir="ltr"` to preserve physical hardware geometry.
 
-<ProjectImage
-  zoom
-  tone="amber"
-  label="Fig. 04 · Arabic 101 touch-typing and RTL directionality (Dark mode)"
-  src="/projects/keylingo/arabic-practice.webp"
-  alt="Arabic touch-typing session in dark mode showing Arabic home-row practice with right-to-left text alignment, Arabic 101 keyboard layout, and active finger guidance."
-  width={1440}
-  height={960}
-  caption="Arabic 101 layout with right-to-left text orientation in dark mode. Home-row tactile keys and shift-activated diacritics are mapped to physical hardware positions."
-/>
+</JourneySection>
 
-## Practice modes and curriculum design
+<JourneySection id="practice-modes-and-curriculum-design" title="Practice modes and curriculum design">
 
 The application organizes practice into three complementary workflows:
 
@@ -120,52 +349,23 @@ Reflex training develops motor reflexes for difficult character sequences, adjac
 
 An optional **adaptive mode** inspects the user's historical error log, dynamically increasing the probability of character sequences that target frequently missed keys.
 
-<ProjectImage
-  zoom
-  tone="purple"
-  label="Fig. 05 · Reflex agility drills (Dark mode)"
-  src="/projects/keylingo/reflex-training.webp"
-  alt="Reflex and agility drill configurator in dark mode showing difficulty selection, drill length, QWERTY layout, seed number, and live performance metrics."
-  width={1440}
-  height={960}
-  caption="Reflex training configurator in dark mode. A seeded 32-bit PRNG creates deterministic, reproducible character combinations with optional weak-key weighting."
-/>
-
 ### 3. Vocabulary practice and word lookup
 
 The vocabulary engine pairs typing drills with curated bilingual word collections across English, Dutch, and Arabic. Content is indexed across four CEFR proficiency levels (A1 through B2) and topic categories including Everyday Life, Formal & Polite, Workplace, and Technology.
 
 During practice, clicking any word token or pressing a dedicated shortcut opens a slide-in translation drawer. The drawer presents the translation, grammatical part of speech, contextual usage notes, and example sentences. Crucially, opening the panel automatically pauses the typing timer and does not count as a typing mistake. Users can bookmark words into a personal vocabulary deck for subsequent review.
 
-## Adaptive theming and visual ergonomics
+</JourneySection>
+
+<JourneySection id="adaptive-theming-and-visual-ergonomics" title="Adaptive theming and visual ergonomics">
 
 To accommodate diverse ambient lighting conditions and prevent eye fatigue during extended practice, KeyLingo provides full first-class support for both dark and light modes. Theming is managed via Tailwind CSS class switching on the document root, automatically synchronizing with system color preferences on initial launch and persisting manual overrides in local storage.
 
 Visual hierarchy, character contrast ratios, and interactive states are specifically tuned for each mode. In dark mode, subdued background surfaces eliminate glare for nighttime typing. In light mode, high-contrast character typography, distinct key boundaries, and active cursor indicators ensure sharp daytime readability.
 
-<ProjectImage
-  zoom
-  tone="emerald"
-  label="Fig. 06 · Vocabulary acquisition (Light mode)"
-  src="/projects/keylingo/vocabulary-practice-light.webp"
-  alt="KeyLingo vocabulary practice interface in light mode, featuring CEFR A1 Dutch word cards, live performance HUD, and illuminated virtual keyboard."
-  width={1440}
-  height={960}
-  caption="Vocabulary acquisition mode in light theme. Typography, CEFR difficulty tags, and virtual key illumination adapt cleanly for well-lit environments."
-/>
+</JourneySection>
 
-<ProjectImage
-  zoom
-  tone="blue"
-  label="Fig. 07 · Guided lesson interface (Light mode)"
-  src="/projects/keylingo/guided-practice-light.webp"
-  alt="Guided typing lesson displayed in light mode, featuring anatomical finger positioning, target key guidance, and active accuracy metrics."
-  width={1440}
-  height={960}
-  caption="Guided lesson screen under the light color scheme, demonstrating hand guide fidelity and target key highlights across light surfaces."
-/>
-
-## Typing metrics and persistence
+<JourneySection id="typing-metrics-and-persistence" title="Typing metrics and persistence">
 
 KeyLingo implements standardized typing calculations verified against documented test vectors:
 
@@ -175,20 +375,11 @@ KeyLingo implements standardized typing calculations verified against documented
 
 Pause durations are deducted from elapsed time so that looking up a word's translation does not distort speed metrics.
 
-<ProjectImage
-  zoom
-  tone="blue"
-  label="Fig. 08 · Analytics and keyboard error heatmap (Dark mode)"
-  src="/projects/keylingo/progress-dashboard.webp"
-  alt="Typing analytics dashboard in dark mode displaying cumulative net WPM, accuracy percentage, total practice duration, current streak, performance trend charts, and weak key ranking."
-  width={1440}
-  height={960}
-  caption="Performance dashboard in dark mode tracking cumulative Net WPM, accuracy, streaks, recent session timelines, and per-key error distributions."
-/>
-
 All user data (preferences, lesson unlock progress, error history, and vocabulary items) is managed through a versioned `localStorage` persistence service. Each stored key wraps payload data in a versioned envelope (`{ _version: number, data: T }`). When schema updates occur, migration functions execute sequentially to guarantee backwards compatibility. The service also provides full JSON export and import capabilities.
 
-## Testing and quality assurance
+</JourneySection>
+
+<JourneySection id="testing-and-quality-assurance" title="Testing and quality assurance">
 
 The codebase incorporates a comprehensive test suite executed across unit, integration, and browser levels:
 
@@ -196,12 +387,20 @@ The codebase incorporates a comprehensive test suite executed across unit, integ
 - **Playwright end-to-end tests:** Browser automation scripts validating end-to-end typing sessions, dead-key buffering, IME composition sequences, modal timer pausing, and responsive drawer behavior.
 - **Strict TypeScript:** Zero usage of `any`, strictly typed immutable domain models, and complete separation between presentation and business logic.
 
-## Result
+</JourneySection>
+
+<JourneySection id="result" title="Result">
 
 KeyLingo provides a responsive, offline-first typing trainer that demonstrates modern full-stack web engineering. By decoupling domain logic into a pure TypeScript state machine, employing native Unicode segmentation, and implementing a resilient hidden-input strategy, the application delivers a seamless typing experience across diverse languages and keyboard layouts.
 
-## What I learned
+</JourneySection>
+
+<JourneySection id="what-i-learned" title="What I learned">
 
 - **Unicode is non-trivial:** Standard JavaScript string indexing (`length`, `charAt`, `split('')`) is insufficient for internationalized text. Building for Arabic and European diacritics demonstrated the necessity of grapheme-level segmentation and canonical normalization.
 - **State machine architecture pays off:** Keeping the typing engine 100% pure and independent of React simplified unit testing and ensured zero typing latency. Adapting the engine to React via `useSyncExternalStore` provided clean reactivity without component coupling.
 - **Input accessibility requires careful trade-offs:** Capturing raw keystrokes while maintaining support for IMEs, dead keys, and mobile virtual keyboards requires balancing native browser input events with synthetic visual models.
+
+</JourneySection>
+
+</ProjectJourney>

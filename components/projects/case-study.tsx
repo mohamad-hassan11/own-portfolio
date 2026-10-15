@@ -8,6 +8,9 @@ import type { Project } from '@/content/projects'
 
 export function CaseStudy({ project }: { project: Project }) {
   const { metadata, Content } = project
+  if (metadata.layout === 'research' || metadata.layout === 'journey') {
+    return <Content />
+  }
   const inspector = metadata.slug === 'vliegreizen'
   const meta = [metadata.projectType, metadata.organisation, metadata.year]
     .filter(Boolean)

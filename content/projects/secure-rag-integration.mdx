@@ -1,8 +1,15 @@
+import {
+  ProjectJourney,
+  JourneySection,
+} from '@/components/projects/project-journey'
+
 export const metadata = {
-  title: 'Secure LLM / RAG Integration',
+  title: 'Secure natural-language search for Atlantis',
+  displayTitle: 'Atlantis RAG',
   slug: 'secure-rag-integration',
+  layout: 'journey',
   summary:
-    'Natural-language search for an enterprise application, combining dense-vector and BM25 retrieval with role-based access control.',
+    'Graduation research and a working retrieval prototype for an enterprise collection management platform, combining hybrid search with access control enforced by Atlantis.',
   projectType: 'Graduation project',
   organisation: 'DEVENTit',
   year: 2026,
@@ -11,123 +18,370 @@ export const metadata = {
   technologies: [
     'Python',
     'FastAPI',
-    'RAG',
+    'Elasticsearch',
     'LangChain',
-    'Qdrant',
-    'OpenAI API',
-    'Anthropic API',
-    'Hybrid retrieval',
-    'Dense embeddings',
+    'Sentence Transformers',
     'BM25',
+    'Reciprocal Rank Fusion',
+    'Server-Sent Events',
     'Security / RBAC',
   ],
   githubUrl: null,
   liveUrl: null,
-  confidential: true,
+  confidential: false,
 }
 
-## Overview
+export const journeyStages = [
+  {
+    id: 'research',
+    title: 'Research',
+    tone: 'blue',
+    sectionIds: [
+      'overview',
+      'the-problem-and-its-constraints',
+      'my-role-and-research-approach',
+      'technology-decisions',
+    ],
+  },
+  {
+    id: 'prototypes',
+    title: 'Prototypes',
+    tone: 'green',
+    sectionIds: ['from-api-translation-to-hybrid-retrieval'],
+  },
+  {
+    id: 'architecture-rights',
+    title: 'Architecture & rights',
+    tone: 'amber',
+    sectionIds: ['architecture-and-the-authorization-boundary'],
+  },
+  {
+    id: 'retrieval-pipeline',
+    title: 'Retrieval pipeline',
+    tone: 'violet',
+    sectionIds: [
+      'preparing-collection-data-for-retrieval',
+      'how-a-search-moves-through-the-system',
+    ],
+  },
+  {
+    id: 'evaluation',
+    title: 'Evaluation',
+    tone: 'red',
+    sectionIds: [
+      'evaluation-and-observed-results',
+      'limitations-and-next-steps',
+      'what-i-learned',
+    ],
+  },
+]
 
-Graduation project at DEVENTit: investigating how to securely integrate a large language model into Atlantis, a multi-tenant collection management platform, to add natural-language search without bypassing its strict role-based access control, segment restrictions and multi-level security.
+export const journeySections = [
+  {
+    id: 'overview',
+    title: 'Overview',
+  },
+  {
+    id: 'the-problem-and-its-constraints',
+    title: 'The problem and its constraints',
+  },
+  {
+    id: 'my-role-and-research-approach',
+    title: 'My role and research approach',
+  },
+  {
+    id: 'technology-decisions',
+    title: 'Technology decisions',
+  },
+  {
+    id: 'from-api-translation-to-hybrid-retrieval',
+    title: 'From API translation to hybrid retrieval',
+  },
+  {
+    id: 'architecture-and-the-authorization-boundary',
+    title: 'Architecture and the authorization boundary',
+  },
+  {
+    id: 'preparing-collection-data-for-retrieval',
+    title: 'Preparing collection data for retrieval',
+  },
+  {
+    id: 'how-a-search-moves-through-the-system',
+    title: 'How a search moves through the system',
+  },
+  {
+    id: 'evaluation-and-observed-results',
+    title: 'Evaluation and observed results',
+  },
+  {
+    id: 'limitations-and-next-steps',
+    title: 'Limitations and next steps',
+  },
+  {
+    id: 'what-i-learned',
+    title: 'What I learned',
+  },
+]
 
-## Context
+export const journeyMedia = [
+  {
+    id: 'evidence-1',
+    src: '/projects/secure-rag-integration/n8n-prototype.png',
+    alt: 'Early n8n workflow connecting prompt interpretation, routing, Atlantis search API calls, and result formatting.',
+    label: 'From API translation to hybrid retrieval',
+    caption:
+      'Early experiment: n8n orchestration for translating natural-language questions into API searches.',
+    width: 1892,
+    height: 1054,
+    sectionId: 'from-api-translation-to-hybrid-retrieval',
+  },
+  {
+    id: 'evidence-2',
+    src: '/projects/secure-rag-integration/sequence-rights-enforcement.png',
+    alt: 'Sequence diagram showing the Atlantis backend receiving candidate document IDs from the RAG service, validating them through the Search API using the caller’s access token, and returning only authorized results to the frontend.',
+    label: 'Architecture and the authorization boundary',
+    caption:
+      'Backend rights enforcement: candidate identifiers are checked within Atlantis before results reach the browser.',
+    width: 3743,
+    height: 1634,
+    sectionId: 'architecture-and-the-authorization-boundary',
+  },
+  {
+    id: 'evidence-3',
+    src: '/projects/secure-rag-integration/agent-assistant.png',
+    alt: 'Authentic assistant panel showing query understanding, retrieval of 20 documents, relevance ranking, and a search_documents tool call for the query war.',
+    label: 'How a search moves through the system',
+    caption:
+      'The prototype’s assistant panel exposes retrieval stages and tool events for inspection.',
+    width: 273,
+    height: 697,
+    sectionId: 'how-a-search-moves-through-the-system',
+  },
+]
 
-Atlantis is DEVENTit's multi-tenant platform, built around a strict authorization model. The core challenge was adding LLM-powered natural-language search on top of that model without ever letting the model become a path around existing access rights.
+export const composition = {
+  variant: 'research',
+  heading: 'Retrieval proposes. Atlantis decides.',
+  description:
+    'Relevance and permission are separate concerns. The existing Atlantis backend remains responsible for authorization.',
+  studioTitle: 'Inspect the research',
+  conclusionId: 'evaluation-and-observed-results',
+  choices: [
+    {
+      id: 'interpret',
+      label: 'Interpret the question',
+      heading: 'Structured intent',
+      description:
+        'The model extracts the topic and supported metadata constraints into tool arguments.',
+      mediaIds: ['evidence-2'],
+    },
+    {
+      id: 'retrieve',
+      label: 'Retrieve candidates',
+      heading: 'Meaning and exact terms',
+      description:
+        'Lexical and dense-vector retrieval are fused and ranked to produce candidate identifiers. Relevance does not grant permission.',
+      mediaIds: ['evidence-2'],
+    },
+    {
+      id: 'rights',
+      label: 'Enforce Atlantis rights',
+      heading: 'Inside the trusted boundary',
+      description:
+        'Atlantis checks the candidates using its existing search infrastructure and the caller’s access token, before results reach the browser.',
+      mediaIds: ['evidence-2'],
+    },
+    {
+      id: 'present',
+      label: 'Present results',
+      heading: 'Only authorized identifiers',
+      description:
+        'The interface uses the existing Atlantis results experience. Provider data handling and minimizing model context remain separate concerns.',
+      mediaIds: ['evidence-2'],
+    },
+  ],
+  initialChoice: 2,
+  supporting: {
+    heading: 'Five prototypes. A clearer boundary.',
+    description:
+      'The experiments are stages of the research, not a single production stack.',
+    choices: [
+      {
+        id: 'a',
+        label: 'A · API translation',
+        heading: 'Translate intent into API requests',
+        description:
+          'An agent called the existing search API with the user’s token. Sending complete responses to the model exposed more data than intent interpretation needed.',
+        mediaIds: [],
+      },
+      {
+        id: 'b',
+        label: 'B · Visual orchestration',
+        heading: 'Explore workflow-based integration',
+        description:
+          'The n8n experiment demonstrated feasibility while raising version-control, testability and maintenance questions.',
+        mediaIds: ['evidence-1'],
+      },
+      {
+        id: 'c',
+        label: 'C · Explicit workflow',
+        heading: 'Separate the steps',
+        description:
+          'Chained model steps extracted structured inputs; deterministic code applied filters before the API call.',
+        mediaIds: [],
+      },
+      {
+        id: 'd',
+        label: 'D · Independent index',
+        heading: 'Retrieve, then enforce rights',
+        description:
+          'Batch indexing and semantic search generated candidates that were checked through Atlantis.',
+        mediaIds: [],
+      },
+      {
+        id: 'e',
+        label: 'E · Hybrid retrieval',
+        heading: 'Combine meaning and exact terms',
+        description:
+          'The Qdrant experiment explored hybrid search. The final Python service implements the approach with Elasticsearch and model-assisted ranking.',
+        mediaIds: [],
+      },
+    ],
+    initialChoice: 4,
+  },
+}
 
-## Approach
-
-Analysed the Atlantis authorization model in depth and researched LLM ecosystems (managed APIs versus open-weight models), retrieval-augmented generation architectures and vector databases. Designed and built an indexing pipeline that processes, transforms and stores documents in batches, plus a hybrid retrieval pipeline combining dense vector embeddings (semantic search) with sparse BM25 keyword matching (lexical search).
-
-### Early prototype
-
-The first iteration was an n8n workflow. A chat trigger feeds an LLM step that extracts search data from the question; switch nodes route it to one of three search branches. Each branch calls the search API over HTTP, uses LLM steps to correct the document type and match entries, executes the search, normalises the results and presents them through a final LLM chain.
-
-<ProjectImage
-  wide
-  zoom
-  tone="amber"
-  label="Fig. 01 · Early prototype"
-  src="/projects/secure-rag-integration/n8n-prototype.png"
-  alt="n8n workflow canvas. A chat trigger connects to a search data extractor LLM node with a structured output parser, then to a search type switch and a search a record switch. These route to three branches that each call a search API over HTTP, run document type correction and result normalisation, and end in a basic LLM chain backed by a Groq chat model."
-  width={1892}
-  height={1054}
-  caption="The n8n workflow from the early tests: LLM-based extraction and routing in front of the search API."
-/>
-
-## Architecture
-
-A dedicated RAG service acts as a natural-language assistant: the LLM interprets a prompt, extracts structured search terms and filters, and returns candidate document identifiers. The Atlantis backend then enforces the existing access rights before any result reaches the user — the RAG service never becomes an authority on access control, Atlantis always is.
-
-<Callout tone="red" title="Confidential">
-  Confidential project: source code and internal implementation details are
-  not published here. The figures in this case study are limited to the
-  high-level flow and the assistant's public-facing behaviour.
-</Callout>
-
-<ArchitectureDiagram
-  wide
-  tone="blue"
-  label="Fig. 02 · Sequence"
-  src="/projects/secure-rag-integration/sequence-rights-enforcement.png"
-  alt="Sequence diagram of one query. The Atlantis frontend posts the prompt, conversation ID and access token to the chat API. The chat API loads conversation context, asks the RAG service for candidate document IDs, has the Atlantis Search API validate them by rights, appends the turn to the conversation, and returns only authorised results to the frontend."
-  width={3743}
-  height={1634}
-  caption="Rights enforcement, end to end. Steps 7 and 8 are the security boundary: candidate document IDs from the RAG service are validated by the Atlantis Search API against the caller's access token before anything reaches the user."
-/>
-
-## Retrieval pipeline
-
-Every query goes through the same hybrid retrieval pipeline. The LLM agent first interprets the prompt, then two retrieval branches run under a shared filter and their results are fused into a single ranking.
-
-<Showcase
-  mediaWidth={352}
-  tone="green"
-  label="Fig. 03 · Retrieval"
-  src="/projects/secure-rag-integration/hybrid-retrieval.png"
-  alt="Flowchart of hybrid retrieval. The LLM agent interprets intent into a hard filter, a temporal mapping and topic extraction. The filter is applied to both a dense embedding search and a BM25 search in Qdrant, each returning the top 50. Reciprocal Rank Fusion merges them into the top 10 document IDs with payload, the RAG layer fetches content, and the LLM generates a structured answer."
-  width={1774}
-  height={2895}
-  zoom
-  mat
-  caption="Worked example: a prompt asking for moderated documents about roses from the year the internet was invented."
+<ProjectJourney
+  project={metadata}
+  composition={composition}
+  stages={journeyStages}
+  sections={journeySections}
+  media={journeyMedia}
+  initialStage={2}
 >
 
-1. **Interpret intent.** The agent separates the prompt into hard filters, temporal constraints and topics. In the example, "moderated documents" becomes `isModerated = true` and "when the internet was invented" is mapped to 1983 ± 1.
-2. **Build one filter.** Hard filters and temporal mapping are combined into a single Qdrant filter that is applied to both retrieval branches.
-3. **Retrieve two ways.** Topics are encoded as a dense embedding (384 dimensions, cosine similarity) for semantic matching and as a sparse BM25 vector for keyword matching. Each branch returns its top 50.
-4. **Fuse.** Reciprocal Rank Fusion merges the two ranked lists and keeps the top 10, as document IDs plus payload.
-5. **Answer.** The RAG layer fetches the content and the LLM returns a structured answer: document IDs, which Atlantis then validates against the user's rights.
+<JourneySection id="overview" title="Overview">
 
-</Showcase>
+During my Software Engineering graduation project at DEVENTit, I investigated how to add natural-language search to Atlantis, an enterprise collection management platform. The goal was to help users find collection records through conversational questions while preserving the platform’s existing authentication and authorization rules.
 
-## The assistant in practice
+I combined analysis of an unfamiliar enterprise security model with technology research, architecture design, iterative prototyping, and scenario-based evaluation. The delivered work comprised a graduation research report, requirements and architecture documentation, and a working proof of concept for indexing and retrieving collection data.
 
-<Showcase
-  side="right"
-  mediaWidth={273}
-  tone="violet"
-  label="Fig. 04 · Agent trace"
-  src="/projects/secure-rag-integration/agent-assistant.png"
-  alt="The AI Assistant panel showing the agent's reasoning trace for the query 'war': query understanding, retrieval of 20 documents, ranking, and answer generation from 16 ranked documents, plus the search_documents tool call with its parameters."
-  width={273}
-  height={697}
->
+The central decision was to keep Atlantis responsible for access control. The retrieval service proposes relevant document identifiers; Atlantis checks those candidates against the authenticated user’s rights before returning results to the interface.
 
-The assistant panel shows the agent's reasoning instead of hiding it. For a test query ("war") the trace lists each stage in order:
+</JourneySection>
 
-- **Query understanding:** extracting search terms and filters.
-- **Retrieval:** 20 documents retrieved with the extracted query.
-- **Ranking:** the 20 documents ranked by relevance.
-- **Answer generation:** the answer is built from the 16 top-ranked documents.
+<JourneySection id="the-problem-and-its-constraints" title="The problem and its constraints">
 
-The tool call is listed too: `search_documents`, with the extracted terms and a result size of 20. Each stage of the path from prompt to answer can be inspected.
+Atlantis supports complex collection descriptions, structured filters, and configurable workflows. Using that functionality effectively requires knowledge of the interface and the underlying collection structure. A natural-language assistant offered another way to search, but it also introduced a new route through which restricted information could become visible.
 
-</Showcase>
+Access depends on several interacting mechanisms: user-group rights, segment restrictions, record security levels, and backend checks. Interface permissions also affect which controls a user sees, but visibility of a button is not an authorization boundary. The integration had to preserve those distinctions rather than reproduce a simplified version of the rights model inside an LLM prompt.
 
-## Results
+I scoped the proof of concept to search and retrieval. Report generation, moderation, record linking, and other write operations remained possible future extensions rather than delivered functionality.
 
-Delivered a working proof of concept: the RAG service handles LLM reasoning, hybrid dense + BM25 retrieval returns candidate documents, and Atlantis enforces access control before any result is shown — with zero data leakage across tenants or segments.
+</JourneySection>
 
-## What I learned
+<JourneySection id="my-role-and-research-approach" title="My role and research approach">
 
-I started this project with no prior experience using LLMs or AI tooling. The learning curve was steep: vector databases, text embeddings, hybrid search mechanics and LLM agent orchestration were all new to me. Through active research, continuous self-study and hands-on prototyping, I bridged that gap while working inside a strict enterprise security model — proof that I can quickly learn and apply new technology under real constraints.
+I carried out the graduation research and prototype development, consulting Atlantis developers and support specialists to clarify domain behavior and integration constraints. My work covered the security analysis, product requirements, technology comparison, C4 and runtime diagrams, retrieval-service implementation, indexing design, and evaluation.
+
+The research followed four phases: understand Atlantis and its security boundaries; compare LLM and retrieval technologies; translate the findings into prototypes; and evaluate indexing, retrieval, and authorization behavior. Weekly progress discussions and experiments helped turn open questions into concrete design decisions.
+
+One useful clarification came from discussing default segments and security levels with domain specialists. A user’s default segment determines the initial assignment of newly created records; it does not define that user’s access. Group memberships and their restrictions determine access. Resolving that distinction prevented a misleading interpretation from entering the integration design.
+
+</JourneySection>
+
+<JourneySection id="technology-decisions" title="Technology decisions">
+
+I compared managed LLM APIs with open-weight models deployed in the cloud or on premises. For this proof of concept, managed providers offered a practical route to tool invocation and structured output without requiring a separate GPU infrastructure project. Self-hosting remained a future option when data custody, predictable utilization, or operational requirements justify it.
+
+The service separates model providers, embeddings, retrieval storage, and orchestration. This keeps experimentation outside Atlantis business logic and makes the integration depend on a service contract rather than a particular model.
+
+The experiments used different storage approaches. Chroma introduced semantic retrieval; a subsequent Qdrant prototype explored dense and sparse hybrid search. The delivered Python service in the final project folder uses Elasticsearch, combining BM25 lexical retrieval with dense-vector search and Reciprocal Rank Fusion. Those experiments are stages of the project, not a single production stack.
+
+</JourneySection>
+
+<JourneySection id="from-api-translation-to-hybrid-retrieval" title="From API translation to hybrid retrieval">
+
+**Prototype A — Translate intent into an existing API request.** A code-based agent produced a structured search request and called the Atlantis search API with the user’s access token. This demonstrated integration with existing authorization, but forwarding complete search responses to the model exposed more data than was needed for interpreting intent.
+
+**Prototype B — Test visual orchestration.** I recreated the approach in n8n to explore workflow-based integration. It demonstrated feasibility while raising questions about version control, testability, and maintaining complex orchestration in an enterprise codebase.
+
+**Prototype C — Make the workflow more explicit.** Chained LLM steps separated request construction from filter extraction, with deterministic code applying filters before the API call. This reduced dependence on open-ended agent behavior.
+
+**Prototype D — Add an independent retrieval index.** A code-based service introduced batch indexing, Chroma embeddings, semantic search, and structured filters. Retrieved candidate identifiers were checked through Atlantis before presentation.
+
+**Prototype E — Combine meaning and exact terms.** The Qdrant experiment added lexical retrieval alongside dense embeddings. The final service implements the hybrid approach with Elasticsearch and an additional model-assisted relevance-ranking stage.
+
+</JourneySection>
+
+<JourneySection id="architecture-and-the-authorization-boundary" title="Architecture and the authorization boundary">
+
+The user interacts with Atlantis. Its backend coordinates the query, calls a separate Python RAG service, and applies existing rights checks to candidate document identifiers. The RAG service owns retrieval concerns: prompt interpretation, metadata filters, embeddings, search, and ranking.
+
+I compared two places to enforce rights after retrieval. Filtering in the frontend would allow unauthorized candidate identifiers to reach the browser before removal. Filtering in the Atlantis backend keeps that decision inside the trusted application boundary. I selected backend enforcement through the existing search infrastructure using the caller’s access token.
+
+This distinction applies even when the response contains only identifiers. An identifier can still reveal that a restricted record exists. The result contract therefore returns authorized identifiers to the interface, which uses the existing Atlantis search-results experience.
+
+This boundary governs what reaches the end user. It does not by itself establish which retrieved content can safely be sent to an external model; provider data handling and minimizing model context remain separate concerns.
+
+</JourneySection>
+
+<JourneySection id="preparing-collection-data-for-retrieval" title="Preparing collection data for retrieval">
+
+The indexing flow retrieves Atlantis records in pages, maps them into a retrieval-oriented document format, and sends manageable batches to the RAG service. The service prepares searchable content and filterable metadata, generates embeddings in batches, and bulk-indexes the resulting documents.
+
+The implementation builds distinct lexical and semantic representations. Lexical content preserves searchable identifiers and metadata terms; semantic content assembles descriptive text with contextual fields. Moderation state, document type, multimedia presence, and multimedia counts are represented separately for filtering.
+
+The report documents a background indexing job that returns a job identifier, indexing from a selected page, and an Elasticsearch collection containing 19,691 documents. This is evidence of a working batch pipeline on a partial demonstration collection, rather than a throughput benchmark or proof of full-environment coverage.
+
+During development, malformed test-environment records interrupted indexing because digital files lacked their expected versions. I investigated the failure with a colleague; the team resolved the invalid source data through its synchronization process. The experience showed why validating domain assumptions and involving platform specialists matter as much as the embedding code.
+
+</JourneySection>
+
+<JourneySection id="how-a-search-moves-through-the-system" title="How a search moves through the system">
+
+**Interpret the question.** The model extracts the topic and supported metadata constraints into structured tool arguments. For example, a request for moderated documents about roses separates the topic from the moderation filter.
+
+**Retrieve through two complementary branches.** Elasticsearch runs BM25 over lexical content and nearest-neighbor search over dense embeddings. Supported metadata constraints are applied to both branches so they search the same eligible content.
+
+**Fuse and assess relevance.** Reciprocal Rank Fusion combines the ranked lists. The prototype then uses a model-assisted ranking stage to remove empty, duplicate, or unrelated candidates and order the remaining identifiers by relevance.
+
+**Enforce rights and present results.** Atlantis checks the candidates using its existing authorization-aware search. The interface then presents the permitted records through the existing results flow.
+
+The FastAPI service exposes Server-Sent Events for progress updates. The assistant panel makes stages such as query interpretation, retrieval, and ranking inspectable during the proof of concept. These are application progress and tool events, rather than a guarantee that model reasoning is correct.
+
+</JourneySection>
+
+<JourneySection id="evaluation-and-observed-results" title="Evaluation and observed results">
+
+**Indexing.** The research documents record export, transformation, embedding enrichment, bulk storage, and background batch execution. The indexed collection demonstrates that the flow worked beyond isolated sample records.
+
+**Retrieval.** Scenario tests show natural-language prompts becoming search terms and structured filters, followed by results displayed in Atlantis. English prompts about war and a mayor also returned relevant collection results, providing examples of cross-language retrieval behavior.
+
+**Authorization.** The evaluation compares a record appearing for a user with sufficient rights and being absent for a user without those rights. This supports the intended separation between retrieval relevance and permission to view a record.
+
+The evaluation establishes proof-of-concept feasibility. It does not establish a measured relevance improvement, comprehensive tenant-isolation assurance, production latency, or resistance to every adversarial prompt. The reported tests are scenario-based, not an exhaustive security audit or a controlled retrieval benchmark.
+
+</JourneySection>
+
+<JourneySection id="limitations-and-next-steps" title="Limitations and next steps">
+
+Retrieval quality depended heavily on preprocessing and source metadata. Incomplete or inconsistent descriptions weakened filtering and produced ambiguous, duplicate, or poorly matched results. Better field selection and normalization would be a priority before changing models.
+
+The indexed image-document collection represented only part of the demonstration environment. Coverage across other document types and collections remained unverified. Free-tier model and token limits also constrained result sizes and the scope of experimentation.
+
+A next phase would define a repeatable set of labeled queries, measure top-k relevance and filter extraction accuracy, broaden authorization tests, and evaluate the workflow with actual users. Production work would also need explicit review of provider data exposure, operational resilience, and resource limits. Any write-capable tools would require their own validated execution and authorization design.
+
+</JourneySection>
+
+<JourneySection id="what-i-learned" title="What I learned">
+
+I began with no prior practical experience of LLM tooling. Building the prototypes required learning embeddings, hybrid search, orchestration, and architecture notation while working within an established enterprise application.
+
+The most valuable lesson was to investigate retrieval quality and domain assumptions before adding agent complexity. Better document representations, explicit tool inputs, and a clear authorization boundary made the design easier to explain and assess. Consulting domain experts early also helped resolve uncertainties that source code and documentation alone did not answer.
+
+The project demonstrated my ability to research an unfamiliar technical area, make and document tradeoffs, build an integrated prototype, and distinguish a promising result from evidence of production readiness.
+
+</JourneySection>
+
+</ProjectJourney>

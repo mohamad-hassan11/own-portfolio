@@ -1,15 +1,18 @@
-import { ProjectInspector } from '@/components/projects/project-inspector'
+import {
+  ProjectJourney,
+  JourneySection,
+} from '@/components/projects/project-journey'
 
 export const metadata = {
   title: 'Vliegreizen — Flight & Travel Management System',
   slug: 'vliegreizen',
+  layout: 'journey',
   summary:
     'A desktop flight and journey management application built with Java 11 and JavaFX, featuring Model-View-Controller separation, dynamic dual-view navigation, and interchangeable DAO persistence across binary and text formats.',
   projectType: 'University engineering practicum',
   organisation: 'Hogeschool van Amsterdam',
   year: 2021,
   featured: false,
-  layout: 'collection',
   order: 7.5,
   coverImage: '/projects/vliegreizen/cover.svg',
   coverImageDimensions: { width: 1200, height: 675 },
@@ -27,66 +30,178 @@ export const metadata = {
   liveUrl: null,
 }
 
-export const inspectorViews = [
+export const journeyStages = [
   {
-    label: 'Operators',
-    category: 'Interface',
-    title: 'Operators and their journeys.',
-    description:
-      'Company profiles form the parent records for booked passenger journeys. Selecting an operator scopes the journey view to its company ID.',
-    decision:
-      'Keep the parent–child relationship explicit. Deletion checks linked journeys before removing an operator.',
-    src: '/projects/vliegreizen/screen_bedrijf_view.svg',
-    width: 900,
-    height: 960,
-    alt: 'Recreated JavaFX operator view with company form and list.',
-    caption:
-      'SVG recreation of the operator interface; not a runtime screenshot.',
+    id: 'domain-relationships',
+    title: 'Domain & relationships',
+    tone: 'blue',
+    sectionIds: ['overview', 'domain-modeling-relationship-rules'],
   },
   {
-    label: 'Journeys',
-    category: 'Interface',
-    title: 'Passenger details, in context.',
-    description:
-      'The journey view records passenger name, booking date, destination, ticket price, duration, and whether travel is within the EU.',
-    decision:
-      'Sort the backing ObservableList with dedicated comparators so the interface follows changes in the collection.',
-    src: '/projects/vliegreizen/screen_reis_view.svg',
-    width: 900,
-    height: 960,
-    alt: 'Recreated JavaFX journey form with passenger fields and sorting controls.',
-    caption:
-      'SVG recreation of the journey interface; not a runtime screenshot.',
+    id: 'mvc-persistence',
+    title: 'MVC & persistence',
+    tone: 'green',
+    sectionIds: ['desktop-architecture-mvc-lifecycle'],
   },
   {
-    label: 'Architecture',
-    category: 'System',
-    title: 'One contract. Multiple formats.',
-    description:
-      'Views construct the interface, controllers coordinate behavior, and DAOs isolate persistence from the client interface.',
-    decision:
-      'Use a generic DAO<T> contract to support binary, object-stream, text, and in-memory implementations.',
-    src: '/projects/vliegreizen/architecture.svg',
-    width: 1600,
-    height: 900,
-    alt: 'Architecture diagram showing JavaFX views, controllers, domain models and DAO implementations.',
-    caption:
-      'Architecture diagram reconstructed from source, as described in this case study.',
+    id: 'sorting',
+    title: 'Sorting',
+    tone: 'amber',
+    sectionIds: ['dynamic-sorting-comparator-strategies'],
+  },
+  {
+    id: 'verification-lessons',
+    title: 'Verification & lessons',
+    tone: 'violet',
+    sectionIds: ['engineering-decisions-verification', 'result-key-takeaways'],
   },
 ]
 
-<ProjectInspector views={inspectorViews} />
+export const journeySections = [
+  {
+    id: 'overview',
+    title: 'Overview',
+  },
+  {
+    id: 'domain-modeling-relationship-rules',
+    title: 'Domain modeling & relationship rules',
+  },
+  {
+    id: 'desktop-architecture-mvc-lifecycle',
+    title: 'Desktop architecture & MVC lifecycle',
+  },
+  {
+    id: 'dynamic-sorting-comparator-strategies',
+    title: 'Dynamic sorting & comparator strategies',
+  },
+  {
+    id: 'engineering-decisions-verification',
+    title: 'Engineering decisions & verification',
+  },
+  {
+    id: 'result-key-takeaways',
+    title: 'Result & key takeaways',
+  },
+]
 
-<details className="inspector-case-study">
-<summary>Read the full engineering case study</summary>
+export const journeyMedia = [
+  {
+    id: 'evidence-1',
+    src: '/projects/vliegreizen/screen_bedrijf_view.svg',
+    alt: 'Recreated JavaFX operator view with company form and list.',
+    label: 'Operators',
+    caption:
+      'SVG recreation of the operator interface; not a runtime screenshot.',
+    width: 900,
+    height: 960,
+    sectionId: 'overview',
+  },
+  {
+    id: 'evidence-2',
+    src: '/projects/vliegreizen/screen_reis_view.svg',
+    alt: 'Recreated JavaFX journey form with passenger fields and sorting controls.',
+    label: 'Journeys',
+    caption:
+      'SVG recreation of the journey interface; not a runtime screenshot.',
+    width: 900,
+    height: 960,
+    sectionId: 'overview',
+  },
+  {
+    id: 'evidence-3',
+    src: '/projects/vliegreizen/architecture.svg',
+    alt: 'Architecture diagram showing JavaFX views, controllers, domain models and DAO implementations.',
+    label: 'Architecture',
+    caption:
+      'Architecture diagram reconstructed from source, as described in this case study.',
+    width: 1600,
+    height: 900,
+    sectionId: 'desktop-architecture-mvc-lifecycle',
+  },
+]
 
-## Overview
+export const composition = {
+  variant: 'desktop',
+  entities: {
+    parent: 'Bedrijf',
+    child: 'Reis',
+    relationship: 'Parent operator and associated journeys',
+  },
+  heading: 'The domain shapes the desktop.',
+  description:
+    'Operators and their associated journeys organize the JavaFX application. Both interface views below are source-based SVG recreations.',
+  studioTitle: 'Inside the desktop application',
+  conclusionId: 'result-key-takeaways',
+  choices: [
+    {
+      id: 'domain',
+      label: 'Operators & journeys',
+      heading: 'A parent-child relationship',
+      description:
+        'Selecting an operator scopes its journeys. The controller checks associated journeys when deleting an operator to avoid orphan records.',
+      mediaIds: ['evidence-1', 'evidence-2'],
+    },
+    {
+      id: 'mvc',
+      label: 'MVC & persistence',
+      heading: 'Separate the view from the data',
+      description:
+        'JavaFX views expose controls to controllers. Interchangeable DAO implementations handle binary and text persistence.',
+      mediaIds: ['evidence-3'],
+    },
+  ],
+  supporting: {
+    heading: 'Same records. Different priorities.',
+    description:
+      'Comparator strategies explained from the case study; this does not execute the JavaFX application.',
+    choices: [
+      {
+        id: 'company',
+        label: 'Company name',
+        heading: 'Order operators by name',
+        description:
+          'BedrijvenComparator supports ascending and descending company-name order.',
+        mediaIds: [],
+      },
+      {
+        id: 'passenger',
+        label: 'Passenger name',
+        heading: 'Order journeys by traveller',
+        description:
+          'ReisComparator orders journeys alphabetically by traveller name in either direction.',
+        mediaIds: [],
+      },
+      {
+        id: 'duration',
+        label: 'Trip duration',
+        heading: 'Order journeys by duration',
+        description:
+          'ReisAantalDagenComparator allows shorter or longer journeys to lead the list.',
+        mediaIds: [],
+      },
+    ],
+    initialChoice: 0,
+  },
+}
+
+<ProjectJourney
+  project={metadata}
+  composition={composition}
+  stages={journeyStages}
+  sections={journeySections}
+  media={journeyMedia}
+  initialStage={1}
+>
+
+<JourneySection id="overview" title="Overview">
 
 Vliegreizen is a desktop travel booking and airline management platform engineered for the Object-Oriented Programming 2 (OOP2) curriculum at Hogeschool van Amsterdam (HvA). The application establishes a two-tiered domain hierarchy that models commercial airline operators (`Bedrijf`) and individual booked passenger journeys (`Reis`).
 
 The system enables travel operators to manage company profiles, log individual passenger itineraries with Schengen/EU border declarations, and persist all application records using pluggable persistence engines without modifying client interface code.
 
-## Domain modeling & relationship rules
+</JourneySection>
+
+<JourneySection id="domain-modeling-relationship-rules" title="Domain modeling & relationship rules">
 
 The application revolves around two core domain models that inherit Java's `Serializable` interface:
 
@@ -95,7 +210,9 @@ The application revolves around two core domain models that inherit Java's `Seri
 
 A central engineering requirement is relational integrity. When deleting an airline from the system, the controller enforces cascade verification: if active journeys exist for that company, the operator is prompted with an alert preventing orphan records unless confirmed. Furthermore, selecting an airline from the main overview carries the parent `bedrijfId` directly into the journey controller, scoping child entries to that operator.
 
-## Desktop architecture & MVC lifecycle
+</JourneySection>
+
+<JourneySection id="desktop-architecture-mvc-lifecycle" title="Desktop architecture & MVC lifecycle">
 
 The application follows the classic Model-View-Controller (MVC) architectural pattern tailored to the JavaFX desktop lifecycle:
 
@@ -121,7 +238,9 @@ Persistence is abstracted behind a generic `DAO<T>` interface offering `getAll()
 - **`TextBedrijfDAO` & `TextReisDAO` (Alternative):** Implements structured comma-separated text persistence using standard `PrintWriter` and `Scanner` utilities, demonstrating format independence.
 - **`FakeBedrijfDAO` & `FakeReisDAO` (Testing):** In-memory mock repositories populated with seed test fixtures for headless testing.
 
-## Dynamic sorting & comparator strategies
+</JourneySection>
+
+<JourneySection id="dynamic-sorting-comparator-strategies" title="Dynamic sorting & comparator strategies">
 
 To allow users to inspect travel records under different business priorities, the application leverages Java's `Comparator<T>` interface with bidirectional toggles:
 
@@ -132,15 +251,21 @@ To allow users to inspect travel records under different business priorities, th
 
 Sorting is applied directly to the backing `ObservableList` using `FXCollections.sort()`, ensuring instant UI updates with zero layout flickering.
 
-## Engineering decisions & verification
+</JourneySection>
+
+<JourneySection id="engineering-decisions-verification" title="Engineering decisions & verification">
 
 - **Decoupled view construction:** Building the UI entirely in pure Java code rather than FXML files ensured complete type safety during compilation, avoided runtime reflection overhead, and gave fine-grained programmatic control over layout column constraints.
 - **Explicit validation & user feedback:** Controllers guard domain state before writing to DAOs: text fields are checked for non-empty content, price strings are validated via `Double.parseDouble()` within try-catch boundaries, and informative JavaFX `Alert` dialogs communicate input errors directly to the user.
 - **Integrity declaration:** The entry point (`Main.java`) includes an explicit educational integrity check (`showTegridy()`), confirming that student credentials and assignment authenticity standards are validated before launching the JavaFX runtime.
 - **Execution & reproducibility:** The project was compiled with Apache Maven against Java 11 and OpenJFX 13 controls. All class files, bytecode structures, and data resources (`bedrijven.bin`, `reizen.obj`, `bedrijven.txt`) were examined to reconstruct accurate user workflows and architectural diagrams.
 
-## Result & key takeaways
+</JourneySection>
+
+<JourneySection id="result-key-takeaways" title="Result & key takeaways">
 
 The Vliegreizen project showcases clean, structured desktop software engineering in Java. By enforcing strict separation of concerns across Model, View, and Controller layers and decoupling persistence mechanisms through the Data Access Object pattern, the application achieves high modularity, predictable state synchronization, and reliable binary data persistence.
 
-</details>
+</JourneySection>
+
+</ProjectJourney>

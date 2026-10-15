@@ -1,6 +1,13 @@
+import {
+  ProjectJourney,
+  JourneySection,
+} from '@/components/projects/project-journey'
+
 export const metadata = {
   title: 'PAD — OBA Reservations & Activities',
+  displayTitle: 'OBA Reservations & Activities',
   slug: 'pad',
+  layout: 'journey',
   summary:
     'A university team application for reserving OBA study places and browsing library activities, built with modular JavaScript, an Express API, and MySQL.',
   projectType: 'University team project',
@@ -23,34 +30,202 @@ export const metadata = {
   liveUrl: null,
 }
 
-## Overview
+export const journeyStages = [
+  {
+    id: 'context-role',
+    title: 'Context & role',
+    tone: 'blue',
+    sectionIds: ['overview', 'my-role'],
+  },
+  {
+    id: 'reservations',
+    title: 'Reservations',
+    tone: 'green',
+    sectionIds: ['study-place-reservations'],
+  },
+  {
+    id: 'activities',
+    title: 'Activities',
+    tone: 'amber',
+    sectionIds: ['activity-browsing-and-registration'],
+  },
+  {
+    id: 'architecture',
+    title: 'Architecture',
+    tone: 'violet',
+    sectionIds: ['application-architecture', 'engineering-decisions'],
+  },
+  {
+    id: 'validation',
+    title: 'Validation',
+    tone: 'red',
+    sectionIds: ['testing-and-execution', 'result', 'what-i-learned'],
+  },
+]
+
+export const journeySections = [
+  {
+    id: 'overview',
+    title: 'Overview',
+  },
+  {
+    id: 'my-role',
+    title: 'My role',
+  },
+  {
+    id: 'study-place-reservations',
+    title: 'Study-place reservations',
+  },
+  {
+    id: 'activity-browsing-and-registration',
+    title: 'Activity browsing and registration',
+  },
+  {
+    id: 'application-architecture',
+    title: 'Application architecture',
+  },
+  {
+    id: 'engineering-decisions',
+    title: 'Engineering decisions',
+  },
+  {
+    id: 'testing-and-execution',
+    title: 'Testing and execution',
+  },
+  {
+    id: 'result',
+    title: 'Result',
+  },
+  {
+    id: 'what-i-learned',
+    title: 'What I learned',
+  },
+]
+
+export const journeyMedia = [
+  {
+    id: 'evidence-1',
+    src: '/projects/pad/reservation.webp',
+    alt: 'OBA study-place reservation interface with four steps, a branch search field, and carousel controls. The location step is active and no branch cards are displayed.',
+    label: 'Reservation workflow',
+    caption:
+      'An existing application capture showing the first reservation step. No branch results are visible in this capture.',
+    width: 990,
+    height: 747,
+    sectionId: 'study-place-reservations',
+  },
+  {
+    id: 'evidence-2',
+    src: '/projects/pad/architecture.svg',
+    alt: 'HTML views and JavaScript controllers communicate through repositories and a shared AJAX network manager with an Express API. The study-place controller also makes direct AJAX reads. Express runs parameterized MySQL queries for reservations and sends HTTPS requests to the external OBA search API for activity results.',
+    label: 'Client, API, and data',
+    caption:
+      "Architecture reconstructed from the source. Reservation data is stored in the application's MySQL database; activity listings come from the external OBA service.",
+    width: 1600,
+    height: 900,
+    sectionId: 'application-architecture',
+  },
+]
+
+export const composition = {
+  variant: 'services',
+  heading: 'A place to study. A connected workflow.',
+  description:
+    'Two library services share an application: study-place reservations and activities from OBA’s search API.',
+  studioTitle: 'Inside the library workflows',
+  conclusionId: 'result',
+  choices: [
+    {
+      id: 'reservations',
+      label: 'Study-place reservations',
+      heading: 'A documented four-step flow',
+      description:
+        'The available capture shows the first location step with no branch results. The steps below explain the source workflow without simulating availability or a completed booking.',
+      mediaIds: ['evidence-1'],
+    },
+    {
+      id: 'activities',
+      label: 'Library activities',
+      heading: 'My contribution: the activity overview',
+      description:
+        'I implemented paginated activity retrieval, mapping external results into cards and handling location, date and subject filters. The architecture distinguishes OBA activity data from locally stored reservations.',
+      mediaIds: ['evidence-2'],
+    },
+  ],
+  supporting: {
+    heading: 'From branch selection to confirmation',
+    description:
+      'An explanation of the implemented flow, not a booking service.',
+    choices: [
+      {
+        id: 'location',
+        label: '1 · Location',
+        heading: 'Find a branch',
+        description:
+          'Branch search supports autocomplete and a card carousel. No branch results are visible in the supplied capture.',
+        mediaIds: [],
+      },
+      {
+        id: 'place',
+        label: '2 · Study place',
+        heading: 'Choose a study place',
+        description:
+          'The source loads study places for the selected branch and distinguishes occupied from available states.',
+        mediaIds: [],
+      },
+      {
+        id: 'registration',
+        label: '3 · Registration',
+        heading: 'Validate the booking details',
+        description:
+          'The endpoint validates required fields and phone-number length before inserting the reservation into MySQL.',
+        mediaIds: [],
+      },
+      {
+        id: 'confirmation',
+        label: '4 · Confirmation',
+        heading: 'Connect the reservation to its QR data',
+        description:
+          'The returned insert ID links to confirmation data. QRCode.js encodes that data; no QR scanning or check-in service is implemented.',
+        mediaIds: [],
+      },
+    ],
+    initialChoice: 0,
+  },
+}
+
+<ProjectJourney
+  project={metadata}
+  composition={composition}
+  stages={journeyStages}
+  sections={journeySections}
+  media={journeyMedia}
+  initialStage={1}
+>
+
+<JourneySection id="overview" title="Overview">
 
 PAD (Project Agile Development) is a browser application built during the second semester of my HBO-ICT programme. The team's application brings two Openbare Bibliotheek Amsterdam (OBA) workflows together: reserving a study place at a library branch and exploring library activities.
 
 Visitors can search for a branch, select a study place, enter booking details, and receive a QR confirmation. A separate activity overview presents results from OBA's search API with pagination and filters, followed by a contact-registration form.
 
-## My role
+</JourneySection>
+
+<JourneySection id="my-role" title="My role">
 
 I implemented the activity overview controller: retrieving paginated results, mapping external activity data into cards, and handling location, date, and activity-type filters. The study-place reservation flow and shared framework described here belong to the wider team application.
 
-## Study-place reservations
+</JourneySection>
+
+<JourneySection id="study-place-reservations" title="Study-place reservations">
 
 The booking interface uses four steps: location, study place, registration, and confirmation. Branch search supports autocomplete and a card carousel. Selecting a branch loads its study places, with occupied and available states distinguished in the interface.
 
-<ProjectImage
-  zoom
-  tone="red"
-  label="Fig. 01 · Reservation workflow"
-  src="/projects/pad/reservation.webp"
-  alt="OBA study-place reservation interface with four steps, a branch search field, and carousel controls. The location step is active and no branch cards are displayed."
-  width={990}
-  height={747}
-  caption="An existing application capture showing the first reservation step. No branch results are visible in this capture."
-/>
-
 The Express booking endpoint validates required fields and phone-number length, then inserts the visitor's details, date, time slot, and study-place ID into MySQL using query placeholders. After insertion, the browser uses the returned reservation ID to retrieve confirmation data. QRCode.js encodes that data as JSON in a QR code. This is a reservation confirmation; the repository does not implement a QR scanning or check-in service.
 
-## Activity browsing and registration
+</JourneySection>
+
+<JourneySection id="activity-browsing-and-registration" title="Activity browsing and registration">
 
 The backend's `/activity/:page` route retrieves JSON from OBA's search API. The frontend turns each result into a card with a title, date, branch, subject, description, and image. It calculates the page count from the API's result total and disables navigation at the first and last pages.
 
@@ -58,40 +233,43 @@ Location, date, and subject filters act on the cards already loaded for the curr
 
 Selecting an activity opens a registration form. Its dedicated controller sends contact details to `/activiteit/registratie` and displays confirmation or validation errors. The implemented database insert stores contact details without an activity ID, so it represents a basic registration flow rather than event-specific ticketing.
 
-## Application architecture
+</JourneySection>
+
+<JourneySection id="application-architecture" title="Application architecture">
 
 The frontend extends the supplied PAD framework with ES6 classes, jQuery, and Bootstrap 4. Hash-based navigation selects a controller, which loads an HTML view and binds its interactions. Repositories wrap API operations; a shared network manager converts jQuery AJAX callbacks into promises for use with `async` / `await`. The study-place controller also makes direct AJAX reads for branch and study-place lists.
 
-<ArchitectureDiagram
-  wide
-  tone="blue"
-  label="Fig. 02 · Client, API, and data"
-  src="/projects/pad/architecture.svg"
-  alt="HTML views and JavaScript controllers communicate through repositories and a shared AJAX network manager with an Express API. The study-place controller also makes direct AJAX reads. Express runs parameterized MySQL queries for reservations and sends HTTPS requests to the external OBA search API for activity results."
-  width={1600}
-  height={900}
-  caption="Architecture reconstructed from the source. Reservation data is stored in the application's MySQL database; activity listings come from the external OBA service."
-/>
-
 Express handles JSON requests, validation, database queries, and the external API connection. A shared MySQL connection pool supports database access. The architecture separates frontend presentation and API access, while backend route handlers keep validation and persistence together in a single application module.
 
-## Engineering decisions
+</JourneySection>
+
+<JourneySection id="engineering-decisions" title="Engineering decisions">
 
 - **Adapting external data:** the activity controller translates OBA's result structure into display fields and derives subject filters from the response. This made data mapping and missing-field handling part of the frontend work.
 - **Coordinating asynchronous interactions:** repository promises let controllers wait for API responses before updating cards or showing booking confirmation. The network manager gives registration forms access to structured server errors.
 - **Connecting booking and confirmation:** the insert ID links a successful reservation request to a second query for QR data, including the associated branch through a database join.
 - **Keeping scope explicit:** study-place status is displayed, but the booking handler does not enforce conflicting reservations. Availability enforcement would require additional database and server-side rules.
 
-## Testing and execution
+</JourneySection>
+
+<JourneySection id="testing-and-execution" title="Testing and execution">
 
 The repository includes Cypress 7 browser scenarios for activity-page elements, pagination and filter interactions, branch search, booking, registration validation, and QR output. Several scenarios stub API responses to inspect request payloads and error states. Some older login and booking tests target routes or selectors that are absent from the current application, so their presence is not evidence of a passing suite.
 
 For this case study, the original frontend was served locally without changing its source. The welcome screen and navigation to the reservation view were checked in Chromium. Database and activity-service requests were blocked during capture; no successful database booking or live activity retrieval is claimed. The bundled SQL only creates the framework's example tables, leaving the reservation schema unavailable for a complete local backend run.
 
-## Result
+</JourneySection>
+
+<JourneySection id="result" title="Result">
 
 The project demonstrates a team-built browser client and Express API spanning database-backed reservations and an external activity feed. My activity-overview work developed practical experience with asynchronous JavaScript, third-party data structures, pagination, DOM-based filtering, and integrating a feature into an existing team framework.
 
-## What I learned
+</JourneySection>
+
+<JourneySection id="what-i-learned" title="What I learned">
 
 Working within separate views, controllers, and repositories made client-server responsibilities concrete. The project also illustrates why UI state, database constraints, and browser tests must stay aligned as features evolve: displaying availability does not enforce it, and tests tied to older routes need maintenance alongside the application.
+
+</JourneySection>
+
+</ProjectJourney>

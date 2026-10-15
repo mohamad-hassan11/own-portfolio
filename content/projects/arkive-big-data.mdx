@@ -1,6 +1,12 @@
+import {
+  ProjectJourney,
+  JourneySection,
+} from '@/components/projects/project-journey'
+
 export const metadata = {
   title: 'Arkive Big Data Project',
   slug: 'arkive-big-data',
+  layout: 'journey',
   summary:
     'API data ingestion, transformation and KPI dashboards, delivered with automated tests and a containerised CI/CD pipeline.',
   projectType: 'Big Data minor project',
@@ -25,33 +31,232 @@ export const metadata = {
   liveUrl: null,
 }
 
-## Overview
+export const journeyStages = [
+  {
+    id: 'context-pipeline',
+    title: 'Context & pipeline',
+    tone: 'blue',
+    sectionIds: ['overview', 'context', 'approach'],
+  },
+  {
+    id: 'design',
+    title: 'Design',
+    tone: 'green',
+    sectionIds: ['design'],
+  },
+  {
+    id: 'dashboards',
+    title: 'Dashboards',
+    tone: 'amber',
+    sectionIds: ['dashboards'],
+  },
+  {
+    id: 'delivery-lessons',
+    title: 'Delivery & lessons',
+    tone: 'violet',
+    sectionIds: ['implementation', 'what-i-learned'],
+  },
+]
+
+export const journeySections = [
+  {
+    id: 'overview',
+    title: 'Overview',
+  },
+  {
+    id: 'context',
+    title: 'Context',
+  },
+  {
+    id: 'approach',
+    title: 'Approach',
+  },
+  {
+    id: 'design',
+    title: 'Design',
+  },
+  {
+    id: 'dashboards',
+    title: 'Dashboards',
+  },
+  {
+    id: 'implementation',
+    title: 'Implementation',
+  },
+  {
+    id: 'what-i-learned',
+    title: 'What I learned',
+  },
+]
+
+export const journeyMedia = [
+  {
+    id: 'evidence-1',
+    src: '/projects/arkive-big-data/design-mockups.png',
+    alt: 'Design mockups of the Arkive Insights login screen and a dashboard with six KPI cards: return on inventory cost, conversion rate, sell-through rate, revenue per SKU, days of inventory on hand and return rate.',
+    label: 'Mockups',
+    caption: 'Fig. 01 · Mockups',
+    width: 728,
+    height: 647,
+    sectionId: 'design',
+  },
+  {
+    id: 'evidence-2',
+    src: '/projects/arkive-big-data/login.png',
+    alt: 'The Arkive Insights login screen with email and password fields, a log in button and a note to contact an admin for an account.',
+    label: 'Login',
+    caption: 'The implemented login screen.',
+    width: 940,
+    height: 517,
+    sectionId: 'dashboards',
+  },
+  {
+    id: 'evidence-3',
+    src: '/projects/arkive-big-data/kpi-dashboard.png',
+    alt: 'The Arkive KPI dashboard filtered to one product, showing gross ROI by month as a bar chart, conversion rate as a donut chart of visitors versus buyers, and a sell-through rate chart marked as having no data.',
+    label: 'KPI dashboard',
+    caption:
+      'KPI dashboard for a single product: gross ROI by month, conversion rate (visitors versus buyers) and sell-through rate, which is labelled as having no data for this selection.',
+    width: 940,
+    height: 508,
+    sectionId: 'dashboards',
+  },
+  {
+    id: 'evidence-4',
+    src: '/projects/arkive-big-data/vendor-products-bar.png',
+    alt: 'Bar chart of the number of unique products stocked by each vendor, with a few vendors standing out with much larger assortments.',
+    label: 'Products per vendor',
+    caption:
+      'Unique products stocked per vendor, to show which vendors have the largest assortment.',
+    width: 940,
+    height: 516,
+    sectionId: 'dashboards',
+  },
+  {
+    id: 'evidence-5',
+    src: '/projects/arkive-big-data/inventory-value-pie.png',
+    alt: 'Pie chart of the share of total inventory value contributed by the top 10 vendors, dominated by one vendor.',
+    label: 'Inventory value',
+    caption:
+      'Share of total inventory value contributed by the top 10 vendors.',
+    width: 940,
+    height: 446,
+    sectionId: 'dashboards',
+  },
+]
+
+export const composition = {
+  variant: 'analytics',
+  heading: 'From API data to useful insight.',
+  description:
+    'Explore the recorded dashboards alongside their design, then follow the pipeline that feeds them.',
+  studioTitle: 'Behind the dashboards',
+  conclusionId: 'what-i-learned',
+  choices: [
+    {
+      id: 'kpi',
+      label: 'KPI dashboard',
+      heading: 'A product-level view',
+      description:
+        'The dashboard capture shows gross ROI, conversion and a sell-through chart with no data for this selection. These are recorded views, not live analytics.',
+      mediaIds: ['evidence-3'],
+    },
+    {
+      id: 'vendors',
+      label: 'Products per vendor',
+      heading: 'Reading the assortment',
+      description:
+        'The vendor chart compares the number of unique products stocked by each vendor.',
+      mediaIds: ['evidence-4'],
+    },
+    {
+      id: 'inventory',
+      label: 'Inventory value',
+      heading: 'Reading the inventory',
+      description:
+        'The chart shows the share of total inventory value contributed by the top ten vendors.',
+      mediaIds: ['evidence-5'],
+    },
+    {
+      id: 'design',
+      label: 'Design mockup',
+      heading: 'Before implementation',
+      description:
+        'The original mockup pairs login with a dashboard of six KPI cards.',
+      mediaIds: ['evidence-1'],
+    },
+  ],
+  supporting: {
+    heading: 'Behind the numbers',
+    description: 'The documented route from external data to the dashboard.',
+    choices: [
+      {
+        id: 'ingest',
+        label: 'Ingest',
+        heading: 'External APIs',
+        description:
+          'API-based ingestion brings external data into the application pipeline.',
+        mediaIds: [],
+      },
+      {
+        id: 'transform',
+        label: 'Transform',
+        heading: 'Python & SQLAlchemy',
+        description:
+          'Data is transformed for persistence and use in the application.',
+        mediaIds: [],
+      },
+      {
+        id: 'store',
+        label: 'Store',
+        heading: 'MySQL',
+        description:
+          'SQLAlchemy connects the application to its MySQL persistence layer.',
+        mediaIds: [],
+      },
+      {
+        id: 'explore',
+        label: 'Explore',
+        heading: 'Flask, Dash & Plotly',
+        description:
+          'The application exposes data through KPI and vendor-level visualisations.',
+        mediaIds: [],
+      },
+    ],
+    initialChoice: 0,
+  },
+}
+
+<ProjectJourney
+  project={metadata}
+  composition={composition}
+  stages={journeyStages}
+  sections={journeySections}
+  media={journeyMedia}
+  initialStage={2}
+>
+
+<JourneySection id="overview" title="Overview">
 
 A production-oriented analytics platform built for Arkive during the Big Data minor at the Hogeschool van Amsterdam: ingesting data from external APIs, transforming it, and presenting it as KPI dashboards.
 
-## Context
+</JourneySection>
+
+<JourneySection id="context" title="Context">
 
 The Big Data minor combined a solo onboarding assignment with this company-based team project at Arkive, supported by workshops on data engineering, cloud deployment and collaborative development practices.
 
-## Approach
+</JourneySection>
+
+<JourneySection id="approach" title="Approach">
 
 Built API-based data ingestion and transformation pipelines feeding a MySQL database through SQLAlchemy, then exposed the results through Flask with Dash / Plotly dashboards for KPI visualisation.
 
-## Design
+</JourneySection>
+
+<JourneySection id="design" title="Design">
 
 The interface was mocked up before it was built: a login screen and a dashboard of six KPI cards.
-
-<Showcase
-  mediaWidth={360}
-  tone="violet"
-  label="Fig. 01 · Mockups"
-  src="/projects/arkive-big-data/design-mockups.png"
-  alt="Design mockups of the Arkive Insights login screen and a dashboard with six KPI cards: return on inventory cost, conversion rate, sell-through rate, revenue per SKU, days of inventory on hand and return rate."
-  width={728}
-  height={647}
-  zoom
-  mat
->
 
 The dashboard mockup defines six KPIs:
 
@@ -62,63 +267,28 @@ The dashboard mockup defines six KPIs:
 - Days of inventory on hand
 - Return rate
 
-</Showcase>
+</JourneySection>
 
-## Dashboards
+<JourneySection id="dashboards" title="Dashboards">
 
 The implemented application follows the mockups. Access starts at a login screen, and accounts are created by an admin.
 
-<ProjectImage
-  tone="green"
-  label="Fig. 02 · Login"
-  src="/projects/arkive-big-data/login.png"
-  alt="The Arkive Insights login screen with email and password fields, a log in button and a note to contact an admin for an account."
-  width={940}
-  height={517}
-  caption="The implemented login screen."
-/>
-
 The KPI dashboard is filtered by product and by a month range, and its data can be exported to Excel.
-
-<ProjectImage
-  tone="blue"
-  zoom
-  label="Fig. 03 · KPI dashboard"
-  src="/projects/arkive-big-data/kpi-dashboard.png"
-  alt="The Arkive KPI dashboard filtered to one product, showing gross ROI by month as a bar chart, conversion rate as a donut chart of visitors versus buyers, and a sell-through rate chart marked as having no data."
-  width={940}
-  height={508}
-  caption="KPI dashboard for a single product: gross ROI by month, conversion rate (visitors versus buyers) and sell-through rate, which is labelled as having no data for this selection."
-/>
 
 A separate statistics page gives vendor-level views of the catalogue and inventory.
 
-<ProjectImage
-  tone="amber"
-  zoom
-  label="Fig. 04 · Products per vendor"
-  src="/projects/arkive-big-data/vendor-products-bar.png"
-  alt="Bar chart of the number of unique products stocked by each vendor, with a few vendors standing out with much larger assortments."
-  width={940}
-  height={516}
-  caption="Unique products stocked per vendor, to show which vendors have the largest assortment."
-/>
+</JourneySection>
 
-<ProjectImage
-  tone="red"
-  zoom
-  label="Fig. 05 · Inventory value"
-  src="/projects/arkive-big-data/inventory-value-pie.png"
-  alt="Pie chart of the share of total inventory value contributed by the top 10 vendors, dominated by one vendor."
-  width={940}
-  height={446}
-  caption="Share of total inventory value contributed by the top 10 vendors."
-/>
-
-## Implementation
+<JourneySection id="implementation" title="Implementation">
 
 Automated the pipeline and dashboard behaviour with Pytest, and packaged deployment with Docker, Terraform and shell scripts inside a CI/CD workflow.
 
-## What I learned
+</JourneySection>
+
+<JourneySection id="what-i-learned" title="What I learned">
 
 Moved from building standalone analyses to delivering a maintainable, team-based data application under real-world constraints: data quality, database design, dashboard UX, version-control workflow, testing and cloud-ready deployment.
+
+</JourneySection>
+
+</ProjectJourney>

@@ -61,6 +61,8 @@ export interface SiteConfig {
 
 export interface ProjectMetadata {
   title: string
+  /** Optional concise title for the project page; metadata keeps the full title. */
+  displayTitle?: string
   slug: string
   summary: string
   projectType?: string
@@ -68,8 +70,8 @@ export interface ProjectMetadata {
   year?: number
   featured: boolean
   order: number
-  /** Collection content can fill the case-study container; prose stays compact. */
-  layout?: 'default' | 'collection'
+  /** Journey pages provide their own header and navigable engineering sections. */
+  layout?: 'default' | 'collection' | 'research' | 'journey'
   /** Path under /public. Used on cards, the case-study header and social previews. */
   coverImage?: string
   /** Full screenshot dimensions. Opts into an uncropped, compact case-study cover. */
@@ -130,4 +132,68 @@ export interface InspectorView {
   width: number
   height: number
   caption: string
+}
+
+export interface JourneyStage {
+  id: string
+  title: string
+  tone: 'blue' | 'green' | 'amber' | 'violet' | 'red'
+  sectionIds: string[]
+}
+
+export interface JourneySectionMetadata {
+  id: string
+  title: string
+}
+
+export interface JourneyMedia {
+  id: string
+  src: string
+  alt: string
+  label: string
+  caption: string
+  width: number
+  height: number
+  sectionId?: string
+  /** Optional recording; src remains its still poster for thumbnails. */
+  videoSrc?: string
+}
+
+export type ProjectCompositionVariant =
+  | 'evolution'
+  | 'analytics'
+  | 'research'
+  | 'monitoring'
+  | 'services'
+  | 'connections'
+  | 'desktop'
+  | 'input'
+  | 'learning'
+
+/** Short, project-authored presentation copy; full narratives stay in MDX. */
+export interface CompositionChoice {
+  id: string
+  label: string
+  heading: string
+  description: string
+  mediaIds: string[]
+}
+
+export interface ProjectCompositionMetadata {
+  variant: ProjectCompositionVariant
+  heading: string
+  description: string
+  choices: CompositionChoice[]
+  initialChoice?: number
+  sequence?: string[]
+  entities?: { parent: string; child: string; relationship: string }
+  supporting?: {
+    heading: string
+    description: string
+    choices: CompositionChoice[]
+    initialChoice?: number
+  }
+  studioTitle: string
+  /** Render this existing MDX section once, as a visible conclusion. */
+  conclusionId: string
 }
