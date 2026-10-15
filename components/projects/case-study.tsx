@@ -8,13 +8,14 @@ import type { Project } from '@/content/projects'
 
 export function CaseStudy({ project }: { project: Project }) {
   const { metadata, Content } = project
+  const inspector = metadata.slug === 'vliegreizen'
   const meta = [metadata.projectType, metadata.organisation, metadata.year]
     .filter(Boolean)
     .join(' · ')
 
   return (
     <article className="pb-6">
-      <header className="py-10 sm:py-16">
+      <header className={inspector ? 'inspector-header' : 'py-10 sm:py-16'}>
         <Link
           href="/projects"
           className="text-metadata text-muted hover:text-foreground inline-flex items-center gap-2 font-semibold transition-colors duration-200"
@@ -23,12 +24,22 @@ export function CaseStudy({ project }: { project: Project }) {
           All projects
         </Link>
 
-        <div className="mt-10 max-w-4xl">
-          <p className="text-metadata text-accent-text mb-4">
-            {`PROJECT NOTE${meta ? ` · ${meta}` : ''}`}
+        <div className={inspector ? 'inspector-intro' : 'mt-10 max-w-4xl'}>
+          <p
+            className={
+              inspector
+                ? 'inspector-meta'
+                : 'text-metadata text-accent-text mb-4'
+            }
+          >
+            {inspector ? meta : `PROJECT NOTE${meta ? ` · ${meta}` : ''}`}
           </p>
-          <h1 className="text-display">{metadata.title}</h1>
-          <span aria-hidden className="bg-accent mt-5 block h-1 w-16" />
+          <h1 className={inspector ? 'inspector-title' : 'text-display'}>
+            {inspector ? 'Vliegreizen' : metadata.title}
+          </h1>
+          {!inspector && (
+            <span aria-hidden className="bg-accent mt-5 block h-1 w-16" />
+          )}
           <p className="text-body text-muted mt-6 max-w-2xl">
             {metadata.summary}
           </p>
@@ -36,7 +47,8 @@ export function CaseStudy({ project }: { project: Project }) {
         </div>
       </header>
 
-      {metadata.coverImage && metadata.coverImageDimensions ? (
+      {inspector ? null : metadata.coverImage &&
+        metadata.coverImageDimensions ? (
         <figure className="brutal bg-surface mb-14 max-w-2xl">
           <div className="border-ink flex justify-end border-b-2 px-3 py-2">
             <ImageZoom

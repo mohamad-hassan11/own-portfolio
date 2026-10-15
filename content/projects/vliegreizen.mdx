@@ -1,0 +1,146 @@
+import { ProjectInspector } from '@/components/projects/project-inspector'
+
+export const metadata = {
+  title: 'Vliegreizen — Flight & Travel Management System',
+  slug: 'vliegreizen',
+  summary:
+    'A desktop flight and journey management application built with Java 11 and JavaFX, featuring Model-View-Controller separation, dynamic dual-view navigation, and interchangeable DAO persistence across binary and text formats.',
+  projectType: 'University engineering practicum',
+  organisation: 'Hogeschool van Amsterdam',
+  year: 2021,
+  featured: false,
+  layout: 'collection',
+  order: 7.5,
+  coverImage: '/projects/vliegreizen/cover.svg',
+  coverImageDimensions: { width: 1200, height: 675 },
+  technologies: [
+    'Java',
+    'JavaFX',
+    'MVC Architecture',
+    'Data Access Object (DAO)',
+    'Binary Serialization',
+    'Object Streams',
+    'Object-Oriented Design',
+    'Maven',
+  ],
+  githubUrl: null,
+  liveUrl: null,
+}
+
+export const inspectorViews = [
+  {
+    label: 'Operators',
+    category: 'Interface',
+    title: 'Operators and their journeys.',
+    description:
+      'Company profiles form the parent records for booked passenger journeys. Selecting an operator scopes the journey view to its company ID.',
+    decision:
+      'Keep the parent–child relationship explicit. Deletion checks linked journeys before removing an operator.',
+    src: '/projects/vliegreizen/screen_bedrijf_view.svg',
+    width: 900,
+    height: 960,
+    alt: 'Recreated JavaFX operator view with company form and list.',
+    caption:
+      'SVG recreation of the operator interface; not a runtime screenshot.',
+  },
+  {
+    label: 'Journeys',
+    category: 'Interface',
+    title: 'Passenger details, in context.',
+    description:
+      'The journey view records passenger name, booking date, destination, ticket price, duration, and whether travel is within the EU.',
+    decision:
+      'Sort the backing ObservableList with dedicated comparators so the interface follows changes in the collection.',
+    src: '/projects/vliegreizen/screen_reis_view.svg',
+    width: 900,
+    height: 960,
+    alt: 'Recreated JavaFX journey form with passenger fields and sorting controls.',
+    caption:
+      'SVG recreation of the journey interface; not a runtime screenshot.',
+  },
+  {
+    label: 'Architecture',
+    category: 'System',
+    title: 'One contract. Multiple formats.',
+    description:
+      'Views construct the interface, controllers coordinate behavior, and DAOs isolate persistence from the client interface.',
+    decision:
+      'Use a generic DAO<T> contract to support binary, object-stream, text, and in-memory implementations.',
+    src: '/projects/vliegreizen/architecture.svg',
+    width: 1600,
+    height: 900,
+    alt: 'Architecture diagram showing JavaFX views, controllers, domain models and DAO implementations.',
+    caption:
+      'Architecture diagram reconstructed from source, as described in this case study.',
+  },
+]
+
+<ProjectInspector views={inspectorViews} />
+
+<details className="inspector-case-study">
+<summary>Read the full engineering case study</summary>
+
+## Overview
+
+Vliegreizen is a desktop travel booking and airline management platform engineered for the Object-Oriented Programming 2 (OOP2) curriculum at Hogeschool van Amsterdam (HvA). The application establishes a two-tiered domain hierarchy that models commercial airline operators (`Bedrijf`) and individual booked passenger journeys (`Reis`).
+
+The system enables travel operators to manage company profiles, log individual passenger itineraries with Schengen/EU border declarations, and persist all application records using pluggable persistence engines without modifying client interface code.
+
+## Domain modeling & relationship rules
+
+The application revolves around two core domain models that inherit Java's `Serializable` interface:
+
+1. **`Bedrijf` (Travel Operator / Airline):** Encapsulates an operator's unique identifier, legal business name (`naam`), country of origin (`landAfkomst`), date of establishment (`oprichtJaar`), and multi-line descriptive text (`meerInformatie`).
+2. **`Reis` (Flight / Journey Itinerary):** Represents a specific booked journey associated with a parent `Bedrijf`. It records the passenger's full name (`reiziger`), booking date (`datum`), destination airport (`bestemming`), ticket price in euros (`prijs`), duration in days (`aantalDagen`), and a boolean flag indicating whether the trip is within the European Union (`binnenEU`).
+
+A central engineering requirement is relational integrity. When deleting an airline from the system, the controller enforces cascade verification: if active journeys exist for that company, the operator is prompted with an alert preventing orphan records unless confirmed. Furthermore, selecting an airline from the main overview carries the parent `bedrijfId` directly into the journey controller, scoping child entries to that operator.
+
+## Desktop architecture & MVC lifecycle
+
+The application follows the classic Model-View-Controller (MVC) architectural pattern tailored to the JavaFX desktop lifecycle:
+
+### 1. View layer (`practicumopdracht.views.*`)
+
+Views are pure Java classes implementing a shared `View` contract. They construct the complete visual hierarchy programmatically using JavaFX layout containers—specifically structured `GridPane` layouts with precise column constraints, nested `HBox`/`VBox` toolbars, `ListView` controls, and `MenuBar` navigation. Views contain no business logic or event triggers; they expose public getters for interactive controls.
+
+### 2. Controller layer (`practicumopdracht.controllers.*`)
+
+Controllers act as the bridge between the UI and domain models. When instantiated, a controller:
+
+- Connects to the active singleton DAOs provided by `MainApplication`.
+- Populates JavaFX `ObservableList` collections and binds them to the view's `ListView.selectionModel()`.
+- Registers event listeners for CRUD buttons (`OPSLAAN`, `NIEUWE`, `VERWIJDER`).
+- Coordinates scene transitions via `MainApplication.switchController(Controller)`.
+
+### 3. Data layer & interchangeable DAOs (`practicumopdracht.data.*`)
+
+Persistence is abstracted behind a generic `DAO<T>` interface offering `getAll()`, `getById()`, `addOrUpdate()`, `remove()`, `save()`, and `load()`. The application includes multiple distinct implementations:
+
+- **`BinaryBedrijfDAO` (Active):** Reads and writes raw binary streams via `DataOutputStream` and `DataInputStream`. It serializes the entity count as an initial integer header, followed by UTF-encoded strings formatted with custom tilde delimiters (`id~naam~landAfkomst~oprichtJaar~meerInformatie`) while sanitizing multi-line breaks.
+- **`ObjectReisDAO` (Active):** Employs Java object serialization via `ObjectOutputStream` and `ObjectInputStream`. The DAO persists the entire journey collection to disk (`reizen.obj`), reconstructing live `Reis` instances and their entity links upon launch.
+- **`TextBedrijfDAO` & `TextReisDAO` (Alternative):** Implements structured comma-separated text persistence using standard `PrintWriter` and `Scanner` utilities, demonstrating format independence.
+- **`FakeBedrijfDAO` & `FakeReisDAO` (Testing):** In-memory mock repositories populated with seed test fixtures for headless testing.
+
+## Dynamic sorting & comparator strategies
+
+To allow users to inspect travel records under different business priorities, the application leverages Java's `Comparator<T>` interface with bidirectional toggles:
+
+- **Airline sorting:** `BedrijvenComparator` sorts company records alphabetically by name, supporting both ascending ($A \to Z$) and descending ($Z \to A$) orders triggered via the application's native menu bar.
+- **Journey multi-criteria sorting:** `ReisView` provides an interactive 4-button radio `ToggleGroup`:
+  - **Passenger name ($A \to Z$ and $Z \to A$):** Uses `ReisComparator` to order flights alphabetically by traveler name.
+  - **Trip duration ($H \to L$ and $L \to H$):** Uses `ReisAantalDagenComparator` to evaluate trip length, allowing operators to prioritize extended holidays or short weekend escapes.
+
+Sorting is applied directly to the backing `ObservableList` using `FXCollections.sort()`, ensuring instant UI updates with zero layout flickering.
+
+## Engineering decisions & verification
+
+- **Decoupled view construction:** Building the UI entirely in pure Java code rather than FXML files ensured complete type safety during compilation, avoided runtime reflection overhead, and gave fine-grained programmatic control over layout column constraints.
+- **Explicit validation & user feedback:** Controllers guard domain state before writing to DAOs: text fields are checked for non-empty content, price strings are validated via `Double.parseDouble()` within try-catch boundaries, and informative JavaFX `Alert` dialogs communicate input errors directly to the user.
+- **Integrity declaration:** The entry point (`Main.java`) includes an explicit educational integrity check (`showTegridy()`), confirming that student credentials and assignment authenticity standards are validated before launching the JavaFX runtime.
+- **Execution & reproducibility:** The project was compiled with Apache Maven against Java 11 and OpenJFX 13 controls. All class files, bytecode structures, and data resources (`bedrijven.bin`, `reizen.obj`, `bedrijven.txt`) were examined to reconstruct accurate user workflows and architectural diagrams.
+
+## Result & key takeaways
+
+The Vliegreizen project showcases clean, structured desktop software engineering in Java. By enforcing strict separation of concerns across Model, View, and Controller layers and decoupling persistence mechanisms through the Data Access Object pattern, the application achieves high modularity, predictable state synchronization, and reliable binary data persistence.
+
+</details>

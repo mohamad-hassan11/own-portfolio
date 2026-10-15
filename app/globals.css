@@ -2230,7 +2230,9 @@ html.light[data-skin='glass']
   )
   > :nth-child(2n + 1)::before,
 .multiverse-dialog [aria-label='Cursor style'] > :nth-child(4n + 1)::before,
-.multiverse-dialog [aria-label='Background style'] > :nth-child(4n + 1)::before {
+.multiverse-dialog
+  [aria-label='Background style']
+  > :nth-child(4n + 1)::before {
   right: auto;
   left: 0.75rem;
 }
@@ -2711,4 +2713,197 @@ html.light[data-skin='glass']
 /* Keep every control reachable on short screens and when text is enlarged. */
 .multiverse-dialog[data-panel='background'] {
   overflow-y: auto;
+}
+
+/* Vliegreizen: contextual artifact inspector within the portfolio's theme. */
+.inspector-header {
+  padding-block: 2.5rem 1.75rem;
+}
+.inspector-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3rem;
+  align-items: end;
+  margin-top: 2.5rem;
+}
+.inspector-meta {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin-top: 1.75rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+.inspector-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+}
+.inspector-intro > p.text-body {
+  margin-top: 0;
+  font-size: 1rem;
+}
+.project-inspector {
+  display: grid;
+  grid-template-columns: 19rem minmax(0, 1fr);
+  border-block: 1px solid var(--border);
+}
+.inspector-sidebar {
+  padding: 1.5rem 1.75rem 2rem 0;
+  border-right: 1px solid var(--border);
+}
+.inspector-navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+.inspector-navigation button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  text-align: left;
+  background: var(--surface);
+  color: var(--foreground);
+  cursor: pointer;
+}
+.inspector-navigation button:hover {
+  color: var(--accent-text);
+}
+.inspector-navigation button[aria-pressed='true'] {
+  background: var(--foreground);
+  color: var(--background);
+}
+.inspector-navigation span {
+  font-size: 0.75rem;
+}
+.inspector-sidebar h2 {
+  font-size: 1.75rem;
+  line-height: 1.15;
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+}
+.inspector-sidebar p {
+  font-size: 0.875rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
+.inspector-decision {
+  border-top: 1px solid var(--border);
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+}
+.inspector-decision h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+.inspector-viewer {
+  margin: 0;
+  min-width: 0;
+  padding: 1.5rem 0 1.5rem 2rem;
+}
+.inspector-toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+.inspector-artifact {
+  background: #e9eef4;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 31rem;
+}
+.inspector-artifact img {
+  width: 100%;
+  height: auto;
+  max-height: 37rem;
+  object-fit: contain;
+}
+.inspector-viewer figcaption {
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  margin-top: 0.875rem;
+}
+.inspector-case-study {
+  margin-top: 2.5rem;
+}
+.inspector-case-study > summary {
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding-block: 1rem;
+}
+.inspector-case-study > :not(summary) {
+  max-width: 48rem;
+}
+.inspector-case-study h2 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  margin-block: 2.5rem 1rem;
+}
+.inspector-case-study h3 {
+  font-weight: 600;
+  margin-block: 2rem 0.75rem;
+}
+.inspector-case-study p,
+.inspector-case-study ul,
+.inspector-case-study ol {
+  color: var(--muted);
+  line-height: 1.8;
+  margin-block: 1rem;
+}
+.inspector-case-study ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+.inspector-case-study ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+}
+@media (max-width: 800px) {
+  .inspector-intro {
+    display: block;
+  }
+  .inspector-intro > p.text-body {
+    margin-top: 1.5rem;
+  }
+  .inspector-meta {
+    margin-bottom: 1.5rem;
+  }
+  .project-inspector {
+    grid-template-columns: 1fr;
+  }
+  .inspector-sidebar {
+    padding-right: 0;
+    border-right: 0;
+  }
+  .inspector-navigation {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0.25rem;
+  }
+  .inspector-navigation button {
+    flex-shrink: 0;
+  }
+  .inspector-navigation span {
+    display: none;
+  }
+  .inspector-viewer {
+    padding: 0 0 1.5rem;
+  }
+  .inspector-artifact {
+    min-height: 0;
+    padding: 0.5rem;
+  }
 }

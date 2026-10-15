@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="960" viewBox="0 0 900 960" role="img" aria-labelledby="title desc">
+  <title id="title">ReisView Flight Bookings Interface</title>
+  <desc id="desc">Faithful high-resolution vector recreation of the ReisView JavaFX user interface showing airline selection combobox, passenger fields, 4-way sort toggles, and bookings list.</desc>
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="900" height="960" fill="#f1f5f9"/>
+
+  <!-- JavaFX Window Container (550x620 scaled to 820x900) -->
+  <g transform="translate(40, 30)" filter="url(#shadow)">
+    <!-- Window Background -->
+    <rect width="820" height="900" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+
+    <!-- Title Bar -->
+    <path d="M0 10 Q0 0 10 0 L810 0 Q820 0 820 10 L820 42 L0 42 Z" fill="#e2e8f0"/>
+    <circle cx="24" cy="21" r="7" fill="#ef4444"/>
+    <circle cx="46" cy="21" r="7" fill="#f59e0b"/>
+    <circle cx="68" cy="21" r="7" fill="#10b981"/>
+    <text x="410" y="27" fill="#334155" font-size="14" font-weight="600" text-anchor="middle">Practicumopdracht OOP2 - Mohamad Hassan</text>
+
+    <!-- Content Area: 4-Column GridPane -->
+    <g transform="translate(36, 65)">
+      <!-- Row 0: Sortering Radio Buttons -->
+      <g transform="translate(0, 0)">
+        <text x="0" y="22" fill="#334155" font-size="13" font-weight="700">Sortering:</text>
+        <g transform="translate(110, 0)">
+          <!-- Radio 1: Naam A->Z (Selected) -->
+          <circle cx="10" cy="18" r="7" fill="#ffffff" stroke="#0284c7" stroke-width="2"/>
+          <circle cx="10" cy="18" r="4" fill="#0284c7"/>
+          <text x="24" y="22" fill="#0369a1" font-size="13" font-weight="600">Naam (A-&gt;Z)</text>
+
+          <!-- Radio 2: Naam Z->A -->
+          <circle cx="150" cy="18" r="7" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+          <text x="164" y="22" fill="#475569" font-size="13">Naam (Z-&gt;A)</text>
+
+          <!-- Radio 3: Dagen H->L -->
+          <circle cx="280" cy="18" r="7" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+          <text x="294" y="22" fill="#475569" font-size="13">Dagen (H-&gt;L)</text>
+
+          <!-- Radio 4: Dagen L->H -->
+          <circle cx="420" cy="18" r="7" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+          <text x="434" y="22" fill="#475569" font-size="13">Dagen (L-&gt;H)</text>
+        </g>
+      </g>
+
+      <!-- Row 1: Bedrijf ComboBox (Spans cols 1 to 3) -->
+      <g transform="translate(0, 45)">
+        <text x="0" y="24" fill="#334155" font-size="13" font-weight="600">Luchtvaart:</text>
+        <g transform="translate(140, 0)">
+          <rect width="600" height="36" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+          <text x="16" y="23" fill="#0f172a" font-size="14" font-weight="600">CORENDON AIRLINES</text>
+          <path d="M570 15 L580 15 L575 22 Z" fill="#475569"/>
+        </g>
+      </g>
+
+      <!-- Row 2: Reiziger & Datum -->
+      <g transform="translate(0, 95)">
+        <!-- Col 0-1: Reiziger -->
+        <text x="0" y="24" fill="#334155" font-size="13" font-weight="600">Reiziger</text>
+        <rect x="140" y="0" width="220" height="36" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+        <text x="152" y="23" fill="#0f172a" font-size="13">Sarah Jenkins</text>
+
+        <!-- Col 2-3: Datum -->
+        <text x="390" y="24" fill="#334155" font-size="13" font-weight="600">Datum</text>
+        <rect x="470" y="0" width="270" height="36" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+        <text x="484" y="23" fill="#0f172a" font-size="13">2021-06-15</text>
+        <rect x="710" y="8" width="20" height="20" rx="2" fill="#f1f5f9" stroke="#64748b"/>
+      </g>
+
+      <!-- Row 3: Bestemming & Prijs -->
+      <g transform="translate(0, 145)">
+        <!-- Bestemming -->
+        <text x="0" y="24" fill="#334155" font-size="13" font-weight="600">Bestemming</text>
+        <rect x="140" y="0" width="220" height="36" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+        <text x="152" y="23" fill="#0f172a" font-size="13">Antalya (AYT)</text>
+
+        <!-- Prijs -->
+        <text x="390" y="24" fill="#334155" font-size="13" font-weight="600">Prijs (€)</text>
+        <rect x="470" y="0" width="270" height="36" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+        <text x="484" y="23" fill="#0f172a" font-size="13">349.50</text>
+      </g>
+
+      <!-- Row 4: Aantal dagen & Binnen EU -->
+      <g transform="translate(0, 195)">
+        <!-- Aantal dagen -->
+        <text x="0" y="24" fill="#334155" font-size="13" font-weight="600">Aantal dagen</text>
+        <rect x="140" y="0" width="220" height="36" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+        <text x="152" y="23" fill="#0f172a" font-size="13">14</text>
+
+        <!-- Binnen EU -->
+        <text x="390" y="24" fill="#334155" font-size="13" font-weight="600">Binnen EU</text>
+        <rect x="470" y="7" width="22" height="22" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+        <path d="M474 18 L479 23 L488 12" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round"/>
+        <text x="504" y="24" fill="#475569" font-size="12">(EU Bestemming)</text>
+      </g>
+
+      <!-- Row 5: Opslaan Knop -->
+      <g transform="translate(320, 250)">
+        <rect width="180" height="40" rx="6" fill="#0284c7"/>
+        <text x="90" y="25" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" letter-spacing="1">OPSLAAN</text>
+      </g>
+
+      <!-- Row 6: ListView<Reis> -->
+      <g transform="translate(0, 305)">
+        <rect width="740" height="430" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+
+        <!-- Header -->
+        <rect x="0" y="0" width="740" height="28" fill="#f1f5f9" rx="6 6 0 0"/>
+        <text x="14" y="18" fill="#64748b" font-size="11" font-weight="600">GEKOPPELDE BOEKINGEN (CORENDON AIRLINES)</text>
+
+        <!-- Selected Item 1 -->
+        <rect x="1" y="29" width="738" height="75" fill="#e0f2fe"/>
+        <line x1="1" y1="104" x2="739" y2="104" stroke="#bae6fd"/>
+        <text x="16" y="56" fill="#0369a1" font-size="13" font-family="ui-monospace, monospace" font-weight="700">(ID:CORENDON) ---- REIZIGER : SARAH JENKINS ---- BINNEN DE EU : WEL</text>
+        <text x="16" y="80" fill="#0284c7" font-size="12" font-family="ui-monospace, monospace">AANTAL DAGEN : 14  ----  Prijs: €349.50  ----  Bestemming: Antalya (AYT)</text>
+
+        <!-- Item 2 -->
+        <rect x="1" y="105" width="738" height="75" fill="#ffffff"/>
+        <line x1="1" y1="180" x2="739" y2="180" stroke="#f1f5f9"/>
+        <text x="16" y="132" fill="#1e293b" font-size="13" font-family="ui-monospace, monospace" font-weight="700">(ID:CORENDON) ---- REIZIGER : LUCAS VAN DIJK ---- BINNEN DE EU : WEL</text>
+        <text x="16" y="156" fill="#64748b" font-size="12" font-family="ui-monospace, monospace">AANTAL DAGEN : 8   ----  Prijs: €229.00  ----  Bestemming: Rhodos (RHO)</text>
+
+        <!-- Item 3 -->
+        <rect x="1" y="181" width="738" height="75" fill="#ffffff"/>
+        <line x1="1" y1="256" x2="739" y2="256" stroke="#f1f5f9"/>
+        <text x="16" y="208" fill="#1e293b" font-size="13" font-family="ui-monospace, monospace" font-weight="700">(ID:CORENDON) ---- REIZIGER : EMMA ALBERS ---- BINNEN DE EU : NIET</text>
+        <text x="16" y="232" fill="#64748b" font-size="12" font-family="ui-monospace, monospace">AANTAL DAGEN : 21  ----  Prijs: €580.00  ----  Bestemming: Hurghada (HRG)</text>
+
+        <!-- Item 4 -->
+        <rect x="1" y="257" width="738" height="75" fill="#ffffff"/>
+        <line x1="1" y1="332" x2="739" y2="332" stroke="#f1f5f9"/>
+        <text x="16" y="284" fill="#1e293b" font-size="13" font-family="ui-monospace, monospace" font-weight="700">(ID:CORENDON) ---- REIZIGER : NOAH DE BOER ---- BINNEN DE EU : WEL</text>
+        <text x="16" y="308" fill="#64748b" font-size="12" font-family="ui-monospace, monospace">AANTAL DAGEN : 5   ----  Prijs: €145.00  ----  Bestemming: Ibiza (IBZ)</text>
+
+        <!-- Item 5 -->
+        <rect x="1" y="333" width="738" height="75" fill="#ffffff"/>
+        <text x="16" y="360" fill="#1e293b" font-size="13" font-family="ui-monospace, monospace" font-weight="700">(ID:CORENDON) ---- REIZIGER : ZOE MEIJER ---- BINNEN DE EU : WEL</text>
+        <text x="16" y="384" fill="#64748b" font-size="12" font-family="ui-monospace, monospace">AANTAL DAGEN : 10  ----  Prijs: €310.00  ----  Bestemming: Kreta (HER)</text>
+      </g>
+
+      <!-- Row 7: Action Buttons (Nieuwe, Verwijder, Terug / SwitchScene) -->
+      <g transform="translate(100, 755)">
+        <rect x="0" y="0" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="70" y="25" fill="#1e293b" font-size="13" font-weight="700" text-anchor="middle">NIEUWE</text>
+
+        <rect x="180" y="0" width="150" height="40" rx="6" fill="#fef2f2" stroke="#f87171" stroke-width="1.5"/>
+        <text x="255" y="25" fill="#dc2626" font-size="13" font-weight="700" text-anchor="middle">VERWIJDER</text>
+
+        <rect x="370" y="0" width="180" height="40" rx="6" fill="#0284c7"/>
+        <text x="460" y="25" fill="#ffffff" font-size="13" font-weight="700" text-anchor="middle">← Terug naar Bedrijven</text>
+      </g>
+    </g>
+  </g>
+</svg>

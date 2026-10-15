@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="960" viewBox="0 0 900 960" role="img" aria-labelledby="title desc">
+  <title id="title">BedrijfView Flight Operator Interface</title>
+  <desc id="desc">Faithful high-resolution vector recreation of the BedrijfView JavaFX user interface with window frame, menus, form fields, and company listing.</desc>
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="900" height="960" fill="#f1f5f9"/>
+
+  <!-- JavaFX Window Container (550x620 scaled to 820x900) -->
+  <g transform="translate(40, 30)" filter="url(#shadow)">
+    <!-- Window Background -->
+    <rect width="820" height="900" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+
+    <!-- Title Bar -->
+    <path d="M0 10 Q0 0 10 0 L810 0 Q820 0 820 10 L820 42 L0 42 Z" fill="#e2e8f0"/>
+    <circle cx="24" cy="21" r="7" fill="#ef4444"/>
+    <circle cx="46" cy="21" r="7" fill="#f59e0b"/>
+    <circle cx="68" cy="21" r="7" fill="#10b981"/>
+    <text x="410" y="27" fill="#334155" font-size="14" font-weight="600" text-anchor="middle">Practicumopdracht OOP2 - Mohamad Hassan</text>
+
+    <!-- Menu Bar -->
+    <rect x="0" y="42" width="820" height="34" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="0.75"/>
+    <rect x="12" y="46" width="70" height="26" rx="4" fill="#e2e8f0" fill-opacity="0.6"/>
+    <text x="47" y="64" fill="#1e293b" font-size="13" font-weight="500" text-anchor="middle">Bestand</text>
+    <rect x="90" y="46" width="76" height="26" rx="4" fill="#e2e8f0" fill-opacity="0.6"/>
+    <text x="128" y="64" fill="#1e293b" font-size="13" font-weight="500" text-anchor="middle">Sorteren</text>
+
+    <!-- Content Area: GridPane (padding 10, vgap 6, hgap 10) -->
+    <g transform="translate(36, 100)">
+      <!-- Row 0: Bedrijfs naam -->
+      <text x="0" y="24" fill="#334155" font-size="14" font-weight="600">Bedrijfs naam</text>
+      <rect x="160" y="0" width="580" height="38" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+      <text x="176" y="24" fill="#0f172a" font-size="14" font-weight="500">Corendon Airlines</text>
+
+      <!-- Row 1: Land van afkomst -->
+      <text x="0" y="74" fill="#334155" font-size="14" font-weight="600">Land van afkomst</text>
+      <rect x="160" y="50" width="580" height="38" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+      <text x="176" y="74" fill="#0f172a" font-size="14" font-weight="500">Nederland</text>
+
+      <!-- Row 2: Oprichting jaar -->
+      <text x="0" y="124" fill="#334155" font-size="14" font-weight="600">Oprichting jaar</text>
+      <g transform="translate(160, 100)">
+        <rect width="580" height="38" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+        <text x="16" y="24" fill="#0f172a" font-size="14">2005-04-12</text>
+        <!-- Calendar icon -->
+        <rect x="542" y="8" width="22" height="22" rx="3" fill="#f1f5f9" stroke="#64748b"/>
+        <line x1="542" y1="14" x2="564" y2="14" stroke="#64748b"/>
+      </g>
+
+      <!-- Row 3: Meer Details -->
+      <text x="0" y="180" fill="#334155" font-size="14" font-weight="600">Meer Details</text>
+      <g transform="translate(160, 150)">
+        <rect width="580" height="85" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+        <text x="16" y="26" fill="#334155" font-size="13">Nederlandse en Turkse luchtvaartmaatschappij gespecialiseerd</text>
+        <text x="16" y="48" fill="#334155" font-size="13">in chartervluchten naar mediterrane vakantiebestemmingen.</text>
+      </g>
+
+      <!-- Row 4: Opslaan Button -->
+      <g transform="translate(320, 255)">
+        <rect width="180" height="42" rx="6" fill="#0284c7"/>
+        <text x="90" y="26" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" letter-spacing="1">OPSLAAN</text>
+      </g>
+
+      <!-- Row 5: ListView<Bedrijf> -->
+      <g transform="translate(0, 315)">
+        <rect width="740" height="385" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+
+        <!-- Header info banner -->
+        <rect x="0" y="0" width="740" height="28" fill="#f1f5f9" rx="6 6 0 0"/>
+        <text x="14" y="18" fill="#64748b" font-size="11" font-weight="600">GEREGISTREERDE BEDRIJVEN (OBSERVABLE LIST)</text>
+
+        <!-- Selected Item 1 -->
+        <rect x="1" y="29" width="738" height="85" fill="#e0f2fe"/>
+        <line x1="1" y1="114" x2="739" y2="114" stroke="#bae6fd"/>
+        <text x="16" y="58" fill="#0369a1" font-size="15" font-weight="700">CORENDON AIRLINES</text>
+        <text x="16" y="82" fill="#0284c7" font-size="12" font-family="ui-monospace, monospace">(ID : 1)----------------------AFKOMST : *NEDERLAND*----------------------OPRICHTJAAR : *2005-04-12*</text>
+        <text x="16" y="100" fill="#0369a1" font-size="11">Vluchten gekoppeld: 2 geregistreerde reizen</text>
+
+        <!-- Item 2 -->
+        <rect x="1" y="115" width="738" height="85" fill="#ffffff"/>
+        <line x1="1" y1="200" x2="739" y2="200" stroke="#f1f5f9"/>
+        <text x="16" y="144" fill="#0f172a" font-size="15" font-weight="700">KLM ROYAL DUTCH AIRLINES</text>
+        <text x="16" y="168" fill="#64748b" font-size="12" font-family="ui-monospace, monospace">(ID : 2)----------------------AFKOMST : *NEDERLAND*----------------------OPRICHTJAAR : *1919-10-07*</text>
+        <text x="16" y="186" fill="#64748b" font-size="11">Nationale luchtvaartmaatschappij van Nederland met wereldwijd netwerk.</text>
+
+        <!-- Item 3 -->
+        <rect x="1" y="201" width="738" height="85" fill="#ffffff"/>
+        <line x1="1" y1="286" x2="739" y2="286" stroke="#f1f5f9"/>
+        <text x="16" y="230" fill="#0f172a" font-size="15" font-weight="700">TUI FLY NETHERLANDS</text>
+        <text x="16" y="254" fill="#64748b" font-size="12" font-family="ui-monospace, monospace">(ID : 3)----------------------AFKOMST : *NEDERLAND*----------------------OPRICHTJAAR : *2005-04-16*</text>
+        <text x="16" y="272" fill="#64748b" font-size="11">Nederlandse vakantievliegmaatschappij onderdeel van TUI Group.</text>
+
+        <!-- Item 4 -->
+        <rect x="1" y="287" width="738" height="85" fill="#ffffff"/>
+        <text x="16" y="316" fill="#0f172a" font-size="15" font-weight="700">TRANSAVIA</text>
+        <text x="16" y="340" fill="#64748b" font-size="12" font-family="ui-monospace, monospace">(ID : 4)----------------------AFKOMST : *NEDERLAND*----------------------OPRICHTJAAR : *1965-11-16*</text>
+        <text x="16" y="358" fill="#64748b" font-size="11">Nederlandse budgetmaatschappij en dochteronderneming van KLM.</text>
+      </g>
+
+      <!-- Row 6: CRUD Buttons (HBox spacing 40, aligned center) -->
+      <g transform="translate(110, 720)">
+        <!-- Nieuwe -->
+        <rect x="0" y="0" width="140" height="42" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="70" y="26" fill="#1e293b" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="0.5">NIEUWE</text>
+
+        <!-- Verwijder -->
+        <rect x="180" y="0" width="150" height="42" rx="6" fill="#fef2f2" stroke="#f87171" stroke-width="1.5"/>
+        <text x="255" y="26" fill="#dc2626" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="0.5">VERWIJDER</text>
+
+        <!-- Bekijk Reizen -->
+        <rect x="370" y="0" width="160" height="42" rx="6" fill="#0284c7"/>
+        <text x="450" y="26" fill="#ffffff" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="0.5">Bekijk Reizen →</text>
+      </g>
+    </g>
+  </g>
+</svg>

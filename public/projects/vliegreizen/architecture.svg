@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Vliegreizen JavaFX Architecture</title>
+  <desc id="desc">Architecture diagram of the JavaFX desktop travel management application showing the separation between JavaFX UI Views, Controller lifecycle handlers, Domain Models, and Data Access Objects supporting both binary and text persistence.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 1L10 5L0 9Z" fill="#334155"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 1L10 5L0 9Z" fill="#0284c7"/>
+    </marker>
+    <marker id="arrow-indigo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 1L10 5L0 9Z" fill="#4f46e5"/>
+    </marker>
+    <marker id="arrow-emerald" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 1L10 5L0 9Z" fill="#059669"/>
+    </marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; fill: #0f172a; }
+      .header-title { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; fill: #0f172a; }
+      .header-desc { font-size: 17px; fill: #475569; font-weight: 400; }
+      .section-badge { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+      .card-title { font-size: 18px; font-weight: 700; fill: #0f172a; }
+      .card-item { font-size: 13px; fill: #334155; }
+      .card-sub { font-size: 12px; fill: #64748b; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+      .link { fill: none; stroke: #334155; stroke-width: 2.2; marker-end: url(#arrow); }
+      .link-blue { fill: none; stroke: #0284c7; stroke-width: 2.2; marker-end: url(#arrow-blue); }
+      .link-indigo { fill: none; stroke: #4f46e5; stroke-width: 2.2; marker-end: url(#arrow-indigo); }
+      .link-emerald { fill: none; stroke: #059669; stroke-width: 2.2; marker-end: url(#arrow-emerald); }
+      .flow-label { font-size: 12px; font-weight: 600; fill: #475569; }
+    </style>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1600" height="900" fill="#f8fafc"/>
+
+  <!-- Top Title Area -->
+  <g transform="translate(60, 42)">
+    <rect x="0" y="0" width="8" height="42" fill="#0284c7" rx="2"/>
+    <text x="24" y="26" class="header-title">Vliegreizen · JavaFX Desktop Architecture</text>
+    <text x="24" y="46" class="header-desc">Model-View-Controller (MVC) Desktop Architecture · Observable Collections · Interchangeable DAO Data Layer</text>
+  </g>
+
+  <!-- ================= TIER 1: PRESENTATION (VIEWS) ================= -->
+  <rect x="60" y="105" width="460" height="745" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="76" y="120" width="280" height="26" rx="6" fill="#e0f2fe"/>
+  <text x="86" y="138" class="section-badge" fill="#0369a1">1. View Layer (JavaFX Nodes)</text>
+
+  <!-- BedrijfView -->
+  <rect x="76" y="160" width="428" height="295" rx="10" fill="#f0f9ff" stroke="#7dd3fc" stroke-width="1.5"/>
+  <text x="96" y="190" class="card-title">BedrijfView (Airlines / Operators)</text>
+  <text x="96" y="214" class="card-item">• GridPane layout with 100px / 420px column constraints</text>
+  <text x="96" y="234" class="card-item">• TextFields for Naam, Land van afkomst</text>
+  <text x="96" y="254" class="card-item">• DatePicker for Oprichting jaar (founding date)</text>
+  <text x="96" y="274" class="card-item">• TextArea for multi-line description &amp; details</text>
+  <text x="96" y="294" class="card-item">• ListView&lt;Bedrijf&gt; displaying company records</text>
+  <text x="96" y="314" class="card-item">• MenuBar: Bestand (Opslaan, Laden, Exit), Sorteren</text>
+  <text x="96" y="334" class="card-item">• Action controls: Opslaan, Nieuwe, Verwijder, Bekijk Reizen</text>
+  <text x="96" y="365" class="card-sub">practicumopdracht.views.BedrijfView</text>
+
+  <!-- ReisView -->
+  <rect x="76" y="475" width="428" height="355" rx="10" fill="#f0f9ff" stroke="#7dd3fc" stroke-width="1.5"/>
+  <text x="96" y="505" class="card-title">ReisView (Booked Journeys / Flights)</text>
+  <text x="96" y="529" class="card-item">• 4-Column responsive GridPane (100px / 160px / 100px / 160px)</text>
+  <text x="96" y="549" class="card-item">• ComboBox&lt;String&gt; for airline selector across columns</text>
+  <text x="96" y="569" class="card-item">• TextFields: Reiziger, Bestemming, Prijs, Aantal dagen</text>
+  <text x="96" y="589" class="card-item">• DatePicker for flight / departure date</text>
+  <text x="96" y="609" class="card-item">• CheckBox: Binnen de EU (Schengen / EU boundary)</text>
+  <text x="96" y="629" class="card-item">• ToggleGroup radio sort: Naam (A-Z / Z-A), Dagen (H-L / L-H)</text>
+  <text x="96" y="649" class="card-item">• ListView&lt;Reis&gt; for journeys scoped to active company</text>
+  <text x="96" y="669" class="card-item">• Action controls: Opslaan, Nieuwe, Verwijder, Terug / SwitchScene</text>
+  <text x="96" y="700" class="card-sub">practicumopdracht.views.ReisView</text>
+
+  <!-- ================= TIER 2: CONTROLLERS & COORDINATION ================= -->
+  <rect x="550" y="105" width="480" height="745" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="566" y="120" width="310" height="26" rx="6" fill="#e0e7ff"/>
+  <text x="576" y="138" class="section-badge" fill="#4338ca">2. Controller Layer (MVC Coordination)</text>
+
+  <!-- MainApplication & Stage -->
+  <rect x="566" y="160" width="448" height="150" rx="10" fill="#f5f3ff" stroke="#c7d2fe" stroke-width="1.5"/>
+  <text x="586" y="190" class="card-title">MainApplication &amp; Stage Manager</text>
+  <text x="586" y="214" class="card-item">• JavaFX Application lifecycle &amp; static Stage router</text>
+  <text x="586" y="234" class="card-item">• switchController(Controller): updates Stage scene dynamically</text>
+  <text x="586" y="254" class="card-item">• Single source of truth for BedrijfDAO and ReisDAO singletons</text>
+  <text x="586" y="285" class="card-sub">MainApplication.switchController()</text>
+
+  <!-- BedrijfController -->
+  <rect x="566" y="330" width="448" height="235" rx="10" fill="#f5f3ff" stroke="#c7d2fe" stroke-width="1.5"/>
+  <text x="586" y="360" class="card-title">BedrijfController</text>
+  <text x="586" y="384" class="card-item">• Handles CRUD validation for Bedrijf entities</text>
+  <text x="586" y="404" class="card-item">• Binds ObservableList&lt;Bedrijf&gt; to ListView selection model</text>
+  <text x="586" y="424" class="card-item">• Sorts dynamically using BedrijvenComparator (A-Z / Z-A)</text>
+  <text x="586" y="444" class="card-item">• Cascade checks: alerts user on deleting company with trips</text>
+  <text x="586" y="464" class="card-item">• Navigates to ReisController passing selected bedrijfId</text>
+  <text x="586" y="495" class="card-sub">practicumopdracht.controllers.BedrijfController</text>
+
+  <!-- ReisController -->
+  <rect x="566" y="585" width="448" height="245" rx="10" fill="#f5f3ff" stroke="#c7d2fe" stroke-width="1.5"/>
+  <text x="586" y="615" class="card-title">ReisController</text>
+  <text x="586" y="639" class="card-item">• Filters reis list to items matching target bedrijfId</text>
+  <text x="586" y="659" class="card-item">• Field validation: price double parsing, positive days, dates</text>
+  <text x="586" y="679" class="card-item">• 4-Way Radio sort: ReisComparator &amp; ReisAantalDagenComparator</text>
+  <text x="586" y="699" class="card-item">• Synchronizes company ComboBox selection with trip parent</text>
+  <text x="586" y="719" class="card-item">• Back button invokes switchController(new BedrijfController())</text>
+  <text x="586" y="750" class="card-sub">practicumopdracht.controllers.ReisController</text>
+
+  <!-- ================= TIER 3: DATA & PERSISTENCE ================= -->
+  <rect x="1060" y="105" width="480" height="745" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="1076" y="120" width="310" height="26" rx="6" fill="#ecfdf5"/>
+  <text x="1086" y="138" class="section-badge" fill="#047857">3. Data &amp; Persistence Layer (DAOs)</text>
+
+  <!-- Domain Models -->
+  <rect x="1076" y="160" width="448" height="150" rx="10" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.5"/>
+  <text x="1096" y="190" class="card-title">Domain Models (Serializable)</text>
+  <text x="1096" y="214" class="card-item">• Bedrijf: id, naam, landAfkomst, meerInformatie, oprichtJaar</text>
+  <text x="1096" y="234" class="card-item">• Reis: id, bedrijf, reiziger, datum, bestemming, prijs, binnenEU, dagen</text>
+  <text x="1096" y="254" class="card-item">• Formatted toString() overrides for clean JavaFX ListView rendering</text>
+  <text x="1096" y="285" class="card-sub">practicumopdracht.models.*</text>
+
+  <!-- DAO Interfaces -->
+  <rect x="1076" y="330" width="448" height="150" rx="10" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.5"/>
+  <text x="1096" y="360" class="card-title">DAO Contract Pattern</text>
+  <text x="1096" y="384" class="card-item">• DAO&lt;T&gt; interface with getAll(), addOrUpdate(), remove()</text>
+  <text x="1096" y="404" class="card-item">• save() and load() abstractions decouple UI from file format</text>
+  <text x="1096" y="424" class="card-item">• In-memory ArrayList cache synced to JavaFX ObservableLists</text>
+  <text x="1096" y="455" class="card-sub">DAO&lt;T&gt; → BedrijfDAO / ReisDAO</text>
+
+  <!-- Interchangeable DAO Implementations -->
+  <rect x="1076" y="500" width="448" height="330" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="1096" y="530" class="card-title">Pluggable Storage Implementations</text>
+
+  <rect x="1096" y="545" width="408" height="120" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+  <text x="1112" y="570" class="card-title" style="font-size: 15px;">Binary &amp; Object Streams (Active Configuration)</text>
+  <text x="1112" y="592" class="card-item">• BinaryBedrijfDAO: DataOutputStream / DataInputStream (bedrijven.bin)</text>
+  <text x="1112" y="612" class="card-item">• Custom delimiter format (%d~%s~%s~%s~%s) with newline sanitation</text>
+  <text x="1112" y="632" class="card-item">• ObjectReisDAO: ObjectOutputStream serialization (reizen.obj)</text>
+  <text x="1112" y="652" class="card-sub">BinaryBedrijfDAO · ObjectReisDAO</text>
+
+  <rect x="1096" y="685" width="408" height="125" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+  <text x="1112" y="710" class="card-title" style="font-size: 15px;">Text IO &amp; Mock DAOs (Alternative / Testing)</text>
+  <text x="1112" y="732" class="card-item">• TextBedrijfDAO: CSV formatted PrintWriter / Scanner (bedrijven.txt)</text>
+  <text x="1112" y="752" class="card-item">• TextReisDAO: Delimited text parsing with foreign-key ID lookups</text>
+  <text x="1112" y="772" class="card-item">• FakeBedrijfDAO &amp; FakeReisDAO: In-memory mock drivers for testing</text>
+  <text x="1112" y="792" class="card-sub">TextBedrijfDAO · TextReisDAO · FakeDAO</text>
+
+  <!-- ================= CONNECTORS / FLOW ARROWS ================= -->
+  <!-- View to Controller -->
+  <path d="M504 290 H566" class="link-blue"/>
+  <path d="M504 680 H566" class="link-blue"/>
+
+  <!-- Controller to Data -->
+  <path d="M1014 430 H1076" class="link-indigo"/>
+  <path d="M1014 670 H1076" class="link-indigo"/>
+
+  <!-- Controller internal scene switch -->
+  <path d="M790 310 V330" class="link-indigo"/>
+  <path d="M790 565 V585" class="link-indigo"/>
+
+</svg>

@@ -10,6 +10,7 @@ import * as lexitype from './lexitype.mdx'
 import * as mediagrab from './mediagrab.mdx'
 import * as pad from './pad.mdx'
 import * as rag from './secure-rag-integration.mdx'
+import * as vliegreizen from './vliegreizen.mdx'
 
 export interface Project {
   metadata: ProjectMetadata
@@ -26,6 +27,7 @@ const modules = [
   ewa,
   pad,
   flyfriends,
+  vliegreizen,
   keylingo,
   lexitype,
 ]

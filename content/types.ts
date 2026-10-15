@@ -117,3 +117,17 @@ export interface SkillCategory {
   order: number
   skills: string[]
 }
+
+/** Artifact and contextual explanation authored in the project's MDX file. */
+export interface InspectorView {
+  label: string
+  category: string
+  title: string
+  description: string
+  decision: string
+  src: string
+  alt: string
+  width: number
+  height: number
+  caption: string
+}

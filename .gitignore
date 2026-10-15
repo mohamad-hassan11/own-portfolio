@@ -46,3 +46,6 @@ next-env.d.ts
 /.workspace/
 /.agents/
 
+.impeccable/config.json
+PRODUCT.md
+.codex/hooks.json
