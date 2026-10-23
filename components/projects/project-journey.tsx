@@ -22,6 +22,7 @@ interface ProjectJourneyProps {
   initialStage?: number
   composition?: ProjectCompositionMetadata
   children: ReactNode
+  introduction?: ReactNode
 }
 
 export function ProjectJourney({
@@ -32,6 +33,7 @@ export function ProjectJourney({
   initialStage = 0,
   composition,
   children,
+  introduction,
 }: ProjectJourneyProps) {
   const sectionContent = Children.toArray(children).filter(isValidElement)
   const title = project.displayTitle ?? project.title.split(' — ')[0]
@@ -51,6 +53,7 @@ export function ProjectJourney({
     initialStage,
   })
   const studioId = `studio-${project.slug}`
+  const experiment = composition?.experiment
 
   return (
     <article
@@ -63,15 +66,31 @@ export function ProjectJourney({
       </Link>
       <header className="journey-header">
         <div>
-          <h1 className="journey-title text-display">{title}</h1>
-          <p className="journey-summary">{project.summary}</p>
+          <h1 className="journey-title text-display">
+            {experiment ? (
+              <>
+                {experiment.titleLines[0]}
+                <br />
+                <span>{experiment.titleLines[1]}</span>
+              </>
+            ) : (
+              title
+            )}
+          </h1>
+          {experiment ? (
+            <p className="experiment-subtitle">{experiment.subtitle}</p>
+          ) : (
+            <p className="journey-summary">{project.summary}</p>
+          )}
         </div>
         <div className="journey-meta">
           {project.projectType && <strong>{project.projectType}</strong>}
           {context && <p>{context}</p>}
           <ProjectLinks project={project} />
+          {experiment && <p className="experiment-lead">{project.summary}</p>}
         </div>
       </header>
+      {introduction}
       {composition && (
         <ProjectComposition
           key={project.slug}

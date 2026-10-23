@@ -720,3 +720,208 @@ html:is([data-skin='pixel'], [data-skin='fusion'])
   font-size: 0.9rem;
   line-height: 1.6;
 }
+
+/* AI coding experiment: approved paired application composition. */
+.project-journey[data-composition='experiment'] .journey-header {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 4rem;
+  padding: 3rem 0 3.75rem;
+}
+.project-journey[data-composition='experiment'] .journey-title {
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  margin: 0;
+  text-transform: none;
+}
+.project-journey[data-composition='experiment'] .journey-title span {
+  color: var(--composition-accent);
+}
+.experiment-subtitle {
+  margin: 1.25rem 0 0;
+  color: var(--muted);
+  font-size: 1.375rem;
+}
+.project-journey[data-composition='experiment'] .journey-meta {
+  border: 0;
+  padding: 0;
+}
+.project-journey[data-composition='experiment'] .experiment-lead {
+  color: var(--foreground);
+  margin: 1rem 0 0;
+  max-width: 32ch;
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  line-height: 1.55;
+}
+.experiment-intent,
+.experiment-tools {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.25fr);
+  gap: 5rem;
+  border-top: 1px solid var(--border);
+  padding: 4rem 0;
+}
+.experiment-intent h2,
+.experiment-tools h2,
+.experiment-capabilities > h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.125rem, 4.1vw, 3.375rem);
+  line-height: 1.05;
+  font-weight: 700;
+  text-wrap: balance;
+}
+.experiment-intent p,
+.experiment-tools p {
+  max-width: 70ch;
+  line-height: 1.8;
+}
+.experiment-intent h2 {
+  border: 0;
+  padding: 0;
+  text-transform: none;
+}
+.experiment-intent p {
+  margin: 0;
+  font-size: 1rem;
+}
+.experiment-intent p + p {
+  margin-top: 1.125rem;
+}
+.experiment-limits,
+.experiment-app-description,
+.experiment-starting-tool,
+.experiment-capability-description {
+  color: var(--muted);
+}
+.composition-experiment {
+  border-top: 1px solid var(--border);
+  padding-top: 4rem;
+}
+.composition-experiment .composition-intro {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.composition-experiment .composition-intro h2 {
+  max-width: 17ch;
+}
+.composition-experiment .composition-intro p {
+  max-width: 30ch;
+  font-size: 0.875rem;
+}
+.experiment-implementations,
+.experiment-evidence-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.75rem;
+  align-items: start;
+}
+.experiment-implementation h3 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: 2.125rem;
+  font-weight: 700;
+}
+.experiment-starting-tool {
+  margin-bottom: 1.25rem;
+  font-size: 0.8125rem;
+}
+.experiment-starting-tool strong {
+  color: var(--foreground);
+  font-weight: 500;
+}
+.experiment-app-description {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.8;
+}
+.composition-experiment .composition-evidence-media {
+  padding: 0;
+}
+.composition-experiment .composition-evidence-image {
+  width: 100%;
+  max-height: none;
+}
+.composition-experiment .composition-evidence form {
+  gap: 1.5rem;
+}
+.composition-experiment .composition-evidence form button {
+  min-height: 2.75rem;
+}
+.experiment-tools {
+  margin-top: 4rem;
+}
+.experiment-tools dl {
+  display: grid;
+  gap: 1.125rem;
+  margin-top: 1.5rem;
+}
+.experiment-tools dl > div {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 1rem;
+}
+.experiment-tools dt {
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+.experiment-tools dd {
+  margin: 0;
+  font-size: 0.875rem;
+}
+.experiment-capabilities {
+  border-top: 1px solid var(--border);
+  padding-top: 4rem;
+}
+.experiment-capabilities > h2 {
+  margin-bottom: 1.75rem;
+}
+.experiment-capability-description {
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.8;
+  max-width: 90ch;
+}
+.project-journey[data-composition='experiment'] .journey-workspace {
+  grid-template-columns: minmax(0, 1fr);
+}
+.project-journey[data-composition='experiment'] .journey-evidence {
+  position: static;
+}
+@media (max-width: 760px) {
+  .project-journey[data-composition='experiment'] .journey-header,
+  .experiment-intent,
+  .experiment-tools,
+  .experiment-implementations,
+  .experiment-evidence-pair {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.75rem;
+  }
+  .project-journey[data-composition='experiment'] .journey-header {
+    padding: 2.5rem 0;
+  }
+  .project-journey[data-composition='experiment'] .journey-title {
+    font-size: clamp(3rem, 12vw, 5rem);
+    overflow-wrap: anywhere;
+  }
+  .experiment-intent,
+  .experiment-tools {
+    padding: 2.5rem 0;
+  }
+  .composition-experiment,
+  .experiment-capabilities {
+    padding-top: 2.5rem;
+  }
+  .composition-experiment .composition-intro {
+    display: block;
+  }
+  .experiment-tools {
+    margin-top: 2.5rem;
+  }
+  .experiment-tools dl > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.25rem;
+  }
+}

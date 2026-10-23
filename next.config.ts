@@ -21,6 +21,16 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: '/projects/keylingo',
+        destination: '/projects/ai-coding-experiments',
+        permanent: true,
+      },
+      {
+        source: '/projects/lexitype',
+        destination: '/projects/ai-coding-experiments',
+        permanent: true,
+      },
+      {
         source: '/projects/amsterdam-events',
         destination: '/projects/ewa',
         permanent: true,

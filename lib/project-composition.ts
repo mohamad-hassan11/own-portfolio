@@ -55,11 +55,23 @@ export function buildProjectPresentation({
         'desktop',
         'input',
         'learning',
+        'experiment',
       ].includes(composition.variant) ||
       new Set(mediaIds).size !== mediaIds.length ||
       media.some((item) => item.sectionId && !ids.includes(item.sectionId)) ||
       conclusionIndex < 0 ||
       sections.length < 2 ||
+      (composition.variant === 'experiment' &&
+        (!composition.experiment ||
+          composition.experiment.implementations.length !== 2 ||
+          new Set(composition.experiment.implementations.map((item) => item.id))
+            .size !== 2 ||
+          composition.experiment.implementations.some(
+            (item) => !mediaIds.includes(item.mediaId),
+          ) ||
+          composition.choices.some(
+            (choice) => choice.mediaIds.length !== 2,
+          ))) ||
       groups.some(
         (group) =>
           !group.choices.length ||

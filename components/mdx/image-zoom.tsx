@@ -2,7 +2,7 @@
 
 import { Maximize2, X } from 'lucide-react'
 import Image from 'next/image'
-import { useRef } from 'react'
+import { useId, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 
 interface ImageZoomProps {
@@ -13,6 +13,7 @@ interface ImageZoomProps {
   height: number
   mat?: boolean
   unoptimized?: boolean
+  allowActualSize?: boolean
 }
 
 const controlClass =
@@ -26,8 +27,12 @@ export function ImageZoom({
   height,
   mat,
   unoptimized,
+  allowActualSize = false,
 }: ImageZoomProps) {
   const dialogRef = useRef<HTMLDialogElement>(null)
+  const viewportRef = useRef<HTMLDivElement>(null)
+  const viewportId = useId()
+  const [actualSize, setActualSize] = useState(false)
 
   return (
     <>
@@ -43,6 +48,10 @@ export function ImageZoom({
       <dialog
         ref={dialogRef}
         aria-label={alt}
+        onClose={() => {
+          setActualSize(false)
+          viewportRef.current?.scrollTo(0, 0)
+        }}
         onClick={(event) => {
           if (event.target === event.currentTarget) event.currentTarget.close()
         }}
@@ -52,12 +61,32 @@ export function ImageZoom({
           method="dialog"
           className="border-ink flex justify-end border-b-2 px-3 py-2"
         >
+          {allowActualSize && (
+            <button
+              type="button"
+              className={controlClass}
+              aria-pressed={actualSize}
+              aria-controls={viewportId}
+              onClick={() => setActualSize(!actualSize)}
+            >
+              {actualSize ? 'Fit image' : 'Actual size'}
+            </button>
+          )}
           <button type="submit" className={controlClass}>
             <X aria-hidden className="size-3.5" />
             Close
           </button>
         </form>
         <div
+          id={viewportId}
+          ref={viewportRef}
+          tabIndex={allowActualSize ? 0 : undefined}
+          role={allowActualSize ? 'region' : undefined}
+          aria-label={
+            allowActualSize
+              ? 'Screenshot. In actual size, scroll or use arrow keys to pan.'
+              : undefined
+          }
           className={cn(
             'max-h-[calc(92vh-3rem)] overflow-auto',
             mat && 'bg-white',
@@ -70,7 +99,14 @@ export function ImageZoom({
             height={height}
             unoptimized={unoptimized}
             sizes={`${width}px`}
-            style={{ maxWidth: width, minWidth: Math.min(width, 900) }}
+            style={
+              allowActualSize
+                ? {
+                    width: actualSize ? width : '100%',
+                    maxWidth: actualSize ? 'none' : width,
+                  }
+                : { maxWidth: width, minWidth: Math.min(width, 900) }
+            }
             className="mx-auto h-auto w-full"
           />
         </div>

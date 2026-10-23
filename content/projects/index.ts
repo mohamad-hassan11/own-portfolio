@@ -5,8 +5,7 @@ import * as arkive from './arkive-big-data.mdx'
 import * as ewa from './ewa.mdx'
 import * as festivals from './festivals.mdx'
 import * as flyfriends from './flyfriends.mdx'
-import * as keylingo from './keylingo.mdx'
-import * as lexitype from './lexitype.mdx'
+import * as aiCodingExperiments from './ai-coding-experiments.mdx'
 import * as mediagrab from './mediagrab.mdx'
 import * as pad from './pad.mdx'
 import * as rag from './secure-rag-integration.mdx'
@@ -28,8 +27,7 @@ const modules = [
   pad,
   flyfriends,
   vliegreizen,
-  keylingo,
-  lexitype,
+  aiCodingExperiments,
 ]
 
 const projects: Project[] = modules

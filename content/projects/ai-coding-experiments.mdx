@@ -1,0 +1,332 @@
+import {
+  ProjectJourney,
+  JourneySection,
+} from '@/components/projects/project-journey'
+
+export const metadata = {
+  title: 'AI Coding Experiments — KeyLingo & LexiType',
+  displayTitle: 'AI Coding Experiments',
+  slug: 'ai-coding-experiments',
+  layout: 'journey',
+  summary:
+    'Two multilingual typing apps. Different starting tools. An exploration of AI coding through building.',
+  projectType: 'AI coding exploration',
+  organisation: 'Personal project',
+  year: 2026,
+  featured: true,
+  order: 8,
+  coverImage: '/projects/ai-coding-experiments/cover.webp',
+  coverImageDimensions: {
+    width: 1600,
+    height: 1000,
+  },
+  technologies: ['Next.js', 'React', 'TypeScript', 'Multilingual input'],
+  githubUrl: null,
+  liveUrl: null,
+}
+
+export const journeyStages = [
+  {
+    id: 'motivation',
+    title: 'Motivation',
+    tone: 'blue',
+    sectionIds: ['motivation'],
+  },
+  {
+    id: 'approach',
+    title: 'Development approach',
+    tone: 'violet',
+    sectionIds: ['approach'],
+  },
+  {
+    id: 'keylingo',
+    title: 'KeyLingo',
+    tone: 'blue',
+    sectionIds: ['keylingo'],
+  },
+  {
+    id: 'lexitype',
+    title: 'LexiType',
+    tone: 'green',
+    sectionIds: ['lexitype'],
+  },
+  {
+    id: 'outcome',
+    title: 'Outcome',
+    tone: 'violet',
+    sectionIds: ['result'],
+  },
+]
+
+export const journeySections = [
+  {
+    id: 'motivation',
+    title: 'Learning through building',
+  },
+  {
+    id: 'approach',
+    title: 'Different starts, continued experimentation',
+  },
+  {
+    id: 'keylingo',
+    title: 'KeyLingo: practice around the keyboard',
+  },
+  {
+    id: 'lexitype',
+    title: 'LexiType: a language practice workspace',
+  },
+  {
+    id: 'result',
+    title: 'Two builds. One exploration.',
+  },
+]
+
+export const journeyMedia = [
+  {
+    id: 'keylingo-cover',
+    src: '/projects/keylingo/cover.webp',
+    alt: 'KeyLingo application with a horizontal navigation bar and typing practice interface.',
+    label: 'KeyLingo · Application overview',
+    caption: 'Existing application capture.',
+    width: 2880,
+    height: 1920,
+    sectionId: 'keylingo',
+  },
+  {
+    id: 'keylingo-guided',
+    src: '/projects/keylingo/guided-practice.webp',
+    alt: 'KeyLingo guided practice showing Latin home-row characters, typing metrics and a virtual keyboard.',
+    label: 'KeyLingo · Guided practice',
+    caption:
+      'Existing practice capture; languages and session states differ between the builds.',
+    width: 2880,
+    height: 1920,
+    sectionId: 'keylingo',
+  },
+  {
+    id: 'keylingo-vocabulary',
+    src: '/projects/keylingo/translation-panel.webp',
+    alt: 'KeyLingo vocabulary practice with a word translation panel open.',
+    label: 'KeyLingo · Vocabulary lookup',
+    caption:
+      'Existing application capture; exercises and session states differ between the builds.',
+    width: 2880,
+    height: 1920,
+    sectionId: 'keylingo',
+  },
+  {
+    id: 'keylingo-arabic',
+    src: '/projects/keylingo/arabic-practice.webp',
+    alt: 'KeyLingo Arabic typing practice with right-to-left text and a virtual keyboard.',
+    label: 'KeyLingo · Arabic practice',
+    caption:
+      'Existing application capture; exercises and session states differ between the builds.',
+    width: 2880,
+    height: 1920,
+    sectionId: 'keylingo',
+  },
+  {
+    id: 'keylingo-progress',
+    src: '/projects/keylingo/progress-dashboard.webp',
+    alt: 'KeyLingo progress dashboard showing practice metrics and charts.',
+    label: 'KeyLingo · Progress dashboard',
+    caption:
+      'Captured application session values; these do not measure model or CLI performance.',
+    width: 2880,
+    height: 1920,
+    sectionId: 'keylingo',
+  },
+  {
+    id: 'lexitype-cover',
+    src: '/projects/lexitype/cover.webp',
+    alt: 'LexiType application with a left navigation sidebar and a focused practice workspace.',
+    label: 'LexiType · Application overview',
+    caption: 'Existing application capture.',
+    width: 2880,
+    height: 1920,
+    sectionId: 'lexitype',
+  },
+  {
+    id: 'lexitype-guided',
+    src: '/projects/lexitype/guided-practice.webp',
+    alt: 'LexiType guided practice showing an Arabic home-row lesson, a text input area and typing metrics.',
+    label: 'LexiType · Guided practice',
+    caption:
+      'Existing practice capture; languages and session states differ between the builds.',
+    width: 2880,
+    height: 1920,
+    sectionId: 'lexitype',
+  },
+  {
+    id: 'lexitype-vocabulary',
+    src: '/projects/lexitype/translation-panel.webp',
+    alt: 'LexiType vocabulary practice with a word translation panel open.',
+    label: 'LexiType · Vocabulary lookup',
+    caption:
+      'Existing application capture; exercises and session states differ between the builds.',
+    width: 2880,
+    height: 1920,
+    sectionId: 'lexitype',
+  },
+  {
+    id: 'lexitype-arabic',
+    src: '/projects/lexitype/arabic-practice.webp',
+    alt: 'LexiType Arabic typing practice with right-to-left practice text.',
+    label: 'LexiType · Arabic practice',
+    caption:
+      'Existing application capture; exercises and session states differ between the builds.',
+    width: 2880,
+    height: 1920,
+    sectionId: 'lexitype',
+  },
+  {
+    id: 'lexitype-progress',
+    src: '/projects/lexitype/progress-dashboard.webp',
+    alt: 'LexiType progress dashboard showing practice metrics and charts.',
+    label: 'LexiType · Progress dashboard',
+    caption:
+      'Captured application session values; these do not measure model or CLI performance.',
+    width: 2880,
+    height: 1920,
+    sectionId: 'lexitype',
+  },
+]
+
+export const composition = {
+  variant: 'experiment',
+  heading: 'One product goal. Two implementations.',
+  description:
+    'English, Dutch and Arabic. Typing practice and vocabulary learning.',
+  studioTitle: 'Behind the builds.',
+  conclusionId: 'result',
+  choices: [
+    {
+      id: 'guided',
+      label: 'Guided practice',
+      heading: 'Guided practice',
+      description:
+        'Both applications provide guided typing lessons. These captures show each app’s practice interface; the selected language and session state differ.',
+      mediaIds: ['keylingo-guided', 'lexitype-guided'],
+    },
+    {
+      id: 'vocabulary',
+      label: 'Vocabulary',
+      heading: 'Vocabulary lookup',
+      description:
+        'Typing practice also becomes a place to look up words. These captures show the vocabulary lookup interface in each application.',
+      mediaIds: ['keylingo-vocabulary', 'lexitype-vocabulary'],
+    },
+    {
+      id: 'arabic',
+      label: 'Arabic',
+      heading: 'Arabic practice',
+      description:
+        'Arabic gives both builds a concrete language and input challenge. These views show Arabic practice; they capture different exercises and session states.',
+      mediaIds: ['keylingo-arabic', 'lexitype-arabic'],
+    },
+    {
+      id: 'progress',
+      label: 'Progress',
+      heading: 'Progress dashboard',
+      description:
+        'Each application has a progress view. The values shown belong to captured app sessions and do not measure model or CLI performance.',
+      mediaIds: ['keylingo-progress', 'lexitype-progress'],
+    },
+  ],
+  experiment: {
+    titleLines: ['AI Coding', 'Experiments.'],
+    subtitle: 'KeyLingo & LexiType',
+    implementations: [
+      {
+        id: 'keylingo',
+        title: 'KeyLingo',
+        startingTool: 'Antigravity + Gemini Flash',
+        description:
+          'A practice interface organized around a top navigation bar, with a virtual keyboard and finger guidance.',
+        mediaId: 'keylingo-cover',
+      },
+      {
+        id: 'lexitype',
+        title: 'LexiType',
+        startingTool: 'Codex Sol',
+        description:
+          'A practice workspace organized around a persistent sidebar, with separate learning, vocabulary and progress views.',
+        mediaId: 'lexitype-cover',
+      },
+    ],
+    tools: {
+      heading: 'The tools changed along the way.',
+      description:
+        'After the initial setups, I moved between models and CLIs while adding features to both applications. The finished apps reflect that mixed development process.',
+      modelFamilies: ['Nemotron', 'Gemini', 'DeepSeek', 'MiMo', 'Codex'],
+      codingTools: ['Antigravity', 'OpenCode', 'Codex'],
+    },
+  },
+}
+
+<ProjectJourney
+  project={metadata}
+  composition={composition}
+  stages={journeyStages}
+  sections={journeySections}
+  media={journeyMedia}
+  initialStage={0}
+  introduction={
+    <section className="experiment-intent" aria-labelledby="experiment-intent-title">
+      <h2 id="experiment-intent-title">Why build it twice?</h2>
+      <div>
+        <p>I built KeyLingo and LexiType to explore how different AI models and coding tools approach the same product goal: combining touch typing with vocabulary practice.</p>
+        <p>KeyLingo started with Antigravity and Gemini Flash; LexiType started with Codex Sol. I then added features while experimenting with other models and tools, including OpenCode.</p>
+        <p className="experiment-limits">The process was exploratory. I switched between tools without preserving a comparison log, so this case study presents the development approach and resulting applications.</p>
+      </div>
+    </section>
+  }
+>
+
+<JourneySection id="motivation" title="Learning through building">
+
+I wanted to explore different AI models and CLIs through a working application. Multilingual typing and vocabulary practice gave the builds a shared product goal, with real input, language and interface challenges to work through.
+
+Building two versions created room to try different starting approaches and continue experimenting as features were added.
+
+</JourneySection>
+
+<JourneySection id="approach" title="Different starts, continued experimentation">
+
+KeyLingo’s initial setup used Antigravity with Gemini Flash. LexiType’s initial setup used Codex Sol. After that, I moved between models and coding tools while adding features.
+
+The models I tried included Nemotron, Gemini, DeepSeek, MiMo and Codex. Coding tools included Antigravity, OpenCode and Codex.
+
+I did not retain a feature-by-feature record of which model or CLI did what. The starting setups are the confirmed attribution; later development is presented as a shared exploration.
+
+</JourneySection>
+
+<JourneySection id="keylingo" title="KeyLingo: practice around the keyboard">
+
+KeyLingo combines guided typing practice, reflex drills and vocabulary exercises. Its interface uses a horizontal navigation bar, with a virtual keyboard and finger guidance in practice views.
+
+The source separates typing-session logic, Unicode handling, keyboard mappings and browser persistence from presentation components. English, Dutch and Arabic give that input pipeline different text and layout requirements.
+
+The starting setup used Antigravity and Gemini Flash. The finished application includes later experimentation with other models and coding tools.
+
+</JourneySection>
+
+<JourneySection id="lexitype" title="LexiType: a language practice workspace">
+
+LexiType approaches the same product goal through a sidebar workspace, with learning paths, reflex practice, vocabulary and progress views.
+
+Its source includes locale-prefixed English, Dutch and Arabic routes, a typing engine separated from React, keyboard mappings and recoverable browser data. The portfolio uses the LexiType name to distinguish this implementation.
+
+The starting setup used Codex Sol. Later development involved experimenting with other models and coding tools.
+
+</JourneySection>
+
+<JourneySection id="result" title="Two builds. One exploration.">
+
+The outcome is a pair of multilingual typing and vocabulary applications, developed while moving between AI models and coding tools.
+
+Presented together, KeyLingo and LexiType tell the story behind the similar functionality: repeated building as a way to explore AI coding in practice.
+
+</JourneySection>
+
+</ProjectJourney>

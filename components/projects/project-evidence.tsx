@@ -6,10 +6,12 @@ export function ProjectEvidence({
   media,
   priority = false,
   context,
+  actualSize = false,
 }: {
   media: JourneyMedia
   priority?: boolean
   context?: string
+  actualSize?: boolean
 }) {
   return (
     <figure className="composition-evidence">
@@ -22,6 +24,7 @@ export function ProjectEvidence({
             width={media.width}
             height={media.height}
             mat
+            allowActualSize={actualSize}
           />
         )}
       </div>

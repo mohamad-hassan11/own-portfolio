@@ -61,6 +61,7 @@ PRODUCT.md
 .impeccable/review/journey-production/flyfriends-desktop.png
 .impeccable/review/journey-production/flyfriends-mobile-top.png
 .impeccable/review/journey-production/flyfriends-mobile.png
+To continue this session, run:
 .impeccable/review/journey-production/keylingo-mobile-pixel-top.png
 .impeccable/review/journey-production/keylingo-mobile-pixel.png
 .impeccable/review/journey-production/mediagrab-desktop-top.png
@@ -96,3 +97,20 @@ PRODUCT.md
 .impeccable/surfaces/public-reviews-project-personalities-html.md
 .impeccable/surfaces/public-reviews-project-studios-html.md
 .impeccable/surfaces/public-reviews-rag-integration-html.md
+docs/design-reviews/ai-coding-experiments/browser-checks.json
+docs/design-reviews/ai-coding-experiments/desktop-dark.png
+docs/design-reviews/ai-coding-experiments/desktop-light.png
+docs/design-reviews/ai-coding-experiments/desktop-zoom.png
+docs/design-reviews/ai-coding-experiments/mobile-dark.png
+docs/design-reviews/ai-coding-experiments/mobile-light.png
+docs/design-reviews/ai-coding-experiments/mobile-zoom.png
+docs/design-reviews/ai-coding-experiments/README.md
+docs/design-reviews/ai-coding-experiments/production/browser-checks.json
+docs/design-reviews/ai-coding-experiments/production/catalogue-card.png
+docs/design-reviews/ai-coding-experiments/production/desktop-dark.png
+docs/design-reviews/ai-coding-experiments/production/desktop-light.png
+docs/design-reviews/ai-coding-experiments/production/desktop-zoom.png
+docs/design-reviews/ai-coding-experiments/production/mobile-dark.png
+docs/design-reviews/ai-coding-experiments/production/mobile-light.png
+docs/design-reviews/ai-coding-experiments/production/mobile-zoom.png
+docs/design-reviews/ai-coding-experiments/production/README.md
