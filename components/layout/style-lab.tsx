@@ -2,7 +2,13 @@
 
 import { Check, Dice5, Layers3, Orbit, RotateCcw, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type RefObject,
+} from 'react'
 import { createPortal } from 'react-dom'
 import { StyleLabControls } from './style-lab-controls'
 import { useStyleSettings } from './use-style-settings'
@@ -48,7 +54,15 @@ function getMousePointer() {
 
 const getServerMousePointer = () => false
 
-export function Multiverse({ onOpen }: { onOpen: () => void }) {
+export function StyleLab({
+  onOpen,
+  mobileTriggerContainer,
+  mobileReturnFocusRef,
+}: {
+  onOpen: () => void
+  mobileTriggerContainer?: HTMLElement | null
+  mobileReturnFocusRef?: RefObject<HTMLButtonElement | null>
+}) {
   const universe = useSyncExternalStore(
     subscribeUniverse,
     getUniverse,
@@ -77,7 +91,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
     if (next === 'cursor' && !hasMousePointer) return
     setPanel(next)
     setNotice('')
-    const catalog = dialogRef.current?.querySelector('.multiverse-catalog')
+    const catalog = dialogRef.current?.querySelector('.style-lab-catalog')
     if (catalog) catalog.scrollTop = 0
   }
 
@@ -211,26 +225,46 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
         onClick={toggle}
         aria-haspopup="dialog"
         aria-expanded={open}
-        aria-controls="multiverse-selector"
+        aria-controls="style-lab-selector"
         aria-keyshortcuts="t"
-        className="brutal-sm bg-surface inline-flex h-10 items-center gap-2 px-3 text-sm font-semibold"
+        className="brutal-sm bg-surface hidden h-10 items-center gap-2 px-3 text-sm font-semibold md:inline-flex"
       >
         <Orbit aria-hidden className="size-[18px]" />
         <span>Style Lab</span>
       </button>
+      {mobileTriggerContainer &&
+        createPortal(
+          <button
+            disabled={!mounted}
+            type="button"
+            onClick={toggle}
+            aria-haspopup="dialog"
+            aria-expanded={open}
+            aria-controls="style-lab-selector"
+            className="brutal-sm bg-surface inline-flex min-h-11 w-full items-center justify-center gap-2 px-3 text-sm font-semibold"
+          >
+            <Orbit aria-hidden className="size-[18px]" />
+            <span>Style Lab</span>
+          </button>,
+          mobileTriggerContainer,
+        )}
       {mounted &&
         createPortal(
           <>
             <dialog
               ref={dialogRef}
-              id="multiverse-selector"
-              aria-labelledby="multiverse-title"
-              aria-describedby="multiverse-description"
-              className="multiverse-dialog"
+              id="style-lab-selector"
+              aria-labelledby="style-lab-title"
+              aria-describedby="style-lab-description"
+              className="style-lab-dialog"
               data-panel={activePanel}
               onClose={() => {
                 setOpen(false)
-                triggerRef.current?.focus()
+                const returnFocus = window.matchMedia('(min-width: 768px)')
+                  .matches
+                  ? triggerRef.current
+                  : mobileReturnFocusRef?.current
+                returnFocus?.focus()
               }}
               onClick={(event) => {
                 if (event.target === event.currentTarget) {
@@ -245,19 +279,19 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                 }
               }}
             >
-              <div className="multiverse-heading flex items-start justify-between gap-4">
+              <div className="style-lab-heading flex items-start justify-between gap-4">
                 <div>
                   <p className="text-muted font-mono text-xs tracking-widest uppercase">
                     Style Lab
                   </p>
                   <h2
-                    id="multiverse-title"
+                    id="style-lab-title"
                     className="mt-2 text-2xl font-semibold"
                   >
                     Make this space yours.
                   </h2>
                   <p
-                    id="multiverse-description"
+                    id="style-lab-description"
                     className="text-muted mt-2 text-sm"
                   >
                     Choose a theme. Mix your cursor. Set the atmosphere.
@@ -270,7 +304,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                     onClick={() => resetDialogRef.current?.showModal()}
                     aria-label="Reset options"
                     data-tooltip="Reset options"
-                    className="multiverse-control lab-reset app-tooltip grid size-10 place-items-center p-0"
+                    className="style-lab-control lab-reset app-tooltip grid size-10 place-items-center p-0"
                   >
                     <RotateCcw aria-hidden className="size-4" />
                   </button>
@@ -278,7 +312,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                     type="button"
                     onClick={close}
                     aria-label="Close Style Lab"
-                    className="multiverse-control grid size-10 place-items-center p-0"
+                    className="style-lab-control grid size-10 place-items-center p-0"
                   >
                     <X aria-hidden className="size-5" />
                   </button>
@@ -373,7 +407,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                     aria-selected={activePanel === item}
                     aria-controls={`lab-panel-${item}`}
                     tabIndex={activePanel === item ? 0 : -1}
-                    className="multiverse-control"
+                    className="style-lab-control"
                     data-active={activePanel === item}
                     disabled={item === 'cursor' && !hasMousePointer}
                     aria-disabled={item === 'cursor' && !hasMousePointer}
@@ -388,7 +422,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                   </button>
                 ))}
               </div>
-              <div className="multiverse-catalog mt-5" data-panel={activePanel}>
+              <div className="style-lab-catalog mt-5" data-panel={activePanel}>
                 <div
                   role="tabpanel"
                   id="lab-panel-universes"
@@ -487,7 +521,7 @@ export function Multiverse({ onOpen }: { onOpen: () => void }) {
                     </div>
                   ))}
               </div>
-              <div className="multiverse-footer">
+              <div className="style-lab-footer">
                 <div className="lab-footer-actions">
                   <button
                     type="button"

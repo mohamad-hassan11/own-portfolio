@@ -35,11 +35,14 @@ export function Section({
     >
       {title && (
         <header className="mb-10 flex flex-col gap-5 sm:mb-12 sm:flex-row sm:items-end sm:justify-between">
-          <div>
+          <div className="min-w-0">
             {tag && (
               <p className="text-metadata text-accent-text mb-3">[{tag}]</p>
             )}
-            <Heading id={headingId} className="text-h1">
+            <Heading
+              id={headingId}
+              className={headingLevel === 1 ? 'text-h1' : 'text-h2'}
+            >
               {title}
             </Heading>
             <span aria-hidden className="bg-accent mt-4 block h-1 w-16" />

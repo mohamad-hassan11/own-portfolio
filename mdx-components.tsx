@@ -76,7 +76,7 @@ const components: MDXComponents = {
     <h3 className={cn('text-h3 mt-10', className)} {...props} />
   ),
   p: ({ className, ...props }) => (
-    <p className={cn('text-body mt-5', className)} {...props} />
+    <p className={cn('text-body mt-5 max-w-[72ch]', className)} {...props} />
   ),
   ul: ({ className, ...props }) => (
     <ul

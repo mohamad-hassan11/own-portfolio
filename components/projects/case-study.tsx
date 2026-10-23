@@ -18,7 +18,7 @@ export function CaseStudy({ project }: { project: Project }) {
 
   return (
     <article className="pb-6">
-      <header className={inspector ? 'inspector-header' : 'py-10 sm:py-16'}>
+      <header className={inspector ? 'inspector-header' : 'py-10 sm:py-12'}>
         <Link
           href="/projects"
           className="text-metadata text-muted hover:text-foreground inline-flex items-center gap-2 font-semibold transition-colors duration-200"
@@ -27,7 +27,7 @@ export function CaseStudy({ project }: { project: Project }) {
           All projects
         </Link>
 
-        <div className={inspector ? 'inspector-intro' : 'mt-10 max-w-4xl'}>
+        <div className={inspector ? 'inspector-intro' : 'mt-8 max-w-4xl'}>
           <p
             className={
               inspector
@@ -37,7 +37,7 @@ export function CaseStudy({ project }: { project: Project }) {
           >
             {inspector ? meta : `PROJECT NOTE${meta ? ` · ${meta}` : ''}`}
           </p>
-          <h1 className={inspector ? 'inspector-title' : 'text-display'}>
+          <h1 className={inspector ? 'inspector-title' : 'text-h1'}>
             {inspector ? 'Vliegreizen' : metadata.title}
           </h1>
           {!inspector && (
