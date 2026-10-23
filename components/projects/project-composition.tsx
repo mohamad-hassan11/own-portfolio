@@ -305,6 +305,78 @@ export function ProjectComposition({
           </div>
         </>
       )}
+      {variant === 'experiment' && composition.experiment && (
+        <>
+          {intro}
+          <div className="experiment-implementations">
+            {composition.experiment.implementations.map((implementation) => (
+              <article
+                key={implementation.id}
+                className="experiment-implementation"
+              >
+                <h3>{implementation.title}</h3>
+                <p className="experiment-starting-tool">
+                  Started with <strong>{implementation.startingTool}</strong>
+                </p>
+                <ProjectEvidence
+                  media={media.find(
+                    (item) => item.id === implementation.mediaId,
+                  )!}
+                  priority
+                  actualSize
+                />
+                <p className="experiment-app-description">
+                  {implementation.description}
+                </p>
+              </article>
+            ))}
+          </div>
+          <section
+            className="experiment-tools"
+            aria-label={composition.experiment.tools.heading}
+          >
+            <h2>{composition.experiment.tools.heading}</h2>
+            <div>
+              <p>{composition.experiment.tools.description}</p>
+              <dl>
+                <div>
+                  <dt>Model families</dt>
+                  <dd>
+                    {composition.experiment.tools.modelFamilies.join(' · ')}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Coding tools</dt>
+                  <dd>
+                    {composition.experiment.tools.codingTools.join(' · ')}
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </section>
+          <section
+            className="experiment-capabilities"
+            aria-label="Explore the applications"
+          >
+            <h2>Explore what took shape.</h2>
+            {controls}
+            <div id={panelId}>
+              <p className="experiment-capability-description">
+                {choice.description}
+              </p>
+              <div className="experiment-evidence-pair">
+                {choice.mediaIds.map((id) => (
+                  <ProjectEvidence
+                    key={id}
+                    media={media.find((item) => item.id === id)!}
+                    actualSize
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+        </>
+      )}
       {![
         'analytics',
         'monitoring',

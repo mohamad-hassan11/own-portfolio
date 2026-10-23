@@ -169,6 +169,7 @@ export type ProjectCompositionVariant =
   | 'desktop'
   | 'input'
   | 'learning'
+  | 'experiment'
 
 /** Short, project-authored presentation copy; full narratives stay in MDX. */
 export interface CompositionChoice {
@@ -186,6 +187,23 @@ export interface ProjectCompositionMetadata {
   choices: CompositionChoice[]
   initialChoice?: number
   sequence?: string[]
+  experiment?: {
+    titleLines: [string, string]
+    subtitle: string
+    implementations: {
+      id: string
+      title: string
+      startingTool: string
+      description: string
+      mediaId: string
+    }[]
+    tools: {
+      heading: string
+      description: string
+      modelFamilies: string[]
+      codingTools: string[]
+    }
+  }
   entities?: { parent: string; child: string; relationship: string }
   supporting?: {
     heading: string

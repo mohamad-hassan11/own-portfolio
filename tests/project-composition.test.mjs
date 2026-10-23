@@ -20,17 +20,18 @@ const compiled = ts.transpileModule(
 const { buildProjectPresentation, getStageEvidence } = await import(
   'data:text/javascript;base64,' + Buffer.from(compiled).toString('base64')
 )
-const slugs = [
-  'mediagrab',
-  'arkive-big-data',
-  'secure-rag-integration',
-  'ewa',
-  'pad',
-  'flyfriends',
-  'vliegreizen',
-  'keylingo',
-  'lexitype',
-]
+const registry = readFileSync(
+  new URL('../content/projects/index.ts', import.meta.url),
+  'utf8',
+)
+const slugs = [...registry.matchAll(/from '\.\/([^']+)\.mdx'/g)]
+  .map((match) => match[1])
+  .filter((slug) =>
+    readFileSync(
+      new URL(`../content/projects/${slug}.mdx`, import.meta.url),
+      'utf8',
+    ).includes('export const composition'),
+  )
 function readProject(slug) {
   const source = readFileSync(
     new URL(`../content/projects/${slug}.mdx`, import.meta.url),
@@ -44,7 +45,10 @@ function readProject(slug) {
     return JSON.parse(
       JSON.stringify(
         vm.runInNewContext(
-          '(' + match[1] + (name === 'composition' ? '}' : ']') + ')',
+          '(' +
+            match[1] +
+            (match[1].trimStart().startsWith('{') ? '}' : ']') +
+            ')',
           Object.create(null),
         ),
       ),
@@ -53,6 +57,7 @@ function readProject(slug) {
   return {
     slug,
     source,
+    metadata: value('metadata'),
     stages: value('journeyStages'),
     sections: value('journeySections'),
     media: value('journeyMedia'),
@@ -101,12 +106,12 @@ for (const project of projects) {
     }
   })
 }
-test('all nine composition variants cover the 85 original sections', () => {
-  assert.equal(new Set(projects.map((p) => p.composition.variant)).size, 9)
-  assert.equal(
-    projects.reduce((sum, p) => sum + p.sections.length, 0),
-    85,
-  )
+test('registered composed projects retain their own supported presentation', () => {
+  assert(slugs.includes('ai-coding-experiments'))
+  assert(!slugs.includes('keylingo'))
+  assert(!slugs.includes('lexitype'))
+  for (const project of projects)
+    assert.doesNotThrow(() => buildProjectPresentation(project))
   for (const slug of ['festivals', 'android-mad']) {
     const source = readFileSync(
       new URL(`../content/projects/${slug}.mdx`, import.meta.url),
@@ -207,5 +212,58 @@ test('production components consume repository data, not review snapshots', () =
         'utf8',
       ).includes('/reviews/'),
     )
+  }
+})
+
+test('the experiment replaces both listings and pairs evidence from both applications', () => {
+  const experiment = projects.find(
+    (project) => project.slug === 'ai-coding-experiments',
+  )
+  assert(experiment)
+  assert.equal(experiment.metadata.featured, true)
+  assert.equal(experiment.metadata.order, 8)
+  assert.equal(experiment.composition.variant, 'experiment')
+  assert.deepEqual(
+    experiment.composition.experiment.implementations.map(
+      (item) => item.startingTool,
+    ),
+    ['Antigravity + Gemini Flash', 'Codex Sol'],
+  )
+  assert.deepEqual(
+    experiment.composition.choices.map((choice) => choice.id),
+    ['guided', 'vocabulary', 'arabic', 'progress'],
+  )
+  for (const choice of experiment.composition.choices) {
+    assert.deepEqual(
+      choice.mediaIds.map(
+        (id) =>
+          experiment.media.find((media) => media.id === id).src.split('/')[2],
+      ),
+      ['keylingo', 'lexitype'],
+    )
+  }
+  assert(
+    existsSync(
+      new URL('../public' + experiment.metadata.coverImage, import.meta.url),
+    ),
+  )
+  for (const mutate of [
+    (p) => {
+      p.composition.experiment = undefined
+    },
+    (p) => {
+      p.composition.experiment.implementations[0].mediaId = 'missing'
+    },
+    (p) => {
+      p.composition.experiment.implementations[1].id =
+        p.composition.experiment.implementations[0].id
+    },
+    (p) => {
+      p.composition.choices[0].mediaIds.pop()
+    },
+  ]) {
+    const invalid = structuredClone(experiment)
+    mutate(invalid)
+    assert.throws(() => buildProjectPresentation(invalid))
   }
 })
