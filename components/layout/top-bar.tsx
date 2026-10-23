@@ -4,7 +4,7 @@ import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
-import { Multiverse } from '@/components/layout/multiverse'
+import { StyleLab } from '@/components/layout/style-lab'
 import { ThemeSwitch } from '@/components/layout/theme-switch'
 import type { NavItem } from '@/content/types'
 import { cn } from '@/lib/utils'
@@ -30,6 +30,7 @@ export function TopBar({ name, title, links, cvHref }: TopBarProps) {
   const [openPath, setOpenPath] = useState<string | null>(null)
   const open = openPath === pathname
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const [styleLabSlot, setStyleLabSlot] = useState<HTMLLIElement | null>(null)
 
   useEffect(() => {
     if (!open) return
@@ -100,10 +101,12 @@ export function TopBar({ name, title, links, cvHref }: TopBarProps) {
               Resume
             </a>
           )}
-          <Multiverse onOpen={() => setOpenPath(null)} />
-          <div className="hidden md:flex">
-            <ThemeSwitch />
-          </div>
+          <StyleLab
+            onOpen={() => setOpenPath(null)}
+            mobileTriggerContainer={styleLabSlot}
+            mobileReturnFocusRef={buttonRef}
+          />
+          <ThemeSwitch />
           <button
             ref={buttonRef}
             type="button"
@@ -122,41 +125,38 @@ export function TopBar({ name, title, links, cvHref }: TopBarProps) {
         </div>
       </div>
 
-      {open && (
-        <nav
-          id="mobile-menu"
-          aria-label="Mobile"
-          className="animate-menu-in border-border bg-background border-t md:hidden"
-        >
-          <ul className="container-page flex flex-col py-3">
-            {links.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  onClick={() => setOpenPath(null)}
-                  className="text-metadata hover:bg-surface-hover block px-3 py-3.5 text-sm font-semibold"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-            {cvHref && (
-              <li className="pt-2 pb-1">
-                <a
-                  href={cvHref}
-                  download
-                  className="brutal-sm bg-accent text-accent-foreground text-metadata block px-3 py-3 text-center font-bold"
-                >
-                  Resume
-                </a>
-              </li>
-            )}
-            <li className="px-3 pt-2 pb-1">
-              <ThemeSwitch />
+      <nav
+        id="mobile-menu"
+        hidden={!open}
+        aria-label="Mobile"
+        className="animate-menu-in border-border bg-background border-t md:hidden"
+      >
+        <ul className="container-page flex flex-col py-3">
+          {links.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                onClick={() => setOpenPath(null)}
+                className="text-metadata hover:bg-surface-hover block px-3 py-3.5 text-sm font-semibold"
+              >
+                {link.label}
+              </Link>
             </li>
-          </ul>
-        </nav>
-      )}
+          ))}
+          {cvHref && (
+            <li className="pt-2 pb-1">
+              <a
+                href={cvHref}
+                download
+                className="brutal-sm bg-accent text-accent-foreground text-metadata block px-3 py-3 text-center font-bold"
+              >
+                Resume
+              </a>
+            </li>
+          )}
+          <li ref={setStyleLabSlot} className="px-3 pt-2 pb-1" />
+        </ul>
+      </nav>
     </header>
   )
 }
